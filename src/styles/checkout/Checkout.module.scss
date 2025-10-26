@@ -1,0 +1,11 @@
+@import '../../styles/variables.scss';
+.textSeaGreen{
+    color: $primary-dream-100;
+}
+.productListCart{
+    list-style: none;
+    .productImg{
+        width: 132px;
+        height:124px
+    }
+}

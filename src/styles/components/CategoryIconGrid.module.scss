@@ -1,0 +1,29 @@
+.categoryIconGridItem{
+    .cat_circle {
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        display: flex;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+        @media(max-width:992px){
+            width: 80.01px;
+            height: 80.01px;
+            span{
+                img{
+                    width: 40px;
+                }
+            }
+        }
+    }
+   .cat_title {
+        font-size: 16px;
+        color: #4D4D4D;
+        margin-top: 10px;
+        display: inline-block;
+        @media(max-width:992px){
+            min-height: 55px;
+        }
+    }
+}

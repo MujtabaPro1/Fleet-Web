@@ -1,0 +1,384 @@
+.headerLeft {
+    flex: 1;
+    .searchWrp {
+        flex: 0 0 547px;
+        position: relative;
+        transition: 0.2s;
+        svg{
+            position: absolute;
+            top: 50%;
+            left: 16px;
+            transform: translate(0, -50%);
+            width: 16px;
+            height: 16px;
+        }
+        @media (min-width: 768px) and (max-width: 1024px){
+              flex: 1;
+        }
+        @media  (max-width: 767px){
+            flex: 0 0 287px;
+        }
+    }
+    .searchBar{
+        max-width: 547px;
+        width: 100%;
+        border: 1px solid #D5D5D5;
+        padding: 13px 15px 13px 44px;
+        &::placeholder {
+            color: #212121
+        }
+        &::-webkit-input-placeholder { /* Edge */
+            color: #212121
+        }
+        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #212121
+        }
+        &:focus-visible{
+            outline: none;
+        }
+    }
+}
+
+.headerRight{
+    a{
+        animation: 0.2s;
+    }
+    svg{
+        margin: 0 18px;
+    }
+    .cartHeader {
+        position: relative;
+        svg{
+            margin-right: 0;
+        }
+        .badge{
+            width: 13px;
+            height: 13px;
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background-color: #FE3D40;
+            color: #FFFFFF;
+            font-size: 10px;
+            text-align: center;
+        }
+    }
+    .closeSearchIcon{
+        animation: 0.2s;
+    }
+}
+
+.headerMiddle {
+    min-height: 48px;
+    .headerMiddleInner {
+        top: 0;
+        position: absolute;
+        width: 100%;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        @media  (max-width: 1023px){
+            border-bottom: 1px solid #EFEFEF;
+            padding-bottom: 10px;
+        }
+    }
+  }
+    
+.searchFocusOpen{
+    @media  (max-width: 767px){
+        overflow-y: hidden;
+    }
+    .searchWrp {
+        flex: 0 0 814px;
+        margin: 0 auto;
+        .searchBar{
+            max-width: 814px;
+        }
+        @media (min-width: 768px) and (max-width: 1024px){
+            flex: 1;
+        }
+        @media  (max-width: 1023px){
+            display: block !important;
+            flex: 0 0 100%;
+            width: 100%;
+            border-top: 1px solid #E5E5E5;
+            margin-top: 14px;
+            opacity: 1 !important;
+            pointer-events: all !important;
+            cursor: pointer !important;
+            padding: 20px 16px 0;
+        }
+    }
+    .headerMiddleInner{
+        background-color: #fff;
+        align-items: flex-start;
+        z-index: 100;
+        @media  (max-width: 1023px){
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            top: 34px;
+            padding-top: 10px;
+            padding-left: 0;
+            padding-right: 0;
+            overflow-y: auto;
+            padding-bottom: 20px;
+            border-bottom: 0;
+        }
+        .headerLeft{
+            align-items: flex-start;
+            @media  (max-width: 1023px){
+                align-items: flex-start;
+                flex: 0 0 100%;
+                position: relative;
+            }
+            >{
+                div{
+                    @media  (max-width: 1023px){
+                        opacity: 0;
+                        cursor: none;
+                        pointer-events: none;
+                    }
+                }
+            }
+            a{
+                img{
+                    @media  (max-width: 1023px){
+                        max-height: 30px;
+                    }
+                }
+            }
+            .logo{
+                @media  (max-width: 1023px){
+                    position: absolute;
+                }
+            }
+        }
+        .headerRight{
+            .closeSearchIcon{
+                display: block;
+                margin-top: 10px;
+                cursor: pointer;
+                @media  (max-width: 1023px){
+                    margin-top: -2px;
+                }
+                svg{
+                    @media  (max-width:1023px){
+                        width: 24px;
+                        height: 24px;
+                    }
+                }
+            }
+            a{
+                display: none;
+            }
+            @media  (max-width: 1023px){
+                position: absolute;
+                top: 14px;
+                right: 0;
+            }
+        }
+        >{
+            div{
+                align-items: flex-start;
+            }
+        }
+    }
+
+} 
+
+.searchPanelDropdown{
+    z-index: 0;
+    padding: 0px 20px 30px;
+    border-radius: 5px;
+    display: none;
+    pointer-events: none;
+    @media (max-width: 767px){
+        padding: 0px 0px 20px;
+    }
+    .searchTitle,
+    span{
+        color: #212121;
+    }
+    .searchItem{
+        border: 1px solid transparent;
+        transition: 0.3s;
+        @media (max-width: 767px){
+            border-color: #EAEAEA;
+            padding: 8px;
+        }
+        &:hover{
+            background-color: #F7F7F7;
+            border-color: #D3D3D3;
+        }
+        .searchItemImage{
+            background-color: #F7F7F7;
+            padding: 4px 12px 4px;
+            flex: 0 0 110px;
+            margin-right: 25px;
+            height: 103px;
+            @media (max-width: 767px){
+                flex: 0 0 80px;
+                margin-right: 8px;
+                height: 80px;
+            }
+        }
+        .searchItemDesc{
+            flex: 1;
+            @media (max-width: 767px){
+                flex: 0 0 100%;
+            }
+            p,
+            span{
+                color: #212121;
+            }
+            p{
+                line-height: 26px;
+                @media (max-width: 767px){
+                    line-height: 16px;
+                }
+            }
+ 
+        }
+        .searchPrice{
+            @media (max-width: 767px){
+                flex: 0 0 100%;
+            }
+        }
+
+    }
+    .searchCat{
+        border-top: 1px solid #D3D3D3;
+        @media (max-width: 767px){
+            border:0;
+        }
+        .searchCatBadge{
+            margin: 0 -7px;
+            @media (max-width: 767px){
+                margin: 0 0px;
+            }
+            span{
+                background-color: #F1F8FA;
+                margin: 0 7px;
+                @media (max-width: 767px){
+                    margin: 0 0px 0px;
+                    display: inline-block;
+                }
+
+            }
+            a{
+                @media (max-width: 767px){
+                    display: block;
+                    margin-bottom: 14px;
+                }
+            }
+        }
+
+    }
+ }
+ .logo{
+    @media (max-width: 767px){
+        margin-left: auto;
+        margin-right: auto;
+    }
+ }
+
+ .searchActive{
+    overflow-y: hidden;
+    .searchPanelDropdown{
+        display: block;
+        opacity: 1;
+        z-index: 1;
+        pointer-events: all;
+        position: relative;
+        @media (max-width: 767px){
+           pointer-events: all;
+           padding: 0px 0px 20px;
+        }
+    }
+    .headerMiddleInner{
+        box-shadow: 0px 60px 44px -16px rgba(0, 0, 0, 0.1);
+    }
+    
+ }
+ .mobileIconSearch{
+    input{
+        @media (max-width: 767px){
+            opacity: 0;
+        }
+    }
+    @media (min-width: 768px) and (max-width: 1023px){
+        margin-right: 35px;
+    }
+ }
+
+ .mobileMenu{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 34px;
+    padding-top: 14px;
+    background-color: #fff;
+    z-index: 9;
+ }
+ 
+ 
+
+ html[lang=ar]{
+    .headerRight{
+        .cartHeader{
+            svg{
+                margin-right: 18px;
+                margin-left: 0;
+            }
+            .badge{
+                right: auto;
+                left: -6px;
+            }
+        }
+
+    }
+    .searchPanelDropdown{
+        .searchItem{
+            .searchItemImage{
+                margin-left: 25px;
+                margin-right: 0;
+                @media (max-width: 767px){
+                    margin-left: 8px;
+                }
+            }
+        }
+    }
+    .mobileIconSearch{
+        @media (min-width: 768px) and (max-width: 1023px){
+            margin-right: 0;
+            margin-left: 35px;
+        }
+    }
+    .searchFocusOpen{
+        .headerMiddleInner{
+            .headerLeft{
+                .logo{
+                }
+            }
+            .headerRight{
+                @media (max-width: 1023px){
+                    right: auto;
+                    left: 0;
+                }
+            }
+        }
+    }
+    .headerLeft{
+        .searchBar{
+            padding: 13px 44px 13px 15px;
+        }
+        .searchWrp{
+            svg{
+                left: auto;
+                right: 16px;
+            }
+        }
+    }
+ }
+   

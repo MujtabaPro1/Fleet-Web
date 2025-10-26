@@ -1,0 +1,31 @@
+{
+  "home": {
+    "title": "Home",
+    "description": "Home description",
+    "categorySecHeading": "Shop By Category",
+    "firstProductSecHeading": "Explore our featured listings",
+    "firstProductSecDesc": "Our most in-demand commercial vehicles, ready for fast approval and delivery.",
+    "brandsSecHeading": "Choose from of our available brands",
+    "secondProductSecHeading": "Top Selling Vehicles Per Category",
+    "secondProductSecDesc": "Stay ahead of the curve with our newest listings — handpicked homes and investments recently added to the market.",
+    "leasingHeading": "Why We Stand Out",
+    "leasingDesc": "Compare our fleet leasing service with others and see why businesses trust us for reliability, flexibility, and value."
+  },
+  "about": {
+    "title": "About title",
+    "description": "About description"
+  },
+  "brands": {
+    "title": "Brands",
+    "mainTitle": "Search by brands",
+    "mainDesc": "Browse Australia’s most popular brands with tailored finance and fleet discounts for ABN holders."
+  },
+  "header": {
+    "Home": "Home",
+    "About": "About"
+  },
+  "enquiry": {
+    "title": "Get A Quote",
+    "mainTitle": "Get A Quote"
+  }
+}

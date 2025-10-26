@@ -1,0 +1,891 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Figtree font utility class */
+.font-figtree {
+  font-family: var(--font-figtree);
+}
+
+.slick-prev,
+.slick-next {
+  z-index: 1;
+}
+
+body {
+  color: #333;
+  background-color: #fff;
+}
+
+body a {
+  color: #333;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 10s linear infinite;
+}
+
+
+.banner-slider-wrp .slick-dots {
+  bottom: 50px;
+}
+
+.banner-slider-wrp .slick-dots li,
+.banner-slider-wrp .slick-dots li button,
+.banner-slider-wrp .slick-dots li button:before {
+  width: 9px;
+  height: 9px;
+  font-size: inherit;
+}
+
+.banner-slider-wrp .slick-dots li {
+  margin: 0 6px 0;
+}
+
+.banner-slider-wrp .slick-dots li button {
+  padding: 0;
+  position: relative;
+}
+
+.banner-slider-wrp .slick-dots li.slick-active button:before {
+  opacity: 1 !important;
+}
+
+.banner-slider-wrp .slick-dots li button:before {
+  opacity: 0.3 !important;
+  color: #fff !important;
+}
+
+html[lang=ar] .banner-slider-wrp .slick-list {
+  direction: ltr;
+}
+
+.btn-primary {
+  background-color: #184273;
+  color: #fff;
+}
+
+.btn.btn-md {
+  font-size: 18px;
+  padding: 11px 12px 12px;
+}
+
+/* hieght 50 button */
+.btn.btn-lg {
+  padding: 12px 24px;
+}
+
+/* button */
+
+.m-10 {
+  margin: 0 -10px;
+}
+
+
+
+.section {
+  margin-bottom: 73px;
+}
+
+.slick-next:focus {
+  background: #fff !important;
+}
+
+.slick-display-none .slick-slider button {
+  display: none !important;
+}
+
+.deals-carousel .slick-slide>div {
+  margin: 0 5px;
+}
+
+.view-all {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+
+
+.cat_circle:nth-child(even) {
+  background-color: #F3F2FC;
+}
+
+.cat_circle:nth-child(odd) {
+  background-color: #F2FBF4;
+}
+
+.section .head-sec {
+  margin-bottom: 32px;
+}
+
+.section_title {
+  font-size: 32px;
+  line-height: 38px;
+  color: #212121;
+  font-weight: 600;
+}
+
+.main-wrapper {
+  margin: 30px 0;
+}
+
+.prd-card {
+  background: #fff;
+  margin: 0 10px;
+}
+
+.prd-card .product-thumb {
+  background-color: #F7F7F7;
+  border-radius: 12px;
+  height: 346px;
+  margin: 0 0 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.prd-card img {
+  margin: 0 auto;
+  display: inline-block;
+  height: 2234x;
+  max-height: 234px;
+  max-width: 100%;
+  -o-object-fit: contain;
+  object-fit: contain;
+  -o-object-position: center;
+  object-position: center;
+  width: auto;
+}
+
+.prd-details {
+  padding: 16px 2px;
+
+}
+
+.prd-card .heart-icon {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+}
+
+.prd-title {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 26px;
+  margin-bottom: 12px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  height: 50px;
+  overflow: hidden;
+}
+
+.prd-category {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #212121;
+  margin-bottom: 5px;
+}
+
+.price-tag {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  color: #212121;
+}
+
+.new-arrival {
+  width: 101px;
+  height: 28px;
+  left: 0px;
+  top: 14px;
+  background: #F9546B;
+  border-radius: 0px 8px 8px 0px;
+  position: absolute;
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+  padding: 3px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.new-arrival.new-arrival-sm {
+  font-size: 10px;
+  top: 12px;
+  height: 22px;
+  padding: 4px 0 3px;
+}
+
+
+
+
+.grid-deals-box {
+  background-color: #E6F8F6;
+  padding: 42px 21px 30px 21px;
+  border-radius: 12px;
+  position: relative;
+}
+
+.grid-deals-box .new-arrival {
+  right: 0;
+  left: unset;
+  border-radius: 8px 0px 0px 8px;
+}
+
+.new-arrival-xs {
+  width: 79px;
+  height: 22px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.grid-deal-box .deals {
+  flex: 0 145px;
+}
+
+.grid-deals-box .deals h6 {
+  font-size: 24px;
+  line-height: 28px;
+  color: #212121;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.grid-deals-box .deals .regular-price {
+  font-weight: 500;
+  font-size: 12px;
+  color: #4D4D4D;
+}
+
+.grid-deals-box .deals .sale-price {
+  font-weight: 700;
+  font-size: 20px;
+  color: #184273;
+}
+
+.slick-arrow.slick-next {
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  box-shadow: 0 0 13px 0 #dfdfdf;
+  border-radius: 50%;
+  right: -15px;
+}
+
+.slick-next:before {
+  content: url(../assets/images/svg/next-icon.svg) !important;
+  color: #000;
+}
+
+/* custom checkbox1 */
+.custom-checkbox1 {
+  position: relative;
+}
+
+.custom-checkbox1 input {
+  width: 16px;
+  height: 16px;
+  z-index: 10;
+  opacity: 0;
+  margin-right: 8px;
+}
+
+.custom-checkbox1 span {
+  cursor: pointer;
+}
+
+.checkbox-custom {
+  border: 1px solid #A6A6A6;
+  border-radius: 4px;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  cursor: pointer;
+}
+
+.checkbox-custom svg {
+  opacity: 0;
+}
+
+.custom-checkbox1 input:checked+.checkbox-custom {
+  background: #184273;
+  border: 1px solid #184273;
+}
+
+.custom-checkbox1 input:checked+.checkbox-custom svg {
+  opacity: 1;
+}
+
+.checkbox-custom span {
+  color: #4D4D4D;
+}
+
+html[lang=ar] .custom-checkbox1 input {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+html[lang=ar] .checkbox-custom {
+  left: auto;
+  right: 0;
+}
+
+/* custom checkbox1 */
+
+/* home banner */
+.banner-slider img {
+  margin: 0 auto;
+}
+
+/* bread crum */
+
+.breadCrumb {
+  margin: 0 -12px;
+}
+
+.breadcrumbItem {
+  margin: 0 12px;
+}
+
+.breadcrumbItem:after {
+  content: "/";
+  color: #184273;
+  margin-left: 4px;
+}
+
+.breadcrumbItem:last-child:after {
+  display: none;
+}
+
+.breadCrumb li a {
+  color: #4D4D4D;
+}
+
+html[lang=ar] .breadcrumbItem:after {
+  margin-left: 0;
+  margin-right: 4px;
+}
+
+/* bread crum */
+
+/* custom drop down 2  */
+.custom-dropdown2 button {
+  min-width: 163px;
+  padding: 0 16px;
+}
+
+.custom-dropdown2 .custom-menu-item2 {
+  box-shadow: 0 14px 28px 0 rgba(0, 0, 0, 0.1);
+  top: -12px;
+  width: 163px;
+  padding: 12px 16px 14px;
+}
+
+.custom-dropdown2 .custom-menu-item2 .menu-item-inner2 {
+  margin-top: 40px;
+}
+
+.custom-dropdown2 .custom-menu-item2 .menu-item-inner2 span {
+  color: #4D4D4D;
+  margin-bottom: 20px;
+}
+
+.custom-dropdown2 .custom-menu-item2 .menu-item-inner2 span:last-child {
+  margin-bottom: 0;
+}
+
+/* custom drop down 2 */
+
+.gutters-grid-view {
+  margin: 0 -6px;
+}
+
+html[lang="ar"] body * {
+  direction: rtl;
+}
+
+html[lang="ar"] .menu-open .close-menu {
+  top: -30px;
+  bottom: unset;
+  right: unset;
+  left: 10px;
+}
+
+html[lang="ar"] .slick-next {
+  transform: rotate(180deg);
+}
+
+html[lang="ar"] .new-arrival {
+  left: unset;
+  right: 0;
+  border-radius: 8px 0px 0px 8px;
+}
+
+@media (min-width: 992px) and (max-width: 1165px) {
+  .navbar ul {
+    margin: 0 -10px;
+  }
+
+  .navbar ul li {
+    margin: 0 10px;
+  }
+
+}
+
+@media (max-width: 1199px) {
+  .footer-top-wrapper {
+    padding: 40px 0px;
+  }
+
+  .footer-top-wrapper .become-partner {
+    padding-left: 20px;
+  }
+
+  .footer-top-wrapper .app-store {
+    margin: 0 3px 10px;
+  }
+
+  .section {
+    margin-bottom: 42px;
+  }
+
+  .section_title {
+    font-size: 22px;
+
+  }
+}
+
+@media (max-width:1023px) {
+  .menu-open {
+    overflow: hidden;
+  }
+
+  .header-bottom {
+    position: fixed;
+    z-index: 9;
+    background-color: #fff;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s linear;
+    -webkit-transition: all 0.2s linear;
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+  }
+
+  .menu-open .header-bottom {
+    opacity: 1;
+    pointer-events: inherit;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+
+  .menu-open .close-menu {
+    position: absolute;
+    top: -30px;
+    right: 10px;
+    z-index: 1000;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    outline-offset: 0 !important;
+  }
+
+  .menu-open .close-menu svg {
+    outline: 0;
+  }
+
+  .menu-open .close-menu .hidden {
+    display: block;
+  }
+
+  .menu-open .close-menu .block {
+    display: none;
+  }
+
+  .menu-open.show-submenu .sub-category-wrapper {
+    opacity: 1;
+    pointer-events: inherit;
+    transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    z-index: 9;
+  }
+
+  .show-submenu .menu-arrow-left {
+    opacity: 1 !important;
+    pointer-events: inherit !important;
+  }
+
+}
+
+@media(max-width:992px) {
+  .footer-top-wrapper .become-partner {
+    padding-left: 0px;
+  }
+
+  .grid-deals-box .deals .sale-price {
+    font-size: 16px;
+  }
+
+
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .btn.btn-md {
+    font-size: 14px;
+    padding: 7px 12px 8px;
+  }
+
+}
+
+@media (max-width: 767px) {
+  .breadcrumbItem {
+    margin: 0 4px;
+  }
+
+  .breadCrumb {
+    margin: 0 -4px;
+  }
+
+  .banner-slider-wrp .slick-dots {
+    bottom: 20px;
+  }
+
+  .btn.btn-md {
+    font-size: 14px;
+    padding: 8px 12px 7px;
+  }
+
+  .slick-display-mbl .slick-slider button {
+    display: block !important;
+  }
+
+  .slick-display-none-mbl .slick-slider button {
+    display: none !important;
+  }
+
+  .section .head-sec {
+    margin-bottom: 12px;
+  }
+
+  .footer-top-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer-top-wrapper .revolution-sec {
+    justify-content: center;
+  }
+
+  .grid-deals-box .deals h6 {
+    font-size: 17px;
+    line-height: 18px;
+  }
+
+  .section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .ShopByCategory {
+    margin-bottom: 0px;
+  }
+
+  .section-grid-deal {
+    margin-top: 0;
+  }
+
+  .main-wrapper {
+    margin: 10px 0;
+  }
+
+  .new-arrival {
+    width: 80px;
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .section_title {
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  .view-all {
+    font-size: 14px;
+  }
+}
+
+@media(max-width:359px) {
+  .mbl-shop-by-cat .categoryIconGridItem .cat_circle {
+    width: 60.01px;
+    height: 60.01px;
+
+  }
+
+  .mbl-shop-by-cat .categoryIconGridItem .cat_circle img {
+    width: 25px;
+  }
+
+  .mbl-shop-by-cat .categoryIconGridItem .cat_title {
+    font-size: 14px;
+  }
+}
+
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 15px;
+  width: 100%;
+}
+
+.quantitySelector button.disabled i {
+  color: #979797;
+  cursor: not-allowed;
+}
+
+.dots-slide-custom .slick-dots {
+  bottom: 12px;
+}
+
+.dots-slide-custom .slick-dots .slick-list,
+.dots-slide-custom .slick-dots li,
+.dots-slide-custom .slick-dots li button,
+.dots-slide-custom .slick-dots li button:before {
+  width: 9px;
+  height: 9px;
+}
+
+.dots-slide-custom .slick-dots .slick-list {
+  margin: 0 7px;
+}
+
+.dots-slide-custom .slick-dots li button:before {
+  line-height: 9px;
+  font-size: initial;
+  opacity: 1;
+  color: #E8E8E8;
+}
+
+.dots-slide-custom .slick-dots li.slick-active button:before {
+  color: #6BD9D0;
+
+}
+
+.phoneNumberWrp .react-tel-input .special-label {
+  display: none;
+}
+
+.phoneNumberWrp .react-tel-input .selected-flag {
+  background-color: #F7F7F7;
+  border: 1px solid #EAEAEA;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-color: #D5D5D5;
+  border-right-color: #EAEAEA;
+  width: 80px;
+  padding: 0 24px 0 16px;
+}
+
+.phoneNumberWrp .react-tel-input .form-control {
+  border-color: #D5D5D5;
+  border-radius: 8px;
+  padding: 15px 0 15px 93px;
+  color: #212121;
+  font-size: 16px;
+  font-family: var(--font-figtree);
+  width: 100%;
+}
+
+.phoneNumberWrp .react-tel-input .form-control:hover {
+  border-color: #D5D5D5;
+}
+
+.phoneNumberWrp .react-tel-input .selected-flag .flag .arrow {
+  right: -35px;
+  left: auto;
+  display: inline-block;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+  border-left: transparent;
+  border-top: transparent;
+  top: -2px;
+}
+
+.phoneNumberWrp .react-tel-input .selected-flag .flag .arrow.up {
+  transform: rotate(-135deg);
+  top: 2px;
+}
+
+.phoneNumberWrp .react-tel-input .country-list {
+  width: 478px;
+  border: 1px solid #D5D5D5;
+  box-shadow: 1px 2px 18px rgba(0, 0, 0, 0.1);
+  margin-top: 4px;
+}
+
+.phoneNumberWrp .react-tel-input .country-list .search-box {
+  width: 98%;
+  margin-left: 0;
+  border-color: #D5D5D5;
+  padding: 8px;
+}
+
+html[lang=ar] .phoneNumberWrp .react-tel-input .selected-flag {
+  padding: 0 16px 0 24px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-right-color: #D5D5D5;
+  border-left-color: #EAEAEA;
+
+}
+
+html[lang=ar] .phoneNumberWrp .react-tel-input .selected-flag .flag .arrow {
+  right: auto;
+  left: -35px;
+}
+
+html[lang=ar] .phoneNumberWrp .react-tel-input .form-control {
+  padding-right: 93px;
+  padding-left: 15px;
+}
+
+html[lang=ar] .slick-list {
+  direction: ltr;
+}
+
+
+/* radio style css */
+/* The container */
+.radio-style-1 .container {
+  display: block;
+  position: relative;
+  padding-left: 40px;
+  /* margin-bottom: 12px; */
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.radio-style-1 .container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.radio-style-1 .checkmark {
+  position: absolute;
+  transform: translate(-10%, 0);
+  top: 10%;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 1px solid #184273;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+}
+
+/* On mouse-over, add a grey background color */
+.radio-style-1 .container:hover input~.checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio-style-1 .container input:checked~.checkmark {
+  background-color: #fff;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radio-style-1 .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio-style-1 .container input:checked~.checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio-style-1 .container .checkmark:after {
+  width: 19px;
+  height: 19px;
+  margin: 2px;
+  border-radius: 50%;
+  background: #184273;
+}
+
+/* radio style css */
+
+.slick-dots .slick-active span.bg-customBlue-500 {
+  opacity: 1;
+}
+
+.slick-dots li {
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.slick-dots li span.bg-customBlue-500 {
+  opacity: 0.6;
+}
+
+@media(max-width:1023px) {
+  .radio-style-1 .container {
+    padding-left: 0;
+    padding-right: 40px;
+  }
+
+  .radio-style-1 .checkmark {
+    left: unset;
+    right: 0;
+  }
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

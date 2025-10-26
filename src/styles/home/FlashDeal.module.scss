@@ -1,0 +1,26 @@
+/* flash deal */
+.flash-deal {
+    position: relative;
+    background-color: #C4C5C7;
+    border-radius: 16px;
+  }
+  .flash-deal-content {
+    top: 95px;
+    position: absolute;
+    margin: 0 40px;
+  }
+  @media (min-width: 768px) and (max-width: 991px){
+    .flash-deal-content {
+      top: 55px;
+      position: absolute;
+      margin: 0 23px;
+    }
+  }
+  @media (max-width: 767px){
+    .flash-deal-content {
+      top: 20px;
+      position: absolute;
+      margin: 0 15px;
+    }
+  }
+  /* flash deal */

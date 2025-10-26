@@ -1,0 +1,36 @@
+@import '../../../styles/variables.scss';
+
+.paginationWrapper {
+    nav {
+        .active {
+            background: $primary-dream-100;
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        a {
+            color: $primary-darkgray-80;
+
+            &.active {
+                background: rgba(206, 242, 239, 0.4);
+                border-radius: 8px;
+                color: $primary-dream-100;
+            }
+
+            // &:hover{
+            //    background-color: $primary-dream-80;
+            //    color: $primary-dream-100;
+            // }
+        }
+    }
+}
+
+html[lang=ar] {
+
+    .nextbtn,
+    .prevbtn {
+        svg {
+            transform: rotate(180deg);
+        }
+    }
+}

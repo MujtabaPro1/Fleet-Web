@@ -1,0 +1,7 @@
+{
+  "success": true,
+  "data": {
+    "content": "<div class=\"flex flex-col items-center justify-center text-center\"><h1 class=\"text-[#171717] text-[56px] leading-tight font-semibold tracking-[-0.03em] capitalize md:text-[40px] sm:text-[28px] mb-6\">Commercial Term Loan</h1><div class=\"flex flex-col items-center justify-center\"><p class=\"font-medium text-center text-[#333] text-[20px] leading-[1.6em] tracking-[-0.03em] max-w-[700px] mb-8\">Structured financing solutions for your business growth and capital needs.</p><div class=\"bg-customBlue-100 p-10 rounded-lg w-full max-w-[700px] text-center\"><h2 class=\"text-[32px] font-semibold mb-4\">Available Now</h2><p class=\"text-[18px]\">Our Commercial Term Loan offers flexible financing options for businesses looking to expand. Contact our team today to learn more about our competitive rates and terms.</p><a href=\"/contact\" class=\"inline-block mt-4 px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors\">Contact Us</a></div></div></div>"
+  },
+  "message": "Content retrieved successfully"
+}

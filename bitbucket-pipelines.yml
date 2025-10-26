@@ -1,0 +1,14 @@
+pipelines:
+  branches:
+    develop:
+      - step:
+          name: Deploy to Dev environment
+          script:
+            - echo "Deploying to development environment"
+            - pipe: atlassian/ssh-run:0.2.2
+              variables:
+                SSH_USER: ${DEV_SERVER_SSH_USER}
+                SERVER: ${DEV_SERVER_IP}
+                COMMAND: '/home/ubuntu/deploy.sh website'
+            - echo "Website successfully deployed on dev server"
+

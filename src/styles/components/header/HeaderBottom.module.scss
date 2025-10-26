@@ -1,0 +1,176 @@
+.navbar{
+  > ul {
+      margin: 0 -16px;
+
+    > li {
+      margin: 0 16px;
+
+      a{
+        color: #212121;
+
+      }
+      &:last-child{
+        > a {
+          color: #F9546B;
+
+        }
+      }
+    }
+  }
+}
+.subcategoryWrapper {
+  box-shadow: 0px 60px 44px -16px rgba(0, 0, 0, 0.2);
+  background: #FFFFFF;
+  padding: 31px 40px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  top: 100%;
+  @media (min-width:1024px) {
+    z-index: 100;  
+  }
+  h6 {
+    font-weight: 600;
+    font-size: 24px;
+    color: #212121;
+
+  }
+  ul {
+    margin-top: 32px;
+
+    li {
+      font-weight: 400;
+      font-size: 18px;
+      margin-bottom: 22px;
+      color: #212121;
+
+      &:last-child {
+        margin-bottom: 0;
+
+      }
+    }
+  }
+  .shopByBrandsWrapper {
+    h6 {
+      font-weight: 500;
+      font-size: 14px;
+      color: #212121;
+
+    }
+    a{
+      img{
+        border: 1.5px solid transparent;
+        border-radius: 7px;
+      }
+      &:hover{
+        img{
+          border-color: #EFEFEF;
+        }
+      }
+    }
+  }
+
+}
+
+html[lang=ar]{
+  .navbar{
+    ul{
+      li{
+        span {
+          img{
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+  }
+  .menu-open{
+    .close-menu{
+        left: 10px;
+        right: unset;
+    }
+  }
+}
+
+@media (max-width:1023px) {
+  .navbar{
+    > ul {
+        margin: 0;
+      > li {
+        margin: 0;
+        padding: 20px 15px;
+        a{
+          width: calc(100% - 20px);
+        }
+      }
+    }
+  }
+  .mblMenuHead {
+    padding: 12px 15px;
+    border-bottom: 1px solid #D5D5D5;
+    .menuArrowLeft{
+      opacity: 0;
+      pointer-events: none;
+      img{
+        width:10px;
+        transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+      }
+    }
+    img {
+      width: 69px;
+      height: auto;
+    }
+  }
+  
+  .subcategoryWrapper {
+    padding: 30px 15px;
+    box-shadow: unset;
+    top: 0;
+    overflow-y: scroll;
+    height: calc(100vh - 53px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    transform: translate(40px, 0);
+    -webkit-transform: translate(40px, 0);
+    h6 {
+      font-size: 18px;
+    }
+    ul {
+      margin-top: 18px;
+
+      li {
+        font-size: 16px;
+        margin-bottom: 12px;
+        cursor: pointer;
+      }
+    }
+
+    .shopByBrandsWrapper {
+      margin-top: 24px;
+      border-top: 1px solid #D5D5D5;
+      padding-top: 24px;
+
+      h6 {
+        font-weight: 500;
+        font-size: 14px;
+        color: #212121;
+      }
+    }
+  }
+
+}
+
+html[lang=ar]{
+  .mblMenuHead {
+    .menuArrowLeft{
+      img{
+        transform: scaleX(1);
+        -webkit-transform: scaleX(1);
+      }
+    }
+  }
+}

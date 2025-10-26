@@ -1,0 +1,18 @@
+{
+  "home": {
+    "title": "عنوان المنزل",
+    "description": "وصف المنزل",
+    "categorySecHeading": "تسوق حسب الاقسام",
+    "firstProductSecHeading": "أفضل عروض القهوة في رمضان",
+    "secondProductSecHeading": "اختيار القهوة العربية والتركية",
+    "brandsSecHeading": "تسوق حسب الماركات"
+  },
+  "about": {
+    "title": "حول العنوان",
+    "description": "حول الوصف"
+  },
+  "header": {
+    "Home": "مسكن",
+    "About": "حول"
+  }
+}

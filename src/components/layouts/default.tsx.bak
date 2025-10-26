@@ -1,0 +1,12 @@
+import React, { PropsWithChildren } from "react";
+import Header from "../header/header";
+import Footer from "../footer/footer";
+const Default = ({ children }: PropsWithChildren) => {
+  return (
+    <>
+      <Header />
+      <main className="hashdh">{children}</main>
+    </>
+  );
+};
+export default Default;

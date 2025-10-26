@@ -1,0 +1,257 @@
+@import '../variables.scss';
+
+.categoryListingLeft {
+    padding-right: 25px;
+
+    @media (max-width: 1023px) {
+        position: fixed;
+        background-color: #fff;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: -100%;
+        z-index: -1;
+        overflow-y: auto;
+        padding: 60px 16px 110px;
+        pointer-events: none;
+        opacity: 0;
+        transition: 0.3s;
+
+        .sidebarTopListing {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #fff;
+            z-index: 1000;
+            padding: 10px 32px 10px 0px;
+
+            .logo {
+                margin: 0 auto;
+            }
+        }
+    }
+}
+
+.sidebarListingOpen {
+    overflow-y: hidden;
+
+    .categoryListingLeft {
+        @media (max-width: 1023px) {
+            z-index: 100;
+            opacity: 1;
+            left: 0;
+            pointer-events: all;
+        }
+
+        .footerSidebarButton {
+            border-top: 1px solid #D3D3D3;
+            left: 0;
+
+            .btnPrimary {
+                background-color: $primary-dream-100
+            }
+        }
+    }
+}
+
+.taxonomyItem {
+    margin-bottom: 10px;
+
+    &.taxonomyItemActive {
+        .taxtTitle {
+            position: relative;
+
+            // &:before {
+            //     content: '';
+            //     position: absolute;
+            //     bottom: 0;
+            //     left: 0;
+            //     width: 78px;
+            //     box-shadow: 0 0px 0px 1px $primary-dream-100;
+            // }
+
+            svg {
+                transform: rotate(180deg);
+
+            }
+        }
+
+        .taxonomyParentChildren {
+            .taxonomyParentTitle {
+                &.active {
+                    color: $primary-dream-100
+                }
+            }
+        }
+
+    }
+
+    .taxtTitle {
+        color: #171717;
+        // border-bottom: 1px solid #E5E5E5;
+        padding: 8px 0 14px;
+        cursor: pointer;
+
+        svg {
+            transition: 0.3s;
+        }
+    }
+
+    .taxonomyParentItems {
+        margin-left: 16px;
+
+        @media (max-width: 767px) {
+            margin-left: 10px;
+        }
+
+        .taxonomyParentChildren {
+            .taxonomyParentTitle {
+                color: #4D4D4D;
+            }
+
+            .taxonomyItemsInner {
+                margin-left: 16px;
+
+                @media (max-width: 767px) {
+                    margin-left: 10px;
+                }
+            }
+
+        }
+    }
+}
+
+.categoryFilterWrp {
+    .categoryFilterLeft {
+        h3 {
+            color: #212121;
+
+            span {
+                position: relative;
+                top: -6px;
+            }
+        }
+
+    }
+
+    .categoryFilterRight {
+        span {
+            color: #7A7A7A;
+        }
+
+        button,
+        svg {
+            color: #212121;
+        }
+
+    }
+
+}
+
+/* paginnation and tags */
+.paginationWrapper {}
+
+.clearBtn {
+    color: $primary-dream-100;
+}
+
+/* paginnation and tags */
+
+/* rangeValueBx */
+.rangeValueBx {
+    .rangeValueInner {
+        border: 1px solid #D5D5D5;
+        padding: 12px 8px 10px;
+        flex: 1;
+
+        span {
+            margin-right: 5px;
+            color: #4D4D4D;
+        }
+
+        input {
+
+            &:focus-visible,
+            &:focus {
+                outline: none;
+            }
+
+        }
+    }
+}
+
+/* rangeValueBx */
+
+
+/* filter on mobile */
+.filterOnMobile {
+    border: 1px solid #CACACA;
+}
+
+.mobileFilterWrp {
+    .filterTitle {
+        color: #111111;
+    }
+}
+
+/* filter on mobile */
+
+
+html[lang=ar] {
+    .categoryListingLeft {
+        padding-right: 0;
+        padding-left: 25px;
+
+        @media (max-width: 1023px) {
+            padding-right: 16px;
+            padding-left: 16px;
+            left: auto;
+            right: -100%;
+        }
+
+        .sidebarTopListing {
+            @media (max-width: 1023px) {
+                right: 0;
+                padding: 10px 0px 10px 32px;
+            }
+        }
+    }
+
+    .taxonomyItem {
+        .taxonomyParentItems {
+            .taxonomyParentChildren {
+                .taxonomyItemsInner {
+                    margin-left: 0;
+                    margin-right: 16px;
+                }
+            }
+        }
+
+        &.taxonomyItemActive {
+            .taxtTitle {
+                &:before {
+                    left: auto;
+                    right: 0;
+                }
+            }
+        }
+    }
+
+    .sidebarListingOpen {
+        .categoryListingLeft {
+            @media (max-width: 1023px) {
+                right: 0;
+            }
+        }
+    }
+
+    .rangeValueBx {
+        .rangeValueInner {
+            span {
+                margin-left: 5px;
+                margin-right: 0;
+            }
+
+        }
+    }
+}

@@ -1,0 +1,57 @@
+.headerTop {
+    background-color: #F7F7F7;
+    padding: 7px 16px 7px;
+    button{
+        color: #212121;
+        svg{
+            path{
+                color: #212121;
+            }
+        }
+    }
+  }
+.customDropdown1{
+    box-shadow: 0 6px 38px 0 rgba(0, 0, 0, 0.1);
+    &:before{
+        content: '';
+        width: 10px;
+        height: 9px;
+        border-bottom: solid 10px rgb(255 255 255);
+        border-left: solid 10px transparent;
+        border-right: solid 10px transparent;
+        position: absolute;
+        top: -10px;
+    }
+    &.leftArrow{
+        &:before{
+            left: 4px;
+        }
+    }
+    &.rightArrow{
+        &:before{
+            left: auto;
+            right: 4px;
+        }
+    }
+
+}
+
+html[lang=ar]{
+    .customDropdown1{
+        &.rightArrow{
+            right: -20px;
+            &:before{
+                left: 4px;
+                right: auto;
+            }
+
+        }
+        &.leftArrow{
+            &:before{
+                left: auto;
+                right: 4px;
+            }
+        }
+
+    }
+}

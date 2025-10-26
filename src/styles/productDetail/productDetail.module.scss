@@ -1,0 +1,225 @@
+@import '../../styles/variables.scss';
+
+.productSliderWrp {
+    background-color: $primary-lightgray-20;
+
+    .productSliderInner {
+        img {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+    }
+
+    .heartIcon {
+        i {
+            &:before {
+                color: $primary-darkgray-80;
+            }
+        }
+    }
+}
+
+.productNavWrp {
+    margin: 0 -6px;
+
+    .productImageNav {
+        .productNavBx {
+            background-color: $primary-lightgray-20;
+            margin: 0 6px;
+
+        }
+    }
+}
+
+.productDetailRight {
+    .productTitle {
+        color: $primary-darkgray-100;
+    }
+
+    .ProductRatingArea {
+        i {
+            color: #FFC526;
+        }
+    }
+
+    .productCategory {
+        color: $primary-dream-100;
+    }
+
+    .productPrice {
+        .discountPrice {
+            color: $primary-darkgray-80;
+            text-decoration: line-through;
+        }
+
+        span {
+            color: $primary-dream-100;
+        }
+
+    }
+
+    .productDescription {
+        color: $primary-darkgray-100;
+    }
+
+    .radioWieghtSelect {
+        h4 {
+            color: $primary-darkgray-100;
+        }
+
+        label {
+            .radioWieghtBx {
+                background-color: $primary-lightgray-40;
+            }
+
+            input {
+                &:checked {
+                    +span {
+                        color: #fff;
+
+                        +.radioWieghtBx {
+                            background-color: $primary-dream-100;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    .radioColorSelect {
+        label {
+            span {
+                &:before {
+                    content: '';
+                    border: 1px solid transparent;
+                    display: inline-block;
+                    width: 48px;
+                    height: 48px;
+                    position: absolute;
+                    top: -5px;
+                    left: -5px;
+                    border-radius: 50%;
+                }
+
+            }
+
+            input {
+                &:checked {
+                    +span {
+                        &:before {
+                            border-color: $primary-dream-100;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .iconListBorder {
+        span {
+            span {
+                color: $primary-darkgray-100;
+            }
+        }
+    }
+
+    .socialShareWrp {
+        .socialTitle {
+            color: $primary-darkgray-100;
+
+        }
+
+        .socialShareIcon {
+            a {
+                border-color: rgba(8, 191, 176, 0.6);
+
+                i {
+                    color: $primary-darkgray-80;
+                }
+            }
+
+        }
+
+    }
+}
+
+.productTabMenu {
+    border-bottom: 1px solid $primary-darkgray-20;
+
+    h3 {
+        // border-bottom: 2px solid transparent;
+    }
+
+    .productTabActive {
+        border-color: $primary-dream-100;
+    }
+}
+
+.productDetailVideo {
+    .productVideoBx {
+        // background-color: $Secondary-Pastel-Orange;
+        // max-width: 898px;
+        // min-height: 487px;
+        // margin: 0 auto;
+    }
+
+}
+
+.productBodyInner {
+    @media (max-width: 767px) {
+        text-align: center;
+    }
+}
+
+.productReviewInner {
+    > {
+        div {
+            @media (max-width: 767px) {
+                border-bottom: 1px solid #D5D5D5;
+
+                &:nth-last-child(1) {
+                    border-bottom: 0;
+
+                }
+            }
+
+        }
+    }
+}
+
+.productTabBody {
+    .borderBottom {
+        @media (max-width: 991px) {
+            border-bottom: 1px solid #D5D5D5;
+        }
+    }
+}
+
+.quantitySelector {
+    background-color: #F7F7F7;
+
+    input {
+        background-color: transparent;
+        outline: none;
+        color: #212121;
+        font-size: 18px;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+    }
+
+    button {
+        line-height: 1;
+
+        i {
+            font-size: 24px;
+            color: $primary-dream-100
+        }
+
+    }
+
+}
