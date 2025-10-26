@@ -23,7 +23,7 @@ const SearchByFuel: MyPage = () => {
               </h1>
               <div className="flex flex-col items-center justify-center">
                 <p className="font-medium text-center text-[#333] text-[20px] leading-[1.6em] tracking-[-0.03em] max-w-[700px] mb-8">
-                  Browse our selection of vehicles from Australia's most popular fuel types.
+                  Browse our selection of vehicles from Australia&apos;s most popular fuel types.
                 </p>
                 <div className="bg-customBlue-100 p-10 rounded-lg w-full max-w-[700px] text-center">
                   <h2 className="text-[32px] font-semibold mb-4">Coming Soon</h2>

@@ -87,7 +87,7 @@ import { useState } from "react";
   ];
   
   const safetyWarranty = [
-    { label: "ANCAP Safety Rating", value: <img src={starSvg} alt="" /> },
+    { label: "ANCAP Safety Rating", value: <img src={starSvg} alt="" />, rate: 3 },
     { label: "Warranty", value: "5 years / 999,000 km" },
     { label: "Service Interval", value: "12 months / 15,000 km" },
   ];
@@ -414,7 +414,7 @@ import { useState } from "react";
                               </span>
                               {item.value === "stars" ? (
                                 <div className="flex items-center gap-1">
-                                  {[...Array(item.stars)].map((_, i) => (
+                                  {[...Array(item.rate)].map((_, i) => (
                                     <img
                                       key={i}
                                       className="w-4 h-4"
@@ -725,7 +725,9 @@ import { useState } from "react";
               Explore Similar Utes for Business Lease
             </h2>
             <div className="flex w-full sm:w-auto items-center justify-between sm:justify-end gap-3">
-              <Button variant="ghost" className="h-auto gap-1.5 px-3 py-2">
+              <Button 
+              onClick={() => router.push("/explore")}
+              variant="ghost" className="h-auto gap-1.5 px-3 py-2">
                 <span className="font-medium text-[#194170] text-sm leading-5 [font-family:'Figtree',Helvetica]">
                   View all
                 </span>

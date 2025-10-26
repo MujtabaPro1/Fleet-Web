@@ -27,7 +27,7 @@ const OurStory: MyPage = () => {
                 <div className="bg-customBlue-100 p-10 rounded-lg w-full max-w-[700px] text-center">
                   <h2 className="text-[32px] font-semibold mb-4">Coming Soon</h2>
                   <p className="text-[18px]">
-                    We're currently crafting our story. 
+                    We&apos;re currently crafting our story. 
                     Please check back soon to learn more about our journey.
                   </p>
                 </div>

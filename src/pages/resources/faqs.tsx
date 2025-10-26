@@ -29,7 +29,7 @@ const FAQs: MyPage = () => {
                 <div className="bg-customBlue-100 p-10 rounded-lg w-full max-w-[700px] text-center">
                   <h2 className="text-[32px] font-semibold mb-4">Coming Soon</h2>
                   <p className="text-[18px]">
-                    We're currently developing our FAQs section. 
+                    We&apos;re currently developing our FAQs section. 
                     Please check back soon for answers to common questions or contact our team for immediate assistance.
                   </p>
                 </div>

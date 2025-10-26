@@ -43,33 +43,6 @@ const SearchByBody: MyPage = () => {
   );
 };
 
-export async function getStaticProps(context: any) {
-  const { locale, params } = context;
-  return {
-    props: {
-      ...(await serverSideTranslations(locale)),
-      body: params.body,
-    },
-  };
-}
-
-// This function is required for dynamic routes with SSG
-export async function getStaticPaths() {
-  // Define the body types you want to pre-render
-  // For a "coming soon" page, we can just provide a minimal list
-  // In a real application, you would fetch this from an API or database
-  const bodyTypes = ['sedan', 'suv', 'hatchback', 'wagon', 'ute', 'van', 'truck'];
-  
-  const paths = bodyTypes.map((body) => ({
-    params: { body },
-  }));
-  
-  return {
-    paths,
-    // fallback: true means that other routes will be generated on-demand
-    fallback: true,
-  };
-}
 
 export default SearchByBody;
 SearchByBody.Layout = "Default";

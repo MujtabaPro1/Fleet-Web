@@ -20,6 +20,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { SearchIcon, XIcon } from "lucide-react";
 import { SmallVehicleCard } from "@/components/small-vehicle-card";
+import { useRouter } from "next/router";
 
 
 const utesVehicles = [
@@ -73,6 +74,7 @@ const [limitedDealsEnabled, setLimitedDealsEnabled] = useState<boolean>(true);
 const [sortOption, setSortOption] = useState<string>("recent");
 const [selectedFilter, setSelectedFilter] = useState<string>("");
 const [searchQuery, setSearchQuery] = useState<string>("");
+const router = useRouter();
 
 const bodyTypes = ["Utes", "SUVs", "Vans", "Mini bus", "Sedans", "Hatchback", "Coupe"];
 
@@ -95,6 +97,7 @@ const Content = ({ title }: { title: string }) => {
       <div className="flex items-center gap-4">
         <Button
           variant="ghost"
+          onClick={() => router.push("/explore")}
           className="h-auto px-0 lg:px-3 py-0 lg:py-2 hover:bg-transparent text-[#194170]"
         >
           <span className="font-medium text-sm">

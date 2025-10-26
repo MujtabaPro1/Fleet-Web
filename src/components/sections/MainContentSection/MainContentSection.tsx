@@ -9,6 +9,7 @@ import React from "react";
 import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
+import { useRouter } from "next/router";
 // Using public paths instead of imports
 const dollarSvg = "/assets/images/svg/dollar.svg";
 const personChalkboardSvg = "/assets/images/svg/person-chalkboard.svg";
@@ -334,6 +335,7 @@ const VehicleCard = ({
   fuel = "Petrol, Hybrid",
   price = "288",
   width = "w-full",
+  router,
 }: { 
   image: string; 
   name?: string;
@@ -341,6 +343,7 @@ const VehicleCard = ({
   fuel?: string;
   price?: string;
   width?: string; 
+  router?: any;
 }) => (
   <Card
     className={`${width} h-full border border-solid shadow-sm`}
@@ -408,7 +411,9 @@ const VehicleCard = ({
           </div>
         </div>
 
-        <Button className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
+        <Button 
+        onClick={() => router.push('/inventory/1')}
+        className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
           <span className="font-medium text-white text-xs md:text-sm">
             Get A Quote
           </span>
@@ -596,6 +601,8 @@ const TinyVehicleCard = ({
 );
 
 export const MainContentSection = (): JSX.Element => {
+  const router = useRouter();
+  
   return (
     <section className="flex flex-col w-full items-start gap-16 py-12 md:py-16">
       {/* Promo cards section */}
@@ -706,18 +713,54 @@ export const MainContentSection = (): JSX.Element => {
               Unlock Limited-Time Leasing Deals on Cars, SUVs &amp; Fleets
             </h2>
 
-            <Button
-              variant="ghost"
-              className="h-auto px-3 py-2 gap-1.5 hover:bg-transparent text-[#194170]"
-            >
-              <span className="font-medium text-sm">
-                View all
-              </span>
-            </Button>
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                onClick={() => router.push("/explore")}
+                className="h-auto px-3 py-2 gap-1.5 hover:bg-transparent text-[#194170]"
+              >
+                <span className="font-medium text-sm">
+                  View all
+                </span>
+              </Button>
+              
+              <div className="hidden md:flex items-center gap-2">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
+                  onClick={() => {
+                    const container = document.getElementById('main-vehicles-carousel');
+                    if (container) {
+                      container.scrollBy({ left: -380, behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  <ChevronLeftIcon className="w-5 h-5" />
+                </Button>
+
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
+                  onClick={() => {
+                    const container = document.getElementById('main-vehicles-carousel');
+                    if (container) {
+                      container.scrollBy({ left: 380, behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  <ChevronRightIcon className="w-5 h-5 text-white" />
+                </Button>
+              </div>
+            </div>
           </div>
 
           <div className="relative w-full">
-            <div className="overflow-x-auto pb-4 hide-scrollbar">
+            <div 
+              id="main-vehicles-carousel"
+              className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
+            >
               <div className="flex gap-6 min-w-max">
                 {mainVehicles.map((vehicle, index) => (
                   <div key={index} className="w-[350px] lg:w-[380px] flex-shrink-0">
@@ -727,6 +770,7 @@ export const MainContentSection = (): JSX.Element => {
                       type={vehicle.type}
                       fuel={vehicle.fuel}
                       price={vehicle.price}
+                      router={router}
                     />
                   </div>
                 ))}
@@ -735,7 +779,9 @@ export const MainContentSection = (): JSX.Element => {
           </div>
         </div>
 
-        <Button className="w-auto h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-2 px-6 py-3 mt-4">
+        <Button 
+        onClick={() => router.push("/inventory")}
+        className="w-auto h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-2 px-6 py-3 mt-4">
           <span className="font-medium text-white text-sm">
             View all vehicles
           </span>
@@ -829,6 +875,7 @@ export const MainContentSection = (): JSX.Element => {
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
+              onClick={() => router.push("/explore")}
               className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
             >
               <span className="font-medium text-sm">
@@ -841,6 +888,12 @@ export const MainContentSection = (): JSX.Element => {
                 variant="ghost"
                 size="icon"
                 className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
+                onClick={() => {
+                  const container = document.getElementById('utes-carousel');
+                  if (container) {
+                    container.scrollBy({ left: -350, behavior: 'smooth' });
+                  }
+                }}
               >
                 <ChevronLeftIcon className="w-5 h-5" />
               </Button>
@@ -849,6 +902,12 @@ export const MainContentSection = (): JSX.Element => {
                 variant="ghost"
                 size="icon"
                 className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
+                onClick={() => {
+                  const container = document.getElementById('utes-carousel');
+                  if (container) {
+                    container.scrollBy({ left: 350, behavior: 'smooth' });
+                  }
+                }}
               >
                 <ChevronRightIcon className="w-5 h-5 text-white" />
               </Button>
@@ -857,7 +916,10 @@ export const MainContentSection = (): JSX.Element => {
         </div>
 
         <div className="relative w-full">
-          <div className="overflow-x-auto pb-4 hide-scrollbar">
+          <div 
+            id="utes-carousel"
+            className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
+          >
             <div className="flex gap-6 min-w-max">
               {utesVehicles.map((vehicle, index) => (
                 <div key={index} className="w-[350px] flex-shrink-0">
@@ -890,6 +952,7 @@ export const MainContentSection = (): JSX.Element => {
 
           <Button
             variant="ghost"
+            onClick={() => router.push("/explore")}
             className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
           >
             <span className="font-medium text-sm">
@@ -994,6 +1057,7 @@ export const MainContentSection = (): JSX.Element => {
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
+              onClick={() => router.push("/explore")}
               className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
             >
               <span className="font-medium text-sm">
@@ -1006,6 +1070,12 @@ export const MainContentSection = (): JSX.Element => {
                 variant="ghost"
                 size="icon"
                 className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
+                onClick={() => {
+                  const container = document.getElementById('suvs-carousel');
+                  if (container) {
+                    container.scrollBy({ left: -350, behavior: 'smooth' });
+                  }
+                }}
               >
                 <ChevronLeftIcon className="w-5 h-5" />
               </Button>
@@ -1014,6 +1084,12 @@ export const MainContentSection = (): JSX.Element => {
                 variant="ghost"
                 size="icon"
                 className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
+                onClick={() => {
+                  const container = document.getElementById('suvs-carousel');
+                  if (container) {
+                    container.scrollBy({ left: 350, behavior: 'smooth' });
+                  }
+                }}
               >
                 <ChevronRightIcon className="w-5 h-5 text-white" />
               </Button>
@@ -1022,7 +1098,10 @@ export const MainContentSection = (): JSX.Element => {
         </div>
 
         <div className="relative w-full">
-          <div className="overflow-x-auto pb-4 hide-scrollbar">
+          <div 
+            id="suvs-carousel"
+            className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
+          >
             <div className="flex gap-6 min-w-max">
               {suvsVehicles.map((vehicle, index) => (
                 <div key={index} className="w-[350px] flex-shrink-0">
@@ -1050,6 +1129,7 @@ export const MainContentSection = (): JSX.Element => {
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
+              onClick={() => router.push("/explore")}
               className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
             >
               <span className="font-medium text-sm">
@@ -1062,6 +1142,12 @@ export const MainContentSection = (): JSX.Element => {
                 variant="ghost"
                 size="icon"
                 className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
+                onClick={() => {
+                  const container = document.getElementById('vans-carousel');
+                  if (container) {
+                    container.scrollBy({ left: -350, behavior: 'smooth' });
+                  }
+                }}
               >
                 <ChevronLeftIcon className="w-5 h-5" />
               </Button>
@@ -1070,6 +1156,12 @@ export const MainContentSection = (): JSX.Element => {
                 variant="ghost"
                 size="icon"
                 className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
+                onClick={() => {
+                  const container = document.getElementById('vans-carousel');
+                  if (container) {
+                    container.scrollBy({ left: 350, behavior: 'smooth' });
+                  }
+                }}
               >
                 <ChevronRightIcon className="w-5 h-5 text-white" />
               </Button>
@@ -1078,7 +1170,10 @@ export const MainContentSection = (): JSX.Element => {
         </div>
 
         <div className="relative w-full">
-          <div className="overflow-x-auto pb-4 hide-scrollbar">
+          <div 
+            id="vans-carousel"
+            className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
+          >
             <div className="flex gap-6 min-w-max">
               {vansVehicles.map((vehicle, index) => (
                 <div key={index} className="w-[350px] flex-shrink-0">
