@@ -16,7 +16,7 @@ const wishList: MyPage = () => {
       <Head>
         <title>Fleet Leasing Australia | WishList</title>
       </Head>
-      <div className={`${styles.wishListWrapper}`}>
+      <div className={`${styles.wishListWrapper} mt-[50px] h-[calc(100vh-50px)]`}>
         <div className='container'>
           <div className="pb-[19px] border-b-[1px]">
             <div className="flex items-center md:justify-normal justify-between">

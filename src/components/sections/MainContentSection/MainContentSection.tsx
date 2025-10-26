@@ -23,6 +23,7 @@ const fillFormsSvg = "/assets/images/svg/undraw_fill-forms_npwp.svg";
 
 
 
+
 const promoCards = [
   {
     bgColor: "bg-[#ecf3fb]",
@@ -429,13 +430,15 @@ const SmallVehicleCard = ({
   name = "Toyota Corolla Cross",
   type = "SUV",
   fuel = "Petrol, Hybrid",
-  price = "288"
+  price = "288",
+  router,
 }: { 
   image: string;
   name?: string;
   type?: string;
   fuel?: string;
   price?: string;
+  router?: any;
 }) => (
   <Card className="w-full border border-solid shadow-sm h-full">
     <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
@@ -501,7 +504,9 @@ const SmallVehicleCard = ({
           </div>
         </div>
 
-        <Button className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
+        <Button 
+        onClick={() => router.push('/inventory/1')}
+        className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
           <span className="font-medium text-white text-xs">
             Get A Quote
           </span>
@@ -517,13 +522,15 @@ const TinyVehicleCard = ({
   name = "Toyota Corolla Cross",
   type = "SUV",
   fuel = "Petrol, Hybrid",
-  price = "288"
+  price = "288",
+  router,
 }: { 
   image: string;
   name?: string;
   type?: string;
   fuel?: string;
   price?: string;
+  router?: any;
 }) => (
   <Card className="w-full border border-solid shadow-sm h-full">
     <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
@@ -589,7 +596,9 @@ const TinyVehicleCard = ({
           </div>
         </div>
 
-        <Button className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
+        <Button 
+        onClick={() => router.push('/inventory/1')}
+        className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
           <span className="font-medium text-white text-xs">
             Get A Quote
           </span>
@@ -929,6 +938,7 @@ export const MainContentSection = (): JSX.Element => {
                     type={vehicle.type}
                     fuel={vehicle.fuel}
                     price={vehicle.price}
+                    router={router}
                   />
                 </div>
               ))}
@@ -1111,6 +1121,7 @@ export const MainContentSection = (): JSX.Element => {
                     type={vehicle.type}
                     fuel={vehicle.fuel}
                     price={vehicle.price}
+                    router={router}
                   />
                 </div>
               ))}
@@ -1183,6 +1194,7 @@ export const MainContentSection = (): JSX.Element => {
                     type={vehicle.type}
                     fuel={vehicle.fuel}
                     price={vehicle.price}
+                    router={router}
                   />
                 </div>
               ))}
