@@ -19,7 +19,7 @@ export const VehicleDisplaySection = (): JSX.Element => {
     <section className="flex flex-col items-center w-full py-8 md:py-12">
       <div className="flex flex-col items-center w-full max-w-[750px] mx-auto px-4 md:px-6 lg:px-8 bg-white rounded-lg border border-gray-200 shadow-sm relative overflow-visible">
         <div className="flex flex-col items-center justify-center gap-8 py-10 md:py-12 w-full max-w-[800px]" style={{
-          zIndex: 99999
+          zIndex: 100
         }}>
           <div className="flex flex-col items-center justify-center gap-6">
             <h1 className="text-4xl md:text-5xl font-semibold text-center leading-tight">
@@ -54,7 +54,9 @@ export const VehicleDisplaySection = (): JSX.Element => {
                   >
                     <SelectValue placeholder="All brands" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent style={{
+                    zIndex: 1000
+                  }}>
                     <SelectItem value="all">All brands</SelectItem>
                     <SelectItem value="toyota">Toyota</SelectItem>
                     <SelectItem value="ford">Ford</SelectItem>
@@ -78,7 +80,9 @@ export const VehicleDisplaySection = (): JSX.Element => {
                   >
                     <SelectValue placeholder="All body types" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent style={{
+                    zIndex: 1000
+                  }}>
                     <SelectItem value="all">All body types</SelectItem>
                     <SelectItem value="suv">SUV</SelectItem>
                     <SelectItem value="sedan">Sedan</SelectItem>
