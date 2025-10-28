@@ -10,7 +10,7 @@ const phoneIcon = "/assets/images/svg/phone.svg";
 const envelopeIcon = "/assets/images/svg/envelope.svg";
 
 const facebookIcon = "/assets/images/svg/facebook.svg";
-const xIcon = "/assets/images/svg/x.svg";
+const xIcon = "/assets/images/svg/X.svg";
 const linkedinIcon = "/assets/images/svg/linkedin.svg";
 import { useRouter } from "next/navigation";
 
