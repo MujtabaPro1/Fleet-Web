@@ -31,6 +31,9 @@ export const NavigationBarSection = (): JSX.Element => {
           <div className="inline-flex items-center gap-2 sm:gap-5">
             <Button
               variant="outline"
+              onClick={()=>{
+                router.push('/wishlist')
+              }}
               className="hidden sm:inline-flex items-center justify-center gap-1.5 px-3 py-2 h-auto bg-gray-50 rounded border border-solid shadow-shadow-xs"
             >
               <HeartIcon className="w-4 h-4" fill="red"  stroke="red" />
