@@ -49,8 +49,8 @@ const contactInfo = [
 
 export const MainContentSection = (): JSX.Element => {
   return (
-    <section className="flex flex-col lg:flex-row items-start gap-16 px-16 py-12 w-full bg-[#fafcfe]">
-      <div className="flex flex-col lg:w-[466px] items-start gap-6">
+    <section className="flex flex-col lg:flex-row items-start gap-8 lg:gap-16 px-4 sm:px-8 md:px-12 lg:px-16 py-8 lg:py-12 w-full bg-[#fafcfe]">
+      <div className="flex flex-col w-full lg:w-[466px] items-start gap-6">
         <h2 className="self-stretch [font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-4xl tracking-[-0.40px] leading-[45px]">
           Ready to Get Started?
         </h2>
@@ -103,7 +103,7 @@ export const MainContentSection = (): JSX.Element => {
               Select a fleet solution<span className="text-[#c70036]">*</span>
             </Label>
 
-            <div className="flex items-start gap-7 w-full">
+            <div className="flex grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-start gap-7 w-full">
               {fleetSolutions.map((solution) => (
                 <Button
                   key={solution.id}
@@ -146,8 +146,8 @@ export const MainContentSection = (): JSX.Element => {
             />
           </div>
 
-          <div className="flex items-start gap-7 w-full">
-            <div className="flex flex-col items-start gap-2.5 flex-1">
+          <div className="flex flex-col md:flex-row items-start gap-4 md:gap-7 w-full">
+            <div className="flex flex-col items-start gap-2.5 w-full md:flex-1">
               <Label
                 htmlFor="phone"
                 className="[font-family:'Figtree',Helvetica] font-medium text-[#101828] text-sm tracking-[0] leading-5"
@@ -161,7 +161,7 @@ export const MainContentSection = (): JSX.Element => {
               />
             </div>
 
-            <div className="flex flex-col items-start gap-2.5 flex-1">
+            <div className="flex flex-col items-start gap-2.5 w-full md:flex-1">
               <Label
                 htmlFor="email"
                 className="[font-family:'Figtree',Helvetica] font-medium text-[#101828] text-sm tracking-[0] leading-5"
@@ -177,8 +177,8 @@ export const MainContentSection = (): JSX.Element => {
             </div>
           </div>
 
-          <div className="flex items-start gap-7 w-full">
-            <div className="flex flex-col items-start gap-2.5 flex-1">
+          <div className="flex flex-col md:flex-row items-start gap-4 md:gap-7 w-full">
+            <div className="flex flex-col items-start gap-2.5 w-full md:flex-1">
               <Label
                 htmlFor="business"
                 className="[font-family:'Figtree',Helvetica] font-medium text-[#101828] text-sm tracking-[0] leading-5"
@@ -192,7 +192,7 @@ export const MainContentSection = (): JSX.Element => {
               />
             </div>
 
-            <div className="flex flex-col items-start gap-2.5 flex-1">
+            <div className="flex flex-col items-start gap-2.5 w-full md:flex-1">
               <Label
                 htmlFor="state"
                 className="[font-family:'Figtree',Helvetica] font-medium text-[#101828] text-sm tracking-[0] leading-5"
@@ -220,8 +220,8 @@ export const MainContentSection = (): JSX.Element => {
             </div>
           </div>
 
-          <div className="flex items-start gap-7 w-full">
-            <div className="flex flex-col items-start gap-2.5 flex-1">
+          <div className="flex flex-col md:flex-row items-start gap-4 md:gap-7 w-full">
+            <div className="flex flex-col items-start gap-2.5 w-full md:flex-1">
               <Label
                 htmlFor="employees"
                 className="[font-family:'Figtree',Helvetica] font-medium text-[#101828] text-sm tracking-[0] leading-5"
@@ -233,7 +233,7 @@ export const MainContentSection = (): JSX.Element => {
                   id="employees"
                   className="w-full px-3 py-2.5 bg-white rounded border border-[#e5e7eb] shadow-shadow-xs [font-family:'Figtree',Helvetica] font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
                 >
-                  <SelectValue placeholder="Select a state" />
+                  <SelectValue placeholder="Select a range" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="1-10">1-10</SelectItem>
@@ -245,7 +245,7 @@ export const MainContentSection = (): JSX.Element => {
               </Select>
             </div>
 
-            <div className="flex flex-col items-start gap-2.5 flex-1">
+            <div className="flex flex-col items-start gap-2.5 w-full md:flex-1">
               <Label
                 htmlFor="fleet-size"
                 className="[font-family:'Figtree',Helvetica] font-medium text-[#101828] text-sm tracking-[0] leading-5"
@@ -257,7 +257,7 @@ export const MainContentSection = (): JSX.Element => {
                   id="fleet-size"
                   className="w-full px-3 py-2.5 bg-white rounded border border-[#e5e7eb] shadow-shadow-xs [font-family:'Figtree',Helvetica] font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
                 >
-                  <SelectValue placeholder="Select a state" />
+                  <SelectValue placeholder="Select a range" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="1-5">1-5</SelectItem>

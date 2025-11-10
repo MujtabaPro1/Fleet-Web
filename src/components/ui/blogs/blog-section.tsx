@@ -54,7 +54,7 @@ const blogPosts = [
 
 export const BlogSection = (): JSX.Element => {
   return (
-    <section className="flex flex-col w-full items-center gap-6 px-0 py-12 bg-gray-50">
+    <section className="flex flex-col w-full items-center gap-6 px-0  py-0 lg:py-12  bg-gray-50">
       <Card className="flex flex-col w-full max-w-[1280px] items-center gap-5 p-8 bg-white rounded border border-solid shadow-shadow-sm">
         <CardContent className="flex flex-col items-center gap-5 p-0 w-full">
           <h1 className="[font-family:'Figtree',Helvetica] font-semibold text-[#c70036] text-5xl text-center tracking-[-0.80px] leading-[48px]">
@@ -68,7 +68,7 @@ export const BlogSection = (): JSX.Element => {
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full max-w-[1280px] gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full max-w-[1280px] gap-6 px-4 lg:px-0">
         {blogPosts.map((post, index) => (
           <Card
             key={index}
