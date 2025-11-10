@@ -42,7 +42,11 @@ export const NavigationBarSection = (): JSX.Element => {
               </span>
             </Button>
 
-            <Button className="mr-[50px] lg:ml-0 inline-flex items-center justify-center gap-1.5 px-3 py-2 h-auto bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+            <Button 
+            onClick={()=>{
+              router.push('/about/contact')
+            }}
+            className="mr-[50px] lg:ml-0 inline-flex items-center justify-center gap-1.5 px-3 py-2 h-auto bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
               <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5 whitespace-nowrap">
                 Contact us
               </span>
