@@ -120,16 +120,16 @@ export const InfoSection = (): JSX.Element => {
         <div className="flex flex-col w-full max-w-[650px] items-start gap-8">
           <div className="flex flex-col gap-4 w-full">
             <div className="flex flex-col gap-3 w-full">
-              <h1 className="[font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
+              <h1 className="font-figtree font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
                 Chattel Mortgage
               </h1>
 
-              <h2 className="[font-family:'Figtree',Helvetica] font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
+              <h2 className="font-figtree font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
                 Upfront Tax Advantage &amp; Immediate Ownership Ownership
               </h2>
             </div>
 
-            <p className="text-[#101828] leading-6 [font-family:'Figtree',Helvetica] font-normal text-base tracking-[0]">
+            <p className="text-[#101828] leading-6 font-figtree font-normal text-base tracking-[0]">
               A <span className="font-bold">commercial loan</span> secured by
               the vehicle (the chattel). Your business takes{" "}
               <span className="font-bold">legal ownership from day one</span>,
@@ -152,11 +152,11 @@ export const InfoSection = (): JSX.Element => {
 
                 <div className="flex flex-col items-start gap-4 flex-1">
                   <div className="flex flex-col gap-3 w-full">
-                    <h3 className="[font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-xl leading-5 tracking-[0]">
+                    <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-5 tracking-[0]">
                       {section.title}
                     </h3>
 
-                    <p className="[font-family:'Figtree',Helvetica] font-normal text-[#101828] text-base tracking-[0] leading-6">
+                    <p className="font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                       {section.content}
                     </p>
                   </div>
@@ -178,11 +178,11 @@ export const InfoSection = (): JSX.Element => {
 
                 <div className="flex flex-col items-start gap-4 flex-1">
                   <div className="flex flex-col gap-3 w-full">
-                    <h3 className="[font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-xl leading-5 tracking-[0]">
+                    <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-5 tracking-[0]">
                       {section.title}
                     </h3>
 
-                    <p className="[font-family:'Figtree',Helvetica] font-normal text-[#101828] text-base tracking-[0] leading-6">
+                    <p className="font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                       {section.content}
                     </p>
                   </div>
@@ -203,11 +203,11 @@ export const InfoSection = (): JSX.Element => {
 
               <div className="flex flex-col items-start gap-4 flex-1">
                 <div className="flex flex-col gap-3 w-full">
-                  <h3 className="[font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-xl leading-5 tracking-[0]">
+                  <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-5 tracking-[0]">
                     {keyTakeaway.title}
                   </h3>
 
-                  <p className="[font-family:'Figtree',Helvetica] font-normal text-[#101828] text-base tracking-[0] leading-6">
+                  <p className="font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                     {keyTakeaway.content}
                   </p>
                 </div>

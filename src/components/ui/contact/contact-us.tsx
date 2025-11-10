@@ -43,11 +43,11 @@ export const ContactUsSection = (): JSX.Element => {
         />
 
         <div className="flex flex-col w-full max-w-[466px] items-start gap-6 relative z-10">
-          <h2 className="self-stretch [font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-4xl tracking-[-0.40px] leading-[45px]">
+          <h2 className="self-stretch font-figtree font-semibold text-[#101828] text-4xl tracking-[-0.40px] leading-[45px]">
             Get in Touch with Our Team
           </h2>
 
-          <p className="self-stretch [font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-lg tracking-[0] leading-7">
+          <p className="self-stretch font-figtree font-normal text-[#4a5565] text-lg tracking-[0] leading-7">
             We&apos;re here to answer your questions, discuss opportunities, or
             help you find the right solution.
           </p>
@@ -65,11 +65,11 @@ export const ContactUsSection = (): JSX.Element => {
                 />
 
                 <div className="flex flex-col items-start gap-1.5 flex-1">
-                  <div className="self-stretch [font-family:'Figtree',Helvetica] font-medium text-[#101828] text-base tracking-[0] leading-4">
+                  <div className="self-stretch font-figtree font-medium text-[#101828] text-base tracking-[0] leading-4">
                     {info.title}
                   </div>
 
-                  <div className="self-stretch [font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-sm tracking-[0] leading-5">
+                  <div className="self-stretch font-figtree font-semibold text-[#194170] text-sm tracking-[0] leading-5">
                     {info.detail}
                   </div>
                 </div>
@@ -84,35 +84,35 @@ export const ContactUsSection = (): JSX.Element => {
       <div className="flex flex-col items-center justify-center gap-16 px-4 sm:px-8 md:px-16 py-16 md:py-24 flex-1 self-stretch">
         <div className="flex flex-col w-full max-w-[576px] items-start gap-6">
           <div className="flex flex-col items-start justify-center pt-0 pb-[18px] px-0 self-stretch w-full border-b border-gray-300">
-            <h2 className="self-stretch [font-family:'Figtree',Helvetica] font-medium text-[#c70036] text-3xl tracking-[0] leading-7">
+            <h2 className="self-stretch font-figtree font-medium text-[#c70036] text-3xl tracking-[0] leading-7">
               Need Help? Connect with Us
             </h2>
           </div>
 
           <div className="flex flex-col items-start gap-2.5 self-stretch w-full">
-            <Label className="[font-family:'Figtree',Helvetica] font-medium text-[#101828] text-sm tracking-[0] leading-5">
+            <Label className="font-figtree font-medium text-[#101828] text-sm tracking-[0] leading-5">
               Name<span className="text-[#c70036]">*</span>
             </Label>
 
             <Input
               defaultValue="Jane Smith"
-              className="w-full bg-white rounded border border-gray-300 shadow-shadow-xs px-3 py-2.5 [font-family:'Figtree',Helvetica] font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
+              className="w-full bg-white rounded border border-gray-300 shadow-shadow-xs px-3 py-2.5 font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
             />
           </div>
 
           <div className="flex flex-col items-start gap-2.5 self-stretch w-full">
-            <Label className="[font-family:'Figtree',Helvetica] font-medium text-[#101828] text-sm tracking-[0] leading-5">
+            <Label className="font-figtree font-medium text-[#101828] text-sm tracking-[0] leading-5">
               Phone number<span className="text-[#c70036]">*</span>
             </Label>
 
             <Input
               defaultValue="(000) 000-0000"
-              className="w-full bg-white rounded border border-gray-300 shadow-shadow-xs px-3 py-2.5 [font-family:'Figtree',Helvetica] font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
+              className="w-full bg-white rounded border border-gray-300 shadow-shadow-xs px-3 py-2.5 font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
             />
           </div>
 
           <div className="flex flex-col items-start gap-2.5 self-stretch w-full">
-            <Label className="[font-family:'Figtree',Helvetica] font-medium text-[#101828] text-sm tracking-[0] leading-5">
+            <Label className="font-figtree font-medium text-[#101828] text-sm tracking-[0] leading-5">
               Email<span className="text-[#c70036]">*</span>
             </Label>
 
@@ -121,29 +121,29 @@ export const ContactUsSection = (): JSX.Element => {
 
               <Input
                 defaultValue="name@company.com"
-                className="flex-1 border-0 p-0 shadow-none [font-family:'Figtree',Helvetica] font-normal text-[#6a7282] text-sm tracking-[0] leading-5 focus-visible:ring-0"
+                className="flex-1 border-0 p-0 shadow-none font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5 focus-visible:ring-0"
               />
             </div>
           </div>
 
           <div className="flex flex-col items-start gap-2.5 self-stretch w-full">
-            <Label className="[font-family:'Figtree',Helvetica] font-medium text-[#101828] text-sm tracking-[0] leading-5">
+            <Label className="font-figtree font-medium text-[#101828] text-sm tracking-[0] leading-5">
               Your message<span className="text-[#c70036]">*</span>
             </Label>
 
             <Textarea
               defaultValue="Write text here ..."
-              className="h-[204px] w-full bg-gray-50 rounded border border-gray-300 shadow-shadow-xs p-3.5 [font-family:'Figtree',Helvetica] font-normal text-[#6a7282] text-sm tracking-[0] leading-5 resize-none"
+              className="h-[204px] w-full bg-gray-50 rounded border border-gray-300 shadow-shadow-xs p-3.5 font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5 resize-none"
             />
           </div>
 
           <div className="flex flex-col items-start gap-2.5 self-stretch w-full">
-            <Label className="[font-family:'Figtree',Helvetica] font-medium text-[#101828] text-sm tracking-[0] leading-5">
+            <Label className="font-figtree font-medium text-[#101828] text-sm tracking-[0] leading-5">
               How did you find us?
             </Label>
 
             <Select>
-              <SelectTrigger className="w-full bg-white rounded border border-gray-300 shadow-shadow-xs px-3 py-2.5 [font-family:'Figtree',Helvetica] font-normal text-[#6a7282] text-sm tracking-[0] leading-5">
+              <SelectTrigger className="w-full bg-white rounded border border-gray-300 shadow-shadow-xs px-3 py-2.5 font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5">
                 <SelectValue placeholder="Select a answer" />
               </SelectTrigger>
               <SelectContent>
@@ -163,7 +163,7 @@ export const ContactUsSection = (): JSX.Element => {
 
             <Label
               htmlFor="terms"
-              className="flex-1 [font-family:'Figtree',Helvetica] font-normal text-sm tracking-[0] leading-4 cursor-pointer"
+              className="flex-1 font-figtree font-normal text-sm tracking-[0] leading-4 cursor-pointer"
             >
               <span className="text-[#4a5565]">
                 By submitting this form, you confirm that you have read and
@@ -177,7 +177,7 @@ export const ContactUsSection = (): JSX.Element => {
           </div>
 
           <div className="flex items-center gap-4 pt-6 pb-0 px-0 self-stretch w-full border-t border-gray-300">
-            <Button className="flex-1 h-auto px-6 py-3.5 bg-[#194170] hover:bg-[#194170]/90 rounded shadow-shadow-xs [font-family:'Figtree',Helvetica] font-medium text-white text-base tracking-[0] leading-6">
+            <Button className="flex-1 h-auto px-6 py-3.5 bg-[#194170] hover:bg-[#194170]/90 rounded shadow-shadow-xs font-figtree font-medium text-white text-base tracking-[0] leading-6">
               Submit
               <ArrowRightIcon className="w-5 h-5 ml-1.5" />
             </Button>

@@ -2,10 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    font-family: var(--font-figtree), system-ui, sans-serif;
+  }
+}
+
 /* Figtree font utility class */
 .font-figtree {
   font-family: var(--font-figtree);
 }
+
+
 
 .slick-prev,
 .slick-next {

@@ -18,7 +18,7 @@ export const MainContentSection = (): JSX.Element => {
     <section className="flex flex-col w-full items-center gap-16 px-0 py-16 bg-white">
       <div className="flex flex-col w-full max-w-[1440px] items-center gap-16">
         <div className="flex flex-col w-full max-w-[1280px] items-start gap-4 px-4">
-          <h2 className="[font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-4xl tracking-[-0.40px] leading-[45px]">
+          <h2 className="font-figtree font-semibold text-[#101828] text-4xl tracking-[-0.40px] leading-[45px]">
             Our Story
           </h2>
 
@@ -26,7 +26,7 @@ export const MainContentSection = (): JSX.Element => {
             {textColumns.map((column, index) => (
               <p
                 key={index}
-                className="flex-1 text-base leading-6 [font-family:'Figtree',Helvetica] font-normal text-[#4a5565] tracking-[0]"
+                className="flex-1 text-base leading-6 font-figtree font-normal text-[#4a5565] tracking-[0]"
               >
                 {column.content}
               </p>

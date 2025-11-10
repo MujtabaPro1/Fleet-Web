@@ -1,5 +1,5 @@
 import React from "react";
-import { ContactUsSection } from "../../components/ui/contact/contac-us";
+import { ContactUsSection } from "../../components/ui/contact/contact-us";
 import { FeaturesOverviewSection } from "../../components/ui/contact/featured-overview";
 import { MyPage } from "@/components/layouts/types";
 

@@ -110,16 +110,16 @@ export const ServicesSection = (): JSX.Element => {
         <div className="flex flex-col flex-1 items-start gap-8">
           <div className="gap-4 flex flex-col items-start w-full">
             <div className="flex flex-col gap-3 w-full items-start">
-              <h2 className="flex items-center justify-center w-full [font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
+              <h2 className="flex items-center justify-center w-full font-figtree font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
                 Finance Lease
               </h2>
 
-              <p className="flex items-center justify-center w-full [font-family:'Figtree',Helvetica] font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
+              <p className="flex items-center justify-center w-full font-figtree font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
                 Flexibility with an Option to Own
               </p>
             </div>
 
-            <p className="text-[#101828] leading-6 w-full [font-family:'Figtree',Helvetica] font-normal text-base tracking-[0]">
+            <p className="text-[#101828] leading-6 w-full font-figtree font-normal text-base tracking-[0]">
               A rental-style financing method with a{" "}
               <span className="font-bold">mandatory residual value</span> set
               within <span className="font-bold">ATO guidelines</span>. This
@@ -142,11 +142,11 @@ export const ServicesSection = (): JSX.Element => {
 
                 <div className="flex flex-col items-start gap-4 flex-1">
                   <div className="gap-3 flex flex-col items-start w-full">
-                    <h3 className="[font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-xl leading-5 w-full tracking-[0]">
+                    <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-5 w-full tracking-[0]">
                       {section.title}
                     </h3>
 
-                    <p className="w-full [font-family:'Figtree',Helvetica] font-normal text-[#101828] text-base tracking-[0] leading-6">
+                    <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                       {section.content}
                     </p>
                   </div>
@@ -168,11 +168,11 @@ export const ServicesSection = (): JSX.Element => {
 
                 <div className="flex flex-col items-start gap-4 flex-1">
                   <div className="gap-3 flex flex-col items-start w-full">
-                    <h3 className="[font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-xl leading-5 w-full tracking-[0]">
+                    <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-5 w-full tracking-[0]">
                       {section.title}
                     </h3>
 
-                    <p className="w-full [font-family:'Figtree',Helvetica] font-normal text-[#101828] text-base tracking-[0] leading-6">
+                    <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                       {section.content}
                     </p>
                   </div>
@@ -193,11 +193,11 @@ export const ServicesSection = (): JSX.Element => {
 
               <div className="flex flex-col items-start gap-4 flex-1">
                 <div className="gap-3 flex flex-col items-start w-full">
-                  <h3 className="[font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-xl leading-5 w-full tracking-[0]">
+                  <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-5 w-full tracking-[0]">
                     {keyTakeaway.title}
                   </h3>
 
-                  <p className="w-full [font-family:'Figtree',Helvetica] font-normal text-[#101828] text-base tracking-[0] leading-6">
+                  <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                     {keyTakeaway.content}
                   </p>
                 </div>

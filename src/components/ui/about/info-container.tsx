@@ -48,7 +48,7 @@ export const InfoContainerSection = (): JSX.Element => {
 
           <Card className="w-full border border-solid shadow-shadow-sm">
             <CardContent className="flex flex-col items-center gap-4 p-8">
-              <h2 className="[font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-4xl text-center tracking-[-0.40px] leading-9">
+              <h2 className="font-figtree font-semibold text-[#101828] text-4xl text-center tracking-[-0.40px] leading-9">
                 How We Work
               </h2>
             </CardContent>
@@ -72,10 +72,10 @@ export const InfoContainerSection = (): JSX.Element => {
                   </div>
 
                   <div className="flex flex-col items-start gap-2 w-full">
-                    <h3 className="[font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-xl tracking-[0] leading-[25px]">
+                    <h3 className="font-figtree font-semibold text-[#101828] text-xl tracking-[0] leading-[25px]">
                       {step.title}
                     </h3>
-                    <p className="[font-family:'Inter',Helvetica] font-normal text-[#4a5565] text-base tracking-[0] leading-6">
+                    <p className="font-figtree font-normal text-[#4a5565] text-base tracking-[0] leading-6">
                       {step.description}
                     </p>
                   </div>

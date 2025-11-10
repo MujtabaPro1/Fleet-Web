@@ -116,16 +116,16 @@
           <div className="flex flex-col w-full max-w-[650px] items-start gap-8">
             <div className="flex flex-col items-start gap-4 w-full">
               <div className="flex flex-col items-start gap-3 w-full">
-                <h1 className="flex items-center justify-center w-full [font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
+                <h1 className="flex items-center justify-center w-full font-figtree font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
                   Operating Lease
                 </h1>
   
-                <h2 className="flex items-center justify-center w-full [font-family:'Figtree',Helvetica] font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
+                <h2 className="flex items-center justify-center w-full font-figtree font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
                   Minimal Risk. Fixed Budgeting.
                 </h2>
               </div>
   
-              <p className="w-full [font-family:'Figtree',Helvetica] font-normal text-base text-[#101828] leading-6 tracking-[0]">
+              <p className="w-full font-figtree font-normal text-base text-[#101828] leading-6 tracking-[0]">
                 A simple rental agreement where the{" "}
                 <span className="font-bold">Lessor retains ownership.</span> You
                 pay a <span className="font-bold">fixed monthly fee,</span> which
@@ -146,11 +146,11 @@
   
                     <div className="flex flex-col items-start gap-4 flex-1">
                       <div className="gap-3 flex flex-col items-start w-full">
-                        <h3 className="[font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-xl leading-5 w-full tracking-[0]">
+                        <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-5 w-full tracking-[0]">
                           {section.title}
                         </h3>
   
-                        <p className="w-full [font-family:'Figtree',Helvetica] font-normal text-[#101828] text-base tracking-[0] leading-6">
+                        <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                           {section.content}
                         </p>
                       </div>
@@ -171,11 +171,11 @@
   
                     <div className="flex flex-col items-start gap-4 flex-1">
                       <div className="gap-3 flex flex-col items-start w-full">
-                        <h3 className="[font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-xl leading-5 w-full tracking-[0]">
+                        <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-5 w-full tracking-[0]">
                           {section.title}
                         </h3>
   
-                        <p className="w-full [font-family:'Figtree',Helvetica] font-normal text-[#101828] text-base tracking-[0] leading-6">
+                        <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                           {section.content}
                         </p>
                       </div>
@@ -196,11 +196,11 @@
   
                     <div className="flex flex-col items-start gap-4 flex-1">
                       <div className="gap-3 flex flex-col items-start w-full">
-                        <h3 className="[font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-xl leading-5 w-full tracking-[0]">
+                        <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-5 w-full tracking-[0]">
                           {section.title}
                         </h3>
   
-                        <p className="w-full [font-family:'Figtree',Helvetica] font-normal text-[#101828] text-base tracking-[0] leading-6">
+                        <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                           {section.content}
                         </p>
                       </div>

@@ -50,10 +50,10 @@ export const FaqSection = (): JSX.Element => {
     <section className="flex flex-col w-full items-center gap-8 px-0 py-10 bg-gray-50">
       <Card className="w-full max-w-[768px] bg-white rounded border border-solid shadow-shadow-sm">
         <CardContent className="flex flex-col items-center gap-5 p-8">
-          <h1 className="font-semibold text-[#c70036] text-5xl text-center tracking-[-0.80px] leading-[48px] [font-family:'Figtree',Helvetica]">
+          <h1 className="font-semibold text-[#c70036] text-5xl text-center tracking-[-0.80px] leading-[48px] font-figtree">
             Frequently Asked Questions
           </h1>
-          <p className="[font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-base text-center tracking-[0] leading-6">
+          <p className="font-figtree font-normal text-[#4a5565] text-base text-center tracking-[0] leading-6">
             Answers to the most common questions from our partners and clients..
           </p>
         </CardContent>
@@ -65,7 +65,7 @@ export const FaqSection = (): JSX.Element => {
             key={sectionIndex}
             className="flex flex-col items-start gap-[18px] w-full"
           >
-            <h2 className="[font-family:'Figtree',Helvetica] font-semibold text-[#194170] text-3xl tracking-[-0.40px] leading-[37.5px]">
+            <h2 className="font-figtree font-semibold text-[#194170] text-3xl tracking-[-0.40px] leading-[37.5px]">
               {section.title}
             </h2>
             <Accordion
@@ -79,11 +79,11 @@ export const FaqSection = (): JSX.Element => {
                   value={`item-${sectionIndex}-${questionIndex}`}
                   className="bg-white rounded border border-solid shadow-shadow-sm px-6 py-5"
                 >
-                  <AccordionTrigger className="[font-family:'Figtree',Helvetica] font-medium text-[#4a5565] text-base tracking-[0] leading-6 text-left hover:no-underline">
+                  <AccordionTrigger className="font-figtree font-medium text-[#4a5565] text-base tracking-[0] leading-6 text-left hover:no-underline">
                     {question}
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="pt-4 [font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-sm tracking-[0] leading-5">
+                    <div className="pt-4 font-figtree font-normal text-[#4a5565] text-sm tracking-[0] leading-5">
                       Answer content would go here.
                     </div>
                   </AccordionContent>

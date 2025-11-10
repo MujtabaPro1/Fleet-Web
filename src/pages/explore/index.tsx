@@ -65,10 +65,10 @@ const ExploreDeals: MyPage = () => {
       <main className="flex flex-col max-w-full lg:max-w-[1280px] pt-[80px] items-center gap-10 px-4">
         <section className="flex flex-col items-start gap-6 w-full">
           <div className="flex flex-col items-start gap-2 w-full">
-            <h1 className="[font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-3xl">
+            <h1 className="font-figtree font-semibold text-[#101828] text-3xl">
               Explore by body type
             </h1>
-            <p className="[font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-lg">
+            <p className="font-figtree font-normal text-[#4a5565] text-lg">
               Select a body type that supports your business needs.
             </p>
           </div>
@@ -81,7 +81,7 @@ const ExploreDeals: MyPage = () => {
               >
                 <CardContent className="p-8 h-full flex flex-col">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-[#194170] text-3xl [font-family:'Figtree',Helvetica]">
+                    <span className="font-semibold text-[#194170] text-3xl font-figtree">
                       {card.title}
                     </span>
                     <span className="text-[#194170] text-2xl">
@@ -108,7 +108,7 @@ const ExploreDeals: MyPage = () => {
                 className="flex-1 bg-white cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <CardContent className="p-3">
-                  <p className="[font-family:'Figtree',Helvetica] font-medium text-[#4a5565] text-lg text-center tracking-[0.40px]">
+                  <p className="font-figtree font-medium text-[#4a5565] text-lg text-center tracking-[0.40px]">
                     {type}
                   </p>
                 </CardContent>
@@ -119,10 +119,10 @@ const ExploreDeals: MyPage = () => {
 
         <section className="flex flex-col items-start gap-6 w-full">
           <div className="flex flex-col items-start gap-2 w-full">
-            <h2 className="[font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-3xl">
+            <h2 className="font-figtree font-semibold text-[#101828] text-3xl">
               Explore by popular brands
             </h2>
-            <p className="[font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-lg">
+            <p className="font-figtree font-normal text-[#4a5565] text-lg">
               Build a fleet that drives your business forward.
             </p>
           </div>
@@ -140,7 +140,7 @@ const ExploreDeals: MyPage = () => {
                     src={brand.logo}
                   />
                   <div className="flex items-center justify-center gap-1.5 w-full">
-                    <span className="[font-family:'Figtree',Helvetica] font-medium text-[#194170] text-lg tracking-[0.40px]">
+                    <span className="font-figtree font-medium text-[#194170] text-lg tracking-[0.40px]">
                       {brand.name}
                     </span>
                     {brand.hasArrow && (
@@ -154,7 +154,7 @@ const ExploreDeals: MyPage = () => {
         </section>
 
         <section className="flex flex-col items-start gap-6 w-full pb-[80px]">
-          <h2 className="[font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-3xl">
+          <h2 className="font-figtree font-semibold text-[#101828] text-3xl">
             All brands
           </h2>
 
@@ -165,7 +165,7 @@ const ExploreDeals: MyPage = () => {
                 className="cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <CardContent className="p-3">
-                  <p className="[font-family:'Figtree',Helvetica] font-medium text-[#4a5565] text-lg text-center tracking-[0.40px]">
+                  <p className="font-figtree font-medium text-[#4a5565] text-lg text-center tracking-[0.40px]">
                     {brand}
                   </p>
                 </CardContent>

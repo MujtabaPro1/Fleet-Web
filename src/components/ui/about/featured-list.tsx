@@ -41,11 +41,11 @@ export const FeaturesListSection = (): JSX.Element => {
 
             <div className="flex flex-col items-start gap-6 w-full">
               <div className="flex flex-col items-start gap-4 w-full">
-                <h2 className="[font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-4xl tracking-[-0.40px] leading-[45px]">
+                <h2 className="font-figtree font-semibold text-[#101828] text-4xl tracking-[-0.40px] leading-[45px]">
                   {feature.title}
                 </h2>
 
-                <p className="[font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-base tracking-[0] leading-6">
+                <p className="font-figtree font-normal text-[#4a5565] text-base tracking-[0] leading-6">
                   {feature.description}
                 </p>
               </div>

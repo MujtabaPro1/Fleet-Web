@@ -40,16 +40,16 @@ export const FeaturesSection = ({ title, description, subDescription }: { title:
         <Card className="shadow-shadow-sm">
           <CardContent className="flex flex-col items-center gap-5 p-8">
             <div className="flex flex-col items-center gap-2 w-full">
-              <h2 className="[font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-2xl tracking-[-0.80px] leading-6">
+              <h2 className="font-figtree font-semibold text-[#101828] text-2xl tracking-[-0.80px] leading-6">
                 {title}
               </h2>
 
-              <h1 className="max-w-[932px] [font-family:'Figtree',Helvetica] font-semibold text-[#c70036] text-5xl text-center tracking-[-0.80px] leading-[48px]">
+              <h1 className="max-w-[932px] font-figtree font-semibold text-[#c70036] text-5xl text-center tracking-[-0.80px] leading-[48px]">
                 {description}
               </h1>
             </div>
 
-            <p className="[font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-base text-center tracking-[0] leading-6">
+            <p className="font-figtree font-normal text-[#4a5565] text-base text-center tracking-[0] leading-6">
               {subDescription}
             </p>
           </CardContent>
@@ -60,7 +60,7 @@ export const FeaturesSection = ({ title, description, subDescription }: { title:
             <Card key={index} className="shadow-shadow-sm">
               <CardContent className="flex flex-col items-start gap-8 p-6">
                 <div className="flex flex-col items-start gap-4 w-full">
-                  <h3 className="[font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-2xl tracking-[0] leading-9">
+                  <h3 className="font-figtree font-semibold text-[#101828] text-2xl tracking-[0] leading-9">
                     {option.title}
                   </h3>
 
@@ -71,7 +71,7 @@ export const FeaturesSection = ({ title, description, subDescription }: { title:
                         className="flex items-center gap-2 w-full"
                       >
                         <CheckCircleIcon className="w-4 h-4 flex-shrink-0 text-[#4a5565]" />
-                        <p className="flex-1 [font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-base leading-6 tracking-[0]">
+                        <p className="flex-1 font-figtree font-normal text-[#4a5565] text-base leading-6 tracking-[0]">
                           {feature}
                         </p>
                       </div>
@@ -80,7 +80,7 @@ export const FeaturesSection = ({ title, description, subDescription }: { title:
                 </div>
 
                 <Button className="h-auto inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] hover:bg-[#194170]/90 rounded shadow-shadow-xs">
-                  <span className="[font-family:'Figtree',Helvetica] font-medium text-white text-sm tracking-[0] leading-5">
+                  <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
                     Learn more
                   </span>
                   <ArrowRightIcon className="w-4 h-4" />

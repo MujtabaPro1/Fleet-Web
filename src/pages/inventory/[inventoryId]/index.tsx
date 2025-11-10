@@ -204,7 +204,7 @@ import { useState } from "react";
                 <React.Fragment key={index}>
                   <BreadcrumbItem className="flex items-center gap-1.5">
                     {item.icon && <item.icon className="w-4 h-4" />}
-                    <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                    <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 font-figtree">
                       {item.label}
                     </BreadcrumbLink>
                   </BreadcrumbItem>
@@ -224,10 +224,10 @@ import { useState } from "react";
                 <CardContent className="flex flex-col items-start gap-5 sm:gap-7 p-4 sm:p-6">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
                     <div className="flex flex-col items-start gap-2 flex-1">
-                      <h1 className="[font-family:'Figtree',Helvetica] font-semibold text-[#c70036] text-3xl leading-8">
+                      <h1 className="font-figtree font-semibold text-[#c70036] text-3xl leading-8">
                         Hyundai Tucson Leasing
                       </h1>
-                      <p className="[font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-lg leading-5">
+                      <p className="font-figtree font-normal text-[#4a5565] text-lg leading-5">
                         Drive your business forward with smarter leasing and
                         finance
                       </p>
@@ -271,13 +271,13 @@ import { useState } from "react";
               <Card className="w-full border-solid shadow-shadow-sm">
                 <CardContent className="flex flex-col items-start gap-4 sm:gap-6 p-4 sm:p-6">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
-                    <h2 className="[font-family:'Figtree',Helvetica] font-medium text-[#c70036] text-2xl leading-7">
+                    <h2 className="font-figtree font-medium text-[#c70036] text-2xl leading-7">
                       See All Available Variants Below
                     </h2>
                   </div>
   
                   <div className="flex flex-col items-start justify-center gap-3 w-full">
-                    <h3 className="[font-family:'Figtree',Helvetica] font-medium text-[#194170] text-lg leading-6">
+                    <h3 className="font-figtree font-medium text-[#194170] text-lg leading-6">
                       Select a Variant
                     </h3>
                     <div className="flex flex-wrap items-start gap-3 w-full">
@@ -292,7 +292,7 @@ import { useState } from "react";
                           }`}
                         >
                           <span
-                            className={`font-medium text-sm leading-5 [font-family:'Figtree',Helvetica] ${variant.active ? "underline" : ""}`}
+                            className={`font-medium text-sm leading-5 font-figtree ${variant.active ? "underline" : ""}`}
                           >
                             {variant.label}
                           </span>
@@ -312,7 +312,7 @@ import { useState } from "react";
                         className="flex items-center gap-1.5 pt-0 pb-4 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
                       >
                         <FileTextIcon className="w-4 h-4" />
-                        <span className="font-medium text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                        <span className="font-medium text-sm leading-5 font-figtree">
                           Vehicle Specs
                         </span>
                       </TabsTrigger>
@@ -321,7 +321,7 @@ import { useState } from "react";
                         className="flex items-center gap-1.5 pt-0 pb-4 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
                       >
                         <StarIcon className="w-4 h-4" />
-                        <span className="font-medium text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                        <span className="font-medium text-sm leading-5 font-figtree">
                           Finance &amp; Leasing Options
                         </span>
                       </TabsTrigger>
@@ -330,7 +330,7 @@ import { useState } from "react";
                         className="flex items-center gap-1.5 pt-0 pb-4 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
                       >
                         <HelpCircleIcon className="w-4 h-4" />
-                        <span className="font-medium text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                        <span className="font-medium text-sm leading-5 font-figtree">
                           Common Questions
                         </span>
                       </TabsTrigger>
@@ -339,7 +339,7 @@ import { useState } from "react";
                         className="flex items-center gap-1.5 pt-0 pb-4 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
                       >
                         <ReceiptIcon className="w-4 h-4" />
-                        <span className="font-medium text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                        <span className="font-medium text-sm leading-5 font-figtree">
                           Free Consultation
                         </span>
                       </TabsTrigger>
@@ -350,7 +350,7 @@ import { useState } from "react";
                       className="flex flex-col gap-3 mt-6"
                     >
                       <div className="flex items-center gap-6 w-full">
-                        <h3 className="flex-1 [font-family:'Figtree',Helvetica] font-medium text-[#194170] text-base md:text-lg leading-6">
+                        <h3 className="flex-1 font-figtree font-medium text-[#194170] text-base md:text-lg leading-6">
                           Vehicle Basics
                         </h3>
                       </div>
@@ -360,10 +360,10 @@ import { useState } from "react";
                           <Card key={index} className="flex-1 border-solid">
                             <CardContent className="flex flex-col items-start gap-4 p-3">
                               <div className="flex flex-col items-start h-10">
-                                <p className="font-medium text-[#101828] text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                                <p className="font-medium text-[#101828] text-sm leading-5 font-figtree">
                                   {basic.title}
                                 </p>
-                                <p className="font-normal text-[#4a5565] text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                                <p className="font-normal text-[#4a5565] text-sm leading-5 font-figtree">
                                   {basic.subtitle}
                                 </p>
                               </div>
@@ -374,7 +374,7 @@ import { useState } from "react";
   
                       <div className="flex flex-col items-start w-full mt-3">
                         <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
-                          <h3 className="flex-1 [font-family:'Figtree',Helvetica] font-medium text-[#194170] text-base md:text-lg leading-6">
+                          <h3 className="flex-1 font-figtree font-medium text-[#194170] text-base md:text-lg leading-6">
                             Engine and Performance
                           </h3>
                         </div>
@@ -385,10 +385,10 @@ import { useState } from "react";
                               key={index}
                               className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-2 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0"
                             >
-                              <span className="font-medium text-[#101828] text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                              <span className="font-medium text-[#101828] text-sm leading-5 font-figtree">
                                 {item.label}
                               </span>
-                              <span className="font-normal text-[#4a5565] text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                              <span className="font-normal text-[#4a5565] text-sm leading-5 font-figtree">
                                 {item.value}
                               </span>
                             </div>
@@ -398,7 +398,7 @@ import { useState } from "react";
   
                       <div className="flex flex-col items-start w-full mt-3">
                         <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
-                          <h3 className="flex-1 [font-family:'Figtree',Helvetica] font-medium text-[#194170] text-base md:text-lg leading-6">
+                          <h3 className="flex-1 font-figtree font-medium text-[#194170] text-base md:text-lg leading-6">
                             Safety &amp; Warranty
                           </h3>
                         </div>
@@ -409,7 +409,7 @@ import { useState } from "react";
                               key={index}
                               className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-2 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0"
                             >
-                              <span className="font-medium text-[#101828] text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                              <span className="font-medium text-[#101828] text-sm leading-5 font-figtree">
                                 {item.label}
                               </span>
                               {item.value === "stars" ? (
@@ -424,7 +424,7 @@ import { useState } from "react";
                                   ))}
                                 </div>
                               ) : (
-                                <span className="font-normal text-[#4a5565] text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                                <span className="font-normal text-[#4a5565] text-sm leading-5 font-figtree">
                                   {item.value}
                                 </span>
                               )}
@@ -442,7 +442,7 @@ import { useState } from "react";
               <Card className="w-full border-solid shadow-shadow-sm">
                 <CardContent className="flex flex-col items-start gap-9 p-6">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
-                    <h2 className="flex-1 [font-family:'Figtree',Helvetica] font-medium text-[#c70036] text-2xl leading-7">
+                    <h2 className="flex-1 font-figtree font-medium text-[#c70036] text-2xl leading-7">
                       Compare Payment Frequency Options
                     </h2>
                   </div>
@@ -463,7 +463,7 @@ import { useState } from "react";
                               : "border-r border-solid"
                           } data-[state=on]:bg-[#194170] data-[state=on]:text-white`}
                         >
-                          <span className="font-medium text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                          <span className="font-medium text-sm leading-5 font-figtree">
                             {freq.label}
                           </span>
                         </ToggleGroupItem>
@@ -473,22 +473,22 @@ import { useState } from "react";
                     <div className="flex flex-col items-start gap-2 w-full">
                       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 w-full">
                         <div className="flex items-end gap-1.5">
-                          <span className="[font-family:'Figtree',Helvetica] font-semibold text-[#c70036] text-4xl tracking-[0.80px] leading-9">
+                          <span className="font-figtree font-semibold text-[#c70036] text-4xl tracking-[0.80px] leading-9">
                             $266
                           </span>
-                          <span className="[font-family:'Figtree',Helvetica] font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-4">
+                          <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-4">
                             PER WEEKLY*
                           </span>
                         </div>
                         <Badge className="bg-[#c70036] text-white px-1.5 py-0.5 h-auto">
-                          <span className="font-medium text-sm text-center leading-4 [font-family:'Figtree',Helvetica]">
+                          <span className="font-medium text-sm text-center leading-4 font-figtree">
                             Limited-time deal
                           </span>
                         </Badge>
                       </div>
   
                       <div className="flex items-start gap-2 w-full">
-                        <span className="[font-family:'Figtree',Helvetica] font-normal text-[#6a7282] text-sm leading-5">
+                        <span className="font-figtree font-normal text-[#6a7282] text-sm leading-5">
                           Based on estimated drive-away price*
                         </span>
                         <InfoIcon className="w-5 h-5" />
@@ -502,7 +502,7 @@ import { useState } from "react";
                         className="h-auto flex-1 lg:w-auto w-full gap-1.5 px-6 py-3.5 bg-[#194170] rounded shadow-shadow-xs"
                         onClick={() => setQuoteDialogOpen(true)}
                       >
-                        <span className="font-medium text-white text-base leading-6 [font-family:'Figtree',Helvetica]">
+                        <span className="font-medium text-white text-base leading-6 font-figtree">
                           Get A Quote
                         </span>
                         <ArrowRightIcon className="w-5 h-5 text-white" />
@@ -513,7 +513,7 @@ import { useState } from "react";
                         className="h-auto flex-1 lg:w-auto w-full gap-1.5 px-6 py-3.5 bg-gray-50 rounded border-solid shadow-shadow-xs"
                       >
                         <PhoneIcon className="w-5 h-5" />
-                        <span className="font-medium text-[#4a5565] text-base leading-6 [font-family:'Figtree',Helvetica]">
+                        <span className="font-medium text-[#4a5565] text-base leading-6 font-figtree">
                           1300 352 352
                         </span>
                       </Button>
@@ -526,7 +526,7 @@ import { useState } from "react";
                 <CardContent className="flex flex-col items-start gap-5 sm:gap-7 p-4 sm:p-6">
                   <div className="flex flex-col items-start gap-2 w-full">
                     <div className="flex flex-col items-start justify-center gap-2 pt-0 pb-3 px-0 border-b border-solid w-full">
-                      <h2 className="[font-family:'Figtree',Helvetica] font-medium text-[#c70036] text-2xl leading-7">
+                      <h2 className="font-figtree font-medium text-[#c70036] text-2xl leading-7">
                         Flexible commerical leasing &amp; fiance solutions
                       </h2>
                     </div>
@@ -538,7 +538,7 @@ import { useState } from "react";
                         <div className="flex w-9 h-9 items-center justify-center bg-gray-100 rounded">
                           <CheckIcon className="w-5 h-5 text-[#194170]" />
                         </div>
-                        <span className="[font-family:'Figtree',Helvetica] font-medium text-[#101828] text-xl leading-5">
+                        <span className="font-figtree font-medium text-[#101828] text-xl leading-5">
                           {benefit.text}
                         </span>
                       </div>
@@ -553,10 +553,10 @@ import { useState } from "react";
         <Card className="w-full bg-[#194170] border-solid shadow-shadow-sm">
           <CardContent className="flex flex-col md:flex-row items-center gap-4 md:gap-6 p-4 sm:p-6">
             <div className="flex flex-col items-start gap-2 flex-1">
-              <h2 className="[font-family:'Figtree',Helvetica] font-semibold text-white text-3xl leading-8">
+              <h2 className="font-figtree font-semibold text-white text-3xl leading-8">
                 Smarter Leasing. Bigger Savings. Faster Approvals.
               </h2>
-              <p className="[font-family:'Figtree',Helvetica] font-medium text-white text-lg leading-5">
+              <p className="font-figtree font-medium text-white text-lg leading-5">
                 For Sole Traders, Partnerships, Companies, Non-for-profits &amp;
                 Government.
               </p>
@@ -565,7 +565,7 @@ import { useState } from "react";
               variant="outline"
               className="h-auto w-full md:w-60 gap-1.5 px-4 py-2.5 bg-gray-50 rounded border-solid shadow-shadow-xs"
             >
-              <span className="font-medium text-[#4a5565] text-sm leading-5 [font-family:'Figtree',Helvetica]">
+              <span className="font-medium text-[#4a5565] text-sm leading-5 font-figtree">
                 Get A Quote
               </span>
               <ArrowRightIcon className="w-4 h-4" />
@@ -577,10 +577,10 @@ import { useState } from "react";
           <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-10 w-full">
             <div className="flex flex-col w-full lg:w-[643px] items-start gap-10">
               <div className="flex flex-col items-start gap-4 w-full">
-                <h2 className="[font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-3xl tracking-[-0.40px] leading-[37.5px]">
+                <h2 className="font-figtree font-semibold text-[#101828] text-3xl tracking-[-0.40px] leading-[37.5px]">
                   Why Businesses Trust Fleet Leasing Australia?
                 </h2>
-                <p className="[font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-base leading-6">
+                <p className="font-figtree font-normal text-[#4a5565] text-base leading-6">
                   We&apos;re more than a leasing company - we&apos;re your trusted
                   partner in building a smarter, more efficient fleet. From quick
                   approvals to exclusive fleet discounts, we make business leasing
@@ -603,7 +603,7 @@ import { useState } from "react";
                             src={feature.icon}
                           />
                         </div>
-                        <h3 className="text-[#101828] text-xl leading-[25px] [font-family:'Figtree',Helvetica] font-semibold">
+                        <h3 className="text-[#101828] text-xl leading-[25px] font-figtree font-semibold">
                           {feature.title}
                         </h3>
                       </CardContent>
@@ -625,7 +625,7 @@ import { useState } from "react";
                             src={feature.icon}
                           />
                         </div>
-                        <h3 className="text-[#101828] text-xl leading-[25px] [font-family:'Figtree',Helvetica] font-semibold">
+                        <h3 className="text-[#101828] text-xl leading-[25px] font-figtree font-semibold">
                           {feature.title}
                         </h3>
                       </CardContent>
@@ -647,7 +647,7 @@ import { useState } from "react";
                             src={feature.icon}
                           />
                         </div>
-                        <h3 className="text-[#101828] text-xl leading-[25px] [font-family:'Figtree',Helvetica] font-semibold">
+                        <h3 className="text-[#101828] text-xl leading-[25px] font-figtree font-semibold">
                           {feature.title}
                         </h3>
                       </CardContent>
@@ -721,14 +721,14 @@ import { useState } from "react";
   
         <div className="flex flex-col w-full items-start gap-7 pt-0 pb-16 px-0">
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between w-full gap-3 sm:gap-0">
-            <h2 className="[font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-3xl text-center leading-8">
+            <h2 className="font-figtree font-semibold text-[#101828] text-3xl text-center leading-8">
               Explore Similar Utes for Business Lease
             </h2>
             <div className="flex w-full sm:w-auto items-center justify-between sm:justify-end gap-3">
               <Button 
               onClick={() => router.push("/explore")}
               variant="ghost" className="h-auto gap-1.5 px-3 py-2">
-                <span className="font-medium text-[#194170] text-sm leading-5 [font-family:'Figtree',Helvetica]">
+                <span className="font-medium text-[#194170] text-sm leading-5 font-figtree">
                   View all
                 </span>
               </Button>

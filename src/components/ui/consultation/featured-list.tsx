@@ -65,11 +65,11 @@ export const FeaturesListSection = (): JSX.Element => {
         <Card className="bg-gray-50 border-border shadow-shadow-sm">
           <CardContent className="flex flex-col items-start gap-6 sm:gap-8 lg:gap-12 p-4 sm:p-6 lg:p-7">
             <div className="flex flex-col items-start justify-center gap-3 sm:gap-4 w-full">
-              <h2 className="flex items-center justify-center w-full [font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-2xl sm:text-3xl lg:text-4xl tracking-[-0.40px] leading-tight sm:leading-[45px]">
+              <h2 className="flex items-center justify-center w-full font-figtree font-semibold text-[#101828] text-2xl sm:text-3xl lg:text-4xl tracking-[-0.40px] leading-tight sm:leading-[45px]">
                 What the Free Consultation Offers
               </h2>
 
-              <p className="w-full [font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-base sm:text-lg tracking-[0] leading-6 sm:leading-7">
+              <p className="w-full font-figtree font-normal text-[#4a5565] text-base sm:text-lg tracking-[0] leading-6 sm:leading-7">
                 At Fleet Leasing Australia, we know choosing the right product
                 can be complex, multiple options, tax outcomes, and brand
                 availability. That&apos;s why we offer a free, no-obligation
@@ -78,7 +78,7 @@ export const FeaturesListSection = (): JSX.Element => {
             </div>
 
             <div className="flex flex-col items-start gap-4 sm:gap-[18px] w-full">
-              <h3 className="flex items-center justify-center w-full [font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-xl sm:text-2xl tracking-[-0.40px] leading-[28px] sm:leading-[30px]">
+              <h3 className="flex items-center justify-center w-full font-figtree font-semibold text-[#101828] text-xl sm:text-2xl tracking-[-0.40px] leading-[28px] sm:leading-[30px]">
                 In one call, you&apos;ll gain:
               </h3>
 
@@ -98,11 +98,11 @@ export const FeaturesListSection = (): JSX.Element => {
                       </div>
 
                       <div className="flex flex-col items-start gap-2 w-full">
-                        <h4 className="w-full [font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-lg sm:text-xl tracking-[0] leading-5">
+                        <h4 className="w-full font-figtree font-semibold text-[#101828] text-lg sm:text-xl tracking-[0] leading-5">
                           {feature.title}
                         </h4>
 
-                        <p className="w-full font-normal text-[#4a5565] text-sm sm:text-base [font-family:'Figtree',Helvetica] tracking-[0] leading-5 sm:leading-6">
+                        <p className="w-full font-normal text-[#4a5565] text-sm sm:text-base font-figtree tracking-[0] leading-5 sm:leading-6">
                           {feature.description}
                         </p>
                       </div>
@@ -119,11 +119,11 @@ export const FeaturesListSection = (): JSX.Element => {
         <Card className="bg-[#194170] border-none shadow-shadow-sm">
           <CardContent className="flex flex-col items-start justify-center gap-6 sm:gap-8 md:gap-10 p-4 sm:p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full">
-              <h2 className="flex items-center justify-center md:justify-start [font-family:'Figtree',Helvetica] font-semibold text-white text-2xl sm:text-3xl tracking-[0] leading-7 sm:leading-8">
+              <h2 className="flex items-center justify-center md:justify-start font-figtree font-semibold text-white text-2xl sm:text-3xl tracking-[0] leading-7 sm:leading-8">
                 Ready to Get Started?
               </h2>
 
-              <p className="flex items-center justify-center md:justify-start [font-family:'Figtree',Helvetica] font-medium text-white text-base sm:text-lg tracking-[0] leading-5">
+              <p className="flex items-center justify-center md:justify-start font-figtree font-medium text-white text-base sm:text-lg tracking-[0] leading-5">
                 Your free consultation is quick, friendly, and packed with value
                 — no sales pitch, just practical advice from real fleet experts.
               </p>
@@ -134,7 +134,7 @@ export const FeaturesListSection = (): JSX.Element => {
                 variant="outline"
                 className="h-auto bg-gray-50 border-border shadow-shadow-xs hover:bg-gray-100 w-full"
               >
-                <span className="[font-family:'Figtree',Helvetica] font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">
+                <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">
                   Book a Free Consultation
                 </span>
                 <ArrowRightIcon className="w-4 h-4 ml-1.5" />
@@ -144,7 +144,7 @@ export const FeaturesListSection = (): JSX.Element => {
                 variant="outline"
                 className="h-auto bg-gray-50 border-border shadow-shadow-xs hover:bg-gray-100 w-full"
               >
-                <span className="[font-family:'Figtree',Helvetica] font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">
+                <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">
                   Talk to a Fleet Specialist – 1300 FLA FLA
                 </span>
                 <ArrowRightIcon className="w-4 h-4 ml-1.5" />
@@ -164,11 +164,11 @@ export const FeaturesListSection = (): JSX.Element => {
             />
             <CardContent className="flex flex-col items-start justify-center gap-6 sm:gap-8 lg:gap-12 p-4 sm:p-6 lg:p-7 relative z-10">
               <div className="flex flex-col items-start justify-center gap-3 sm:gap-4 w-full">
-                <h2 className="flex items-center justify-center w-full [font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-2xl sm:text-3xl lg:text-4xl tracking-[-0.40px] leading-tight sm:leading-[45px]">
+                <h2 className="flex items-center justify-center w-full font-figtree font-semibold text-[#101828] text-2xl sm:text-3xl lg:text-4xl tracking-[-0.40px] leading-tight sm:leading-[45px]">
                   Why Choose Our Experts
                 </h2>
 
-                <p className="w-full [font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-base sm:text-lg tracking-[0] leading-6 sm:leading-7">
+                <p className="w-full font-figtree font-normal text-[#4a5565] text-base sm:text-lg tracking-[0] leading-6 sm:leading-7">
                   We&apos;ve helped hundreds of Australian businesses reduce
                   fleet costs, unlock cash flow, and scale with smarter finance.
                 </p>
@@ -184,7 +184,7 @@ export const FeaturesListSection = (): JSX.Element => {
                       <img className="w-6 h-6 sm:w-7 sm:h-7" alt="Icon" src={reason.icon} />
                     </div>
 
-                    <p className="flex-1 [font-family:'Figtree',Helvetica] font-medium text-[#0b1c31] text-sm sm:text-base tracking-[0] leading-5 sm:leading-6">
+                    <p className="flex-1 font-figtree font-medium text-[#0b1c31] text-sm sm:text-base tracking-[0] leading-5 sm:leading-6">
                       {reason.text}
                     </p>
                   </div>
@@ -201,11 +201,11 @@ export const FeaturesListSection = (): JSX.Element => {
             />
             <CardContent className="flex flex-col items-start justify-center gap-6 sm:gap-8 lg:gap-12 p-4 sm:p-6 lg:p-7 relative z-10">
               <div className="flex flex-col items-start justify-center gap-3 sm:gap-4 w-full">
-                <h2 className="flex items-center justify-center w-full [font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-2xl sm:text-3xl lg:text-4xl tracking-[-0.40px] leading-tight sm:leading-[45px]">
+                <h2 className="flex items-center justify-center w-full font-figtree font-semibold text-[#101828] text-2xl sm:text-3xl lg:text-4xl tracking-[-0.40px] leading-tight sm:leading-[45px]">
                   What&apos;s Included
                 </h2>
 
-                <p className="w-full [font-family:'Figtree',Helvetica] font-normal text-[#4a5565] text-base sm:text-lg tracking-[0] leading-6 sm:leading-7">
+                <p className="w-full font-figtree font-normal text-[#4a5565] text-base sm:text-lg tracking-[0] leading-6 sm:leading-7">
                   Each session is handled by an experienced specialist who
                   understands your industry, budget, and structure.
                 </p>
@@ -218,12 +218,12 @@ export const FeaturesListSection = (): JSX.Element => {
                     className="flex items-center gap-2 p-3 sm:p-4 w-full bg-white rounded border border-solid border-[#d4e3f5]"
                   >
                     <div className="rounded flex w-10 h-10 sm:w-12 sm:h-12 items-center justify-center bg-[#fafcfe] shrink-0">
-                      <span className="[font-family:'Figtree',Helvetica] font-medium text-[#194170] text-lg sm:text-xl tracking-[0] leading-6">
+                      <span className="font-figtree font-medium text-[#194170] text-lg sm:text-xl tracking-[0] leading-6">
                         {item.number}
                       </span>
                     </div>
 
-                    <p className="flex-1 [font-family:'Figtree',Helvetica] font-medium text-[#0b1c31] text-sm sm:text-base tracking-[0] leading-5 sm:leading-6">
+                    <p className="flex-1 font-figtree font-medium text-[#0b1c31] text-sm sm:text-base tracking-[0] leading-5 sm:leading-6">
                       {item.text}
                     </p>
                   </div>
@@ -238,11 +238,11 @@ export const FeaturesListSection = (): JSX.Element => {
         <Card className="bg-[#194170] border-none shadow-shadow-sm">
           <CardContent className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6">
             <div className="flex flex-col items-start gap-2 flex-1">
-              <h2 className="flex items-center justify-center w-full [font-family:'Figtree',Helvetica] font-semibold text-white text-xl sm:text-2xl md:text-3xl tracking-[0] leading-7 sm:leading-8">
+              <h2 className="flex items-center justify-center w-full font-figtree font-semibold text-white text-xl sm:text-2xl md:text-3xl tracking-[0] leading-7 sm:leading-8">
                 Smarter Leasing. Bigger Savings. Faster Approvals.
               </h2>
 
-              <p className="w-full flex items-center justify-center [font-family:'Figtree',Helvetica] font-medium text-white text-base sm:text-lg tracking-[0] leading-5">
+              <p className="w-full flex items-center justify-center font-figtree font-medium text-white text-base sm:text-lg tracking-[0] leading-5">
                 For Sole Traders, Partnerships, Companies, Non-for-profits &amp;
                 Government.
               </p>
