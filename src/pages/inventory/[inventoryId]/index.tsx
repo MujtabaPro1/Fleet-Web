@@ -12,7 +12,7 @@ import {
     ReceiptIcon,
     StarIcon,
   } from "lucide-react";
-  import React from "react";
+  import React, { useEffect } from "react";
   import { Badge } from "@/components/ui/badge";
   import {
     Breadcrumb,
@@ -39,6 +39,7 @@ import { SmallVehicleCard } from "@/components/small-vehicle-card";
 import { QuoteRequestDialog } from "@/components/quote-request-dialog";
 
 
+
 const orderRideSvg = "/assets/images/svg/undraw_order-ride_4gaq.svg";
 const confirmationSvg = "/assets/images/svg/undraw_confirmation_31jc.svg";
 const orderCarSvg = "/assets/images/svg/undraw_order-a-car_x5mq.svg";
@@ -56,6 +57,8 @@ const trustSvg6 = "/assets/images/svg/trust/trust-6.svg";
 const starSvg = "/assets/images/svg/star-rating.svg";
 
 import { useState } from "react";
+import axiosInstance from "@/service/api";
+import { useSearchParams } from "next/navigation";
 
   
   const breadcrumbItems = [
@@ -190,8 +193,31 @@ import { useState } from "react";
   const CarDetail: MyPage = () => {
     const router = useRouter();
     const { carID } = router.query;
-    const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);  
-    const [selectedVariant, setSelectedVariant] = useState(variants[0]);
+    const params = useSearchParams();
+    const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
+    const [car, setCar] = useState<any>(null);
+    const [selectedVariant, setSelectedVariant] = useState<any>(null);
+
+    useEffect(()=>{
+      const slug = params.get('inventoryId');
+      if (slug) {
+        console.log('slug', slug);
+        getCarDetails(slug);
+      }
+    },[params])
+
+    const getCarDetails = (inventoryId: string) => {
+      axiosInstance.get(`/v1/cars/slug/${inventoryId}`).then((response) => {
+        console.log(response.data);
+        setCar(response.data);
+        // Set the first variant as the selected variant if available
+        if (response.data?.variants && response.data.variants.length > 0) {
+          setSelectedVariant(response.data.variants[0]);
+        }
+      }).catch((error) => {
+        console.error('Error fetching car details:', error);
+      });
+    }
     
     return (
         <div className="flex flex-col items-center gap-8 bg-gray-50 overflow-hidden">
@@ -225,7 +251,7 @@ import { useState } from "react";
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
                     <div className="flex flex-col items-start gap-2 flex-1">
                       <h1 className="font-figtree font-semibold text-[#c70036] text-3xl leading-8">
-                        Hyundai Tucson Leasing
+                        {car?.brand?.name} {car?.modelName} Leasing
                       </h1>
                       <p className="font-figtree font-normal text-[#4a5565] text-lg leading-5">
                         Drive your business forward with smarter leasing and
@@ -238,7 +264,7 @@ import { useState } from "react";
                       <img
                         className="w-full h-full object-contain"
                         alt="Vehicle images"
-                        src="/assets/images/dpv-banner.png"
+                        src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/dpv-banner.png"}
                       />
                     </div>
                     <div className="flex flex-row md:flex-col gap-3 md:w-[100px] overflow-x-auto md:overflow-x-visible">
@@ -246,21 +272,21 @@ import { useState } from "react";
                         <img
                           className="w-full h-full object-contain"
                           alt="Vehicle front view"
-                          src="/assets/images/dpv-banner.png"
+                          src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/dpv-banner.png"}
                         />
                       </div>
                       <div className="h-[80px] md:h-[128px] min-w-[80px] md:min-w-0 border-2 border-transparent hover:border-[#194170] rounded overflow-hidden cursor-pointer transition-all">
                         <img
                           className="w-full h-full object-contain"
                           alt="Vehicle side view"
-                          src="/assets/images/dpv-banner.png"
+                          src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/dpv-banner.png"}
                         />
                       </div>
                       <div className="h-[80px] md:h-[128px] min-w-[80px] md:min-w-0 border-2 border-transparent hover:border-[#194170] rounded overflow-hidden cursor-pointer transition-all">
                         <img
                           className="w-full h-full object-contain"
                           alt="Vehicle rear view"
-                          src="/assets/images/dpv-banner.png"
+                          src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/dpv-banner.png"}
                         />
                       </div>
                     </div>
@@ -281,20 +307,21 @@ import { useState } from "react";
                       Select a Variant
                     </h3>
                     <div className="flex flex-wrap items-start gap-3 w-full">
-                      {variants.map((variant) => (
+                      {car?.variants && car.variants.map((variant: any, index: number) => (
                         <Button
-                          key={variant.id}
-                          variant={variant.active ? "default" : "outline"}
+                          key={variant.uid}
+                          variant={selectedVariant?.uid === variant.uid ? "default" : "outline"}
                           className={`h-auto w-full sm:w-auto flex-1 sm:flex-none px-3 py-2 ${
-                            variant.active
+                            selectedVariant?.uid === variant.uid
                               ? "bg-[#194170] text-white shadow-shadow-xs"
                               : "bg-gray-50 text-[#4a5565] border-solid shadow-shadow-xs"
                           }`}
+                          onClick={() => setSelectedVariant(variant)}
                         >
                           <span
-                            className={`font-medium text-sm leading-5 font-figtree ${variant.active ? "underline" : ""}`}
+                            className={`font-medium text-sm leading-5 font-figtree ${selectedVariant?.uid === variant.uid ? "underline" : ""}`}
                           >
-                            {variant.label}
+                            {variant.variant || variant.baseVariant}
                           </span>
                         </Button>
                       ))}
@@ -304,133 +331,201 @@ import { useState } from "react";
               </Card>
   
               <Card className="w-full border-solid shadow-shadow-sm">
-                <CardContent className="flex flex-col items-start gap-4 sm:gap-6 p-4 sm:p-6">
+                <CardContent className="flex flex-col items-start gap-4 sm:gap-6 p-4 sm:p-6 mt-[40px]">
                   <Tabs defaultValue="specs" className="w-full">
-                    <TabsList className="flex flex-wrap items-center gap-4 md:gap-6 w-full border-b border-solid bg-transparent h-auto p-0">
-                      <TabsTrigger
-                        value="specs"
-                        className="flex items-center gap-1.5 pt-0 pb-4 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
-                      >
-                        <FileTextIcon className="w-4 h-4" />
-                        <span className="font-medium text-sm leading-5 font-figtree">
-                          Vehicle Specs
-                        </span>
-                      </TabsTrigger>
-                      <TabsTrigger
-                        value="finance"
-                        className="flex items-center gap-1.5 pt-0 pb-4 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
-                      >
-                        <StarIcon className="w-4 h-4" />
-                        <span className="font-medium text-sm leading-5 font-figtree">
-                          Finance &amp; Leasing Options
-                        </span>
-                      </TabsTrigger>
-                      <TabsTrigger
-                        value="questions"
-                        className="flex items-center gap-1.5 pt-0 pb-4 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
-                      >
-                        <HelpCircleIcon className="w-4 h-4" />
-                        <span className="font-medium text-sm leading-5 font-figtree">
-                          Common Questions
-                        </span>
-                      </TabsTrigger>
-                      <TabsTrigger
-                        value="consultation"
-                        className="flex items-center gap-1.5 pt-0 pb-4 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
-                      >
-                        <ReceiptIcon className="w-4 h-4" />
-                        <span className="font-medium text-sm leading-5 font-figtree">
-                          Free Consultation
-                        </span>
-                      </TabsTrigger>
+                    <TabsList className="flex flex-col w-full bg-transparent p-0">
+                      <div className="flex items-center gap-8 md:gap-12 pb-4 border-b border-solid">
+                        <TabsTrigger
+                          value="specs"
+                          className="flex items-center gap-2 pt-0 pb-2 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
+                        >
+                          <FileTextIcon className="w-5 h-5 text-gray-700" />
+                          <span className="font-medium text-lg leading-5 font-figtree text-gray-700">
+                            Vehicle Specs
+                          </span>
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="finance"
+                          className="flex items-center gap-2 pt-0 pb-2 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
+                        >
+                          <StarIcon className="w-5 h-5 text-gray-700" />
+                          <span className="font-medium text-lg leading-5 font-figtree text-gray-700">
+                            Finance &amp; Leasing Options
+                          </span>
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="questions"
+                          className="flex items-center gap-2 pt-0 pb-2 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
+                        >
+                          <HelpCircleIcon className="w-5 h-5 text-gray-700" />
+                          <span className="font-medium text-lg leading-5 font-figtree text-gray-700">
+                            Common Questions
+                          </span>
+                        </TabsTrigger>
+                      </div>
+                      <div className="pt-4 pb-2">
+                        <TabsTrigger
+                          value="consultation"
+                          className="flex items-center gap-2 pt-0 pb-2 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
+                        >
+                          <ReceiptIcon className="w-5 h-5 text-gray-700" />
+                          <span className="font-medium text-lg leading-5 font-figtree text-gray-700">
+                            Free Consultation
+                          </span>
+                        </TabsTrigger>
+                      </div>
                     </TabsList>
   
                     <TabsContent
                       value="specs"
-                      className="flex flex-col gap-3 mt-6"
+                      className="flex flex-col gap-6 mt-8"
                     >
-                      <div className="flex items-center gap-6 w-full">
-                        <h3 className="flex-1 font-figtree font-medium text-[#194170] text-base md:text-lg leading-6">
+                      <div className="flex flex-col items-start gap-4 w-full">
+                        <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-6">
                           Vehicle Basics
                         </h3>
+                      
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+                          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <div className="flex flex-col gap-1">
+                              <p className="font-medium text-[#101828] text-lg leading-6 font-figtree">
+                                {selectedVariant?.baseVariant || car?.bodyType || "Wagon, 4 seats, 4 door"}
+                              </p>
+                              <p className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                                Body type
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <div className="flex flex-col gap-1">
+                              <p className="font-medium text-[#101828] text-lg leading-6 font-figtree">
+                                {selectedVariant?.transmission?.includes("AWD") ? "AWD" : "2WD (Front Wheel Drive)"}
+                              </p>
+                              <p className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                                Drive type
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <div className="flex flex-col gap-1">
+                              <p className="font-medium text-[#101828] text-lg leading-6 font-figtree">
+                                {selectedVariant?.engine || "Unleaded Petrol"}
+                              </p>
+                              <p className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                                Fuel type
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
   
-                      <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-[18px] w-full">
-                        {vehicleBasics.map((basic, index) => (
-                          <Card key={index} className="flex-1 border-solid">
-                            <CardContent className="flex flex-col items-start gap-4 p-3">
-                              <div className="flex flex-col items-start h-10">
-                                <p className="font-medium text-[#101828] text-sm leading-5 font-figtree">
-                                  {basic.title}
-                                </p>
-                                <p className="font-normal text-[#4a5565] text-sm leading-5 font-figtree">
-                                  {basic.subtitle}
-                                </p>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-  
-                      <div className="flex flex-col items-start w-full mt-3">
+                      <div className="flex flex-col items-start w-full">
                         <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
-                          <h3 className="flex-1 font-figtree font-medium text-[#194170] text-base md:text-lg leading-6">
+                          <h3 className="flex-1 font-figtree font-semibold text-[#194170] text-xl leading-6">
                             Engine and Performance
                           </h3>
                         </div>
   
                         <div className="flex flex-col items-start w-full">
-                          {enginePerformance.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-2 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0"
-                            >
-                              <span className="font-medium text-[#101828] text-sm leading-5 font-figtree">
-                                {item.label}
-                              </span>
-                              <span className="font-normal text-[#4a5565] text-sm leading-5 font-figtree">
-                                {item.value}
-                              </span>
-                            </div>
-                          ))}
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
+                            <span className="font-medium text-[#101828] text-base leading-5 font-figtree">
+                              Engine
+                            </span>
+                            <span className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                              {selectedVariant?.engine || "--"}
+                            </span>
+                          </div>
+                          
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
+                            <span className="font-medium text-[#101828] text-base leading-5 font-figtree">
+                              Engine Size
+                            </span>
+                            <span className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                              {selectedVariant?.engineSize ? `${selectedVariant.engineSize}L` : "--"}
+                            </span>
+                          </div>
+                          
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
+                            <span className="font-medium text-[#101828] text-base leading-5 font-figtree">
+                              Transmission
+                            </span>
+                            <span className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                              {selectedVariant?.transmission || "--"}
+                            </span>
+                          </div>
                         </div>
                       </div>
   
-                      <div className="flex flex-col items-start w-full mt-3">
+                      <div className="flex flex-col items-start w-full">
                         <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
-                          <h3 className="flex-1 font-figtree font-medium text-[#194170] text-base md:text-lg leading-6">
+                          <h3 className="flex-1 font-figtree font-semibold text-[#194170] text-xl leading-6">
                             Safety &amp; Warranty
                           </h3>
                         </div>
   
                         <div className="flex flex-col items-start w-full">
-                          {safetyWarranty.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-2 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0"
-                            >
-                              <span className="font-medium text-[#101828] text-sm leading-5 font-figtree">
-                                {item.label}
-                              </span>
-                              {item.value === "stars" ? (
-                                <div className="flex items-center gap-1">
-                                  {[...Array(item.rate)].map((_, i) => (
-                                    <img
-                                      key={i}
-                                      className="w-4 h-4"
-                                      alt="Star"
-                                      src="/star.svg"
-                                    />
-                                  ))}
-                                </div>
-                              ) : (
-                                <span className="font-normal text-[#4a5565] text-sm leading-5 font-figtree">
-                                  {item.value}
-                                </span>
-                              )}
-                            </div>
-                          ))}
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
+                            <span className="font-medium text-[#101828] text-base leading-5 font-figtree">
+                              ANCAP Rating
+                            </span>
+                            <span className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                              {selectedVariant?.ancapRating || "--"}
+                            </span>
+                          </div>
+                          
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
+                            <span className="font-medium text-[#101828] text-base leading-5 font-figtree">
+                              Warranty
+                            </span>
+                            <span className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                              {selectedVariant?.warrantyText || "--"}
+                            </span>
+                          </div>
+                          
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
+                            <span className="font-medium text-[#101828] text-base leading-5 font-figtree">
+                              Service Interval
+                            </span>
+                            <span className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                              {selectedVariant?.serviceIntervalText || "--"}
+                            </span>
+                          </div>
                         </div>
+                      </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="finance" className="flex flex-col gap-6 mt-8">
+                      <div className="flex flex-col items-start gap-4 w-full">
+                        <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-6">
+                          Finance & Leasing Options
+                        </h3>
+                        <p className="text-[#4a5565] text-base leading-6">
+                          We offer flexible finance and leasing options to suit your business needs.
+                        </p>
+                      </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="questions" className="flex flex-col gap-6 mt-8">
+                      <div className="flex flex-col items-start gap-4 w-full">
+                        <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-6">
+                          Common Questions
+                        </h3>
+                        <p className="text-[#4a5565] text-base leading-6">
+                          Find answers to frequently asked questions about leasing this vehicle.
+                        </p>
+                      </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="consultation" className="flex flex-col gap-6 mt-8">
+                      <div className="flex flex-col items-start gap-4 w-full">
+                        <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-6">
+                          Free Consultation
+                        </h3>
+                        <p className="text-[#4a5565] text-base leading-6">
+                          Speak with our leasing specialists to get personalized advice for your business.
+                        </p>
                       </div>
                     </TabsContent>
                   </Tabs>
@@ -474,7 +569,7 @@ import { useState } from "react";
                       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 w-full">
                         <div className="flex items-end gap-1.5">
                           <span className="font-figtree font-semibold text-[#c70036] text-4xl tracking-[0.80px] leading-9">
-                            $266
+                            ${selectedVariant?.weeklyPrice || "--"}
                           </span>
                           <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-4">
                             PER WEEKLY*
@@ -777,9 +872,9 @@ import { useState } from "react";
         <QuoteRequestDialog 
           open={quoteDialogOpen} 
           onOpenChange={setQuoteDialogOpen} 
-          vehicleName="Hyundai Tucson"
-          selectedVariant={selectedVariant.id}
-          variants={variants.map(v => ({ id: v.id, name: v.label }))}
+          vehicleName={car ? `${car.brand?.name} ${car.modelName}` : ""}
+          selectedVariant={selectedVariant?.uid}
+          variants={car?.variants ? car.variants.map((v: any) => ({ id: v.uid, name: v.variant || v.baseVariant })) : []}
         />
       </div>
       

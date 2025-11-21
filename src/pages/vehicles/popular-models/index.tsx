@@ -21,6 +21,8 @@ import { Label } from "@/components/ui/label";
 import { SearchIcon, XIcon } from "lucide-react";
 import { SmallVehicleCard } from "@/components/small-vehicle-card";
 import { useRouter } from "next/router";
+import axiosInstance from "@/service/api";
+import { useEffect } from "react";
 
 
 const utesVehicles = [
@@ -76,7 +78,45 @@ const [selectedFilter, setSelectedFilter] = useState<string>("");
 const [searchQuery, setSearchQuery] = useState<string>("");
 const router = useRouter();
 
-const bodyTypes = ["Utes", "SUVs", "Vans", "Mini bus", "Sedans", "Hatchback", "Coupe"];
+const [bodyTypes, setBodyTypes] = useState<string[]>([]);
+
+
+  const [cars, setCars] = useState<any>([]);
+
+  useEffect(()=>{
+    getCars();
+  },[]);
+    
+  const getCars = () => {
+    // Build query parameters
+    const params = new URLSearchParams();
+    
+    // Add basic pagination params
+    params.append('page', '1');
+    params.append('limit', '100');
+    params.append('tags', 'Popular Model');
+    
+   
+    console.log(params.toString());
+   
+
+    
+    // Make the API call
+    axiosInstance.get(`/v1/cars/search?${params.toString()}`)
+      .then(response => {
+        console.log(response.data);
+        // Extract body types and remove duplicates using Set
+        const uniqueBodyTypes: string[] = Array.from(new Set(response.data.data.map((car: any) => car.bodyType)));
+        setBodyTypes(uniqueBodyTypes);
+        setCars(response.data.data || []);
+      })
+      .catch(error => {
+        console.error('Error fetching cars:', error);
+      });
+  }
+  
+
+
 
 const handleFilterClick = (filter: string) => {
   if (selectedFilter === filter) {
@@ -85,6 +125,9 @@ const handleFilterClick = (filter: string) => {
     setSelectedFilter(filter);
   }
 };
+
+// Filter cars based on selected body type
+const filteredCars = selectedFilter ? cars.filter((car: any) => car.bodyType === selectedFilter) : cars;
 
 const Content = ({ title }: { title: string }) => {
   return (
@@ -127,19 +170,25 @@ const Content = ({ title }: { title: string }) => {
 
     <div className="relative w-full">
       <div className="overflow-x-auto pb-4 hide-scrollbar">
-        <div className="flex gap-6 min-w-max">
-          {utesVehicles.map((vehicle, index) => (
+        {filteredCars.length > 0 ? (
+          <div className="flex gap-6 min-w-max">
+            {filteredCars.map((vehicle: any, index: any) => (
             <div key={index} className="w-[350px] flex-shrink-0">
               <SmallVehicleCard 
-                image={vehicle.image}
+                image={'https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/' + vehicle.NVIC}
                 name={vehicle.name}
                 type={vehicle.type}
                 fuel={vehicle.fuel}
-                price={vehicle.price}
+                price={vehicle.rentalPrice}
               />
             </div>
           ))}
-        </div>
+          </div>
+        ) : (
+          <div className="flex justify-center items-center py-10 w-full">
+            <p className="text-gray-500">No vehicles found for the selected body type.</p>
+          </div>
+        )}
       </div>
       <div className="flex lg:hidden justify-center items-center gap-2 mt-6">
           <Button
@@ -214,20 +263,8 @@ const Content = ({ title }: { title: string }) => {
         </section>
 
         </div>
-
-         
-    
-          
-
-          <Content title="Popular Utes for Business Lease"/>
-          <Content title="Popular SUVs for Business Lease"/> 
-          <Content title="Popular Vans for Business Lease"/>
-          <Content title="Popular Mini Bus for Business Lease" />
-          <Content title="Popular Sedans for Business Lease" />
-          <Content title="Popular Hatchbacks for Business Lease" />
-          <Content title="Popular Coupe for Business Lease" />
-
-      
+        <Content title={`Popular ${selectedFilter ? selectedFilter + 's' : 'Models'} for Business Lease`}/>
+       
       </div>
 
 

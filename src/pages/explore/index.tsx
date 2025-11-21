@@ -1,8 +1,9 @@
 import { ArrowRightIcon } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "../../components/ui/card";
 import { MyPage } from "@/components/layouts/types";
-
+import axiosInstance from "@/service/api";
+import { useRouter } from "next/router";
 
 const bodyTypeCards = [
   {
@@ -42,23 +43,30 @@ const popularBrands = [
   { name: "Mercedes-Benz", logo: "/assets/images/brand-logo/mercedes.png", hasArrow: true },
 ];
 
-const allBrands = [
-  ["Abarth", "Alfa Romeo", "Aston Martin", "Audi", "Bentley"],
-  ["BMW", "BYD", "Chery", "Chevrolet", "Cupra"],
-  ["Ferrari", "Fiat", "Ford", "Foton", "Genesis"],
-  ["GWM", "Hino", "Honda", "Hyundai", "INEOS"],
-  ["Isuzu", "Iveco", "JAC", "Jaguar", "Jeep"],
-  ["Kia", "Lamborghini", "Land Rover", "LDV", "Lexus"],
-  ["Lotus", "Maserati", "Mazda", "McLaren", "Mercedes-Benz"],
-  ["MG", "MINI", "Mitsubishi", "Nissan", "Peugeot"],
-  ["Polestar", "Porsche", "RAM", "Renault", "Rolls Royce"],
-  ["Skoda", "Skywell", "Ssang Yong", "Subaru", "Suzuki"],
-  ["Tesla", "Tinc", "Toyota", "Volkswagen", "Volvo"],
-];
-
 
 
 const ExploreDeals: MyPage = () => {
+
+  const [allBrands, setAllBrands] = useState<any>([]);
+  const router = useRouter();
+
+  useEffect(()=>{
+    getAllBrands();
+  },[]);
+    
+  const getAllBrands = () => {
+ 
+    // Make the API call
+    axiosInstance.get(`/v1/car-brands`)
+      .then(response => {
+        console.log(response.data);
+        setAllBrands(response.data || []);
+      })
+      .catch(error => {
+        console.error('Error fetching brands:', error);
+      });
+  }
+
   return (
     <div className="flex flex-col items-center gap-8 bg-gray-50 overflow-hidden">
     
@@ -77,6 +85,7 @@ const ExploreDeals: MyPage = () => {
             {bodyTypeCards.map((card, index) => (
               <Card
                 key={index}
+                   onClick={() => router.push(`/inventory?bodyType=${card.title.toUpperCase()}`)}
                 className="h-[320px] overflow-hidden cursor-pointer hover:shadow-lg transition-shadow relative bg-white rounded-xl border border-gray-100"
               >
                 <CardContent className="p-8 h-full flex flex-col">
@@ -105,6 +114,7 @@ const ExploreDeals: MyPage = () => {
             {smallBodyTypes.map((type, index) => (
               <Card
                 key={index}
+                onClick={() => router.push(`/inventory?bodyType=${type.toUpperCase()}`)}
                 className="flex-1 bg-white cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <CardContent className="p-3">
@@ -131,6 +141,7 @@ const ExploreDeals: MyPage = () => {
             {popularBrands.map((brand, index) => (
               <Card
                 key={index}
+                 onClick={() => router.push(`/inventory?brand=${brand.name}`)}
                 className="cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <CardContent className="p-5 flex flex-col items-center gap-6">
@@ -159,14 +170,15 @@ const ExploreDeals: MyPage = () => {
           </h2>
 
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 w-full">
-            {allBrands.flat().map((brand, index) => (
+            {allBrands.flat().map((brand: any, index: any) => (
               <Card
                 key={index}
+                onClick={() => router.push(`/inventory?brand=${brand.name}`)}
                 className="cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <CardContent className="p-3">
                   <p className="font-figtree font-medium text-[#4a5565] text-lg text-center tracking-[0.40px]">
-                    {brand}
+                    {brand.name}
                   </p>
                 </CardContent>
               </Card>

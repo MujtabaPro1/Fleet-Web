@@ -4,6 +4,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import DynamicContent from '@/components/common/DynamicContent';
 
 const PopularModels: MyPage = () => {
+
+
   return (
     <>
       <Head>

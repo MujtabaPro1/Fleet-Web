@@ -6,7 +6,7 @@ import {
     HomeIcon,
     StarIcon,
   } from "lucide-react";
-  import React, { useState } from "react";
+  import React, { useEffect, useState } from "react";
   import { Badge } from "@/components/ui/badge";
   import { Button } from "@/components/ui/button";
   import { Card, CardContent } from "@/components/ui/card";
@@ -20,6 +20,7 @@ import {
   import { Switch } from "@/components/ui/switch";
 import SiteFooterSection from "@/components/footer/footer";
 import { useRouter } from "next/navigation";
+import axiosInstance from "@/service/api";
 
   const vehicleData = [
     { id: 1, image: "/assets/images/car-image.png" },
@@ -40,6 +41,111 @@ const LimitedTime = (): JSX.Element => {
   const [limitedDealsEnabled, setLimitedDealsEnabled] = useState<boolean>(true);
   const [sortOption, setSortOption] = useState<string>("recent");
   const router = useRouter();
+  const [brands, setBrands] = useState([]);
+  const [bodyType, setBodyType] = useState([]);
+  const [cars, setCars] = useState([]);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(1);
+  
+  // Filter states
+  const [selectedBrand, setSelectedBrand] = useState<string>("");
+  const [selectedBodyType, setSelectedBodyType] = useState<string>("");
+  const [priceRange, setPriceRange] = useState<string>("");
+
+
+  useEffect(()=>{
+    getBrands();
+    getBodyTypes();
+    getCars();
+  },[page, limitedDealsEnabled, selectedBrand, selectedBodyType, priceRange])
+
+  const getBrands = () => {
+    axiosInstance.get('/v1/car-brands')
+      .then(response => {
+        console.log(response.data);
+        setBrands(response.data);;
+      })
+      .catch(error => {
+        console.error('Error fetching brands:', error);
+      });
+  }
+
+  const getBodyTypes = () => {
+    axiosInstance.get('/v1/car-body-types/grouped-list')
+      .then(response => {
+        console.log(response.data);
+        setBodyType(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching body types:', error);
+      });
+  }
+
+  const getCars = () => {
+    // Build query parameters
+    const params = new URLSearchParams();
+    
+    // Add basic pagination params
+    params.append('page', page.toString());
+    params.append('limit', '10');
+    
+    // Add filter params if they exist
+    if (limitedDealsEnabled) {
+      params.append('tags', 'Limited Time Offer');
+    }
+    
+    if (selectedBrand) {
+      params.append('brand', selectedBrand);
+    }
+    
+    if (selectedBodyType) {
+      params.append('bodyType', selectedBodyType);
+    }
+    
+    // Handle price range
+    if (priceRange) {
+      const [min, max] = getPriceRangeValues(priceRange);
+      if (min) params.append('weeklyMin', min);
+      if (max) params.append('weeklyMax', max);
+    }
+    
+    // Make the API call
+    axiosInstance.get(`/v1/cars/search?${params.toString()}`)
+      .then(response => {
+        console.log(response.data);
+        setCars(response.data.data || []);
+        setTotalItems(response.data.total || 0);
+        setTotalPages(response.data.totalPages || 1);
+      })
+      .catch(error => {
+        console.error('Error fetching cars:', error);
+      });
+  }
+  
+  // Helper function to extract min and max values from price range
+  const getPriceRangeValues = (range: string): [string, string] => {
+    switch (range) {
+      case '0-200':
+        return ['0', '200'];
+      case '200-400':
+        return ['200', '400'];
+      case '400+':
+        return ['400', ''];
+      default:
+        return ['', ''];
+    }
+  }
+  
+  // Reset all filters
+  const resetFilters = () => {
+    setLimitedDealsEnabled(false);
+    setSelectedBrand('');
+    setSelectedBodyType('');
+    setPriceRange('');
+    setPage(1);
+  }
+
     return (
 
         <>
@@ -85,25 +191,27 @@ const LimitedTime = (): JSX.Element => {
                         onCheckedChange={setLimitedDealsEnabled}
                       />
                       <span className="font-figtree font-semibold text-[#101828] text-sm tracking-[0] leading-5">
-                        Limited-time deals (33)
+                        Limited-time deals
                       </span>
                     </div>
   
-                    <Select>
+                    <Select value={selectedBrand} onValueChange={setSelectedBrand}>
                       <SelectTrigger className="w-full bg-white rounded border border-solid shadow-shadow-xs h-10">
                         <SelectValue
                           placeholder="Brand"
                           className="font-figtree font-normal text-[#101828] text-sm tracking-[0] leading-5"
                         />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="toyota">Toyota</SelectItem>
-                        <SelectItem value="honda">Honda</SelectItem>
-                        <SelectItem value="ford">Ford</SelectItem>
+                      <SelectContent className="font-figtree">
+                        {brands.map((brand: any) => (
+                          <SelectItem key={brand.id} value={brand.name}>
+                            {brand.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
   
-                    <Select>
+                    <Select value={selectedBodyType} onValueChange={setSelectedBodyType}>
                       <SelectTrigger className="w-full bg-white rounded border border-solid shadow-shadow-xs h-10">
                         <SelectValue
                           placeholder="Body type"
@@ -111,13 +219,15 @@ const LimitedTime = (): JSX.Element => {
                         />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="suv">SUV</SelectItem>
-                        <SelectItem value="sedan">Sedan</SelectItem>
-                        <SelectItem value="truck">Truck</SelectItem>
+                        {bodyType.map((body: any) => (
+                          <SelectItem key={body.alternateName} value={body.alternateName}>
+                            {body.alternateName}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
   
-                    <Select>
+                    <Select value={priceRange} onValueChange={setPriceRange}>
                       <SelectTrigger className="w-full bg-white rounded border border-solid shadow-shadow-xs h-10">
                         <SelectValue
                           placeholder="Price per week"
@@ -131,13 +241,22 @@ const LimitedTime = (): JSX.Element => {
                       </SelectContent>
                     </Select>
                   </div>
+                  
+                  <div className="flex justify-end w-full">
+                    <Button 
+                      variant="outline" 
+                      onClick={resetFilters}
+                      className="bg-white rounded border border-solid shadow-shadow-xs">
+                      Reset Filters
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
   
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full space-y-3 md:space-y-0 py-2 md:py-0">
               <span className="font-figtree font-medium text-[#194170] text-sm tracking-[0] leading-5">
-                450 leasing deals available
+                {totalItems} limited time deals available
               </span>
   
               <Select value={sortOption} onValueChange={setSortOption}>
@@ -163,15 +282,16 @@ const LimitedTime = (): JSX.Element => {
           </div>
   
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-            {vehicleData.map((vehicle) => (
+            {cars.map((vehicle: any) => (
               <Card
-                key={vehicle.id}
+                key={vehicle.uid}
                 className="relative bg-white rounded border border-solid shadow-shadow-sm"
               >
-                <CardContent className="flex flex-col items-center gap-2 md:gap-[18px] pt-6 md:pt-12 pb-3 md:pb-4 px-3 md:px-4">
+                <
+                  CardContent className="flex flex-col items-center gap-2 md:gap-[18px] pt-6 md:pt-12 pb-3 md:pb-4 px-3 md:px-4">
                   <div
                     className="w-full h-[160px] md:h-[200.02px] rounded-[10.39px] bg-cover bg-center"
-                    style={{ backgroundImage: `url(${vehicle.image})` }}
+                    style={{ backgroundImage: `url(https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC})` }}
                   />
   
                   <Button
@@ -191,26 +311,28 @@ const LimitedTime = (): JSX.Element => {
   
                   <div className="flex flex-col items-start gap-2 md:gap-3 w-full">
                     <h3 className="font-figtree font-semibold text-[#0b1c31] text-lg md:text-2xl tracking-[0] leading-6">
-                      Toyota Corolla Cross
+                      {vehicle?.brand?.name} {vehicle.modelName}
                     </h3>
   
                     <div className="flex flex-wrap items-center gap-2 w-full">
-                      <Badge className="inline-flex items-center justify-center gap-1 px-1.5 py-0.5 bg-[#c70036] rounded border-0 hover:bg-[#c70036]">
-                        <span className="font-medium text-white text-center leading-4 font-figtree text-sm tracking-[0]">
-                          Limited-time deal
-                        </span>
-                      </Badge>
+                      {vehicle?.tags?.length > 0 ? vehicle?.tags?.map((tag: any) => (
+                        <Badge key={tag} className="inline-flex items-center justify-center gap-1 px-1.5 py-0.5 bg-[#c70036] rounded border-0 hover:bg-[#c70036]">
+                          <span className="font-medium text-white text-center leading-4 font-figtree text-sm tracking-[0]">
+                            {tag}
+                          </span>
+                        </Badge>
+                      )) : <></>}
   
                       <div className="w-[3px] h-[3px] bg-[#b3ceee] rounded-[1.5px]" />
   
                       <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-5">
-                        SUV
+                        {vehicle?.category?.name}
                       </span>
   
                       <div className="w-[3px] h-[3px] bg-[#b3ceee] rounded-[1.5px]" />
   
                       <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-5">
-                        Petrol, Hybrid
+                        {vehicle?.fuelType}
                       </span>
                     </div>
                   </div>
@@ -223,7 +345,7 @@ const LimitedTime = (): JSX.Element => {
   
                       <div className="flex items-end gap-1.5 w-full">
                         <span className="font-figtree font-semibold text-[#c70036] text-2xl md:text-3xl tracking-[0.80px] leading-7">
-                          $288
+                          {vehicle?.selectedVariant?.weeklyPrice}
                         </span>
   
                         <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-4">
@@ -233,7 +355,7 @@ const LimitedTime = (): JSX.Element => {
                     </div>
   
                     <Button
-                    onClick={() => router.push(`/inventory/${vehicle.id}`)}
+                    onClick={() => router.push(`/inventory/${vehicle.slug}`)}
                     className="w-full md:w-[140px] gap-1.5 px-4 py-2.5 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90 h-auto mt-2 md:mt-0">
                       <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
                         Get A Quote
@@ -249,7 +371,7 @@ const LimitedTime = (): JSX.Element => {
   
         <div className="flex flex-col items-center justify-center gap-4 md:gap-[18px] mt-4 md:mt-0">
           <span className="font-figtree font-normal text-[#4a5565] text-sm text-center tracking-[0] leading-4">
-            Showing 1 to 12 of 450 vehicles
+            Showing {cars?.length > 0 ? ((page - 1) * 10) + 1 : 0} to {((page - 1) * 10) + cars?.length} of {totalItems} vehicles
           </span>
   
           <div className="flex flex-wrap items-center justify-center shadow-shadow-xs overflow-x-auto py-2">
@@ -257,59 +379,57 @@ const LimitedTime = (): JSX.Element => {
               variant="outline"
               size="icon"
               className="w-8 md:w-9 h-8 md:h-9 bg-white rounded-[4px_0px_0px_4px] border border-solid"
+              onClick={() => page > 1 && setPage(page - 1)}
+              disabled={page <= 1}
             >
               <ChevronLeftIcon className="w-4 h-4" />
             </Button>
-  
-            <Button
-              variant="outline"
-              className="w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px bg-white border border-solid"
-            >
-              <span className="font-medium text-[#4a5565] leading-5 font-figtree text-sm tracking-[0]">
-                1
-              </span>
-            </Button>
-  
-            <Button
-              variant="outline"
-              className="w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px bg-white border border-solid"
-            >
-              <span className="font-medium text-[#4a5565] leading-5 font-figtree text-sm tracking-[0]">
-                2
-              </span>
-            </Button>
-  
-            <Button
-              variant="outline"
-              className="w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px bg-gray-50 border border-solid"
-            >
-              <span className="font-medium text-[#194170] leading-5 font-figtree text-sm tracking-[0]">
-                3
-              </span>
-            </Button>
-  
-            <Button
-              variant="outline"
-              className="w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px bg-white border border-solid"
-            >
-              <span className="font-medium text-[#4a5565] leading-5 font-figtree text-sm tracking-[0]">
-                ...
-              </span>
-            </Button>
-  
-            <Button
-              variant="outline"
-              className="h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px bg-white border border-solid"
-            >
-              <span className="font-medium text-[#4a5565] leading-5 font-figtree text-sm tracking-[0]">
-                38
-              </span>
-            </Button>
-  
+
+            {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+              const pageNum = i + 1;
+              return (
+                <Button
+                  key={pageNum}
+                  variant="outline"
+                  className={`w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px ${pageNum === page ? 'bg-gray-50' : 'bg-white'} border border-solid`}
+                  onClick={() => setPage(pageNum)}
+                >
+                  <span className={`font-medium ${pageNum === page ? 'text-[#194170]' : 'text-[#4a5565]'} leading-5 font-figtree text-sm tracking-[0]`}>
+                    {pageNum}
+                  </span>
+                </Button>
+              );
+            })}
+
+            {totalPages > 5 && (
+              <>
+                <Button
+                  variant="outline"
+                  className="w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px bg-white border border-solid"
+                >
+                  <span className="font-medium text-[#4a5565] leading-5 font-figtree text-sm tracking-[0]">
+                    ...
+                  </span>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  className="h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px bg-white border border-solid"
+                  onClick={() => setPage(totalPages)}
+                >
+                  <span className="font-medium text-[#4a5565] leading-5 font-figtree text-sm tracking-[0]">
+                    {totalPages}
+                  </span>
+                </Button>
+              </>
+            )}
+
             <Button
               variant="outline"
               size="icon"
               className="w-8 md:w-9 h-8 md:h-9 -ml-px bg-white rounded-[0px_4px_4px_0px] border border-solid"
+              onClick={() => page < totalPages && setPage(page + 1)}
+              disabled={page >= totalPages}
             >
               <ChevronRightIcon className="w-4 h-4" />
             </Button>
