@@ -5,11 +5,12 @@ import {
   HeartIcon,
   StarIcon,
 } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
 import { useRouter } from "next/router";
+import axiosInstance from "@/service/api";
 // Using public paths instead of imports
 const dollarSvg = "/assets/images/svg/dollar.svg";
 const personChalkboardSvg = "/assets/images/svg/person-chalkboard.svg";
@@ -40,51 +41,6 @@ const promoCards = [
     title: "Optimize Your Fleet with a Free Consultation",
     description:
       "Discover smarter ways to manage vehicles, reduce expenses, and boost productivity.",
-  },
-];
-
-const mainVehicles = [
-  {
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Toyota Corolla Cross",
-    type: "SUV",
-    fuel: "Petrol, Hybrid",
-    price: "288",
-  },
-  {
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Ford Ranger",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "315",
-  },
-  {
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mazda CX-5",
-    type: "SUV",
-    fuel: "Petrol",
-    price: "275",
-  },
-  {
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Hyundai Tucson",
-    type: "SUV",
-    fuel: "Petrol, Hybrid",
-    price: "295",
-  },
-  {
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Kia Sportage",
-    type: "SUV",
-    fuel: "Petrol",
-    price: "280",
-  },
-  {
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mitsubishi Triton",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "305",
   },
 ];
 
@@ -194,140 +150,6 @@ const partnerLogos = [
   { src: "/assets/images/westpac-logo-svg.png", width: "w-[125px]" },
 ];
 
-const utesVehicles = [
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Ford Ranger",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "315"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Toyota Hilux",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "325"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mitsubishi Triton",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "305"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Isuzu D-Max",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "310"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mazda BT-50",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "300"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Nissan Navara",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "295"
-  },
-];
-
-const suvsVehicles = [
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Toyota RAV4",
-    type: "SUV",
-    fuel: "Petrol, Hybrid",
-    price: "285"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mazda CX-5",
-    type: "SUV",
-    fuel: "Petrol",
-    price: "275"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Hyundai Tucson",
-    type: "SUV",
-    fuel: "Petrol, Hybrid",
-    price: "295"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Kia Sportage",
-    type: "SUV",
-    fuel: "Petrol",
-    price: "280"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mitsubishi Outlander",
-    type: "SUV",
-    fuel: "Petrol, PHEV",
-    price: "320"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Subaru Forester",
-    type: "SUV",
-    fuel: "Petrol",
-    price: "290"
-  },
-];
-
-const vansVehicles = [
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Toyota HiAce",
-    type: "Van",
-    fuel: "Diesel",
-    price: "345"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Ford Transit",
-    type: "Van",
-    fuel: "Diesel",
-    price: "335"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Hyundai iLoad",
-    type: "Van",
-    fuel: "Diesel",
-    price: "325"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Volkswagen Transporter",
-    type: "Van",
-    fuel: "Diesel",
-    price: "355"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mercedes-Benz Sprinter",
-    type: "Van",
-    fuel: "Diesel",
-    price: "385"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Renault Trafic",
-    type: "Van",
-    fuel: "Diesel",
-    price: "330"
-  },
-];
 
 const VehicleCard = ({
   image,
@@ -337,6 +159,8 @@ const VehicleCard = ({
   price = "288",
   width = "w-full",
   router,
+  id,
+  tags = [],
 }: { 
   image: string; 
   name?: string;
@@ -345,14 +169,31 @@ const VehicleCard = ({
   price?: string;
   width?: string; 
   router?: any;
-}) => (
+  id?: string;
+  tags?: string[];
+}) => {
+  // Check if image is a URL or a CSS class
+  const isImageUrl = image && (image.startsWith('http') || image.startsWith('/'));
+  
+  return (
   <Card
     className={`${width} h-full border border-solid shadow-sm`}
   >
     <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
-      <div
-        className={`h-[200px] ${image} w-full rounded-md bg-contain bg-center`}
-      />
+      {isImageUrl ? (
+        <img 
+          src={image} 
+          alt={name}
+          className="h-[200px] w-full rounded-md object-contain object-center"
+          onError={(e) => {
+            e.currentTarget.src = "/assets/images/no-image.png";
+          }}
+        />
+      ) : (
+        <div
+          className={`h-[200px] ${image} w-full rounded-md bg-contain bg-center`}
+        />
+      )}
 
       <Button
         variant="ghost"
@@ -375,11 +216,13 @@ const VehicleCard = ({
         </h3>
 
         <div className="flex flex-wrap items-center gap-2 w-full">
-          <Badge className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
+
+           {tags && tags.length > 0 && tags.map((tag, index) => <Badge key={index} className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
             <span className="font-medium text-xs">
-              Limited-time deal
+              {tag}
             </span>
-          </Badge>
+          </Badge>)}
+
 
           <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
 
@@ -413,7 +256,7 @@ const VehicleCard = ({
         </div>
 
         <Button 
-        onClick={() => router.push('/inventory/1')}
+        onClick={() => router.push('/inventory/' + id)}
         className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
           <span className="font-medium text-white text-xs md:text-sm">
             Get A Quote
@@ -423,7 +266,8 @@ const VehicleCard = ({
       </div>
     </CardContent>
   </Card>
-);
+  );
+};
 
 const SmallVehicleCard = ({ 
   image,
@@ -432,6 +276,8 @@ const SmallVehicleCard = ({
   fuel = "Petrol, Hybrid",
   price = "288",
   router,
+  id,
+  tags = [],
 }: { 
   image: string;
   name?: string;
@@ -439,12 +285,29 @@ const SmallVehicleCard = ({
   fuel?: string;
   price?: string;
   router?: any;
-}) => (
+  id?: string;
+  tags?: string[];
+}) => {
+  // Check if image is a URL or a CSS class
+  const isImageUrl = image && (image.startsWith('http') || image.startsWith('/'));
+  
+  return (
   <Card className="w-full border border-solid shadow-sm h-full">
     <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
-      <div
-        className={`h-[180px] ${image} w-full rounded-md bg-cover bg-center`}
-      />
+      {isImageUrl ? (
+        <img 
+          src={image} 
+          alt={name}
+          className="h-[180px] w-full rounded-md object-cover object-center"
+          onError={(e) => {
+            e.currentTarget.src = "/assets/images/no-image.png";
+          }}
+        />
+      ) : (
+        <div
+          className={`h-[180px] ${image} w-full rounded-md bg-cover bg-center`}
+        />
+      )}
 
       <Button
         variant="ghost"
@@ -467,11 +330,11 @@ const SmallVehicleCard = ({
         </h3>
 
         <div className="flex flex-wrap items-center gap-2 w-full">
-          <Badge className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
+          {tags && tags.length > 0 && tags.map((tag, index) => <Badge key={index} className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
             <span className="font-medium text-xs">
-              Limited-time deal
+              {tag}
             </span>
-          </Badge>
+          </Badge>)}
 
           <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
 
@@ -505,7 +368,7 @@ const SmallVehicleCard = ({
         </div>
 
         <Button 
-        onClick={() => router.push('/inventory/1')}
+        onClick={() => router.push('/inventory/' + id)}
         className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
           <span className="font-medium text-white text-xs">
             Get A Quote
@@ -515,7 +378,8 @@ const SmallVehicleCard = ({
       </div>
     </CardContent>
   </Card>
-);
+  );
+};
 
 const TinyVehicleCard = ({ 
   image,
@@ -524,6 +388,8 @@ const TinyVehicleCard = ({
   fuel = "Petrol, Hybrid",
   price = "288",
   router,
+  tags = [],
+  id,
 }: { 
   image: string;
   name?: string;
@@ -531,12 +397,29 @@ const TinyVehicleCard = ({
   fuel?: string;
   price?: string;
   router?: any;
-}) => (
+  id?: string;
+  tags?: string[];
+}) => {
+  // Check if image is a URL or a CSS class
+  const isImageUrl = image && (image.startsWith('http') || image.startsWith('/'));
+  
+  return (
   <Card className="w-full border border-solid shadow-sm h-full">
     <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
-      <div
-        className={`h-[180px] ${image} w-full rounded-md bg-cover bg-center`}
-      />
+      {isImageUrl ? (
+        <img 
+          src={image} 
+          alt={name}
+          className="h-[180px] w-full rounded-md object-cover object-center"
+          onError={(e) => {
+            e.currentTarget.src = "/assets/images/no-image.png";
+          }}
+        />
+      ) : (
+        <div
+          className={`h-[180px] ${image} w-full rounded-md bg-cover bg-center`}
+        />
+      )}
 
       <Button
         variant="ghost"
@@ -559,11 +442,11 @@ const TinyVehicleCard = ({
         </h3>
 
         <div className="flex flex-wrap items-center gap-2 w-full">
-          <Badge className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
+          {tags && tags.length > 0 && tags.map((tag, index) => <Badge key={index} className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
             <span className="font-medium text-xs">
-              Limited-time deal
+              {tag}
             </span>
-          </Badge>
+          </Badge>)}
 
           <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
 
@@ -597,7 +480,7 @@ const TinyVehicleCard = ({
         </div>
 
         <Button 
-        onClick={() => router.push('/inventory/1')}
+        onClick={() => router.push('/inventory/' + id)}
         className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
           <span className="font-medium text-white text-xs">
             Get A Quote
@@ -607,10 +490,59 @@ const TinyVehicleCard = ({
       </div>
     </CardContent>
   </Card>
-);
+  );
+};
 
 export const MainContentSection = (): JSX.Element => {
   const router = useRouter();
+  const [offers, setOffers] = useState([]);
+  const [bodyTypeOffers, setBodyTypeOffers] = useState({
+    'HATCHBACK': [],
+    'SEDAN': [],
+    'VAN': [],
+  });
+
+  useEffect(() => {
+    getLimitedTimeDeals();
+    getByBodyType('HATCHBACK');
+    getByBodyType('SEDAN');
+    getByBodyType('VAN');
+  
+  }, []); 
+
+  const getLimitedTimeDeals = async () => {
+    // Make the API call
+    const params = new URLSearchParams();
+    params.set('tags', 'Limited Time Offer');
+    axiosInstance.get(`/v1/cars/search?${params.toString()}`)
+      .then(response => {
+        setOffers(response.data.data || []);
+      })
+      .catch(error => {
+        console.error('Error fetching cars:', error);
+      });
+
+  };
+
+  const getByBodyType = async (bodyType: string) => {
+    // Make the API call
+    const params = new URLSearchParams();
+    params.set('bodyType', bodyType);
+    axiosInstance.get(`/v1/cars/search?${params.toString()}`)
+      .then(response => {
+        console.log(response.data.data);
+        setBodyTypeOffers(prev => ({
+          ...prev,
+          [bodyType]: response.data.data || []
+        }));
+      })
+      .catch(error => {
+        console.error('Error fetching cars:', error);
+      });
+
+  };
+
+  
   
   return (
     <section className="flex flex-col w-full items-start gap-16 py-12 md:py-16">
@@ -771,15 +703,16 @@ export const MainContentSection = (): JSX.Element => {
               className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
             >
               <div className="flex gap-6 min-w-max">
-                {mainVehicles.map((vehicle, index) => (
+                {offers.map((offer: any, index) => (
                   <div key={index} className="w-[350px] lg:w-[380px] flex-shrink-0">
                     <VehicleCard
-                      image={vehicle.image}
-                      name={vehicle.name}
-                      type={vehicle.type}
-                      fuel={vehicle.fuel}
-                      price={vehicle.price}
+                      image={offer.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}` : "/assets/images/no-image.png"}
+                      name={offer.title}
+                      type={offer.bodyType}
+                      fuel={offer.selectedVariant?.variant}
+                      price={offer.selectedVariant.weeklyPrice}
                       router={router}
+                      id={offer.slug}
                     />
                   </div>
                 ))}
@@ -874,11 +807,11 @@ export const MainContentSection = (): JSX.Element => {
         `}</style>
       </div>
 
-      {/* Popular Utes section */}
+      {/* Popular Hatchback section */}
       <div className="flex flex-col items-start gap-6 w-full">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4">
           <h2 className="font-semibold text-[#101828] text-2xl md:text-3xl">
-            Popular Utes for Business Lease
+            Popular Hatchback for Business Lease
           </h2>
 
           <div className="flex items-center gap-4">
@@ -912,7 +845,7 @@ export const MainContentSection = (): JSX.Element => {
                 size="icon"
                 className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
                 onClick={() => {
-                  const container = document.getElementById('utes-carousel');
+                  const container = document.getElementById('hatchback-carousel');
                   if (container) {
                     container.scrollBy({ left: 350, behavior: 'smooth' });
                   }
@@ -926,19 +859,21 @@ export const MainContentSection = (): JSX.Element => {
 
         <div className="relative w-full">
           <div 
-            id="utes-carousel"
+            id="hatchback-carousel"
             className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
           >
             <div className="flex gap-6 min-w-max">
-              {utesVehicles.map((vehicle, index) => (
+              {bodyTypeOffers['HATCHBACK'].map((vehicle: any, index: number) => (
                 <div key={index} className="w-[350px] flex-shrink-0">
                   <SmallVehicleCard 
-                    image={vehicle.image}
-                    name={vehicle.name}
-                    type={vehicle.type}
-                    fuel={vehicle.fuel}
-                    price={vehicle.price}
+                      image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
+                      name={vehicle.title}
+                      type={vehicle.bodyType}
+                      fuel={vehicle.selectedVariant?.variant}
+                      price={vehicle.selectedVariant.weeklyPrice}
                     router={router}
+                      id={vehicle.slug}
+                      tags={vehicle.tags}
                   />
                 </div>
               ))}
@@ -1061,7 +996,7 @@ export const MainContentSection = (): JSX.Element => {
       <div className="flex flex-col items-start gap-6 w-full">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4">
           <h2 className="font-semibold text-[#101828] text-2xl md:text-3xl">
-            Popular SUVs for Business Lease
+            Popular Sedans for Business Lease
           </h2>
 
           <div className="flex items-center gap-4">
@@ -1113,15 +1048,17 @@ export const MainContentSection = (): JSX.Element => {
             className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
           >
             <div className="flex gap-6 min-w-max">
-              {suvsVehicles.map((vehicle, index) => (
+              {bodyTypeOffers['SEDAN'].map((vehicle: any, index: number) => (
                 <div key={index} className="w-[350px] flex-shrink-0">
                   <TinyVehicleCard 
-                    image={vehicle.image}
-                    name={vehicle.name}
-                    type={vehicle.type}
-                    fuel={vehicle.fuel}
+                    image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
+                    name={vehicle.title}
+                    type={vehicle.bodyType}
+                    fuel={vehicle.selectedVariant?.variant}
                     price={vehicle.price}
                     router={router}
+                    id={vehicle.slug}
+                    tags={vehicle.tags}
                   />
                 </div>
               ))}
@@ -1186,15 +1123,17 @@ export const MainContentSection = (): JSX.Element => {
             className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
           >
             <div className="flex gap-6 min-w-max">
-              {vansVehicles.map((vehicle, index) => (
+              {bodyTypeOffers['VAN'].map((vehicle: any, index: number) => (
                 <div key={index} className="w-[350px] flex-shrink-0">
                   <TinyVehicleCard 
-                    image={vehicle.image}
-                    name={vehicle.name}
-                    type={vehicle.type}
+                    image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
+                    name={vehicle.title}
+                    type={vehicle.bodyType}
                     fuel={vehicle.fuel}
                     price={vehicle.price}
+                    id={vehicle.slug}
                     router={router}
+                    tags={vehicle.tags}
                   />
                 </div>
               ))}

@@ -197,6 +197,8 @@ import { useSearchParams } from "next/navigation";
     const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
     const [car, setCar] = useState<any>(null);
     const [selectedVariant, setSelectedVariant] = useState<any>(null);
+    const [selectedFrequency, setSelectedFrequency] = useState("weekly");
+    const [similarCars, setSimilarCars] = useState<any>([]);
 
     useEffect(()=>{
       const slug = params.get('inventoryId');
@@ -214,8 +216,18 @@ import { useSearchParams } from "next/navigation";
         if (response.data?.variants && response.data.variants.length > 0) {
           setSelectedVariant(response.data.variants[0]);
         }
+        getSelectedBodyTypeSimilarCars(response.data.bodyType);
       }).catch((error) => {
         console.error('Error fetching car details:', error);
+      });
+    }
+
+    const getSelectedBodyTypeSimilarCars = (bodyType: string) => {
+      axiosInstance.get(`/v1/cars/search?bodyType=${bodyType}`).then((response) => {
+        console.log(response.data);
+        setSimilarCars(response.data.data);
+      }).catch((error) => {
+        console.error('Error fetching similar cars:', error);
       });
     }
     
@@ -264,7 +276,10 @@ import { useSearchParams } from "next/navigation";
                       <img
                         className="w-full h-full object-contain"
                         alt="Vehicle images"
-                        src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/dpv-banner.png"}
+                        src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/no-image.png"}
+                        onError={(e) => {
+                          e.currentTarget.src = "/assets/images/no-image.png";
+                        }}
                       />
                     </div>
                     <div className="flex flex-row md:flex-col gap-3 md:w-[100px] overflow-x-auto md:overflow-x-visible">
@@ -272,21 +287,30 @@ import { useSearchParams } from "next/navigation";
                         <img
                           className="w-full h-full object-contain"
                           alt="Vehicle front view"
-                          src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/dpv-banner.png"}
+                          src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/no-image.png"}
+                          onError={(e) => {
+                            e.currentTarget.src = "/assets/images/no-image.png";
+                          }}
                         />
                       </div>
                       <div className="h-[80px] md:h-[128px] min-w-[80px] md:min-w-0 border-2 border-transparent hover:border-[#194170] rounded overflow-hidden cursor-pointer transition-all">
                         <img
                           className="w-full h-full object-contain"
                           alt="Vehicle side view"
-                          src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/dpv-banner.png"}
+                          src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/no-image.png"}
+                          onError={(e) => {
+                            e.currentTarget.src = "/assets/images/no-image.png";
+                          }}
                         />
                       </div>
                       <div className="h-[80px] md:h-[128px] min-w-[80px] md:min-w-0 border-2 border-transparent hover:border-[#194170] rounded overflow-hidden cursor-pointer transition-all">
                         <img
                           className="w-full h-full object-contain"
                           alt="Vehicle rear view"
-                          src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/dpv-banner.png"}
+                          src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/no-image.png"}
+                          onError={(e) => {
+                            e.currentTarget.src = "/assets/images/no-image.png";
+                          }}
                         />
                       </div>
                     </div>
@@ -545,6 +569,10 @@ import { useSearchParams } from "next/navigation";
                   <div className="flex flex-col items-start gap-5 w-full">
                     <ToggleGroup
                       type="single"
+                      value={selectedFrequency}
+                      onValueChange={(value) => {
+                        if (value) setSelectedFrequency(value);
+                      }}
                       defaultValue="weekly"
                       className="flex flex-col sm:flex-row items-center gap-px w-full bg-white rounded overflow-hidden border border-solid shadow-shadow-xs"
                     >
@@ -553,7 +581,7 @@ import { useSearchParams } from "next/navigation";
                           key={freq.id}
                           value={freq.id}
                           className={`flex-1 w-full sm:w-auto gap-1.5 px-4 py-2.5 ${
-                            freq.active
+                            selectedFrequency === freq.id
                               ? "bg-[#194170] text-white border-r border-solid shadow-shadow-xs"
                               : "border-r border-solid"
                           } data-[state=on]:bg-[#194170] data-[state=on]:text-white`}
@@ -569,10 +597,14 @@ import { useSearchParams } from "next/navigation";
                       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 w-full">
                         <div className="flex items-end gap-1.5">
                           <span className="font-figtree font-semibold text-[#c70036] text-4xl tracking-[0.80px] leading-9">
-                            ${selectedVariant?.weeklyPrice || "--"}
+                            ${selectedFrequency === "weekly" 
+                              ? selectedVariant?.weeklyPrice 
+                              : selectedFrequency === "fortnightly" 
+                                ? selectedVariant?.fortnightlyPrice 
+                                : selectedVariant?.monthlyPrice || "--"}
                           </span>
                           <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-4">
-                            PER WEEKLY*
+                            PER {selectedFrequency.toUpperCase().replace("LY", "")}LY*
                           </span>
                         </div>
                         <Badge className="bg-[#c70036] text-white px-1.5 py-0.5 h-auto">
@@ -817,7 +849,7 @@ import { useSearchParams } from "next/navigation";
         <div className="flex flex-col w-full items-start gap-7 pt-0 pb-16 px-0">
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between w-full gap-3 sm:gap-0">
             <h2 className="font-figtree font-semibold text-[#101828] text-3xl text-center leading-8">
-              Explore Similar Utes for Business Lease
+              Explore Similar Vehicles for Business Lease
             </h2>
             <div className="flex w-full sm:w-auto items-center justify-between sm:justify-end gap-3">
               <Button 
@@ -849,15 +881,17 @@ import { useSearchParams } from "next/navigation";
           <div className="relative w-full">
           <div className="overflow-x-auto pb-4 hide-scrollbar">
             <div className="flex gap-4 md:gap-6 min-w-max">
-              {similarVehicles.map((vehicle, index) => (
+              {similarCars.map((vehicle : any, index : any) => (
                 <div key={index} className="w-[320px] sm:w-[320px] md:w-[350px] flex-shrink-0">
                   <SmallVehicleCard 
-                    image={'bg-[url(/assets/images/car-image.png)]'}
+                    image={`https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}`}
                     name={vehicle.title}
-                    type={vehicle.type}
-                    fuel={vehicle.fuel}
-                    price={vehicle.price}
+                    type={vehicle.bodyType}
+                    fuel={vehicle.fuelType}
+                    slug={vehicle.slug}
+                    price={vehicle?.selectedVariant?.weeklyPrice}
                   />
+
                 </div>
               ))}
             </div>

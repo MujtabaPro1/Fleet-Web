@@ -68,11 +68,11 @@ const InventorySection = (): JSX.Element => {
       const bodyTypeParam = searchParams.get('bodyType');
       
       if (brandParam) {
-        setSelectedBrand(brandParam);
+        setSelectedBrand(brandParam.toUpperCase());
       }
       
       if (bodyTypeParam) {
-        setSelectedBodyType(bodyTypeParam);
+        setSelectedBodyType(bodyTypeParam.toUpperCase());
       }
       
       setInitialParamsChecked(true);
@@ -311,9 +311,13 @@ const InventorySection = (): JSX.Element => {
                 className="relative bg-white rounded border border-solid shadow-shadow-sm"
               >
                 <CardContent className="flex flex-col items-center gap-2 md:gap-[18px] pt-6 md:pt-12 pb-3 md:pb-4 px-3 md:px-4">
-                  <div
-                    className="w-full h-[160px] md:h-[200.02px] rounded-[10.39px] bg-cover bg-center"
-                    style={{ backgroundImage: `url(https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC})` }}
+                  <img
+                    className="w-full h-[160px] md:h-[200.02px] rounded-[10.39px] object-cover object-center"
+                    src={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
+                    alt={vehicle.title || "Vehicle image"}
+                    onError={(e) => {
+                      e.currentTarget.src = "/assets/images/no-image.png";
+                    }}
                   />
   
                   <Button

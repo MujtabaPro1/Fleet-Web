@@ -7,7 +7,7 @@ const navigationItems = [
   { label: "Limited-time deals", link: "/deals/limited-time" },
   { label: "Popular models", link: "/vehicles/popular-models" },
   { label: "Explore by brands", link: "/explore" },
-  { label: "Explore by body type", link: "/explore" },
+  { label: "Explore by body type", link: "/vehicles/body-types" },
   { label: "Leasing & Finance Options", link: "/products/fleet-leasing/finance-lease" },
   { label: "Free consultation", link: "/services/consultation" },
   { label: "About us", link: "/about" },
