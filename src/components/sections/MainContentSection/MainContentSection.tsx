@@ -177,7 +177,7 @@ const VehicleCard = ({
   
   return (
   <Card
-    className={`${width} h-full border border-solid shadow-sm`}
+    className={`${width} h-full border border-solid shadow-sm overflow-hidden rounded-md`}
   >
     <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
       {isImageUrl ? (
@@ -198,7 +198,7 @@ const VehicleCard = ({
       <Button
         variant="ghost"
         size="icon"
-        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded border border-gray-200 shadow-sm hover:bg-gray-100"
+        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded-full border border-gray-200 shadow-sm hover:bg-gray-100 z-10"
       >
         <HeartIcon className="w-4 h-4" />
       </Button>
@@ -292,7 +292,7 @@ const SmallVehicleCard = ({
   const isImageUrl = image && (image.startsWith('http') || image.startsWith('/'));
   
   return (
-  <Card className="w-full border border-solid shadow-sm h-full">
+  <Card className="w-full border border-solid shadow-sm h-full overflow-hidden rounded-md">
     <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
       {isImageUrl ? (
         <img 
@@ -312,7 +312,7 @@ const SmallVehicleCard = ({
       <Button
         variant="ghost"
         size="icon"
-        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded border border-gray-200 shadow-sm hover:bg-gray-100"
+        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded-full border border-gray-200 shadow-sm hover:bg-gray-100 z-10"
       >
         <HeartIcon className="w-4 h-4" />
       </Button>
@@ -404,7 +404,7 @@ const TinyVehicleCard = ({
   const isImageUrl = image && (image.startsWith('http') || image.startsWith('/'));
   
   return (
-  <Card className="w-full border border-solid shadow-sm h-full">
+  <Card className="w-full border border-solid shadow-sm h-full overflow-hidden rounded-md">
     <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
       {isImageUrl ? (
         <img 
@@ -424,7 +424,7 @@ const TinyVehicleCard = ({
       <Button
         variant="ghost"
         size="icon"
-        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded border border-gray-200 shadow-sm hover:bg-gray-100"
+        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded-full border border-gray-200 shadow-sm hover:bg-gray-100 z-10"
       >
         <HeartIcon className="w-4 h-4" />
       </Button>

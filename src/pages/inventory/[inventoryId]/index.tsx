@@ -12,7 +12,7 @@ import {
     ReceiptIcon,
     StarIcon,
   } from "lucide-react";
-  import React, { useEffect } from "react";
+  import React, { useEffect, useState } from "react";
   import { Badge } from "@/components/ui/badge";
   import {
     Breadcrumb,
@@ -56,7 +56,7 @@ const trustSvg6 = "/assets/images/svg/trust/trust-6.svg";
 
 const starSvg = "/assets/images/svg/star-rating.svg";
 
-import { useState } from "react";
+// useState already imported with React
 import axiosInstance from "@/service/api";
 import { useSearchParams } from "next/navigation";
 
@@ -194,6 +194,55 @@ import { useSearchParams } from "next/navigation";
     const router = useRouter();
     const { carID } = router.query;
     const params = useSearchParams();
+  
+    // Tab functionality
+    useEffect(() => {
+      const tabs = document.querySelectorAll('#vehicle-tabs button');
+      const tabContents = document.querySelectorAll('#vehicle-tab-content > div');
+      
+      const handleTabClick = (e: Event) => {
+        const tab = e.currentTarget as HTMLElement;
+        
+        // Hide all tab contents
+        tabContents.forEach(content => {
+          content.classList.add('hidden');
+          content.classList.remove('flex');
+        });
+        
+        // Remove active state from all tabs
+        tabs.forEach(t => {
+          t.classList.remove('border-[#194170]');
+          t.classList.add('border-transparent');
+          t.setAttribute('aria-selected', 'false');
+        });
+        
+        // Set active tab
+        tab.classList.remove('border-transparent');
+        tab.classList.add('border-[#194170]');
+        tab.setAttribute('aria-selected', 'true');
+        
+        // Show selected tab content
+        const tabId = tab.getAttribute('aria-controls');
+        if (tabId) {
+          const tabContent = document.getElementById(tabId);
+          if (tabContent) {
+            tabContent.classList.remove('hidden');
+            tabContent.classList.add('flex');
+          }
+        }
+      };
+      
+      tabs.forEach(tab => {
+        tab.addEventListener('click', handleTabClick);
+      });
+      
+      return () => {
+        tabs.forEach(tab => {
+          tab.removeEventListener('click', handleTabClick);
+        });
+      };
+    }, []);
+  
     const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
     const [car, setCar] = useState<any>(null);
     const [selectedVariant, setSelectedVariant] = useState<any>(null);
@@ -282,38 +331,7 @@ import { useSearchParams } from "next/navigation";
                         }}
                       />
                     </div>
-                    <div className="flex flex-row md:flex-col gap-3 md:w-[100px] overflow-x-auto md:overflow-x-visible">
-                      <div className="h-[80px] md:h-[128px] min-w-[80px] md:min-w-0 border-2 border-[#194170] rounded overflow-hidden cursor-pointer">
-                        <img
-                          className="w-full h-full object-contain"
-                          alt="Vehicle front view"
-                          src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/no-image.png"}
-                          onError={(e) => {
-                            e.currentTarget.src = "/assets/images/no-image.png";
-                          }}
-                        />
-                      </div>
-                      <div className="h-[80px] md:h-[128px] min-w-[80px] md:min-w-0 border-2 border-transparent hover:border-[#194170] rounded overflow-hidden cursor-pointer transition-all">
-                        <img
-                          className="w-full h-full object-contain"
-                          alt="Vehicle side view"
-                          src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/no-image.png"}
-                          onError={(e) => {
-                            e.currentTarget.src = "/assets/images/no-image.png";
-                          }}
-                        />
-                      </div>
-                      <div className="h-[80px] md:h-[128px] min-w-[80px] md:min-w-0 border-2 border-transparent hover:border-[#194170] rounded overflow-hidden cursor-pointer transition-all">
-                        <img
-                          className="w-full h-full object-contain"
-                          alt="Vehicle rear view"
-                          src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/no-image.png"}
-                          onError={(e) => {
-                            e.currentTarget.src = "/assets/images/no-image.png";
-                          }}
-                        />
-                      </div>
-                    </div>
+              
                   </div>
                 </CardContent>
               </Card>
@@ -356,88 +374,89 @@ import { useSearchParams } from "next/navigation";
   
               <Card className="w-full border-solid shadow-shadow-sm">
                 <CardContent className="flex flex-col items-start gap-4 sm:gap-6 p-4 sm:p-6 mt-[40px]">
-                  <Tabs defaultValue="specs" className="w-full">
-                    <TabsList className="flex flex-col w-full bg-transparent p-0">
-                      <div className="flex items-center gap-8 md:gap-12 pb-4 border-b border-solid">
+                  {/* <Tabs defaultValue="specs" className="w-full">
+                    <div className="border-b border-solid">
+                      <TabsList className="flex w-full bg-transparent p-0 overflow-x-auto md:overflow-visible">
                         <TabsTrigger
                           value="specs"
-                          className="flex items-center gap-2 pt-0 pb-2 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
+                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none whitespace-nowrap"
                         >
-                          <FileTextIcon className="w-5 h-5 text-gray-700" />
-                          <span className="font-medium text-lg leading-5 font-figtree text-gray-700">
+                          <FileTextIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                          <span className="font-medium text-sm sm:text-base md:text-lg leading-5 font-figtree text-gray-700">
                             Vehicle Specs
                           </span>
                         </TabsTrigger>
                         <TabsTrigger
                           value="finance"
-                          className="flex items-center gap-2 pt-0 pb-2 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
+                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none whitespace-nowrap"
                         >
-                          <StarIcon className="w-5 h-5 text-gray-700" />
-                          <span className="font-medium text-lg leading-5 font-figtree text-gray-700">
+                          <StarIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                          <span className="font-medium text-sm sm:text-base md:text-lg leading-5 font-figtree text-gray-700">
                             Finance &amp; Leasing Options
                           </span>
                         </TabsTrigger>
                         <TabsTrigger
                           value="questions"
-                          className="flex items-center gap-2 pt-0 pb-2 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
+                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none whitespace-nowrap"
                         >
-                          <HelpCircleIcon className="w-5 h-5 text-gray-700" />
-                          <span className="font-medium text-lg leading-5 font-figtree text-gray-700">
+                          <HelpCircleIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                          <span className="font-medium text-sm sm:text-base md:text-lg leading-5 font-figtree text-gray-700">
                             Common Questions
                           </span>
                         </TabsTrigger>
-                      </div>
-                      <div className="pt-4 pb-2">
                         <TabsTrigger
                           value="consultation"
-                          className="flex items-center gap-2 pt-0 pb-2 px-0 border-b-2 border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none"
+                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none whitespace-nowrap"
                         >
-                          <ReceiptIcon className="w-5 h-5 text-gray-700" />
-                          <span className="font-medium text-lg leading-5 font-figtree text-gray-700">
+                          <ReceiptIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                          <span className="font-medium text-sm sm:text-base md:text-lg leading-5 font-figtree text-gray-700">
                             Free Consultation
                           </span>
                         </TabsTrigger>
-                      </div>
-                    </TabsList>
+                      </TabsList>
+                    </div>
   
                     <TabsContent
                       value="specs"
-                      className="flex flex-col gap-6 mt-8"
+                      className="flex flex-col gap-6 mt-8 sm:gap-8 md:gap-10"
                     >
                       <div className="flex flex-col items-start gap-4 w-full">
-                        <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-6">
+                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
+                          Vehicle Specifications
+                        </h2>
+                        <h3 className="font-figtree font-semibold text-[#194170] text-base sm:text-lg md:text-xl leading-6 mt-2">
                           Vehicle Basics
                         </h3>
                       
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-                          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 w-full">
+                          <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
                             <div className="flex flex-col gap-1">
-                              <p className="font-medium text-[#101828] text-lg leading-6 font-figtree">
+                              <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
                                 {selectedVariant?.baseVariant || car?.bodyType || "Wagon, 4 seats, 4 door"}
                               </p>
-                              <p className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                              <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
                                 Body type
                               </p>
                             </div>
                           </div>
                           
-                          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                          <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
                             <div className="flex flex-col gap-1">
-                              <p className="font-medium text-[#101828] text-lg leading-6 font-figtree">
+                              <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
                                 {selectedVariant?.transmission?.includes("AWD") ? "AWD" : "2WD (Front Wheel Drive)"}
                               </p>
-                              <p className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                              <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
                                 Drive type
                               </p>
                             </div>
                           </div>
                           
-                          <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+                          <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
                             <div className="flex flex-col gap-1">
-                              <p className="font-medium text-[#101828] text-lg leading-6 font-figtree">
+                              <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
                                 {selectedVariant?.engine || "Unleaded Petrol"}
                               </p>
-                              <p className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                              <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
                                 Fuel type
                               </p>
                             </div>
@@ -446,36 +465,36 @@ import { useSearchParams } from "next/navigation";
                       </div>
   
                       <div className="flex flex-col items-start w-full">
-                        <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
-                          <h3 className="flex-1 font-figtree font-semibold text-[#194170] text-xl leading-6">
+                        <div className="flex items-center gap-4 sm:gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
+                          <h3 className="flex-1 font-figtree font-semibold text-[#194170] text-base sm:text-lg md:text-xl leading-6">
                             Engine and Performance
                           </h3>
                         </div>
   
                         <div className="flex flex-col items-start w-full">
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
-                            <span className="font-medium text-[#101828] text-base leading-5 font-figtree">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-3 sm:py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
+                            <span className="font-medium text-[#101828] text-sm sm:text-base leading-5 font-figtree">
                               Engine
                             </span>
-                            <span className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                            <span className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
                               {selectedVariant?.engine || "--"}
                             </span>
                           </div>
                           
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
-                            <span className="font-medium text-[#101828] text-base leading-5 font-figtree">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-3 sm:py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
+                            <span className="font-medium text-[#101828] text-sm sm:text-base leading-5 font-figtree">
                               Engine Size
                             </span>
-                            <span className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                            <span className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
                               {selectedVariant?.engineSize ? `${selectedVariant.engineSize}L` : "--"}
                             </span>
                           </div>
                           
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
-                            <span className="font-medium text-[#101828] text-base leading-5 font-figtree">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-3 sm:py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
+                            <span className="font-medium text-[#101828] text-sm sm:text-base leading-5 font-figtree">
                               Transmission
                             </span>
-                            <span className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                            <span className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
                               {selectedVariant?.transmission || "--"}
                             </span>
                           </div>
@@ -483,36 +502,36 @@ import { useSearchParams } from "next/navigation";
                       </div>
   
                       <div className="flex flex-col items-start w-full">
-                        <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
-                          <h3 className="flex-1 font-figtree font-semibold text-[#194170] text-xl leading-6">
+                        <div className="flex items-center gap-4 sm:gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
+                          <h3 className="flex-1 font-figtree font-semibold text-[#194170] text-base sm:text-lg md:text-xl leading-6">
                             Safety &amp; Warranty
                           </h3>
                         </div>
   
                         <div className="flex flex-col items-start w-full">
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
-                            <span className="font-medium text-[#101828] text-base leading-5 font-figtree">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-3 sm:py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
+                            <span className="font-medium text-[#101828] text-sm sm:text-base md:text-lg leading-5 font-figtree">
                               ANCAP Rating
                             </span>
-                            <span className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                            <span className="font-normal text-[#4a5565] text-sm sm:text-base md:text-lg leading-5 font-figtree">
                               {selectedVariant?.ancapRating || "--"}
                             </span>
                           </div>
                           
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
-                            <span className="font-medium text-[#101828] text-base leading-5 font-figtree">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-3 sm:py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
+                            <span className="font-medium text-[#101828] text-sm sm:text-base md:text-lg leading-5 font-figtree">
                               Warranty
                             </span>
-                            <span className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
-                              {selectedVariant?.warrantyText || "--"}
+                            <span className="font-normal text-[#4a5565] text-sm sm:text-base md:text-lg leading-5 font-figtree">
+                              {selectedVariant?.warranty || "--"}
                             </span>
                           </div>
                           
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
-                            <span className="font-medium text-[#101828] text-base leading-5 font-figtree">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-3 sm:py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
+                            <span className="font-medium text-[#101828] text-sm sm:text-base md:text-lg leading-5 font-figtree">
                               Service Interval
                             </span>
-                            <span className="font-normal text-[#4a5565] text-base leading-5 font-figtree">
+                            <span className="font-normal text-[#4a5565] text-sm sm:text-base md:text-lg leading-5 font-figtree">
                               {selectedVariant?.serviceIntervalText || "--"}
                             </span>
                           </div>
@@ -520,39 +539,265 @@ import { useSearchParams } from "next/navigation";
                       </div>
                     </TabsContent>
                     
-                    <TabsContent value="finance" className="flex flex-col gap-6 mt-8">
+                    <TabsContent value="finance" className="flex flex-col gap-6 mt-8 sm:gap-8 md:gap-10">
                       <div className="flex flex-col items-start gap-4 w-full">
-                        <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-6">
-                          Finance & Leasing Options
-                        </h3>
-                        <p className="text-[#4a5565] text-base leading-6">
+                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
+                          Choose the right finance and leasing structure for your business.
+                        </h2>
+                        <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
                           We offer flexible finance and leasing options to suit your business needs.
                         </p>
                       </div>
                     </TabsContent>
                     
-                    <TabsContent value="questions" className="flex flex-col gap-6 mt-8">
+                    <TabsContent value="questions" className="flex flex-col gap-6 mt-8 sm:gap-8 md:gap-10">
                       <div className="flex flex-col items-start gap-4 w-full">
-                        <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-6">
+                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
                           Common Questions
-                        </h3>
-                        <p className="text-[#4a5565] text-base leading-6">
+                        </h2>
+                        <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
                           Find answers to frequently asked questions about leasing this vehicle.
                         </p>
                       </div>
                     </TabsContent>
                     
-                    <TabsContent value="consultation" className="flex flex-col gap-6 mt-8">
+                    <TabsContent value="consultation" className="flex flex-col gap-6 mt-8 sm:gap-8 md:gap-10">
                       <div className="flex flex-col items-start gap-4 w-full">
-                        <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-6">
+                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
                           Free Consultation
-                        </h3>
-                        <p className="text-[#4a5565] text-base leading-6">
+                        </h2>
+                        <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
                           Speak with our leasing specialists to get personalized advice for your business.
                         </p>
                       </div>
                     </TabsContent>
-                  </Tabs>
+                  </Tabs> */}
+
+
+
+                  <div className="mb-4 border-b border-solid">
+                    <ul className="flex w-[380px] lg:w-full overflow-x-auto md:overflow-visible -mb-px" id="vehicle-tabs" role="tablist">
+                      <li className="me-2" role="presentation">
+                        <button 
+                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-[#194170] bg-transparent rounded-none whitespace-nowrap text-sm sm:text-base md:text-lg font-medium font-figtree text-gray-700" 
+                          id="specs-tab" 
+                          data-tabs-target="#specs" 
+                          type="button" 
+                          role="tab" 
+                          aria-controls="specs" 
+                          aria-selected="true"
+                        >
+                          <FileTextIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                          Vehicle Specs
+                        </button>
+                      </li>
+                      <li className="me-2" role="presentation">
+                        <button 
+                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent bg-transparent rounded-none whitespace-nowrap text-sm sm:text-base md:text-lg font-medium font-figtree text-gray-700" 
+                          id="finance-tab" 
+                          data-tabs-target="#finance" 
+                          type="button" 
+                          role="tab" 
+                          aria-controls="finance" 
+                          aria-selected="false"
+                        >
+                          <StarIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                          Finance &amp; Leasing Options
+                        </button>
+                      </li>
+                      <li className="me-2" role="presentation">
+                        <button 
+                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent bg-transparent rounded-none whitespace-nowrap text-sm sm:text-base md:text-lg font-medium font-figtree text-gray-700" 
+                          id="questions-tab" 
+                          data-tabs-target="#questions" 
+                          type="button" 
+                          role="tab" 
+                          aria-controls="questions" 
+                          aria-selected="false"
+                        >
+                          <HelpCircleIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                          Common Questions
+                        </button>
+                      </li>
+                      <li className="me-2" role="presentation">
+                        <button 
+                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent bg-transparent rounded-none whitespace-nowrap text-sm sm:text-base md:text-lg font-medium font-figtree text-gray-700" 
+                          id="consultation-tab" 
+                          data-tabs-target="#consultation" 
+                          type="button" 
+                          role="tab" 
+                          aria-controls="consultation" 
+                          aria-selected="false"
+                        >
+                          <ReceiptIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                          Free Consultation
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div id="vehicle-tab-content">
+                    <div className="flex flex-col gap-6 mt-8 sm:gap-8 md:gap-10" id="specs" role="tabpanel" aria-labelledby="specs-tab">
+                      <div className="flex flex-col items-start gap-4 w-full">
+                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
+                          Vehicle Specifications
+                        </h2>
+                        <h3 className="font-figtree font-semibold text-[#194170] text-base sm:text-lg md:text-xl leading-6 mt-2">
+                          Vehicle Basics
+                        </h3>
+                      
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 w-full">
+                          <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <div className="flex flex-col gap-1">
+                              <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
+                                {selectedVariant?.baseVariant || car?.bodyType || "Wagon, 4 seats, 4 door"}
+                              </p>
+                              <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
+                                Body type
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <div className="flex flex-col gap-1">
+                              <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
+                                {selectedVariant?.transmission?.includes("AWD") ? "AWD" : "2WD (Front Wheel Drive)"}
+                              </p>
+                              <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
+                                Drive type
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
+                            <div className="flex flex-col gap-1">
+                              <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
+                                {selectedVariant?.engine || "Unleaded Petrol"}
+                              </p>
+                              <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
+                                Fuel type
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <h3 className="font-figtree font-semibold text-[#194170] text-base sm:text-lg md:text-xl leading-6 mt-2">
+                          Engine and Performance
+                        </h3>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 w-full">
+                            <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
+                              <div className="flex flex-col gap-1">
+                                <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
+                                  {selectedVariant?.engine}
+                                </p>
+                                <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
+                                  Engine
+                                </p>
+                              </div>
+                            </div>
+                            
+                            <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
+                              <div className="flex flex-col gap-1">
+                                <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
+                                  {selectedVariant?.engineSize}
+                                </p>
+                                <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
+                                  Engine Size
+                                </p>
+                              </div>
+                            </div>
+                            
+                            <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
+                              <div className="flex flex-col gap-1">
+                                <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
+                                  {selectedVariant?.transmission}
+                                </p>
+                                <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
+                                  Transmission
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                            <h3 className="font-figtree font-semibold text-[#194170] text-base sm:text-lg md:text-xl leading-6 mt-2">
+                          Safety and Warranty
+                        </h3>
+                        
+                              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 w-full">
+                            <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
+                              <div className="flex flex-col gap-1">
+                                <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
+                                  {selectedVariant?.ancapRating}
+                                </p>
+                                <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
+                                  ANCAP Rating
+                                </p>
+                              </div>
+                            </div>
+                            
+                            <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
+                              <div className="flex flex-col gap-1">
+                                <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
+                                  {selectedVariant?.warranty}
+                                </p>
+                                <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
+                                  Warranty
+                                </p>
+                              </div>
+                            </div>
+                            
+                            <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
+                              <div className="flex flex-col gap-1">
+                                <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
+                                  {selectedVariant?.serviceInterval}
+                                </p>
+                                <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
+                                  Service Interval
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div className="hidden flex-col gap-6 mt-8 sm:gap-8 md:gap-10" id="finance" role="tabpanel" aria-labelledby="finance-tab">
+                      <div className="flex flex-col items-start gap-4 w-full">
+                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
+                          Choose the right finance and leasing structure for your business.
+                        </h2>
+                        <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                          We offer flexible finance and leasing options to suit your business needs.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="hidden flex-col gap-6 mt-8 sm:gap-8 md:gap-10" id="questions" role="tabpanel" aria-labelledby="questions-tab">
+                      <div className="flex flex-col items-start gap-4 w-full">
+                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
+                          Common Questions
+                        </h2>
+                        <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                          Find answers to frequently asked questions about leasing this vehicle.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="hidden flex-col gap-6 mt-8 sm:gap-8 md:gap-10" id="consultation" role="tabpanel" aria-labelledby="consultation-tab">
+                      <div className="flex flex-col items-start gap-4 w-full">
+                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
+                          Free Consultation
+                        </h2>
+                        <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                          Speak with our leasing specialists to get personalized advice for your business.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Client-side JavaScript for tabs */}
+
                 </CardContent>
               </Card>
             </div>

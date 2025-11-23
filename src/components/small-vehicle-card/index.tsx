@@ -25,7 +25,7 @@ export const SmallVehicleCard = ({
     
     return (
   
-    <Card className="w-full border border-solid shadow-sm h-full">
+    <Card className="w-full border border-solid shadow-sm h-full overflow-hidden">
       <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
         {isImageUrl ? (
           <img 
