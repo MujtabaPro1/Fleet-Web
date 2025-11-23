@@ -179,7 +179,7 @@ const Content = ({ title }: { title: string }) => {
                 name={vehicle.name}
                 type={vehicle.type}
                 fuel={vehicle.fuel}
-                price={vehicle.rentalPrice}
+                price={vehicle.selectedVariant?.weeklyPrice}
               />
             </div>
           ))}

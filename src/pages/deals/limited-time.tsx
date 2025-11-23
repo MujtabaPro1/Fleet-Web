@@ -289,10 +289,16 @@ const LimitedTime = (): JSX.Element => {
               >
                 <
                   CardContent className="flex flex-col items-center gap-2 md:gap-[18px] pt-6 md:pt-12 pb-3 md:pb-4 px-3 md:px-4">
-                  <div
-                    className="w-full h-[160px] md:h-[200.02px] rounded-[10.39px] bg-cover bg-center"
-                    style={{ backgroundImage: `url(https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC})` }}
-                  />
+                  <div className="w-full h-[160px] md:h-[200.02px] rounded-[10.39px] overflow-hidden">
+                    <img
+                      src={`https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}`}
+                      alt={`${vehicle?.brand?.name} ${vehicle.modelName}`}
+                      className="h-full w-full object-cover object-center rounded-[10.39px]"
+                      onError={(e) => {
+                        e.currentTarget.src = "/assets/images/no-image.png";
+                      }}
+                    />
+                  </div>
   
                   <Button
                     variant="outline"

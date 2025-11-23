@@ -68,7 +68,7 @@ const InventorySection = (): JSX.Element => {
       const bodyTypeParam = searchParams.get('bodyType');
       
       if (brandParam) {
-        setSelectedBrand(brandParam.toUpperCase());
+        setSelectedBrand(brandParam != 'McLAREN'? brandParam.toUpperCase(): brandParam);
       }
       
       if (bodyTypeParam) {
