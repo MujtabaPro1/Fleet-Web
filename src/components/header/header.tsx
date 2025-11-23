@@ -29,7 +29,7 @@ export const NavigationBarSection = (): JSX.Element => {
 
 
           <div className="inline-flex items-center gap-2 sm:gap-5">
-            <Button
+            {/* <Button
               variant="outline"
               onClick={()=>{
                 router.push('/wishlist')
@@ -40,7 +40,7 @@ export const NavigationBarSection = (): JSX.Element => {
               <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">
                 Favourites (5)
               </span>
-            </Button>
+            </Button> */}
 
             <Button 
             onClick={()=>{
@@ -57,7 +57,7 @@ export const NavigationBarSection = (): JSX.Element => {
       </div>
 
       {/* Mobile menu button */}
-      <div className="sm:hidden absolute right-4 top-4 z-50">
+      <div className="sm:hidden absolute right-4 top-4 z-[9999]">
         <Button
           variant="ghost"
           size="icon"
@@ -74,7 +74,7 @@ export const NavigationBarSection = (): JSX.Element => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="sm:hidden fixed inset-0 z-40 bg-white pt-16 px-4">
+        <div className="sm:hidden fixed inset-0 z-[999] bg-white pt-16 px-4">
           <div className="flex flex-col space-y-4">
             {navigationItems.map((item, index) => (
               <button
@@ -96,7 +96,7 @@ export const NavigationBarSection = (): JSX.Element => {
                 1300 352 352
               </span>
             </div>
-            <Button
+            {/* <Button
               variant="outline"
               className="flex items-center justify-center gap-1.5 mt-2"
               onClick={() => setMobileMenuOpen(false)}
@@ -105,7 +105,7 @@ export const NavigationBarSection = (): JSX.Element => {
               <span className="font-medium text-[#4a5565] text-sm">
                 Favourites (5)
               </span>
-            </Button>
+            </Button> */}
           </div>
         </div>
       )}
