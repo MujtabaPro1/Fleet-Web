@@ -1043,7 +1043,7 @@ export const MainContentSection = (): JSX.Element => {
                     name={vehicle.title}
                     type={vehicle.bodyType}
                     fuel={vehicle.selectedVariant?.variant}
-                    price={vehicle.price}
+                    price={vehicle?.selectedVariant?.weeklyPrice}
                     router={router}
                     id={vehicle.slug}
                     tags={vehicle.tags}
@@ -1118,7 +1118,7 @@ export const MainContentSection = (): JSX.Element => {
                     name={vehicle.title}
                     type={vehicle.bodyType}
                     fuel={vehicle.fuel}
-                    price={vehicle.price}
+                    price={vehicle?.selectedVariant?.weeklyPrice}
                     id={vehicle.slug}
                     router={router}
                     tags={vehicle.tags}
