@@ -5,12 +5,85 @@ import {
   HeartIcon,
   StarIcon,
 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, ReactNode } from "react";
 import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
 import { useRouter } from "next/router";
 import axiosInstance from "@/service/api";
+
+// Auto-scrolling carousel component
+const CarouselScroller: React.FC<{children: ReactNode}> = ({ children }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+    
+    // Force a reflow to ensure scrollWidth is calculated correctly
+    scrollContainer.scrollLeft = 0;
+    
+    // Ensure we have enough content to scroll
+    const contentWidth = scrollContainer.scrollWidth;
+    const containerWidth = scrollContainer.clientWidth;
+    
+    // Only auto-scroll if there's overflow content
+    if (contentWidth <= containerWidth) return;
+    
+    // Initialize position and speed
+    let position = 0;
+    const speed = 1; // pixels per frame
+    let animationFrameId: number;
+    let isPaused = false;
+    
+    const scroll = () => {
+      if (!scrollContainer || isPaused) return;
+      
+      // Increment position and apply it
+      position = (position + speed) % (contentWidth / 2);
+      scrollContainer.scrollLeft = position;
+      
+      // Continue animation loop
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+    
+    // Start scrolling animation
+    animationFrameId = requestAnimationFrame(scroll);
+    
+    // Pause on hover/touch
+    const pauseScroll = () => {
+      isPaused = true;
+    };
+    
+    // Resume on mouse leave/touch end
+    const resumeScroll = () => {
+      isPaused = false;
+      if (!animationFrameId) {
+        animationFrameId = requestAnimationFrame(scroll);
+      }
+    };
+    
+    // Add event listeners
+    scrollContainer.addEventListener('mouseenter', pauseScroll);
+    scrollContainer.addEventListener('touchstart', pauseScroll);
+    scrollContainer.addEventListener('mouseleave', resumeScroll);
+    scrollContainer.addEventListener('touchend', resumeScroll);
+    
+    // Clean up on component unmount
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      scrollContainer.removeEventListener('mouseenter', pauseScroll);
+      scrollContainer.removeEventListener('touchstart', pauseScroll);
+      scrollContainer.removeEventListener('mouseleave', resumeScroll);
+      scrollContainer.removeEventListener('touchend', resumeScroll);
+    };
+  }, []);
+  
+  return <div ref={scrollRef} className="overflow-hidden">{children}</div>;
+};
+
 // Using public paths instead of imports
 const dollarSvg = "/assets/images/svg/dollar.svg";
 const personChalkboardSvg = "/assets/images/svg/person-chalkboard.svg";
@@ -756,34 +829,63 @@ export const MainContentSection = (): JSX.Element => {
           <h3 className="font-semibold text-[#101828] text-xl">Popular Brands</h3>
         </div>
         
-        <div className="overflow-x-auto pb-4 hide-scrollbar">
-          <div className="flex items-center gap-12 min-w-max px-2">
-            <img onClick={() => {
-              router.push('/inventory?brand=Tesla');
-            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Tesla" src="/assets/images/brands/tesla.png" />
-            <img onClick={() => {
-              router.push('/inventory?brand=Kia');
-            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Kia" src="/assets/images/brands/kia.png" />
-            <img onClick={() => {
-              router.push('/inventory?brand=BMW');
-            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="BMW" src="/assets/images/brands/bmw.png" />
-            <img onClick={() => {
-              router.push('/inventory?brand=Ram');
-            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Ram" src="/assets/images/brands/ram.png" />
-            <img onClick={() => {
-              router.push('/inventory?brand=Volvo');
-            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Volvo" src="/assets/images/brands/volvo.png" />
-            <img onClick={() => {
-              router.push('/inventory?brand=Ford');
-            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Ford" src="/assets/images/brands/ford.png" />
-            <img onClick={() => {
-              router.push('/inventory?brand=Nissan');
-            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Nissan" src="/assets/images/brands/nissan.png" />
-            <img onClick={() => {
-              router.push('/inventory?brand=Jeep');
-            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Jeep" src="/assets/images/brands/jeep.png" />
+        <CarouselScroller>
+          <div className="pb-4 hide-scrollbar" id="brand-carousel">
+            <div className="flex items-center gap-12 mt-4 px-2 animate-scroll">
+              {/* First set of logos */}
+              <img onClick={() => router.push('/inventory?brand=Tesla')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Tesla" src="/assets/images/brands/tesla.png" />
+              <img onClick={() => router.push('/inventory?brand=Kia')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Kia" src="/assets/images/brands/kia.png" />
+              <img onClick={() => router.push('/inventory?brand=BMW')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="BMW" src="/assets/images/brands/bmw.png" />
+              <img onClick={() => router.push('/inventory?brand=Ram')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Ram" src="/assets/images/brands/ram.png" />
+              <img onClick={() => router.push('/inventory?brand=Volvo')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Volvo" src="/assets/images/brands/volvo.png" />
+              <img onClick={() => router.push('/inventory?brand=Ford')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Ford" src="/assets/images/brands/ford.png" />
+              <img onClick={() => router.push('/inventory?brand=Nissan')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Nissan" src="/assets/images/brands/nissan.png" />
+              <img onClick={() => router.push('/inventory?brand=Jeep')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Jeep" src="/assets/images/brands/jeep.png" />
+              <img onClick={() => router.push('/inventory?brand=Volkswagen')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Volkswagen" src="/assets/images/brands/vv.png" />
+              <img onClick={() => router.push('/inventory?brand=Hyundai')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Hyundai" src="/assets/images/brands/hyundai.png" />
+              <img onClick={() => router.push('/inventory?brand=Mercedes-Benz')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Mercedes" src="/assets/images/brands/benz.png" />
+                
+              {/* Duplicate logos for seamless scrolling */}
+              <img onClick={() => router.push('/inventory?brand=Tesla')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Tesla" src="/assets/images/brands/tesla.png" />
+              <img onClick={() => router.push('/inventory?brand=Kia')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Kia" src="/assets/images/brands/kia.png" />
+              <img onClick={() => router.push('/inventory?brand=BMW')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="BMW" src="/assets/images/brands/bmw.png" />
+              <img onClick={() => router.push('/inventory?brand=Ram')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Ram" src="/assets/images/brands/ram.png" />
+              <img onClick={() => router.push('/inventory?brand=Volvo')} 
+                className="w-[100px] h-[40px] object-contain cursor-pointer" 
+                alt="Volvo" src="/assets/images/brands/volvo.png" />
+            </div>
           </div>
-        </div>
+        </CarouselScroller>
         
         <style jsx global>{`
           .hide-scrollbar::-webkit-scrollbar {
