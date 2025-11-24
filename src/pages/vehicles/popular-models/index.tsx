@@ -140,7 +140,7 @@ const Content = ({ title }: { title: string }) => {
       <div className="flex items-center gap-4">
         <Button
           variant="ghost"
-          onClick={() => router.push("/explore")}
+          onClick={() => router.push("/inventory")}
           className="h-auto px-0 lg:px-3 py-0 lg:py-2 hover:bg-transparent text-[#194170]"
         >
           <span className="font-medium text-sm">

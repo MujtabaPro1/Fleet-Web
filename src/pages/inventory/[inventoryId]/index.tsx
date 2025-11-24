@@ -1098,7 +1098,7 @@ import { useSearchParams } from "next/navigation";
             </h2>
             <div className="flex w-full sm:w-auto items-center justify-between sm:justify-end gap-3">
               <Button 
-              onClick={() => router.push("/explore")}
+              onClick={() => router.push("/inventory")}
               variant="ghost" className="h-auto gap-1.5 px-3 py-2">
                 <span className="font-medium text-[#194170] text-sm leading-5 font-figtree">
                   View all

@@ -21,6 +21,7 @@ export const VehicleDisplaySection = (): JSX.Element => {
   const [selectedBrand, setSelectedBrand] = useState<string>("all");
   const [selectedBodyType, setSelectedBodyType] = useState<string>("all");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +42,22 @@ export const VehicleDisplaySection = (): JSX.Element => {
     };
 
     fetchData();
+  }, []);
+
+  // Handle responsive banner image
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+    
+    // Check on initial render
+    checkScreenSize();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkScreenSize);
+    
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   const handleSearch = () => {
@@ -159,11 +176,11 @@ export const VehicleDisplaySection = (): JSX.Element => {
           <div 
             className="w-full h-[180px] md:h-[220px] flex items-end justify-center absolute bottom-0 left-0 right-0" 
             style={{
-              backgroundImage: `url(/assets/images/banner.png)`,
-              backgroundPosition: 'center bottom',
+              backgroundImage: `url(/assets/images/${isSmallScreen ? 'banner-sm.png' : 'banner.png'})`,
+              backgroundPosition: `${isSmallScreen ? 'center 60%' : 'center bottom'}`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'contain',
-              transform: 'scale(1.6)', // Makes the image larger to extend outside the card
+              transform: `${isSmallScreen ? 'scale(1.2)' : 'scale(1.6)'}`, // Makes the image larger to extend outside the card
               transformOrigin: 'bottom center',
               zIndex: 10 // Ensures the image appears above other elements
             }}

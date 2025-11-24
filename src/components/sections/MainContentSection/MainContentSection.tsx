@@ -657,7 +657,7 @@ export const MainContentSection = (): JSX.Element => {
             <div className="flex items-center gap-4">
               <Button
                 variant="ghost"
-                onClick={() => router.push("/explore")}
+                onClick={() => router.push("/inventory")}
                 className="h-auto px-3 py-2 gap-1.5 hover:bg-transparent text-[#194170]"
               >
                 <span className="font-medium text-sm">
@@ -805,7 +805,7 @@ export const MainContentSection = (): JSX.Element => {
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
-              onClick={() => router.push("/explore")}
+              onClick={() => router.push("/inventory")}
               className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
             >
               <span className="font-medium text-sm">
@@ -885,7 +885,7 @@ export const MainContentSection = (): JSX.Element => {
 
           <Button
             variant="ghost"
-            onClick={() => router.push("/explore")}
+            onClick={() => router.push("/inventory")}
             className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
           >
             <span className="font-medium text-sm">
@@ -990,7 +990,7 @@ export const MainContentSection = (): JSX.Element => {
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
-              onClick={() => router.push("/explore")}
+              onClick={() => router.push("/inventory")}
               className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
             >
               <span className="font-medium text-sm">
@@ -1065,7 +1065,7 @@ export const MainContentSection = (): JSX.Element => {
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
-              onClick={() => router.push("/explore")}
+              onClick={() => router.push("/inventory")}
               className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
             >
               <span className="font-medium text-sm">
