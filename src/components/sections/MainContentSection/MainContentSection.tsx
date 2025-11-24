@@ -665,35 +665,7 @@ export const MainContentSection = (): JSX.Element => {
                 </span>
               </Button>
               
-              <div className="hidden md:flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
-                  onClick={() => {
-                    const container = document.getElementById('main-vehicles-carousel');
-                    if (container) {
-                      container.scrollBy({ left: -380, behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  <ChevronLeftIcon className="w-5 h-5" />
-                </Button>
-
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
-                  onClick={() => {
-                    const container = document.getElementById('main-vehicles-carousel');
-                    if (container) {
-                      container.scrollBy({ left: 380, behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  <ChevronRightIcon className="w-5 h-5 text-white" />
-                </Button>
-              </div>
+          
             </div>
           </div>
 
@@ -785,14 +757,30 @@ export const MainContentSection = (): JSX.Element => {
         
         <div className="overflow-x-auto pb-4 hide-scrollbar">
           <div className="flex items-center gap-12 min-w-max px-2">
-            <img className="w-[100px] h-[40px]   object-contain" alt="Tesla" src="/assets/images/brands/tesla.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="Kia" src="/assets/images/brands/kia.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="BMW" src="/assets/images/brands/bmw.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="Ram" src="/assets/images/brands/ram.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="Volvo" src="/assets/images/brands/volvo.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="Ford" src="/assets/images/brands/ford.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="Nissan" src="/assets/images/brands/nissan.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="Jeep" src="/assets/images/brands/jeep.png" />
+            <img onClick={() => {
+              router.push('/inventory?brand=Tesla');
+            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Tesla" src="/assets/images/brands/tesla.png" />
+            <img onClick={() => {
+              router.push('/inventory?brand=Kia');
+            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Kia" src="/assets/images/brands/kia.png" />
+            <img onClick={() => {
+              router.push('/inventory?brand=BMW');
+            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="BMW" src="/assets/images/brands/bmw.png" />
+            <img onClick={() => {
+              router.push('/inventory?brand=Ram');
+            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Ram" src="/assets/images/brands/ram.png" />
+            <img onClick={() => {
+              router.push('/inventory?brand=Volvo');
+            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Volvo" src="/assets/images/brands/volvo.png" />
+            <img onClick={() => {
+              router.push('/inventory?brand=Ford');
+            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Ford" src="/assets/images/brands/ford.png" />
+            <img onClick={() => {
+              router.push('/inventory?brand=Nissan');
+            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Nissan" src="/assets/images/brands/nissan.png" />
+            <img onClick={() => {
+              router.push('/inventory?brand=Jeep');
+            }} className="w-[100px] h-[40px]   object-contain cursor-pointer" alt="Jeep" src="/assets/images/brands/jeep.png" />
           </div>
         </div>
         
