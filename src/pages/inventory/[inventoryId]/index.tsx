@@ -320,7 +320,7 @@ import { useSearchParams } from "next/navigation";
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-col md:flex-row gap-3">
+                  <div className="w-full">
                     <div className="flex-1 h-[300px] md:h-[400px] bg-gray-100 rounded overflow-hidden">
                       <img
                         className="w-full h-full object-contain"
@@ -839,7 +839,7 @@ import { useSearchParams } from "next/navigation";
                     </ToggleGroup>
   
                     <div className="flex flex-col items-start gap-2 w-full">
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 w-full">
+                      <div className="flex flex-col justify-start items-start gap-3 sm:gap-6 w-full">
                         <div className="flex items-end gap-1.5">
                           <span className="font-figtree font-semibold text-[#c70036] text-4xl tracking-[0.80px] leading-9">
                             ${selectedFrequency === "weekly" 
@@ -852,11 +852,11 @@ import { useSearchParams } from "next/navigation";
                             PER {selectedFrequency.toUpperCase().replace("LY", "")}LY*
                           </span>
                         </div>
-                        <Badge className="bg-[#c70036] text-white px-1.5 py-0.5 h-auto">
+                        {car?.tags &&  car?.tags.length && <Badge className="bg-[#c70036] text-white px-1.5 py-0.5 h-auto">
                           <span className="font-medium text-sm text-center leading-4 font-figtree">
-                            Limited-time deal
+                             {car?.tags?.[0]}
                           </span>
-                        </Badge>
+                        </Badge>}
                       </div>
   
                       <div className="flex items-start gap-2 w-full">
