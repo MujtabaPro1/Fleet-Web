@@ -934,16 +934,18 @@ export const MainContentSection = (): JSX.Element => {
         </div>
 
         {/* Partner logos */}
-        <div className="w-full py-4 rounded-lg  mt-8">
-          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 max-w-[1200px] mx-auto px-4">
-            {partnerLogos.map((logo, index) => (
-              <img
-                key={index}
-                className="h-8 md:h-10 w-auto max-w-[150px] object-contain"
-                alt="Partner logo"
-                src={logo.src}
-              />
-            ))}
+        <div className="w-full py-4 rounded-lg mt-8">
+          <div className="overflow-x-auto pb-4 hide-scrollbar">
+            <div className="flex items-center gap-4 md:gap-8 min-w-max px-4">
+              {partnerLogos.map((logo, index) => (
+                <img
+                  key={index}
+                  className="h-8 md:h-10 w-auto max-w-[150px] object-contain flex-shrink-0"
+                  alt="Partner logo"
+                  src={logo.src}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
