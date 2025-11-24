@@ -497,16 +497,16 @@ export const MainContentSection = (): JSX.Element => {
   const router = useRouter();
   const [offers, setOffers] = useState([]);
   const [bodyTypeOffers, setBodyTypeOffers] = useState({
-    'HATCHBACK': [],
-    'SEDAN': [],
-    'VAN': [],
+    'Popular Hatchback': [],
+    'Popular Sedan': [],
+    'Popular Van': [],
   });
 
   useEffect(() => {
     getLimitedTimeDeals();
-    getByBodyType('HATCHBACK');
-    getByBodyType('SEDAN');
-    getByBodyType('VAN');
+    getByBodyType('Popular Hatchback');
+    getByBodyType('Popular Sedan');
+    getByBodyType('Popular Van');
   
   }, []); 
 
@@ -527,7 +527,7 @@ export const MainContentSection = (): JSX.Element => {
   const getByBodyType = async (bodyType: string) => {
     // Make the API call
     const params = new URLSearchParams();
-    params.set('bodyType', bodyType);
+    params.set('tags', bodyType);
     axiosInstance.get(`/v1/cars/search?${params.toString()}`)
       .then(response => {
         console.log(response.data.data);
@@ -588,7 +588,7 @@ export const MainContentSection = (): JSX.Element => {
                   <span className="font-figtree font-medium text-[#101828] text-xs tracking-[0] leading-5">
                     Learn more
                   </span>
-                  <ArrowRightIcon className="w-3.5 h-3.5" />
+                  <ArrowRightIcon className="w-3.5 h-3.5 text-white" />
                 </Button>
               </div>
             </CardContent>
@@ -638,7 +638,7 @@ export const MainContentSection = (): JSX.Element => {
                   <span className="font-figtree font-medium text-[#101828] text-xs tracking-[0] leading-5">
                     Learn more
                   </span>
-                  <ArrowRightIcon className="w-3.5 h-3.5" />
+                  <ArrowRightIcon className="w-3.5 h-3.5 text-white" />
                 </Button>
               </div>
             </CardContent>
@@ -685,6 +685,7 @@ export const MainContentSection = (): JSX.Element => {
                       price={offer.selectedVariant.weeklyPrice}
                       router={router}
                       id={offer.slug}
+                      tags={offer.tags}
                     />
                   </div>
                 ))}
@@ -851,7 +852,7 @@ export const MainContentSection = (): JSX.Element => {
             className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
           >
             <div className="flex gap-6 min-w-max">
-              {bodyTypeOffers['HATCHBACK'].map((vehicle: any, index: number) => (
+              {bodyTypeOffers['Popular Hatchback'].map((vehicle: any, index: number) => (
                 <div key={index} className="w-[350px] flex-shrink-0">
                   <SmallVehicleCard 
                       image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
@@ -926,7 +927,7 @@ export const MainContentSection = (): JSX.Element => {
                   <span className="font-medium text-base">
                     Learn more
                   </span>
-                  <ArrowRightIcon className="w-5 h-5" />
+                  <ArrowRightIcon className="w-5 h-5 text-white" />
                 </Button>
               </CardContent>
             </Card>
@@ -974,7 +975,7 @@ export const MainContentSection = (): JSX.Element => {
                   <span className="font-medium text-base">
                     Learn more
                   </span>
-                  <ArrowRightIcon className="w-5 h-5" />
+                  <ArrowRightIcon className="w-5 h-5 text-white" />
                 </Button>
               </CardContent>
             </Card>
@@ -1038,7 +1039,7 @@ export const MainContentSection = (): JSX.Element => {
             className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
           >
             <div className="flex gap-6 min-w-max">
-              {bodyTypeOffers['SEDAN'].map((vehicle: any, index: number) => (
+              {bodyTypeOffers['Popular Sedan'].map((vehicle: any, index: number) => (
                 <div key={index} className="w-[350px] flex-shrink-0">
                   <TinyVehicleCard 
                     image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
@@ -1113,7 +1114,7 @@ export const MainContentSection = (): JSX.Element => {
             className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
           >
             <div className="flex gap-6 min-w-max">
-              {bodyTypeOffers['VAN'].map((vehicle: any, index: number) => (
+              {bodyTypeOffers['Popular Van'].map((vehicle: any, index: number) => (
                 <div key={index} className="w-[350px] flex-shrink-0">
                   <TinyVehicleCard 
                     image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}

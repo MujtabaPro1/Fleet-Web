@@ -7,7 +7,7 @@ export const FeaturedSection = (): JSX.Element => {
       <div className="flex flex-col w-full max-w-[1280px] items-start gap-10 px-4">
         <Card className="w-full bg-white rounded border border-solid shadow-shadow-sm">
           <CardContent className="flex flex-col items-center gap-5 p-8">
-            <h1 className="max-w-[976.41px] font-figtree font-semibold text-[#c70036] text-5xl text-center tracking-[-0.80px] leading-[48px]">
+            <h1 className="max-w-[976.41px] font-figtree font-semibold text-[#c70036] text-2xl lg:text-5xl text-center tracking-[-0.80px] leading-[48px]">
               Driving Business Forward with Smarter Fleet and Business Finance
               Solutions
             </h1>

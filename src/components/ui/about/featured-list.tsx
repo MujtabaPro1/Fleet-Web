@@ -27,7 +27,7 @@ const featuresData = [
 export const FeaturesListSection = (): JSX.Element => {
   return (
     <section className="flex flex-col w-full items-center gap-16 px-0 py-16 bg-white">
-      <div className="flex w-full max-w-[1280px] items-start gap-16 px-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[1280px] items-start gap-16 px-4">
         {featuresData.map((feature, index) => (
           <div
             key={index}

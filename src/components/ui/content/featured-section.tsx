@@ -83,7 +83,7 @@ export const FeaturesSection = ({ title, description, subDescription }: { title:
                   <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
                     Learn more
                   </span>
-                  <ArrowRightIcon className="w-4 h-4" />
+                  <ArrowRightIcon className="w-4 h-4 text-white" />
                 </Button>
               </CardContent>
             </Card>

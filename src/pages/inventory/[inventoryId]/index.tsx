@@ -67,34 +67,7 @@ import { useSearchParams } from "next/navigation";
     { label: "Hyundai" },
     { label: "Tucson" },
   ];
-  
-  const variants = [
-    { id: "tuscon", label: "Tuscon", active: true },
-    { id: "elite", label: "Elite", active: false },
-    { id: "hybrid", label: "Hybrid", active: false },
-    { id: "hybrid-elite", label: "Hybrid Elite", active: false },
-    { id: "hybrid-premium", label: "Hybrid Premium", active: false },
-  ];
-  
-  const vehicleBasics = [
-    { title: "Wagon, 4 seats, 4 door", subtitle: "Body type" },
-    { title: "2WD (Front Wheel Drive)", subtitle: "Drive type" },
-    { title: "Unleaded Petrol", subtitle: "Fuel type" },
-  ];
-  
-  const enginePerformance = [
-    { label: "Engine", value: "Inline 4 Cylinders, 54" },
-    { label: "Transmission", value: "6 speed, Automatic" },
-    { label: "Power / Torque", value: "115 KW / 192 NM" },
-    { label: "Fuel Efficiency", value: "8.10L / 100KM" },
-  ];
-  
-  const safetyWarranty = [
-    { label: "ANCAP Safety Rating", value: <img src={starSvg} alt="" />, rate: 3 },
-    { label: "Warranty", value: "5 years / 999,000 km" },
-    { label: "Service Interval", value: "12 months / 15,000 km" },
-  ];
-  
+
   const paymentFrequencies = [
     { id: "weekly", label: "Weekly", active: true },
     { id: "fortnightly", label: "Fortnightly", active: false },
@@ -147,49 +120,7 @@ import { useSearchParams } from "next/navigation";
     },
   ];
   
-  const similarVehicles = [
-    {
-      image: "/assets/images/car-image.png",
-      title: "Toyota Corolla Cross",
-      badge: "Trending",
-      deal: "Limited-time deal",
-      type: "SUV",
-      fuel: "Petrol, Hybrid",
-      price: "$288",
-      frequency: "WEEKLY",
-    },
-    {
-      image: "/assets/images/car-image.png",
-      title: "Toyota Corolla Cross",
-      badge: "Trending",
-      deal: "Limited-time deal",
-      type: "SUV",
-      fuel: "Petrol, Hybrid",
-      price: "$288",
-      frequency: "WEEKLY",
-    },
-    {
-      image: "/assets/images/car-image.png",
-      title: "Toyota Corolla Cross",
-      badge: "Trending",
-      deal: "Limited-time deal",
-      type: "SUV",
-      fuel: "Petrol, Hybrid",
-      price: "$288",
-      frequency: "WEEKLY",
-    },
-    {
-      image: "/assets/images/car-image.png",
-      title: "Toyota Corolla Cross",
-      badge: "Trending",
-      deal: "Limited-time deal",
-      type: "SUV",
-      fuel: "Petrol, Hybrid",
-      price: "$288",
-      frequency: "WEEKLY",
-    },
-  ];
-  
+
   const CarDetail: MyPage = () => {
     const router = useRouter();
     const { carID } = router.query;
@@ -242,6 +173,28 @@ import { useSearchParams } from "next/navigation";
         });
       };
     }, []);
+    
+    // Accordion toggle functionality
+    const toggleAccordion = (e: React.MouseEvent<HTMLButtonElement>) => {
+      const content = e.currentTarget.nextElementSibling as HTMLElement;
+      const icon = e.currentTarget.querySelector('svg');
+      if (content && icon) {
+        const isHidden = content.classList.contains('hidden');
+        content.classList.toggle('hidden');
+        
+        // Reset rotation classes
+        icon.classList.remove('rotate-90', 'rotate-270');
+        
+        // Apply appropriate rotation
+        if (isHidden) {
+          // Opening the accordion - point up
+          icon.classList.add('rotate-270');
+        } else {
+          // Closing the accordion - point down
+          icon.classList.add('rotate-90');
+        }
+      }
+    };
   
     const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
     const [car, setCar] = useState<any>(null);
@@ -311,8 +264,8 @@ import { useSearchParams } from "next/navigation";
                 <CardContent className="flex flex-col items-start gap-5 sm:gap-7 p-4 sm:p-6">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
                     <div className="flex flex-col items-start gap-2 flex-1">
-                      <h1 className="font-figtree font-semibold text-[#c70036] text-3xl leading-8">
-                        {car?.brand?.name} {car?.modelName} Leasing
+                      <h1 className="font-figtree font-semibold text-[#000] text-3xl leading-8">
+                        {car?.brand?.name && car?.brand?.name.charAt(0).toUpperCase() + car?.brand?.name.slice(1).toLowerCase()} {car?.modelName && car?.modelName.charAt(0).toUpperCase() + car?.modelName.slice(1).toLowerCase()} Leasing
                       </h1>
                       <p className="font-figtree font-normal text-[#4a5565] text-lg leading-5">
                         Drive your business forward with smarter leasing and
@@ -374,204 +327,6 @@ import { useSearchParams } from "next/navigation";
   
               <Card className="w-full border-solid shadow-shadow-sm">
                 <CardContent className="flex flex-col items-start gap-4 sm:gap-6 p-4 sm:p-6 mt-[40px]">
-                  {/* <Tabs defaultValue="specs" className="w-full">
-                    <div className="border-b border-solid">
-                      <TabsList className="flex w-full bg-transparent p-0 overflow-x-auto md:overflow-visible">
-                        <TabsTrigger
-                          value="specs"
-                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none whitespace-nowrap"
-                        >
-                          <FileTextIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
-                          <span className="font-medium text-sm sm:text-base md:text-lg leading-5 font-figtree text-gray-700">
-                            Vehicle Specs
-                          </span>
-                        </TabsTrigger>
-                        <TabsTrigger
-                          value="finance"
-                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none whitespace-nowrap"
-                        >
-                          <StarIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
-                          <span className="font-medium text-sm sm:text-base md:text-lg leading-5 font-figtree text-gray-700">
-                            Finance &amp; Leasing Options
-                          </span>
-                        </TabsTrigger>
-                        <TabsTrigger
-                          value="questions"
-                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none whitespace-nowrap"
-                        >
-                          <HelpCircleIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
-                          <span className="font-medium text-sm sm:text-base md:text-lg leading-5 font-figtree text-gray-700">
-                            Common Questions
-                          </span>
-                        </TabsTrigger>
-                        <TabsTrigger
-                          value="consultation"
-                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent data-[state=active]:border-[#194170] bg-transparent rounded-none whitespace-nowrap"
-                        >
-                          <ReceiptIcon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
-                          <span className="font-medium text-sm sm:text-base md:text-lg leading-5 font-figtree text-gray-700">
-                            Free Consultation
-                          </span>
-                        </TabsTrigger>
-                      </TabsList>
-                    </div>
-  
-                    <TabsContent
-                      value="specs"
-                      className="flex flex-col gap-6 mt-8 sm:gap-8 md:gap-10"
-                    >
-                      <div className="flex flex-col items-start gap-4 w-full">
-                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
-                          Vehicle Specifications
-                        </h2>
-                        <h3 className="font-figtree font-semibold text-[#194170] text-base sm:text-lg md:text-xl leading-6 mt-2">
-                          Vehicle Basics
-                        </h3>
-                      
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 w-full">
-                          <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
-                            <div className="flex flex-col gap-1">
-                              <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
-                                {selectedVariant?.baseVariant || car?.bodyType || "Wagon, 4 seats, 4 door"}
-                              </p>
-                              <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
-                                Body type
-                              </p>
-                            </div>
-                          </div>
-                          
-                          <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
-                            <div className="flex flex-col gap-1">
-                              <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
-                                {selectedVariant?.transmission?.includes("AWD") ? "AWD" : "2WD (Front Wheel Drive)"}
-                              </p>
-                              <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
-                                Drive type
-                              </p>
-                            </div>
-                          </div>
-                          
-                          <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
-                            <div className="flex flex-col gap-1">
-                              <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
-                                {selectedVariant?.engine || "Unleaded Petrol"}
-                              </p>
-                              <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
-                                Fuel type
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-  
-                      <div className="flex flex-col items-start w-full">
-                        <div className="flex items-center gap-4 sm:gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
-                          <h3 className="flex-1 font-figtree font-semibold text-[#194170] text-base sm:text-lg md:text-xl leading-6">
-                            Engine and Performance
-                          </h3>
-                        </div>
-  
-                        <div className="flex flex-col items-start w-full">
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-3 sm:py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
-                            <span className="font-medium text-[#101828] text-sm sm:text-base leading-5 font-figtree">
-                              Engine
-                            </span>
-                            <span className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
-                              {selectedVariant?.engine || "--"}
-                            </span>
-                          </div>
-                          
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-3 sm:py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
-                            <span className="font-medium text-[#101828] text-sm sm:text-base leading-5 font-figtree">
-                              Engine Size
-                            </span>
-                            <span className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
-                              {selectedVariant?.engineSize ? `${selectedVariant.engineSize}L` : "--"}
-                            </span>
-                          </div>
-                          
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-3 sm:py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
-                            <span className="font-medium text-[#101828] text-sm sm:text-base leading-5 font-figtree">
-                              Transmission
-                            </span>
-                            <span className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
-                              {selectedVariant?.transmission || "--"}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-  
-                      <div className="flex flex-col items-start w-full">
-                        <div className="flex items-center gap-4 sm:gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
-                          <h3 className="flex-1 font-figtree font-semibold text-[#194170] text-base sm:text-lg md:text-xl leading-6">
-                            Safety &amp; Warranty
-                          </h3>
-                        </div>
-  
-                        <div className="flex flex-col items-start w-full">
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-3 sm:py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
-                            <span className="font-medium text-[#101828] text-sm sm:text-base md:text-lg leading-5 font-figtree">
-                              ANCAP Rating
-                            </span>
-                            <span className="font-normal text-[#4a5565] text-sm sm:text-base md:text-lg leading-5 font-figtree">
-                              {selectedVariant?.ancapRating || "--"}
-                            </span>
-                          </div>
-                          
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-3 sm:py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
-                            <span className="font-medium text-[#101828] text-sm sm:text-base md:text-lg leading-5 font-figtree">
-                              Warranty
-                            </span>
-                            <span className="font-normal text-[#4a5565] text-sm sm:text-base md:text-lg leading-5 font-figtree">
-                              {selectedVariant?.warranty || "--"}
-                            </span>
-                          </div>
-                          
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-0 py-3 sm:py-4 w-full border-b border-solid border-gray-100 gap-1 sm:gap-0">
-                            <span className="font-medium text-[#101828] text-sm sm:text-base md:text-lg leading-5 font-figtree">
-                              Service Interval
-                            </span>
-                            <span className="font-normal text-[#4a5565] text-sm sm:text-base md:text-lg leading-5 font-figtree">
-                              {selectedVariant?.serviceIntervalText || "--"}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="finance" className="flex flex-col gap-6 mt-8 sm:gap-8 md:gap-10">
-                      <div className="flex flex-col items-start gap-4 w-full">
-                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
-                          Choose the right finance and leasing structure for your business.
-                        </h2>
-                        <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
-                          We offer flexible finance and leasing options to suit your business needs.
-                        </p>
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="questions" className="flex flex-col gap-6 mt-8 sm:gap-8 md:gap-10">
-                      <div className="flex flex-col items-start gap-4 w-full">
-                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
-                          Common Questions
-                        </h2>
-                        <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
-                          Find answers to frequently asked questions about leasing this vehicle.
-                        </p>
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="consultation" className="flex flex-col gap-6 mt-8 sm:gap-8 md:gap-10">
-                      <div className="flex flex-col items-start gap-4 w-full">
-                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
-                          Free Consultation
-                        </h2>
-                        <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
-                          Speak with our leasing specialists to get personalized advice for your business.
-                        </p>
-                      </div>
-                    </TabsContent>
-                  </Tabs> */}
 
 
 
@@ -636,7 +391,7 @@ import { useSearchParams } from "next/navigation";
                     </ul>
                   </div>
                   
-                  <div id="vehicle-tab-content">
+                  <div id="vehicle-tab-content" className="w-full">
                     <div className="flex flex-col gap-6 mt-8 sm:gap-8 md:gap-10" id="specs" role="tabpanel" aria-labelledby="specs-tab">
                       <div className="flex flex-col items-start gap-4 w-full">
                         <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
@@ -763,35 +518,239 @@ import { useSearchParams } from "next/navigation";
                     </div>
                     
                     <div className="hidden flex-col gap-6 mt-8 sm:gap-8 md:gap-10" id="finance" role="tabpanel" aria-labelledby="finance-tab">
-                      <div className="flex flex-col items-start gap-4 w-full">
-                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
-                          Choose the right finance and leasing structure for your business.
-                        </h2>
-                        <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
-                          We offer flexible finance and leasing options to suit your business needs.
-                        </p>
-                      </div>
-                    </div>
+  <div className="flex flex-col items-start gap-4 w-full">
+    <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
+      Choose the right finance and leasing structure for your business.
+    </h2>
+    <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+      Fleet Leasing Australia offers a range of flexible finance and leasing products designed to suit different business needs and budgets. Whether you're a sole trader, partnership, or established company, our specialists can help tailor the best structure for your cash flow and tax position.
+    </p>
+  </div>
+  
+  <div className="flex flex-col items-start gap-4 w-full">
+    <h3 className="font-figtree font-semibold text-[#194170] text-lg leading-6">
+      Products Available
+    </h3>
+    
+    <div className="grid grid-cols-1 gap-6 w-full">
+      <div className="flex flex-col sm:flex-row items-start gap-4">
+        <div className="w-full sm:w-1/3">
+          <h4 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
+            Chattel Mortgage
+          </h4>
+        </div>
+        <div className="w-full sm:w-2/3">
+          <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+            Own the vehicle from day one while spreading payments over time. Interest and depreciation may be tax-deductible.
+          </p>
+        </div>
+      </div>
+      
+      <div className="flex flex-col sm:flex-row items-start gap-4">
+        <div className="w-full sm:w-1/3">
+          <h4 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
+            Finance Lease
+          </h4>
+        </div>
+        <div className="w-full sm:w-2/3">
+          <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+            Lease the vehicle for a fixed term with predictable monthly repayments; option to purchase at the end.
+          </p>
+        </div>
+      </div>
+      
+      <div className="flex flex-col sm:flex-row items-start gap-4">
+        <div className="w-full sm:w-1/3">
+          <h4 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
+            Operating Lease
+          </h4>
+        </div>
+        <div className="w-full sm:w-2/3">
+          <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+            Drive new vehicles without ownership risk. Ideal for businesses wanting to keep assets off the balance sheet.
+          </p>
+        </div>
+      </div>
+      
+      <div className="flex flex-col sm:flex-row items-start gap-4">
+        <div className="w-full sm:w-1/3">
+          <h4 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
+            Fleet Finance
+          </h4>
+        </div>
+        <div className="w-full sm:w-2/3">
+          <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+            Bundle multiple vehicles or assets into one simple finance plan.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
                     
                     <div className="hidden flex-col gap-6 mt-8 sm:gap-8 md:gap-10" id="questions" role="tabpanel" aria-labelledby="questions-tab">
+                        <div className="flex flex-col items-start gap-4 w-full">
+                          <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
+                            Common Questions
+                          </h2>
+                          <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                            Find answers to frequently asked questions about leasing this vehicle.
+                          </p>
+                        </div>
+                        
+                        <div className="flex flex-col items-start gap-4 w-full" id="accordion-questions">
+                          <div className="w-full">
+                            <div className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+                              <button 
+                                className="flex items-center bg-gray-100 justify-between w-full p-4 text-left" 
+                                onClick={toggleAccordion}
+                              >
+                                <h3 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
+                                  What information do I need for a leasing application?
+                                </h3>
+                                <ChevronRightIcon className="w-5 h-5 transform rotate-90 transition-transform duration-200" />
+                              </button>
+                              <div className="pt-4 p-4 hidden bg-white">
+                                <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                                  Typically, we'll need your ABN, business details, driver's licence, and a brief overview of your vehicle needs. For larger fleets, we may request financials — but for leases under $250K, no financials are required.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="w-full">
+                            <div className="bg-gray-50 rounded-lg overflow-hidden">
+                              <button 
+                                className="flex items-center justify-between  bg-gray-100  w-full p-4 text-left" 
+                                onClick={toggleAccordion}
+                              >
+                                <h3 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
+                                  How long does approval take?
+                                </h3>
+                                <ChevronRightIcon className="w-5 h-5 transform rotate-90 transition-transform duration-200" />
+                              </button>
+                             <div className="pt-4 p-4 hidden bg-white">
+                                <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                                  Most applications are approved within 24 hours, depending on the lender and product type.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="w-full">
+                            <div className="bg-gray-50 rounded-lg overflow-hidden">
+                              <button 
+                                className="flex items-center justify-between  bg-gray-100   w-full p-4 text-left" 
+                                onClick={toggleAccordion}
+                              >
+                                <h3 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
+                                  Can I lease as a sole trader or small business?
+                                </h3>
+                                <ChevronRightIcon className="w-5 h-5 transform rotate-90 transition-transform duration-200" />
+                              </button>
+                            <div className="pt-4 p-4 hidden bg-white">
+                                <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                                  Absolutely. Fleet Leasing Australia works with sole traders, partnerships, and SMEs across Australia.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="w-full">
+                            <div className="bg-gray-50 rounded-lg overflow-hidden">
+                              <button 
+                                className="flex items-center justify-between bg-gray-100 w-full p-4 text-left" 
+                                onClick={toggleAccordion}
+                              >
+                                <h3 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
+                                  What happens at the end of the lease or finance term?
+                                </h3>
+                                <ChevronRightIcon className="w-5 h-5 transform rotate-90 transition-transform duration-200" />
+                              </button>
+                          <div className="pt-4 p-4 hidden bg-white">
+                                <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                                  You can refinance, upgrade, or purchase the vehicle outright, depending on your agreement.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="w-full">
+                            <div className="bg-gray-50 rounded-lg overflow-hidden">
+                              <button 
+                                className="flex items-center justify-between bg-gray-100 w-full p-4 text-left" 
+                                onClick={toggleAccordion}
+                              >
+                                <h3 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
+                                  Are lease payments tax-deductible?
+                                </h3>
+                                <ChevronRightIcon className="w-5 h-5 transform rotate-90 transition-transform duration-200" />
+                              </button>
+                             <div className="pt-4 p-4 hidden bg-white">
+                                <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                                  In most cases, yes especially when vehicles are used for business purposes. Speak with your accountant for personalised advice.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div className="w-full">
+                            <div className="bg-gray-50 rounded-lg overflow-hidden">
+                              <button 
+                                className="flex items-center justify-between  bg-gray-100  w-full p-4 text-left" 
+                                onClick={toggleAccordion}
+                              >
+                                <h3 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
+                                  Can I include maintenance or insurance in the lease?
+                                </h3>
+                                <ChevronRightIcon className="w-5 h-5 transform rotate-90 transition-transform duration-200" />
+                              </button>
+                              <div className="pt-4 p-4 hidden bg-white">
+                                <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                                  Yes. We can bundle Rego, Servicing, Tyres, Maintenance, Insurance, and even fuel cards into your monthly payments.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    
+                   <div className="hidden flex-col gap-6 mt-8 sm:gap-8 md:gap-10" id="consultation" role="tabpanel" aria-labelledby="consultation-tab">
                       <div className="flex flex-col items-start gap-4 w-full">
                         <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
-                          Common Questions
+                          Not sure which finance or leasing product suits your business?
                         </h2>
                         <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
-                          Find answers to frequently asked questions about leasing this vehicle.
+                          Book a free, no-obligation consultation with one of our fleet leasing specialists. We'll review your existing business fleet, vehicle usage, and cash-flow goals to recommend the most effective leasing/finance strategy.
                         </p>
                       </div>
-                    </div>
-                    
-                    <div className="hidden flex-col gap-6 mt-8 sm:gap-8 md:gap-10" id="consultation" role="tabpanel" aria-labelledby="consultation-tab">
+                      
                       <div className="flex flex-col items-start gap-4 w-full">
-                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
-                          Free Consultation
-                        </h2>
-                        <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
-                          Speak with our leasing specialists to get personalized advice for your business.
-                        </p>
+                        <ol className="list-decimal pl-5 space-y-2">
+                          <li className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                            One-on-one advice from experienced leasing experts
+                          </li>
+                          <li className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                            Quick assessment of eligibility and pre-approval options
+                          </li>
+                          <li className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                            Fleet sourcing guidance including reviewing your existing fleet
+                          </li>
+                          <li className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
+                            Transparent pricing with no hidden fees
+                          </li>
+                        </ol>
+                      </div>
+                      
+                      <div className="w-full">
+                        <Button 
+                          className="h-auto w-full gap-1.5 px-6 py-3.5 bg-[#194170] rounded shadow-shadow-xs"
+                        >
+                          <span className="font-medium text-white text-base leading-6 font-figtree">
+                            Book A Free Consultation
+                          </span>
+                          <ArrowRightIcon className="w-5 h-5 text-white" />
+                        </Button>
                       </div>
                     </div>
                   </div>

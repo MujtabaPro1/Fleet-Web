@@ -21,8 +21,8 @@ const topCards = [
     description:
       "Discover a wide range of vehicles tailored for your business needs.",
     links: [
-      { text: "Browse inventory", href: "#" },
-      { text: "Explore by brands & body type", href: "#" },
+      { text: "Browse inventory", href: "/inventory" },
+      { text: "Explore by brands & body type", href: "/explore" },
     ],
   },
   {
@@ -31,8 +31,8 @@ const topCards = [
     description:
       "Flexible solutions to help you acquire and manage your fleet with ease.",
     links: [
-      { text: "Explore options", href: "#" },
-      { text: "Free fleet consultation", href: "#" },
+      { text: "Explore options", href: "/products/fleet-finance" },
+      { text: "Free fleet consultation", href: "/products/fleet-finance" },
     ],
   },
   {
@@ -72,10 +72,10 @@ const footerColumns = [
       "Free Fleet Consultation",
     ],
     urls: [
-      "/products/fleet-leasing",
-      "/products/fleet-leasing",
-      "/products/fleet-leasing",
-      "/services/consultation",
+      "/products/fleet-finance",
+      "/products/fleet-finance",
+      "/products/fleet-finance",
+      "/products/fleet-finance",
     ]
   },
   {
@@ -88,11 +88,11 @@ const footerColumns = [
       "Overdraft Facility",
     ],
     urls: [
-      "/products/business-finance/commercial-term-loan",
-      "/products/business-finance/line-of-credit",
-      "/products/business-finance/working-capital",
-      "/products/business-finance/invoice-financing",
-      "/products/business-finance/overdraft-facility",
+      "/products/business-finance",
+      "/products/business-finance",
+      "/products/business-finance",
+      "/products/business-finance",
+      "/products/business-finance",
     ]
   },
   {
@@ -148,6 +148,7 @@ export const SiteFooterSection = (): JSX.Element => {
                     <Button
                       key={linkIndex}
                       variant="link"
+                      onClick={() => router.push(link.href)}
                       className="flex items-center gap-1.5 w-full justify-start p-0 h-auto"
                     >
                       <span className="font-figtree font-semibold text-[#194170] text-sm tracking-[0] leading-5 whitespace-nowrap">

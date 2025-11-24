@@ -19,20 +19,6 @@ import {
 } from "../select";
 import { Textarea } from "../textarea";
 
-const fleetSolutions = [
-  {
-    id: "fleet-finance",
-    title: "Fleet Finance",
-    description: "Vehicle funding for your business fleet",
-    selected: true,
-  },
-  {
-    id: "business-finance",
-    title: "Business Finance",
-    description: "Loans and leasing for business growth and assets",
-    selected: false,
-  },
-];
 
 const contactInfo = [
   {
@@ -48,6 +34,28 @@ const contactInfo = [
 ];
 
 export const MainContentSection = (): JSX.Element => {
+  const [fleetSolutions, setFleetSolutions] = React.useState<{
+    id: string;
+    title: string;
+    description: string;
+    selected: boolean;
+  }[]>( [
+  {
+    id: "fleet-finance",
+    title: "Fleet Finance",
+    description: "Vehicle funding for your business fleet",
+    selected: true,
+  },
+  {
+    id: "business-finance",
+    title: "Business Finance",
+    description: "Loans and leasing for business growth and assets",
+    selected: false,
+  },
+]);
+
+ 
+
   return (
     <section className="flex flex-col lg:flex-row items-start gap-8 lg:gap-16 px-4 sm:px-8 md:px-12 lg:px-16 py-8 lg:py-12 w-full bg-[#fafcfe]">
       <div className="flex flex-col w-full lg:w-[466px] items-start gap-6">
@@ -90,7 +98,7 @@ export const MainContentSection = (): JSX.Element => {
         </div>
       </div>
 
-      <Card className="flex flex-col items-start gap-6 p-6 flex-1 bg-white rounded-xl border border-[#e5e7eb]">
+      <Card id="consultation-form" className="flex flex-col items-start gap-6 p-6 flex-1 bg-white rounded-xl border border-[#e5e7eb]">
         <CardHeader className="p-0 pb-[18px] border-b border-[#e5e7eb] w-full">
           <CardTitle className="font-figtree font-medium text-[#c70036] text-3xl tracking-[0] leading-7">
             Book a Free Consultation
@@ -107,6 +115,16 @@ export const MainContentSection = (): JSX.Element => {
               {fleetSolutions.map((solution) => (
                 <Button
                   key={solution.id}
+                  onClick={() => {
+                    solution.selected = !solution.selected;
+                    fleetSolutions.forEach((sol) => {
+                      if (sol.id !== solution.id) {
+                        sol.selected = false;
+                      }
+                    });
+                    setFleetSolutions([...fleetSolutions]);
+                  }}
+
                   variant={solution.selected ? "default" : "outline"}
                   className={`h-auto px-4 py-2.5 flex-1 items-center justify-center gap-1.5 rounded shadow-shadow-xs ${
                     solution.selected
@@ -333,7 +351,7 @@ export const MainContentSection = (): JSX.Element => {
               <span className="font-figtree font-medium text-white text-base tracking-[0] leading-6 whitespace-nowrap">
                 Submit
               </span>
-              <ArrowRightIcon className="w-5 h-5" />
+              <ArrowRightIcon className="w-5 h-5 text-white" />
             </Button>
           </div>
         </CardContent>

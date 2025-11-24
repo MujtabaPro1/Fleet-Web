@@ -23,11 +23,16 @@ export const FeaturesSection = (): JSX.Element => {
                 <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5 whitespace-nowrap">
                   Book a Free Consultation
                 </span>
-                <ArrowRightIcon className="w-4 h-4" />
+                <ArrowRightIcon className="w-4 h-4 text-white" />
               </Button>
 
               <Button
                 variant="outline"
+                onClick={() => {
+                  document.getElementById("consultation-form")?.scrollIntoView({
+                    behavior: "smooth",
+                  });
+                }}
                 className="h-auto items-center justify-center gap-1.5 px-3 py-2 w-full sm:flex-1 bg-gray-50 hover:bg-gray-100 rounded border border-solid shadow-shadow-xs"
               >
                 <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">

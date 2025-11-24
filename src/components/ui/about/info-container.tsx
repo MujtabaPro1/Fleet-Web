@@ -54,11 +54,11 @@ export const InfoContainerSection = (): JSX.Element => {
             </CardContent>
           </Card>
 
-          <div className="flex items-start gap-6 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-4 items-start gap-6 w-full">
             {workSteps.map((step, index) => (
               <Card
                 key={index}
-                className="flex-1 border border-solid shadow-shadow-sm"
+                className="flex-1 border border-solid shadow-shadow-sm min-h-[403px]"
               >
                 <CardContent className="flex flex-col items-center gap-8 p-8">
                   <div
