@@ -1,5 +1,5 @@
-import { ArrowRightIcon, Building2Icon, InfoIcon } from "lucide-react";
-import React from "react";
+import { ArrowRightIcon, Building2Icon, CheckCircle2Icon, InfoIcon, Loader2Icon } from "lucide-react";
+import React, { useState, FormEvent } from "react";
 import { Button } from "../button";
 import {
   Card,
@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "../select";
 import { Textarea } from "../textarea";
+import axiosInstance from "@/service/api";
 
 
 const contactInfo = [
@@ -34,27 +35,151 @@ const contactInfo = [
 ];
 
 export const MainContentSection = (): JSX.Element => {
-  const [fleetSolutions, setFleetSolutions] = React.useState<{
+  const [fleetSolutions, setFleetSolutions] = useState<{
     id: string;
     title: string;
     description: string;
     selected: boolean;
-  }[]>( [
-  {
-    id: "fleet-finance",
-    title: "Fleet Finance",
-    description: "Vehicle funding for your business fleet",
-    selected: true,
-  },
-  {
-    id: "business-finance",
-    title: "Business Finance",
-    description: "Loans and leasing for business growth and assets",
-    selected: false,
-  },
-]);
+  }[]>([
+    {
+      id: "fleet-finance",
+      title: "Fleet Finance",
+      description: "Vehicle funding for your business fleet",
+      selected: true,
+    },
+    {
+      id: "business-finance",
+      title: "Business Finance",
+      description: "Loans and leasing for business growth and assets",
+      selected: false,
+    },
+  ]);
 
+  // Form state
+  const [name, setName] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [business, setBusiness] = useState<string>("");
+  const [state, setState] = useState<string>("");
+  const [employees, setEmployees] = useState<string>("");
+  const [fleetSize, setFleetSize] = useState<string>("");
+  const [helpMessage, setHelpMessage] = useState<string>("");
+  const [howFoundUs, setHowFoundUs] = useState<string>("");
+  const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
+  
+  // Form submission state
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  // Form validation
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!fleetSolutions.some(solution => solution.selected)) {
+      newErrors.fleetSolution = "Please select a fleet solution";
+    }
+    
+    if (!name.trim()) {
+      newErrors.name = "Name is required";
+    }
+    
+    if (!phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    }
+    
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+    
+    if (!business.trim()) {
+      newErrors.business = "Business name or ABN is required";
+    }
+    
+    if (!state) {
+      newErrors.state = "Please select a state";
+    }
+    
+    if (!employees) {
+      newErrors.employees = "Please select number of employees";
+    }
+    
+    if (!fleetSize) {
+      newErrors.fleetSize = "Please select fleet size";
+    }
+    
+    if (!helpMessage.trim()) {
+      newErrors.helpMessage = "Please tell us how we can help you";
+    }
+    
+    if (!termsAccepted) {
+      newErrors.terms = "You must accept the terms of service";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) {
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setSubmitError(null);
+    
+    try {
+      const selectedSolution = fleetSolutions.find(solution => solution.selected);
+      
+      const consultationData = {
+        fleetSolution: selectedSolution?.title || "",
+        name: name,
+        phone: phone,
+        workEmail: email,
+        businessOrAbn: business,
+        state: state,
+        noOfEmployees: employees,
+        fleetSize: fleetSize,
+        helpMessage: helpMessage,
+        howFoundUs: howFoundUs || ""
+      };
+      
+      await axiosInstance.post('v1/consultation/submit', consultationData).then((response) => {
+        setSubmitSuccess(true);
+
+          // Reset form
+          setName("");
+          setPhone("");
+          setEmail("");
+          setBusiness("");
+          setState("");
+          setEmployees("");
+          setFleetSize("");
+          setHelpMessage("");
+          setHowFoundUs("");
+          setTermsAccepted(false);
+
+          setTimeout(() => {
+            setMessage("");
+          }, 5000);
+      }).catch((error) => {
+        setSubmitError(error.message);
+        setIsSubmitting(false);
+      });
+      
  
+      
+    } catch (error) {
+      console.error("Error submitting consultation:", error);
+      setSubmitError("There was an error submitting your consultation. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="flex flex-col lg:flex-row items-start gap-8 lg:gap-16 px-4 sm:px-8 md:px-12 lg:px-16 py-8 lg:py-12 w-full bg-[#fafcfe]">
@@ -107,6 +232,9 @@ export const MainContentSection = (): JSX.Element => {
 
         <CardContent className="p-0 flex flex-col items-start gap-7 w-full">
           <div className="flex flex-col items-start justify-center gap-2.5 w-full">
+
+         
+            
             <Label className="font-figtree font-medium text-[#101828] text-sm tracking-[0] leading-5">
               Select a fleet solution<span className="text-[#c70036]">*</span>
             </Label>
@@ -159,9 +287,12 @@ export const MainContentSection = (): JSX.Element => {
             </Label>
             <Input
               id="name"
-              defaultValue="Jane Smith"
-              className="w-full px-3 py-2.5 bg-white rounded border border-[#e5e7eb] shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Jane Smith"
+              className={`w-full px-3 py-2.5 bg-white rounded border ${errors.name ? 'border-red-500' : 'border-[#e5e7eb]'} shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5`}
             />
+            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
           </div>
 
           <div className="flex flex-col md:flex-row items-start gap-4 md:gap-7 w-full">
@@ -174,9 +305,12 @@ export const MainContentSection = (): JSX.Element => {
               </Label>
               <Input
                 id="phone"
-                defaultValue="(000) 000-0000"
-                className="w-full px-3 py-2.5 bg-white rounded border border-[#e5e7eb] shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+61412345678"
+                className={`w-full px-3 py-2.5 bg-white rounded border ${errors.phone ? 'border-red-500' : 'border-[#e5e7eb]'} shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5`}
               />
+              {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
             </div>
 
             <div className="flex flex-col items-start gap-2.5 w-full md:flex-1">
@@ -189,9 +323,12 @@ export const MainContentSection = (): JSX.Element => {
               <Input
                 id="email"
                 type="email"
-                defaultValue="name@example.com"
-                className="w-full px-3 py-2.5 bg-white rounded border border-[#e5e7eb] shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="john.smith@company.com"
+                className={`w-full px-3 py-2.5 bg-white rounded border ${errors.email ? 'border-red-500' : 'border-[#e5e7eb]'} shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5`}
               />
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
             </div>
           </div>
 
@@ -205,9 +342,12 @@ export const MainContentSection = (): JSX.Element => {
               </Label>
               <Input
                 id="business"
-                defaultValue="e.g. Smith Pty Ltd or 12 345 678 901"
-                className="w-full px-3 py-2.5 bg-white rounded border border-[#e5e7eb] shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
+                value={business}
+                onChange={(e) => setBusiness(e.target.value)}
+                placeholder="Company Pty Ltd / 123456789"
+                className={`w-full px-3 py-2.5 bg-white rounded border ${errors.business ? 'border-red-500' : 'border-[#e5e7eb]'} shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5`}
               />
+              {errors.business && <p className="text-red-500 text-xs mt-1">{errors.business}</p>}
             </div>
 
             <div className="flex flex-col items-start gap-2.5 w-full md:flex-1">
@@ -217,24 +357,25 @@ export const MainContentSection = (): JSX.Element => {
               >
                 State<span className="text-[#c70036]">*</span>
               </Label>
-              <Select>
+              <Select value={state} onValueChange={setState}>
                 <SelectTrigger
                   id="state"
-                  className="w-full px-3 py-2.5 bg-white rounded border border-[#e5e7eb] shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
+                  className={`w-full px-3 py-2.5 bg-white rounded border ${errors.state ? 'border-red-500' : 'border-[#e5e7eb]'} shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5`}
                 >
                   <SelectValue placeholder="Select a state" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="nsw">NSW</SelectItem>
-                  <SelectItem value="vic">VIC</SelectItem>
-                  <SelectItem value="qld">QLD</SelectItem>
-                  <SelectItem value="wa">WA</SelectItem>
-                  <SelectItem value="sa">SA</SelectItem>
-                  <SelectItem value="tas">TAS</SelectItem>
-                  <SelectItem value="act">ACT</SelectItem>
-                  <SelectItem value="nt">NT</SelectItem>
+                  <SelectItem value="NSW">NSW</SelectItem>
+                  <SelectItem value="VIC">VIC</SelectItem>
+                  <SelectItem value="QLD">QLD</SelectItem>
+                  <SelectItem value="WA">WA</SelectItem>
+                  <SelectItem value="SA">SA</SelectItem>
+                  <SelectItem value="TAS">TAS</SelectItem>
+                  <SelectItem value="ACT">ACT</SelectItem>
+                  <SelectItem value="NT">NT</SelectItem>
                 </SelectContent>
               </Select>
+              {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state}</p>}
             </div>
           </div>
 
@@ -246,10 +387,10 @@ export const MainContentSection = (): JSX.Element => {
               >
                 Number of employees<span className="text-[#c70036]">*</span>
               </Label>
-              <Select>
+              <Select value={employees} onValueChange={setEmployees}>
                 <SelectTrigger
                   id="employees"
-                  className="w-full px-3 py-2.5 bg-white rounded border border-[#e5e7eb] shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
+                  className={`w-full px-3 py-2.5 bg-white rounded border ${errors.employees ? 'border-red-500' : 'border-[#e5e7eb]'} shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5`}
                 >
                   <SelectValue placeholder="Select a range" />
                 </SelectTrigger>
@@ -261,6 +402,7 @@ export const MainContentSection = (): JSX.Element => {
                   <SelectItem value="500+">500+</SelectItem>
                 </SelectContent>
               </Select>
+              {errors.employees && <p className="text-red-500 text-xs mt-1">{errors.employees}</p>}
             </div>
 
             <div className="flex flex-col items-start gap-2.5 w-full md:flex-1">
@@ -270,10 +412,10 @@ export const MainContentSection = (): JSX.Element => {
               >
                 Fleet Size<span className="text-[#c70036]">*</span>
               </Label>
-              <Select>
+              <Select value={fleetSize} onValueChange={setFleetSize}>
                 <SelectTrigger
                   id="fleet-size"
-                  className="w-full px-3 py-2.5 bg-white rounded border border-[#e5e7eb] shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
+                  className={`w-full px-3 py-2.5 bg-white rounded border ${errors.fleetSize ? 'border-red-500' : 'border-[#e5e7eb]'} shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5`}
                 >
                   <SelectValue placeholder="Select a range" />
                 </SelectTrigger>
@@ -285,6 +427,7 @@ export const MainContentSection = (): JSX.Element => {
                   <SelectItem value="50+">50+</SelectItem>
                 </SelectContent>
               </Select>
+              {errors.fleetSize && <p className="text-red-500 text-xs mt-1">{errors.fleetSize}</p>}
             </div>
           </div>
 
@@ -297,9 +440,12 @@ export const MainContentSection = (): JSX.Element => {
             </Label>
             <Textarea
               id="help"
-              placeholder="Write text here ..."
-              className="flex-1 w-full p-3.5 bg-gray-50 rounded border border-[#e5e7eb] shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5 resize-none"
+              value={helpMessage}
+              onChange={(e) => setHelpMessage(e.target.value)}
+              placeholder="We are looking to expand our fleet and want guidance on the best financing options."
+              className={`flex-1 w-full p-3.5 bg-gray-50 rounded border ${errors.helpMessage ? 'border-red-500' : 'border-[#e5e7eb]'} shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5 resize-none`}
             />
+            {errors.helpMessage && <p className="text-red-500 text-xs mt-1">{errors.helpMessage}</p>}
           </div>
 
           <div className="flex flex-col h-[70px] items-start gap-2.5 w-full">
@@ -309,19 +455,19 @@ export const MainContentSection = (): JSX.Element => {
             >
               How did you find us?
             </Label>
-            <Select>
+            <Select value={howFoundUs} onValueChange={setHowFoundUs}>
               <SelectTrigger
                 id="find-us"
                 className="w-full px-3 py-2.5 bg-white rounded border border-[#e5e7eb] shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5"
               >
-                <SelectValue placeholder="Select a answer" />
+                <SelectValue placeholder="Select an answer" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="search">Search Engine</SelectItem>
-                <SelectItem value="social">Social Media</SelectItem>
-                <SelectItem value="referral">Referral</SelectItem>
-                <SelectItem value="advertisement">Advertisement</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
+                <SelectItem value="Google Search">Search Engine</SelectItem>
+                <SelectItem value="Social Media">Social Media</SelectItem>
+                <SelectItem value="Referral">Referral</SelectItem>
+                <SelectItem value="Advertisement">Advertisement</SelectItem>
+                <SelectItem value="Other">Other</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -329,7 +475,9 @@ export const MainContentSection = (): JSX.Element => {
           <div className="flex items-start gap-2.5">
             <Checkbox
               id="terms"
-              className="w-[18px] h-[18px] bg-gray-50 rounded border border-[#e5e7eb]"
+              checked={termsAccepted}
+              onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
+              className={`w-[18px] h-[18px] bg-gray-50 rounded border ${errors.terms ? 'border-red-500' : 'border-[#e5e7eb]'}`}
             />
             <Label
               htmlFor="terms"
@@ -346,14 +494,43 @@ export const MainContentSection = (): JSX.Element => {
             </Label>
           </div>
 
-          <div className="flex items-center gap-4 pt-6 w-full border-t border-[#e5e7eb]">
-            <Button className="h-auto px-6 py-3.5 flex-1 bg-[#194170] hover:bg-[#194170]/90 items-center justify-center gap-1.5 rounded shadow-shadow-xs">
-              <span className="font-figtree font-medium text-white text-base tracking-[0] leading-6 whitespace-nowrap">
-                Submit
-              </span>
-              <ArrowRightIcon className="w-5 h-5 text-white" />
-            </Button>
-          </div>
+          {submitSuccess ? (
+            <div className="flex flex-col items-center gap-4 pt-6 w-full border-t border-[#e5e7eb]">
+              <div className="flex items-center gap-2 text-green-600">
+                <CheckCircle2Icon className="w-5 h-5" />
+                <span className="font-figtree font-medium text-base">Consultation submitted successfully</span>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4 pt-6 w-full border-t border-[#e5e7eb]">
+              {submitError && (
+                <div className="text-red-500 text-sm mb-2">
+                  {submitError}
+                </div>
+              )}
+              <Button 
+                onClick={handleSubmit} 
+                disabled={isSubmitting || !termsAccepted}
+                className="h-auto px-6 py-3.5 flex-1 bg-[#194170] hover:bg-[#194170]/90 items-center justify-center gap-1.5 rounded shadow-shadow-xs disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2Icon className="w-5 h-5 text-white animate-spin mr-2" />
+                    <span className="font-figtree font-medium text-white text-base tracking-[0] leading-6 whitespace-nowrap">
+                      Submitting...
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="font-figtree font-medium text-white text-base tracking-[0] leading-6 whitespace-nowrap">
+                      Submit
+                    </span>
+                    <ArrowRightIcon className="w-5 h-5 text-white" />
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
     </section>
