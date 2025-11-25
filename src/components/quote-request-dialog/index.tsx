@@ -78,6 +78,7 @@ export function QuoteRequestDialog({
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>('');
 
   const handleVariantToggle = (variantId: string) => {
     if (selectedVariants.includes(variantId)) {
@@ -165,14 +166,20 @@ export function QuoteRequestDialog({
         
         // Make the API call
         const response = await axiosInstance.post('/v1/quotes', payload);
+
+        if (response.data.message) {
+           setMessage(response.data.message);
+        }
         
         console.log("Quote request submitted successfully:", response.data);
         
         // Close dialog after successful submission
-        onOpenChange(false);
-      } catch (error) {
+        setTimeout(() => {
+          onOpenChange(false);
+        }, 2000);
+      } catch (error: any) {
         console.error("Error submitting quote request:", error);
-        setSubmitError("Failed to submit your quote request. Please try again later.");
+        setSubmitError(error.response?.data?.message || "Failed to submit your quote request. Please try again later.");
       } finally {
         setIsSubmitting(false);
       }
@@ -192,6 +199,12 @@ export function QuoteRequestDialog({
             </DialogClose>
           </div>
         </DialogHeader>
+
+        {message && (
+          <div className="p-2 mt-[20px] w-[90%] mx-auto space-y-6 bg-green-50 text-green-500 border border-green-500">
+            <p className="text-sm">{message}</p>
+          </div>
+        )}
         
         <form onSubmit={handleSubmit} className="p-6 pb-8 space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
