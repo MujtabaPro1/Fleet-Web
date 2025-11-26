@@ -48,10 +48,12 @@ const popularBrands = [
 const ExploreDeals: MyPage = () => {
 
   const [allBrands, setAllBrands] = useState<any>([]);
+  const [allBodyTypes, setAllBodyTypes] = useState<any>([]);
   const router = useRouter();
 
   useEffect(()=>{
     getAllBrands();
+    getAllBodyTypes();
   },[]);
     
   const getAllBrands = () => {
@@ -59,11 +61,22 @@ const ExploreDeals: MyPage = () => {
     // Make the API call
     axiosInstance.get(`/v1/car-brands`)
       .then(response => {
-        console.log(response.data);
         setAllBrands(response.data || []);
       })
       .catch(error => {
         console.error('Error fetching brands:', error);
+      });
+  }
+
+  const getAllBodyTypes = () => {
+ 
+    // Make the API call
+    axiosInstance.get(`/v1/body-types`)
+      .then(response => {
+        setAllBodyTypes(response.data || []);
+      })
+      .catch(error => {
+        console.error('Error fetching body types:', error);
       });
   }
 
@@ -111,15 +124,15 @@ const ExploreDeals: MyPage = () => {
           </div>
 
           <div className="flex items-start grid grid-cols-1 lg:grid-cols-5 gap-6 w-full">
-            {smallBodyTypes.map((type, index) => (
+            {allBodyTypes.map((type: any, index: any) => (
               <Card
                 key={index}
-                onClick={() => router.push(`/inventory?bodyType=${type.toUpperCase()}`)}
+                onClick={() => router.push(`/inventory?bodyType=${type.name}`)}
                 className="flex-1 bg-white cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <CardContent className="p-3">
                   <p className="font-figtree font-medium text-[#4a5565] text-lg text-center tracking-[0.40px]">
-                    {type}
+                    {type.name}
                   </p>
                 </CardContent>
               </Card>
