@@ -213,15 +213,233 @@ const additionalProducts = [
   },
 ];
 
-const partnerLogos = [
-  { src: "/assets/images/5f7d102e662c0b5e1078ab62-stgeorge-p-500.png", width: "w-[152px]" },
-  { src: "/assets/images/anz-2-logo-png-transparent.png", width: "w-[145px]" },
-  { src: "/assets/images/bank-of-melbourne-seeklogo.png", width: "w-[171px]" },
-  { src: "/assets/images/bank-sa-logo-svg.png", width: "w-[100px]" },
-  { src: "/assets/images/macquarie-group-logo-svg.png", width: "w-[232px]" },
-  { src: "/assets/images/national-australia-bank-svg.png", width: "w-[115px]" },
-  { src: "/assets/images/westpac-logo-svg.png", width: "w-[125px]" },
+// New partner logos list sourced from public/assets/images/partner-brand
+// name is derived from the filename for easier integration
+const partnerLogosV1 = [
+  {
+    name: "Affordable Car Loans",
+    src: "/assets/images/partner-brand/affordable-car-loans.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Alex Bank",
+    src: "/assets/images/partner-brand/Alex-Bank.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "AMMF",
+    src: "/assets/images/partner-brand/AMMF.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Angle Finance",
+    src: "/assets/images/partner-brand/Angle-Finance.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "ANZ",
+    src: "/assets/images/partner-brand/ANZ.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Automotive Financial Services",
+    src: "/assets/images/partner-brand/Automotive-Financial-Services.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Azora",
+    src: "/assets/images/partner-brand/azora.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Banjo Loans",
+    src: "/assets/images/partner-brand/Banjo-Loans.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Bizcap",
+    src: "/assets/images/partner-brand/bizcap.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "BOQ",
+    src: "/assets/images/partner-brand/BOQ.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Branded",
+    src: "/assets/images/partner-brand/Branded.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Capital Finance",
+    src: "/assets/images/partner-brand/capital-finance.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Carstart",
+    src: "/assets/images/partner-brand/carstart.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "CBA",
+    src: "/assets/images/partner-brand/CBA.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Dynamoney",
+    src: "/assets/images/partner-brand/dynamoney.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Earlypay",
+    src: "/assets/images/partner-brand/Earlypay.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Finance One",
+    src: "/assets/images/partner-brand/Finance-One.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Firstmac",
+    src: "/assets/images/partner-brand/Firstmac.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "FLEXI",
+    src: "/assets/images/partner-brand/FLEXI.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Latitude Horizontal",
+    src: "/assets/images/partner-brand/Latitude-Horizontal.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Liberty",
+    src: "/assets/images/partner-brand/Liberty.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Metro Finance",
+    src: "/assets/images/partner-brand/Metro-Finance.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Money3",
+    src: "/assets/images/partner-brand/money3.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "MONEYME Autopay",
+    src: "/assets/images/partner-brand/MONEYME-Autopay.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "MONEYME SocietyOne",
+    src: "/assets/images/partner-brand/MONEYME-SocietyOne.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "MoneyPlace",
+    src: "/assets/images/partner-brand/MoneyPlace.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Moneytech",
+    src: "/assets/images/partner-brand/Moneytech_Logos.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Morris",
+    src: "/assets/images/partner-brand/morris.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Moula",
+    src: "/assets/images/partner-brand/Moula.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Multipli",
+    src: "/assets/images/partner-brand/multipli.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "NAB",
+    src: "/assets/images/partner-brand/NAB.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "NOW Finance",
+    src: "/assets/images/partner-brand/NOW-Finance.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Pepper",
+    src: "/assets/images/partner-brand/Pepper.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Plenti",
+    src: "/assets/images/partner-brand/Plenti.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Prospa",
+    src: "/assets/images/partner-brand/Prospa.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "RACV",
+    src: "/assets/images/partner-brand/racv.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Resimac",
+    src: "/assets/images/partner-brand/Resimac.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Scottish Pacific",
+    src: "/assets/images/partner-brand/Scottish-Pacific.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Selfco",
+    src: "/assets/images/partner-brand/Selfco.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Shift",
+    src: "/assets/images/partner-brand/Shift.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "The Asset Financier",
+    src: "/assets/images/partner-brand/The-Asset-Financier.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "UME Loans",
+    src: "/assets/images/partner-brand/umeloans.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Westpac",
+    src: "/assets/images/partner-brand/Westpac.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "WISR",
+    src: "/assets/images/partner-brand/WISR.png",
+    width: "w-[152px]",
+  },
 ];
+
+
+const partnerLogosv= []
 
 
 const VehicleCard = ({
@@ -1040,7 +1258,7 @@ export const MainContentSection = (): JSX.Element => {
         <div className="w-full py-4 rounded-lg mt-8">
           <div className="overflow-x-auto pb-4 hide-scrollbar">
             <div className="flex items-center gap-4 md:gap-8 min-w-max px-4">
-              {partnerLogos.map((logo, index) => (
+              {partnerLogosV1.map((logo, index) => (
                 <img
                   key={index}
                   className="h-8 md:h-10 w-auto max-w-[150px] object-contain flex-shrink-0"
