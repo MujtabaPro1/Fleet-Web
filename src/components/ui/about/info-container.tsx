@@ -37,7 +37,7 @@ export const InfoContainerSection = (): JSX.Element => {
   return (
     <section className="flex flex-col w-full items-center gap-16 px-0 py-16 bg-white">
       <div className="flex-col items-center gap-8 flex w-full max-w-[1280px] px-4">
-        <div className="items-start gap-9 p-6 self-stretch w-full rounded-xl overflow-hidden border border-solid border-gray-100 flex flex-col relative">
+        <div className="items-start gap-9 p-0 lg:p-6 self-stretch w-full rounded-xl overflow-hidden border border-solid border-gray-100 flex flex-col relative">
           <div className="absolute top-0 left-0 w-[1024px] h-[1112px] overflow-hidden pointer-events-none">
             <img
               className="absolute w-[168.06%] h-[99.99%] top-0 left-[-33.39%]"
@@ -65,7 +65,7 @@ export const InfoContainerSection = (): JSX.Element => {
                     className={`relative h-44 ${step.containerWidth} ${step.containerMargin || ""}`}
                   >
                     <img
-                      className="w-full h-full object-cover"
+                      className="w-full h-full lg:object-cover object-contain"
                       alt={step.title}
                       src={step.image}
                       />

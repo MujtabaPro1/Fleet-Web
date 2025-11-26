@@ -21,22 +21,9 @@ import {
 import SiteFooterSection from "@/components/footer/footer";
 import { useRouter } from "next/navigation";
 import axiosInstance from "@/service/api";
+import { VehicleCard } from "@/components/vehicle-card";
 
-  const vehicleData = [
-    { id: 1, image: "/assets/images/car-image.png" },
-    { id: 2, image: "/assets/images/car-image.png" },
-    { id: 3, image: "/assets/images/car-image.png" },
-    { id: 4, image: "/assets/images/car-image.png" },
-    { id: 5, image: "/assets/images/car-image.png" },
-    { id: 6, image: "/assets/images/car-image.png" },
-    { id: 7, image: "/assets/images/car-image.png" },
-    { id: 8, image: "/assets/images/car-image.png" },
-    { id: 9, image: "/assets/images/car-image.png" },
-    { id: 10, image: "/assets/images/car-image.png" },
-    { id: 11, image: "/assets/images/car-image.png" },
-    { id: 12, image: "/assets/images/car-image.png" },
-  ];
-  
+
 const LimitedTime = (): JSX.Element => {
   const [limitedDealsEnabled, setLimitedDealsEnabled] = useState<boolean>(true);
   const [sortOption, setSortOption] = useState<string>("recent");
@@ -283,164 +270,162 @@ const LimitedTime = (): JSX.Element => {
   
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
             {cars.map((vehicle: any) => (
-              <Card
-                key={vehicle.uid}
-                className="relative bg-white rounded border border-solid shadow-shadow-sm"
-              >
-                <
-                  CardContent className="flex flex-col items-center gap-2 md:gap-[18px] pt-6 md:pt-12 pb-3 md:pb-4 px-3 md:px-4">
-                  <div className="w-full h-[160px] md:h-[200.02px] rounded-[10.39px] overflow-hidden">
-                    <img
-                      src={`https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}`}
-                      alt={`${vehicle?.brand?.name} ${vehicle.modelName}`}
-                      className="h-full w-full object-cover object-center rounded-[10.39px]"
-                      onError={(e) => {
-                        e.currentTarget.src = "/assets/images/no-image.png";
-                      }}
-                    />
-                  </div>
-  
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="absolute top-2 md:top-4 right-2 md:right-4 w-8 h-8 md:w-10 md:h-10 bg-gray-50 rounded border border-solid shadow-shadow-xs"
-                  >
-                    <HeartIcon className="w-5 h-5" />
-                  </Button>
-  
-                  <Badge className="absolute top-2 md:top-[15px] left-2 md:left-[15px] inline-flex items-center justify-center gap-1.5 px-2 py-1 bg-emerald-50 rounded border-0 hover:bg-emerald-50">
-                    <StarIcon className="w-3.5 h-3.5 fill-[#004f3b] text-[#004f3b]" />
-                    <span className="font-medium text-[#004f3b] text-center leading-4 font-figtree text-sm tracking-[0]">
-                      Trending
-                    </span>
-                  </Badge>
-  
-                  <div className="flex flex-col items-start gap-2 md:gap-3 w-full">
-                    <h3 className="font-figtree font-semibold text-[#0b1c31] text-lg md:text-2xl tracking-[0] leading-6">
-                      {vehicle?.brand?.name} {vehicle.modelName}
-                    </h3>
-  
-                    <div className="flex flex-wrap items-center gap-2 w-full">
-                      {vehicle?.tags?.length > 0 ? vehicle?.tags?.map((tag: any) => (
-                        <Badge key={tag} className="inline-flex items-center justify-center gap-1 px-1.5 py-0.5 bg-[#c70036] rounded border-0 hover:bg-[#c70036]">
-                          <span className="font-medium text-white text-center leading-4 font-figtree text-sm tracking-[0]">
-                            {tag}
-                          </span>
-                        </Badge>
-                      )) : <></>}
-  
-                      <div className="w-[3px] h-[3px] bg-[#b3ceee] rounded-[1.5px]" />
-  
-                      <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-5">
-                        {vehicle?.category?.name}
-                      </span>
-  
-                      <div className="w-[3px] h-[3px] bg-[#b3ceee] rounded-[1.5px]" />
-  
-                      <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-5">
-                        {vehicle?.fuelType}
-                      </span>
-                    </div>
-                  </div>
-  
-                  <div className="flex flex-col md:flex-row items-start md:items-end gap-2 md:gap-3 p-2 md:p-3 w-full bg-gray-50 rounded">
-                    <div className="flex flex-col h-12 items-start gap-1 flex-1">
-                      <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-4">
-                        STARTING AT
-                      </span>
-  
-                      <div className="flex items-end gap-1.5 w-full">
-                        <span className="font-figtree font-semibold text-[#c70036] text-2xl md:text-3xl tracking-[0.80px] leading-7">
-                          {vehicle?.selectedVariant?.weeklyPrice}
-                        </span>
-  
-                        <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-4">
-                          WEEKLY
-                        </span>
-                      </div>
-                    </div>
-  
-                    <Button
-                    onClick={() => router.push(`/inventory/${vehicle.slug}`)}
-                    className="w-full md:w-[140px] gap-1.5 px-4 py-2.5 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90 h-auto mt-2 md:mt-0">
-                      <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
-                        Get A Quote
-                      </span>
-                      <ArrowRightIcon className="w-4 h-4 text-white" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              <VehicleCard
+                key={vehicle.id}
+                image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
+                name={vehicle.name}
+                type={vehicle.type}
+                fuel={vehicle.fuel}
+                price={vehicle.price}
+                router={router}
+                id={vehicle.id}
+                tags={vehicle.tags.filter((tag: any) => tag.includes('Limited Time')).length > 0 ? ['Limited Time Offer'] : []}
+              />
             ))}
           </div>
         </div>
   
-        <div className="flex flex-col items-center justify-center gap-4 md:gap-[18px] mt-4 md:mt-0">
-          <span className="font-figtree font-normal text-[#4a5565] text-sm text-center tracking-[0] leading-4">
-            Showing {cars?.length > 0 ? ((page - 1) * 10) + 1 : 0} to {((page - 1) * 10) + cars?.length} of {totalItems} vehicles
-          </span>
-  
-          <div className="flex flex-wrap items-center justify-center shadow-shadow-xs overflow-x-auto py-2">
-            <Button
-              variant="outline"
-              size="icon"
-              className="w-8 md:w-9 h-8 md:h-9 bg-white rounded-[4px_0px_0px_4px] border border-solid"
-              onClick={() => page > 1 && setPage(page - 1)}
-              disabled={page <= 1}
-            >
-              <ChevronLeftIcon className="w-4 h-4" />
-            </Button>
-
-            {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
-              const pageNum = i + 1;
-              return (
-                <Button
-                  key={pageNum}
-                  variant="outline"
-                  className={`w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px ${pageNum === page ? 'bg-gray-50' : 'bg-white'} border border-solid`}
-                  onClick={() => setPage(pageNum)}
-                >
-                  <span className={`font-medium ${pageNum === page ? 'text-[#194170]' : 'text-[#4a5565]'} leading-5 font-figtree text-sm tracking-[0]`}>
-                    {pageNum}
-                  </span>
-                </Button>
-              );
-            })}
-
-            {totalPages > 5 && (
-              <>
-                <Button
-                  variant="outline"
-                  className="w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px bg-white border border-solid"
-                >
-                  <span className="font-medium text-[#4a5565] leading-5 font-figtree text-sm tracking-[0]">
-                    ...
-                  </span>
-                </Button>
-
-                <Button
-                  variant="outline"
-                  className="h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px bg-white border border-solid"
-                  onClick={() => setPage(totalPages)}
-                >
-                  <span className="font-medium text-[#4a5565] leading-5 font-figtree text-sm tracking-[0]">
-                    {totalPages}
-                  </span>
-                </Button>
-              </>
-            )}
-
-            <Button
-              variant="outline"
-              size="icon"
-              className="w-8 md:w-9 h-8 md:h-9 -ml-px bg-white rounded-[0px_4px_4px_0px] border border-solid"
-              onClick={() => page < totalPages && setPage(page + 1)}
-              disabled={page >= totalPages}
-            >
-              <ChevronRightIcon className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
+           <div className="flex flex-col items-center justify-center gap-4 md:gap-[18px] mt-4 md:mt-0">
+                 <span className="font-figtree font-normal text-[#4a5565] text-sm text-center tracking-[0] leading-4">
+                   Showing {cars?.length > 0 ? ((page - 1) * 10) + 1 : 0} to {((page - 1) * 10) + cars?.length} of {totalItems} vehicles
+                 </span>
+         
+                 <div className="flex flex-wrap items-center justify-center shadow-shadow-xs overflow-x-auto py-2">
+                   {/* Previous Page Button */}
+                   <Button
+                     variant="outline"
+                     size="icon"
+                     className="w-8 md:w-9 h-8 md:h-9 bg-white rounded-[4px_0px_0px_4px] border border-solid"
+                     onClick={() => page > 1 && setPage(page - 1)}
+                     disabled={page <= 1}
+                   >
+                     <ChevronLeftIcon className="w-4 h-4" />
+                   </Button>
+       
+                   {/* Dynamic Page Numbers */}
+                   {(() => {
+                     const pageButtons = [];
+                     const maxVisiblePages = 5;
+                     let startPage = 1;
+                     let endPage = totalPages;
+                     
+                     // Calculate visible page range
+                     if (totalPages > maxVisiblePages) {
+                       const middlePage = Math.floor(maxVisiblePages / 2);
+                       
+                       if (page <= middlePage + 1) {
+                         // Near the start
+                         endPage = maxVisiblePages;
+                       } else if (page >= totalPages - middlePage) {
+                         // Near the end
+                         startPage = totalPages - maxVisiblePages + 1;
+                       } else {
+                         // Middle
+                         startPage = page - middlePage;
+                         endPage = page + middlePage;
+                       }
+                     }
+                     
+                     // First page
+                     if (startPage > 1) {
+                       pageButtons.push(
+                         <Button
+                           key="page-1"
+                           variant="outline"
+                           className={`w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px ${1 === page ? 'bg-gray-50' : 'bg-white'} border border-solid`}
+                           onClick={() => setPage(1)}
+                         >
+                           <span className={`font-medium ${1 === page ? 'text-[#194170]' : 'text-[#4a5565]'} leading-5 font-figtree text-sm tracking-[0]`}>
+                             1
+                           </span>
+                         </Button>
+                       );
+                       
+                       // Ellipsis after first page if needed
+                       if (startPage > 2) {
+                         pageButtons.push(
+                           <Button
+                             key="ellipsis-1"
+                             variant="outline"
+                             className="w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px bg-white border border-solid"
+                             disabled
+                           >
+                             <span className="font-medium text-[#4a5565] leading-5 font-figtree text-sm tracking-[0]">
+                               ...
+                             </span>
+                           </Button>
+                         );
+                       }
+                     }
+                     
+                     // Page numbers
+                     for (let i = startPage; i <= endPage; i++) {
+                       // Skip first and last page if they're shown separately
+                       if ((i === 1 && startPage > 1) || (i === totalPages && endPage < totalPages)) {
+                         continue;
+                       }
+                       
+                       pageButtons.push(
+                         <Button
+                           key={`page-${i}`}
+                           variant="outline"
+                           className={`w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px ${i === page ? 'bg-gray-50' : 'bg-white'} border border-solid`}
+                           onClick={() => setPage(i)}
+                         >
+                           <span className={`font-medium ${i === page ? 'text-[#194170]' : 'text-[#4a5565]'} leading-5 font-figtree text-sm tracking-[0]`}>
+                             {i}
+                           </span>
+                         </Button>
+                       );
+                     }
+                     
+                     // Ellipsis before last page if needed
+                     if (endPage < totalPages - 1) {
+                       pageButtons.push(
+                         <Button
+                           key="ellipsis-2"
+                           variant="outline"
+                           className="w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px bg-white border border-solid"
+                           disabled
+                         >
+                           <span className="font-medium text-[#4a5565] leading-5 font-figtree text-sm tracking-[0]">
+                             ...
+                           </span>
+                         </Button>
+                       );
+                     }
+                     
+                     // Last page
+                     if (endPage < totalPages) {
+                       pageButtons.push(
+                         <Button
+                           key={`page-${totalPages}`}
+                           variant="outline"
+                           className={`w-8 md:w-9 h-auto gap-1.5 px-2 md:px-3 py-1.5 md:py-2 -ml-px ${totalPages === page ? 'bg-gray-50' : 'bg-white'} border border-solid`}
+                           onClick={() => setPage(totalPages)}
+                         >
+                           <span className={`font-medium ${totalPages === page ? 'text-[#194170]' : 'text-[#4a5565]'} leading-5 font-figtree text-sm tracking-[0]`}>
+                             {totalPages}
+                           </span>
+                         </Button>
+                       );
+                     }
+                     
+                     return pageButtons;
+                   })()} 
+       
+                   {/* Next Page Button */}
+                   <Button
+                     variant="outline"
+                     size="icon"
+                     className="w-8 md:w-9 h-8 md:h-9 -ml-px bg-white rounded-[0px_4px_4px_0px] border border-solid"
+                     onClick={() => page < totalPages && setPage(page + 1)}
+                     disabled={page >= totalPages}
+                   >
+                     <ChevronRightIcon className="w-4 h-4" />
+                   </Button>
+                 </div>
+               </div>
       </section>
       </div>
 

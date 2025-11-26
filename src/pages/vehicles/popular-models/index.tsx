@@ -23,6 +23,7 @@ import { SmallVehicleCard } from "@/components/small-vehicle-card";
 import { useRouter } from "next/router";
 import axiosInstance from "@/service/api";
 import { useEffect } from "react";
+import { VehicleCard } from "@/components/vehicle-card";
 
 
 const utesVehicles = [
@@ -174,12 +175,14 @@ const Content = ({ title }: { title: string }) => {
           <div className="flex gap-6 min-w-max">
             {filteredCars.map((vehicle: any, index: any) => (
             <div key={index} className="w-[350px] flex-shrink-0">
-              <SmallVehicleCard 
+              <VehicleCard 
                 image={'https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/' + vehicle.NVIC}
                 name={vehicle.name}
                 type={vehicle.type}
                 fuel={vehicle.fuel}
                 price={vehicle.selectedVariant?.weeklyPrice}
+                isTrending={vehicle.tags.filter((tag: any) => tag.includes("Trending")).length > 0}
+                tags={vehicle.tags.filter((tag: any) => tag.includes("Limited")).length > 0 ? ["Limited Time Offer"] : []}
               />
             </div>
           ))}

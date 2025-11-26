@@ -2,87 +2,61 @@ import {
   ArrowRightIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  HeartIcon,
-  StarIcon,
 } from "lucide-react";
 import React, { useEffect, useState, useRef, ReactNode } from "react";
-import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
 import { useRouter } from "next/router";
 import axiosInstance from "@/service/api";
+import { VehicleCard } from "../../vehicle-card/index";
+import { Carousel } from 'react-responsive-carousel'
 
-// Auto-scrolling carousel component
-const CarouselScroller: React.FC<{children: ReactNode}> = ({ children }) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
-    
-    // Force a reflow to ensure scrollWidth is calculated correctly
-    scrollContainer.scrollLeft = 0;
-    
-    // Ensure we have enough content to scroll
-    const contentWidth = scrollContainer.scrollWidth;
-    const containerWidth = scrollContainer.clientWidth;
-    
-    // Only auto-scroll if there's overflow content
-    if (contentWidth <= containerWidth) return;
-    
-    // Initialize position and speed
-    let position = 0;
-    const speed = 1; // pixels per frame
-    let animationFrameId: number;
-    let isPaused = false;
-    
-    const scroll = () => {
-      if (!scrollContainer || isPaused) return;
-      
-      // Increment position and apply it
-      position = (position + speed) % (contentWidth / 2);
-      scrollContainer.scrollLeft = position;
-      
-      // Continue animation loop
-      animationFrameId = requestAnimationFrame(scroll);
-    };
-    
-    // Start scrolling animation
-    animationFrameId = requestAnimationFrame(scroll);
-    
-    // Pause on hover/touch
-    const pauseScroll = () => {
-      isPaused = true;
-    };
-    
-    // Resume on mouse leave/touch end
-    const resumeScroll = () => {
-      isPaused = false;
-      if (!animationFrameId) {
-        animationFrameId = requestAnimationFrame(scroll);
-      }
-    };
-    
-    // Add event listeners
-    scrollContainer.addEventListener('mouseenter', pauseScroll);
-    scrollContainer.addEventListener('touchstart', pauseScroll);
-    scrollContainer.addEventListener('mouseleave', resumeScroll);
-    scrollContainer.addEventListener('touchend', resumeScroll);
-    
-    // Clean up on component unmount
-    return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
-      scrollContainer.removeEventListener('mouseenter', pauseScroll);
-      scrollContainer.removeEventListener('touchstart', pauseScroll);
-      scrollContainer.removeEventListener('mouseleave', resumeScroll);
-      scrollContainer.removeEventListener('touchend', resumeScroll);
-    };
-  }, []);
-  
-  return <div ref={scrollRef} className="overflow-hidden">{children}</div>;
-};
+// Brands array for carousel
+const mobileBrands = [
+  // Mobile view - 4 brands per slide
+  [
+    { name: 'Tesla', src: '/assets/images/brands/tesla.png' },
+    { name: 'Kia', src: '/assets/images/brands/kia.png' },
+    { name: 'BMW', src: '/assets/images/brands/bmw.png' },
+    { name: 'Ram', src: '/assets/images/brands/ram.png' },
+  ],
+  [
+    { name: 'Volvo', src: '/assets/images/brands/volvo.png' },
+    { name: 'Ford', src: '/assets/images/brands/ford.png' },
+    { name: 'Nissan', src: '/assets/images/brands/nissan.png' },
+    { name: 'Jeep', src: '/assets/images/brands/jeep.png' },
+  ],
+  [
+    { name: 'Volkswagen', src: '/assets/images/brands/vv.png' },
+    { name: 'Hyundai', src: '/assets/images/brands/hyundai.png' },
+    { name: 'Mercedes-Benz', src: '/assets/images/brands/benz.png' },
+    { name: 'Tesla', src: '/assets/images/brands/tesla.png' },
+  ],
+];
+
+const desktopBrands = [
+  // Desktop view - 8 brands per slide
+  [
+    { name: 'Tesla', src: '/assets/images/brands/tesla.png' },
+    { name: 'Kia', src: '/assets/images/brands/kia.png' },
+    { name: 'BMW', src: '/assets/images/brands/bmw.png' },
+    { name: 'Ram', src: '/assets/images/brands/ram.png' },
+    { name: 'Volvo', src: '/assets/images/brands/volvo.png' },
+    { name: 'Ford', src: '/assets/images/brands/ford.png' },
+    { name: 'Nissan', src: '/assets/images/brands/nissan.png' },
+    { name: 'Jeep', src: '/assets/images/brands/jeep.png' },
+  ],
+  [
+    { name: 'Volkswagen', src: '/assets/images/brands/vv.png' },
+    { name: 'Hyundai', src: '/assets/images/brands/hyundai.png' },
+    { name: 'Mercedes-Benz', src: '/assets/images/brands/benz.png' },
+    { name: 'Tesla', src: '/assets/images/brands/tesla.png' },
+    { name: 'Kia', src: '/assets/images/brands/kia.png' },
+    { name: 'BMW', src: '/assets/images/brands/bmw.png' },
+    { name: 'Ram', src: '/assets/images/brands/ram.png' },
+    { name: 'Volvo', src: '/assets/images/brands/volvo.png' },
+  ],
+];
 
 // Using public paths instead of imports
 const dollarSvg = "/assets/images/svg/dollar.svg";
@@ -439,350 +413,9 @@ const partnerLogosV1 = [
 ];
 
 
-const partnerLogosv= []
 
 
-const VehicleCard = ({
-  image,
-  name = "Toyota Corolla Cross",
-  type = "SUV",
-  fuel = "Petrol, Hybrid",
-  price = "288",
-  width = "w-full",
-  router,
-  id,
-  tags = [],
-}: { 
-  image: string; 
-  name?: string;
-  type?: string;
-  fuel?: string;
-  price?: string;
-  width?: string; 
-  router?: any;
-  id?: string;
-  tags?: string[];
-}) => {
-  // Check if image is a URL or a CSS class
-  const isImageUrl = image && (image.startsWith('http') || image.startsWith('/'));
-  
-  return (
-  <Card
-    className={`${width} h-full border border-solid shadow-sm overflow-hidden rounded-md`}
-  >
-    <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
-      {isImageUrl ? (
-        <img 
-          src={image} 
-          alt={name}
-          className="h-[200px] w-full rounded-md object-contain object-center"
-          onError={(e) => {
-            e.currentTarget.src = "/assets/images/no-image.png";
-          }}
-        />
-      ) : (
-        <div
-          className={`h-[200px] ${image} w-full rounded-md bg-contain bg-center`}
-        />
-      )}
 
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded-full border border-gray-200 shadow-sm hover:bg-gray-100 z-10"
-      >
-        <HeartIcon className="w-4 h-4" />
-      </Button>
-
-      <Badge className="absolute top-4 left-4 bg-emerald-50 hover:bg-emerald-50 text-emerald-800 gap-1 px-2 py-0.5">
-        <StarIcon className="w-3 h-3 fill-current" />
-        <span className="font-medium text-xs">
-          Trending
-        </span>
-      </Badge>
-
-      <div className="flex flex-col items-start gap-3 w-full">
-        <h3 className="font-semibold text-[#0b1c31] text-xl md:text-2xl">
-          {name}
-        </h3>
-
-        <div className="flex flex-wrap items-center gap-2 w-full">
-
-           {tags && tags.length > 0 && tags.map((tag, index) => <Badge key={index} className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
-            <span className="font-medium text-xs">
-              {tag}
-            </span>
-          </Badge>)}
-
-
-          <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
-
-          <span className="font-medium text-[#4a5565] text-xs">
-            {type}
-          </span>
-
-          <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
-
-          <span className="font-medium text-[#4a5565] text-xs">
-            {fuel}
-          </span>
-        </div>
-      </div>
-
-      <div className="flex items-end gap-3 p-3 w-full bg-gray-50 rounded mt-2">
-        <div className="flex flex-col h-12 items-start gap-1 flex-1">
-          <div className="font-medium text-[#4a5565] text-xs">
-            STARTING AT
-          </div>
-
-          <div className="flex items-end gap-1.5 w-full">
-            <div className="font-semibold text-[#c70036] text-2xl md:text-3xl">
-              ${price}
-            </div>
-
-            <div className="font-medium text-[#4a5565] text-xs self-end mb-1">
-              WEEKLY
-            </div>
-          </div>
-        </div>
-
-        <Button 
-        onClick={() => router.push('/inventory/' + id)}
-        className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
-          <span className="font-medium text-white text-xs md:text-sm">
-            Get A Quote
-          </span>
-          <ArrowRightIcon className="w-3.5 h-3.5 text-white" />
-        </Button>
-      </div>
-    </CardContent>
-  </Card>
-  );
-};
-
-const SmallVehicleCard = ({ 
-  image,
-  name = "Toyota Corolla Cross",
-  type = "SUV",
-  fuel = "Petrol, Hybrid",
-  price = "288",
-  router,
-  id,
-  tags = [],
-}: { 
-  image: string;
-  name?: string;
-  type?: string;
-  fuel?: string;
-  price?: string;
-  router?: any;
-  id?: string;
-  tags?: string[];
-}) => {
-  // Check if image is a URL or a CSS class
-  const isImageUrl = image && (image.startsWith('http') || image.startsWith('/'));
-  
-  return (
-  <Card className="w-full border border-solid shadow-sm h-full overflow-hidden rounded-md">
-    <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
-      {isImageUrl ? (
-        <img 
-          src={image} 
-          alt={name}
-          className="h-[180px] w-full rounded-md object-cover object-center"
-          onError={(e) => {
-            e.currentTarget.src = "/assets/images/no-image.png";
-          }}
-        />
-      ) : (
-        <div
-          className={`h-[180px] ${image} w-full rounded-md bg-cover bg-center`}
-        />
-      )}
-
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded-full border border-gray-200 shadow-sm hover:bg-gray-100 z-10"
-      >
-        <HeartIcon className="w-4 h-4" />
-      </Button>
-
-      <Badge className="absolute top-4 left-4 bg-emerald-50 hover:bg-emerald-50 text-emerald-800 gap-1 px-2 py-0.5">
-        <StarIcon className="w-3 h-3 fill-current" />
-        <span className="font-medium text-xs">
-          Trending
-        </span>
-      </Badge>
-
-      <div className="flex flex-col items-start gap-3 w-full">
-        <h3 className="font-semibold text-[#0b1c31] text-xl">
-          {name}
-        </h3>
-
-        <div className="flex flex-wrap items-center gap-2 w-full">
-          {tags && tags.length > 0 && tags.map((tag, index) => <Badge key={index} className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
-            <span className="font-medium text-xs">
-              {tag}
-            </span>
-          </Badge>)}
-
-          <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
-
-          <span className="font-medium text-[#4a5565] text-xs">
-            {type}
-          </span>
-
-          <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
-
-          <span className="font-medium text-[#4a5565] text-xs">
-            {fuel}
-          </span>
-        </div>
-      </div>
-
-      <div className="flex items-end gap-3 p-3 w-full bg-gray-50 rounded mt-2">
-        <div className="flex flex-col h-12 items-start gap-1 flex-1">
-          <div className="font-medium text-[#4a5565] text-xs">
-            STARTING AT
-          </div>
-
-          <div className="flex items-end gap-1.5 w-full">
-            <div className="font-semibold text-[#c70036] text-2xl md:text-3xl">
-              ${price}
-            </div>
-
-            <div className="font-medium text-[#4a5565] text-xs self-end mb-1">
-              WEEKLY
-            </div>
-          </div>
-        </div>
-
-        <Button 
-        onClick={() => router.push('/inventory/' + id)}
-        className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
-          <span className="font-medium text-white text-xs">
-            Get A Quote
-          </span>
-          <ArrowRightIcon className="w-3.5 h-3.5 text-white" />
-        </Button>
-      </div>
-    </CardContent>
-  </Card>
-  );
-};
-
-const TinyVehicleCard = ({ 
-  image,
-  name = "Toyota Corolla Cross",
-  type = "SUV",
-  fuel = "Petrol, Hybrid",
-  price = "288",
-  router,
-  tags = [],
-  id,
-}: { 
-  image: string;
-  name?: string;
-  type?: string;
-  fuel?: string;
-  price?: string;
-  router?: any;
-  id?: string;
-  tags?: string[];
-}) => {
-  // Check if image is a URL or a CSS class
-  const isImageUrl = image && (image.startsWith('http') || image.startsWith('/'));
-  
-  return (
-  <Card className="w-full border border-solid shadow-sm h-full overflow-hidden rounded-md">
-    <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
-      {isImageUrl ? (
-        <img 
-          src={image} 
-          alt={name}
-          className="h-[180px] w-full rounded-md object-cover object-center"
-          onError={(e) => {
-            e.currentTarget.src = "/assets/images/no-image.png";
-          }}
-        />
-      ) : (
-        <div
-          className={`h-[180px] ${image} w-full rounded-md bg-cover bg-center`}
-        />
-      )}
-
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded-full border border-gray-200 shadow-sm hover:bg-gray-100 z-10"
-      >
-        <HeartIcon className="w-4 h-4" />
-      </Button>
-
-      <Badge className="absolute top-4 left-4 bg-emerald-50 hover:bg-emerald-50 text-emerald-800 gap-1 px-2 py-0.5">
-        <StarIcon className="w-3 h-3 fill-current" />
-        <span className="font-medium text-xs">
-          Trending
-        </span>
-      </Badge>
-
-      <div className="flex flex-col items-start gap-3 w-full">
-        <h3 className="font-semibold text-[#0b1c31] text-xl">
-          {name}
-        </h3>
-
-        <div className="flex flex-wrap items-center gap-2 w-full">
-          {tags && tags.length > 0 && tags.map((tag, index) => <Badge key={index} className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
-            <span className="font-medium text-xs">
-              {tag}
-            </span>
-          </Badge>)}
-
-          <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
-
-          <span className="font-medium text-[#4a5565] text-xs">
-            {type}
-          </span>
-
-          <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
-
-          <span className="font-medium text-[#4a5565] text-xs">
-            {fuel}
-          </span>
-        </div>
-      </div>
-
-      <div className="flex items-end gap-3 p-3 w-full bg-gray-50 rounded mt-2">
-        <div className="flex flex-col h-12 items-start gap-1 flex-1">
-          <div className="font-medium text-[#4a5565] text-xs">
-            STARTING AT
-          </div>
-
-          <div className="flex items-end gap-1.5 w-full">
-            <div className="font-semibold text-[#c70036] text-2xl md:text-3xl">
-              ${price}
-            </div>
-
-            <div className="font-medium text-[#4a5565] text-xs self-end mb-1">
-              WEEKLY
-            </div>
-          </div>
-        </div>
-
-        <Button 
-        onClick={() => router.push('/inventory/' + id)}
-        className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
-          <span className="font-medium text-white text-xs">
-            Get A Quote
-          </span>
-          <ArrowRightIcon className="w-3.5 h-3.5 text-white" />
-        </Button>
-      </div>
-    </CardContent>
-  </Card>
-  );
-};
 
 export const MainContentSection = (): JSX.Element => {
   const router = useRouter();
@@ -976,7 +609,7 @@ export const MainContentSection = (): JSX.Element => {
                       price={offer.selectedVariant.weeklyPrice}
                       router={router}
                       id={offer.slug}
-                      tags={offer.tags}
+                      tags={offer.tags.filter((tag: any) => tag.includes('Limited Time')).length > 0 ? ['Limited Time Offer'] : []}
                     />
                   </div>
                 ))}
@@ -1021,7 +654,7 @@ export const MainContentSection = (): JSX.Element => {
                     {step.step}
                   </div>
 
-                  <div className="font-semibold text-[#101828] text-xl md:text-2xl text-center">
+                  <div className="font-semibold text-[#101828] text-xl md:text-2xl text-center min-h-[64px]">
                     {step.title}
                   </div>
                 </div>
@@ -1032,7 +665,7 @@ export const MainContentSection = (): JSX.Element => {
                   src={step.image}
                 />
 
-                <p className="text-[#4a5565] text-base text-center">
+                <p className="text-[#4a5565] text-base text-start">
                   {step.description}
                 </p>
               </CardContent>
@@ -1044,76 +677,88 @@ export const MainContentSection = (): JSX.Element => {
       {/* Brand logos section */}
       <div className="w-full py-6 relative">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-[#101828] text-xl">Popular Brands</h3>
+          <h3 className="font-semibold text-[#101828] text-2xl lg:text-3xl">Popular Brands</h3>
         </div>
         
-        <CarouselScroller>
-          <div className="pb-4 hide-scrollbar" id="brand-carousel">
-            <div className="flex items-center gap-12 mt-4 px-2 animate-scroll">
-              {/* First set of logos */}
-              <img onClick={() => router.push('/inventory?brand=Tesla')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Tesla" src="/assets/images/brands/tesla.png" />
-              <img onClick={() => router.push('/inventory?brand=Kia')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Kia" src="/assets/images/brands/kia.png" />
-              <img onClick={() => router.push('/inventory?brand=BMW')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="BMW" src="/assets/images/brands/bmw.png" />
-              <img onClick={() => router.push('/inventory?brand=Ram')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Ram" src="/assets/images/brands/ram.png" />
-              <img onClick={() => router.push('/inventory?brand=Volvo')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Volvo" src="/assets/images/brands/volvo.png" />
-              <img onClick={() => router.push('/inventory?brand=Ford')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Ford" src="/assets/images/brands/ford.png" />
-              <img onClick={() => router.push('/inventory?brand=Nissan')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Nissan" src="/assets/images/brands/nissan.png" />
-              <img onClick={() => router.push('/inventory?brand=Jeep')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Jeep" src="/assets/images/brands/jeep.png" />
-              <img onClick={() => router.push('/inventory?brand=Volkswagen')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Volkswagen" src="/assets/images/brands/vv.png" />
-              <img onClick={() => router.push('/inventory?brand=Hyundai')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Hyundai" src="/assets/images/brands/hyundai.png" />
-              <img onClick={() => router.push('/inventory?brand=Mercedes-Benz')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Mercedes" src="/assets/images/brands/benz.png" />
-                
-              {/* Duplicate logos for seamless scrolling */}
-              <img onClick={() => router.push('/inventory?brand=Tesla')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Tesla" src="/assets/images/brands/tesla.png" />
-              <img onClick={() => router.push('/inventory?brand=Kia')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Kia" src="/assets/images/brands/kia.png" />
-              <img onClick={() => router.push('/inventory?brand=BMW')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="BMW" src="/assets/images/brands/bmw.png" />
-              <img onClick={() => router.push('/inventory?brand=Ram')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Ram" src="/assets/images/brands/ram.png" />
-              <img onClick={() => router.push('/inventory?brand=Volvo')} 
-                className="w-[100px] h-[40px] object-contain cursor-pointer" 
-                alt="Volvo" src="/assets/images/brands/volvo.png" />
-            </div>
+        <div className="w-full py-8 bg-gray-50">
+          {/* Mobile Carousel */}
+          <div className="md:hidden">
+            <Carousel
+              autoPlay
+              infiniteLoop
+              showArrows={false}
+              showStatus={false}
+              showThumbs={false}
+              showIndicators={true}
+              interval={3000}
+              transitionTime={500}
+              className="brand-carousel"
+            >
+              {mobileBrands.map((brandGroup, groupIndex) => (
+                <div key={`mobile-group-${groupIndex}`} className="flex items-center justify-center gap-4 px-2 py-2">
+                  {brandGroup.map((brand, index) => (
+                    <div
+                      key={`mobile-brand-${index}`}
+                      onClick={() => router.push(`/inventory?brand=${brand.name}`)}
+                      className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity px-1"
+                    >
+                      <img
+                        className="h-[30px] w-auto max-w-[100px] object-contain"
+                        alt={brand.name}
+                        src={brand.src}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </Carousel>
           </div>
-        </CarouselScroller>
-        
-        <style jsx global>{`
-          .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-          }
-          .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-          }
-        `}</style>
+          
+          {/* Desktop Carousel */}
+          <div className="hidden md:block">
+            <Carousel
+              autoPlay
+              infiniteLoop
+              showArrows={false}
+              showStatus={false}
+              showThumbs={false}
+              showIndicators={true}
+              interval={3000}
+              transitionTime={500}
+              className="brand-carousel"
+            >
+              {desktopBrands.map((brandGroup, groupIndex) => (
+                <div key={`desktop-group-${groupIndex}`} className="flex items-center justify-center gap-6 lg:gap-8 px-4 py-2">
+                  {brandGroup.map((brand, index) => (
+                    <div
+                      key={`desktop-brand-${index}`}
+                      onClick={() => router.push(`/inventory?brand=${brand.name}`)}
+                      className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity px-2"
+                    >
+                      <img
+                        className="h-[40px] w-auto max-w-[150px] object-contain"
+                        alt={brand.name}
+                        src={brand.src}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </Carousel>
+          </div>
+          <style jsx global>{`
+            .brand-carousel .carousel .control-dots {
+              display: none !important;
+            }
+            .brand-carousel .carousel .slide {
+              min-height: auto;
+              padding: 0;
+            }
+            .brand-carousel .carousel .slider-wrapper {
+              margin: 0;
+            }
+          `}</style>
+          </div>
       </div>
 
       {/* Popular Hatchback section */}
@@ -1174,7 +819,7 @@ export const MainContentSection = (): JSX.Element => {
             <div className="flex gap-6 min-w-max">
               {bodyTypeOffers['Popular Hatchback'].map((vehicle: any, index: number) => (
                 <div key={index} className="w-[350px] flex-shrink-0">
-                  <SmallVehicleCard 
+                  <VehicleCard 
                       image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
                       name={vehicle.title}
                       type={vehicle.bodyType}
@@ -1182,7 +827,8 @@ export const MainContentSection = (): JSX.Element => {
                       price={vehicle.selectedVariant.weeklyPrice}
                     router={router}
                       id={vehicle.slug}
-                      tags={vehicle.tags}
+                      isTrending={vehicle?.tags?.includes('Trending')}
+                      tags={vehicle.tags.filter((tag: any) => tag.includes('Limited Time')).length > 0 ? ['Limited Time Offer'] : []}
                   />
                 </div>
               ))}
@@ -1193,13 +839,13 @@ export const MainContentSection = (): JSX.Element => {
 
       {/* Product Offerings section */}
       <div className="flex flex-col w-full items-start gap-12">
-        <div className="flex flex-col md:flex-row justify-between items-center w-full gap-6">
-          <div className="flex flex-col items-center md:items-start gap-4 flex-1">
-            <h2 className="font-semibold text-[#101828] text-3xl md:text-4xl text-center md:text-left">
+        <div className="flex flex-col md:flex-row justify-between lg:items-center items-start  w-full gap-6">
+          <div className="flex flex-col items-start gap-4 flex-1">
+            <h2 className="font-semibold text-[#101828] text-2xl md:text-3xl text-left">
               Product Offerings
             </h2>
 
-            <p className="text-[#4a5565] text-lg text-center md:text-left">
+            <p className="text-[#4a5565] text-lg text-left">
               Choose the lease that fits your fleet and budget.
             </p>
           </div>
@@ -1209,7 +855,7 @@ export const MainContentSection = (): JSX.Element => {
             onClick={() => router.push("/inventory")}
             className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
           >
-            <span className="font-medium text-sm">
+            <span className="font-medium text-sm text-left">
               View all
             </span>
           </Button>
@@ -1219,7 +865,7 @@ export const MainContentSection = (): JSX.Element => {
           {productOfferings.map((product, index) => (
             <Card
               key={index}
-              className="flex flex-col h-full border border-solid shadow-sm overflow-hidden"
+              className="flex flex-col h-full border border-solid shadow-sm overflow-hidden bg-white"
             >
               <CardContent className="flex flex-col items-start gap-6 p-6 h-full">
                 <img
@@ -1261,7 +907,7 @@ export const MainContentSection = (): JSX.Element => {
               {partnerLogosV1.map((logo, index) => (
                 <img
                   key={index}
-                  className="h-8 md:h-10 w-auto max-w-[150px] object-contain flex-shrink-0"
+                  className="h-[46px] md:h-[46px] w-[152px] max-w-[160px] object-cover flex-shrink-0"
                   alt="Partner logo"
                   src={logo.src}
                 />
@@ -1275,7 +921,7 @@ export const MainContentSection = (): JSX.Element => {
           {additionalProducts.map((product, index) => (
             <Card
               key={index}
-              className="w-full border border-solid shadow-sm overflow-hidden h-full"
+              className="w-full border border-solid shadow-sm overflow-hidden h-full bg-white"
             >
               <CardContent className="flex flex-col items-start gap-6 p-6 h-full">
                 <div className="flex flex-col items-start gap-3 w-full flex-grow">
@@ -1361,7 +1007,7 @@ export const MainContentSection = (): JSX.Element => {
             <div className="flex gap-6 min-w-max">
               {bodyTypeOffers['Popular Sedan'].map((vehicle: any, index: number) => (
                 <div key={index} className="w-[350px] flex-shrink-0">
-                  <TinyVehicleCard 
+                  <VehicleCard 
                     image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
                     name={vehicle.title}
                     type={vehicle.bodyType}
@@ -1369,7 +1015,8 @@ export const MainContentSection = (): JSX.Element => {
                     price={vehicle?.selectedVariant?.weeklyPrice}
                     router={router}
                     id={vehicle.slug}
-                    tags={vehicle.tags}
+                    isTrending={vehicle?.tags?.includes('Trending')}
+                    tags={vehicle.tags.filter((tag: any) => tag.includes('Limited Time')).length > 0 ? ['Limited Time Offer'] : []}
                   />
                 </div>
               ))}
@@ -1436,7 +1083,7 @@ export const MainContentSection = (): JSX.Element => {
             <div className="flex gap-6 min-w-max">
               {bodyTypeOffers['Popular Van'].map((vehicle: any, index: number) => (
                 <div key={index} className="w-[350px] flex-shrink-0">
-                  <TinyVehicleCard 
+                  <VehicleCard 
                     image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
                     name={vehicle.title}
                     type={vehicle.bodyType}
@@ -1444,7 +1091,8 @@ export const MainContentSection = (): JSX.Element => {
                     price={vehicle?.selectedVariant?.weeklyPrice}
                     id={vehicle.slug}
                     router={router}
-                    tags={vehicle.tags}
+                    isTrending={vehicle?.tags?.includes('Trending')}
+                    tags={vehicle.tags.filter((tag: any) => tag.includes('Limited Time')).length > 0 ? ['Limited Time Offer'] : []}
                   />
                 </div>
               ))}

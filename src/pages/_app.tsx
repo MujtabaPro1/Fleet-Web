@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import '@/styles/icons/icons.css'
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { MyAppProps } from "../components/layouts/types";
 import { Layouts } from "../components/layouts/Layouts";

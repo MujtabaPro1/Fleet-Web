@@ -47,6 +47,7 @@
     "react-image-lightbox": "^5.1.4",
     "react-otp-input": "^3.0.2",
     "react-phone-input-2": "^2.15.1",
+    "react-responsive-carousel": "^3.2.23",
     "react-slick": "0.29.0",
     "sass": "^1.62.1",
     "sharp": "^0.32.6",
