@@ -32,7 +32,7 @@ export const VehicleDisplaySection = (): JSX.Element => {
         setBrands(brandsResponse.data || []);
         
         // Fetch body types
-        const bodyTypesResponse = await axiosInstance.get('/v1/car-body-types/grouped-list');
+        const bodyTypesResponse = await axiosInstance.get('/v1/body-types');
         setBodyTypes(bodyTypesResponse.data || []);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -151,8 +151,8 @@ export const VehicleDisplaySection = (): JSX.Element => {
                   }}>
                     <SelectItem value="all">All body types</SelectItem>
                     {bodyTypes.map((bodyType) => (
-                      <SelectItem key={bodyType.alternateName} value={bodyType.alternateName}>
-                        {bodyType.alternateName}
+                      <SelectItem key={bodyType.name} value={bodyType.name}>
+                        {bodyType.name}
                       </SelectItem>
                     ))}
                   </SelectContent>

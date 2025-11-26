@@ -72,7 +72,7 @@ const LimitedTime = (): JSX.Element => {
   }
 
   const getBodyTypes = () => {
-    axiosInstance.get('/v1/car-body-types/grouped-list')
+    axiosInstance.get('/v1/car-body-types/list')
       .then(response => {
         console.log(response.data);
         setBodyType(response.data);
@@ -220,8 +220,8 @@ const LimitedTime = (): JSX.Element => {
                       </SelectTrigger>
                       <SelectContent>
                         {bodyType.map((body: any) => (
-                          <SelectItem key={body.alternateName} value={body.alternateName}>
-                            {body.alternateName}
+                          <SelectItem key={body.name} value={body.name}>
+                            {body.name}
                           </SelectItem>
                         ))}
                       </SelectContent>

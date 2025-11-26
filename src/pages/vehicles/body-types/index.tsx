@@ -44,7 +44,7 @@ const BodyTypeDeals: MyPage = () => {
   const getAllBodyTypes = () => {
  
     // Make the API call
-    axiosInstance.get(`/v1/car-body-types/grouped-list`)
+    axiosInstance.get(`/v1/body-types`)
       .then(response => {
         console.log(response.data);
         setAllBodyTypes(response.data || []);
@@ -101,12 +101,12 @@ const BodyTypeDeals: MyPage = () => {
             {allBodyTypes.map((type: any, index: any) => (
               <Card
                 key={index}
-                onClick={() => router.push(`/inventory?bodyType=${type.alternateName}`)}
+                onClick={() => router.push(`/inventory?bodyType=${type.name}`)}
                 className="flex-1 bg-white cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <CardContent className="p-3">
                   <p className="font-figtree font-medium text-[#4a5565] text-lg text-center tracking-[0.40px]">
-                    {type.alternateName}
+                    {type.name}
                   </p>
                 </CardContent>
               </Card>

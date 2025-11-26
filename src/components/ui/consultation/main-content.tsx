@@ -163,9 +163,6 @@ export const MainContentSection = (): JSX.Element => {
           setHowFoundUs("");
           setTermsAccepted(false);
 
-          setTimeout(() => {
-            setMessage("");
-          }, 5000);
       }).catch((error) => {
         setSubmitError(error.message);
         setIsSubmitting(false);

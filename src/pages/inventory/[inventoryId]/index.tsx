@@ -523,7 +523,7 @@ import { useSearchParams } from "next/navigation";
       Choose the right finance and leasing structure for your business.
     </h2>
     <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
-      Fleet Leasing Australia offers a range of flexible finance and leasing products designed to suit different business needs and budgets. Whether you're a sole trader, partnership, or established company, our specialists can help tailor the best structure for your cash flow and tax position.
+      Fleet Leasing Australia offers a range of flexible finance and leasing products designed to suit different business needs and budgets. Whether you&apos;re a sole trader, partnership, or established company, our specialists can help tailor the best structure for your cash flow and tax position.
     </p>
   </div>
   
@@ -612,7 +612,7 @@ import { useSearchParams } from "next/navigation";
                               </button>
                               <div className="pt-4 p-4 hidden bg-white">
                                 <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
-                                  Typically, we'll need your ABN, business details, driver's licence, and a brief overview of your vehicle needs. For larger fleets, we may request financials — but for leases under $250K, no financials are required.
+                                  Typically, we&apos;ll need your ABN, business details, driver&apos;s licence, and a brief overview of your vehicle needs. For larger fleets, we may request financials — but for leases under $250K, no financials are required.
                                 </p>
                               </div>
                             </div>
@@ -721,7 +721,7 @@ import { useSearchParams } from "next/navigation";
                           Not sure which finance or leasing product suits your business?
                         </h2>
                         <p className="text-[#4a5565] text-sm sm:text-base leading-5 sm:leading-6">
-                          Book a free, no-obligation consultation with one of our fleet leasing specialists. We'll review your existing business fleet, vehicle usage, and cash-flow goals to recommend the most effective leasing/finance strategy.
+                          Book a free, no-obligation consultation with one of our fleet leasing specialists. We&apos;ll review your existing business fleet, vehicle usage, and cash-flow goals to recommend the most effective leasing/finance strategy.
                         </p>
                       </div>
                       
