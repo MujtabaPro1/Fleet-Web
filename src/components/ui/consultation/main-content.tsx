@@ -181,7 +181,8 @@ export const MainContentSection = (): JSX.Element => {
   return (
     <section className="flex flex-col lg:flex-row items-start gap-8 lg:gap-16 px-4 sm:px-8 md:px-12 lg:px-16 py-8 lg:py-12 w-full bg-[#fafcfe]">
       <div className="flex flex-col w-full lg:w-[466px] items-start gap-6">
-        <h2 className="self-stretch font-figtree font-semibold text-[#101828] text-4xl tracking-[-0.40px] leading-[45px]">
+        <h2 
+        className="self-stretch font-figtree font-semibold text-[#101828] text-4xl tracking-[-0.40px] leading-[45px]">
           Ready to Get Started?
         </h2>
 
@@ -190,11 +191,15 @@ export const MainContentSection = (): JSX.Element => {
           sales pitch, just practical advice from real fleet experts.
         </p>
 
-        <Button className="h-auto px-3 py-2 self-stretch w-full bg-[#194170] hover:bg-[#194170]/90 items-center justify-center gap-1.5 rounded shadow-shadow-xs">
+        <Button
+        onClick={() => {
+          document.getElementById("consultation-form")?.scrollIntoView({ behavior: "smooth" });
+        }}
+        className="h-auto px-3 py-2 self-stretch w-full bg-[#194170] hover:bg-[#194170]/90 items-center justify-center gap-1.5 rounded shadow-shadow-xs">
           <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5 whitespace-nowrap">
             Talk to a Fleet Specialist – 1300 FLA FLA
           </span>
-          <ArrowRightIcon className="w-4 h-4" />
+          <ArrowRightIcon className="w-4 h-4 text-white" />
         </Button>
 
         <div className="flex flex-col items-start gap-6 px-0 py-6 self-stretch w-full border-t border-b border-[#e5e7eb]">

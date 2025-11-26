@@ -132,6 +132,9 @@ export const FeaturesListSection = (): JSX.Element => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 w-full">
               <Button
                 variant="outline"
+                onClick={() => {
+                  document.getElementById("consultation-form")?.scrollIntoView({ behavior: "smooth" });
+                }}
                 className="h-auto bg-gray-50 border-border shadow-shadow-xs hover:bg-gray-100 w-full"
               >
                 <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">
@@ -142,6 +145,9 @@ export const FeaturesListSection = (): JSX.Element => {
 
               <Button
                 variant="outline"
+                onClick={() => {
+                  document.getElementById("consultation-form")?.scrollIntoView({ behavior: "smooth" });
+                }}
                 className="h-auto bg-gray-50 border-border shadow-shadow-xs hover:bg-gray-100 w-full"
               >
                 <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">
