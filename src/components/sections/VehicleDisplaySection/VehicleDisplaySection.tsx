@@ -180,7 +180,7 @@ export const VehicleDisplaySection = (): JSX.Element => {
               backgroundPosition: `${isSmallScreen ? 'center 60%' : 'center bottom'}`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'contain',
-              transform: `${isSmallScreen ? 'scale(1.2)' : 'scale(1.6)'}`, // Makes the image larger to extend outside the card
+              transform: `${isSmallScreen ? 'scale(1.2)' : 'scale(2.0)'}`, // Makes the image larger to extend outside the card
               transformOrigin: 'bottom center',
               zIndex: 10 // Ensures the image appears above other elements
             }}
