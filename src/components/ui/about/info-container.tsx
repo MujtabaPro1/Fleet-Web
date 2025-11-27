@@ -65,7 +65,7 @@ export const InfoContainerSection = (): JSX.Element => {
                     className={`relative h-44 ${step.containerWidth} ${step.containerMargin || ""}`}
                   >
                     <img
-                      className="w-full h-full lg:object-cover object-contain"
+                      className="w-full h-full object-contain"
                       alt={step.title}
                       src={step.image}
                       />

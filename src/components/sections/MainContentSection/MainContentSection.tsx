@@ -578,6 +578,7 @@ export const MainContentSection = (): JSX.Element => {
           actionLabel="View all"
           onAction={() => router.push("/inventory")}
           cars={offers}
+          
           getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
           renderCard={(offer: any) => (
                     <VehicleCard
@@ -592,6 +593,9 @@ export const MainContentSection = (): JSX.Element => {
               price={offer?.selectedVariant?.weeklyPrice}
                       router={router}
               id={offer?.slug}
+              isTrending={offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("trending")
+                )?.length > 0}
               tags={
                 offer?.tags?.filter((tag: string) =>
                   tag.toLowerCase().includes("limited")
@@ -712,15 +716,15 @@ export const MainContentSection = (): JSX.Element => {
               className="brand-carousel"
             >
               {desktopBrands.map((brandGroup, groupIndex) => (
-                <div key={`desktop-group-${groupIndex}`} className="flex items-center justify-center gap-6 lg:gap-8 px-4 py-2">
+                <div key={`desktop-group-${groupIndex}`} className="flex items-center justify-center gap-6 lg:gap-16 px-4 py-2">
                   {brandGroup.map((brand, index) => (
                     <div
                       key={`desktop-brand-${index}`}
                       onClick={() => router.push(`/inventory?brand=${brand.name}`)}
-                      className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity px-2"
+                      className="flex  items-center justify-center cursor-pointer hover:opacity-70 transition-opacity px-2"
                     >
                       <img
-                        className="h-[40px] w-auto max-w-[150px] object-contain"
+                        className="h-[40px] w-auto max-w-[120px] object-contain"
                         alt={brand.name}
                         src={brand.src}
                       />
@@ -742,7 +746,7 @@ export const MainContentSection = (): JSX.Element => {
               margin: 0;
           }
         `}</style>
-          </div>
+        </div>
       </div>
 
       {/* Popular Hatchback section */}
@@ -766,6 +770,9 @@ export const MainContentSection = (): JSX.Element => {
               price={offer?.selectedVariant?.weeklyPrice}
                       router={router}
               id={offer?.slug}
+                      isTrending={offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("trending")
+                )?.length > 0}
               tags={
                 offer?.tags?.filter((tag: string) =>
                   tag.toLowerCase().includes("limited")
@@ -910,6 +917,9 @@ export const MainContentSection = (): JSX.Element => {
               price={offer?.selectedVariant?.weeklyPrice}
                       router={router}
               id={offer?.slug}
+                      isTrending={offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("trending")
+                )?.length > 0}
               tags={
                 offer?.tags?.filter((tag: string) =>
                   tag.toLowerCase().includes("limited")
@@ -942,6 +952,9 @@ export const MainContentSection = (): JSX.Element => {
               price={offer?.selectedVariant?.weeklyPrice}
                       router={router}
               id={offer?.slug}
+                      isTrending={offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("trending")
+                )?.length > 0}
               tags={
                 offer?.tags?.filter((tag: string) =>
                   tag.toLowerCase().includes("limited")

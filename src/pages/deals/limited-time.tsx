@@ -59,7 +59,7 @@ const LimitedTime = (): JSX.Element => {
   }
 
   const getBodyTypes = () => {
-    axiosInstance.get('/v1/car-body-types/list')
+    axiosInstance.get('/v1/body-types')
       .then(response => {
         console.log(response.data);
         setBodyType(response.data);
