@@ -59,6 +59,8 @@ const starSvg = "/assets/images/svg/star-rating.svg";
 // useState already imported with React
 import axiosInstance from "@/service/api";
 import { useSearchParams } from "next/navigation";
+import { VehicleCard } from "@/components/vehicle-card";
+import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
 
   
   const breadcrumbItems = [
@@ -1052,58 +1054,34 @@ import { useSearchParams } from "next/navigation";
              </div>
   
         <div className="flex flex-col w-full items-start gap-7 pt-0 pb-16 px-0">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between w-full gap-3 sm:gap-0">
-            <h2 className="font-figtree font-semibold text-[#101828] text-3xl text-center leading-8">
-              Explore Similar Vehicles for Business Lease
-            </h2>
-            <div className="flex w-full sm:w-auto items-center justify-between sm:justify-end gap-3">
-              <Button 
-              onClick={() => router.push("/inventory")}
-              variant="ghost" className="h-auto gap-1.5 px-3 py-2">
-                <span className="font-medium text-[#194170] text-sm leading-5 font-figtree">
-                  View all
-                </span>
-              </Button>
-              <div className="flex items-center gap-3">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="w-[34px] h-[34px] bg-gray-100 rounded-full p-2.5"
-                >
-                          <ChevronLeftIcon className="w-5 h-5" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="w-[34px] h-[34px] bg-[#101828] rounded-full p-2.5"
-                >
-                  <ChevronRightIcon className="w-5 h-5 text-white" />
-                </Button>
-              </div>
-            </div>
-          </div>
   
-          <div className="relative w-full">
-          <div className="overflow-x-auto pb-4 hide-scrollbar">
-            <div className="flex gap-4 md:gap-6 min-w-max">
-              {similarCars.map((vehicle : any, index : any) => (
-                <div key={index} className="w-[320px] sm:w-[320px] md:w-[350px] flex-shrink-0">
-                  <SmallVehicleCard 
-                    image={`https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}`}
-                    name={vehicle.title}
-                    type={vehicle.bodyType}
-                    fuel={vehicle.fuelType}
-                    slug={vehicle.slug}
-                    price={vehicle?.selectedVariant?.weeklyPrice}
-                  />
-
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-
+        <VehiclesCarousel
+                  title="Explore Similar Vehicles for Business Lease"
+                  actionLabel="View all"
+                  onAction={()=>{}}
+                  cars={similarCars}
+                  getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+                  renderCard={(offer: any) => (
+                            <VehicleCard
+                      image={
+                        offer?.NVIC
+                          ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                          : "/assets/images/no-image.png"
+                      }
+                      name={offer?.title}
+                      type={offer?.bodyType}
+                      fuel={offer?.selectedVariant?.variant}
+                      price={offer?.selectedVariant?.weeklyPrice}
+                              router={router}
+                      id={offer?.slug}
+                      tags={
+                        offer?.tags?.filter((tag: string) =>
+                          tag.toLowerCase().includes("limited")
+                        ) ?? offer?.tags
+                      }
+                    />
+                  )}
+                />
 
         </div>
         </main>
