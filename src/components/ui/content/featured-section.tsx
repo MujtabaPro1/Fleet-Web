@@ -36,20 +36,20 @@ const financeOptions = [
 export const FeaturesSection = ({ title, description, subDescription }: { title: string; description: string; subDescription: string }): JSX.Element => {
   return (
     <section className="pt-44 pb-24 px-0 bg-gray-50 flex flex-col w-full items-center">
-      <div className="flex flex-col gap-6 w-full max-w-[1280px] px-4">
+      <div className="flex flex-col gap-6 w-full max-w-[1280px] lg:px-4 px-0">
         <Card className="shadow-shadow-sm">
-          <CardContent className="flex flex-col items-center gap-5 p-8">
-            <div className="flex flex-col items-center gap-2 w-full">
+          <CardContent className="flex flex-col items-start lg:items-center gap-5 p-8">
+            <div className="flex flex-col items-start lg:items-center gap-2 w-full">
               <h2 className="font-figtree font-semibold text-[#101828] text-2xl tracking-[-0.80px] leading-6">
                 {title}
               </h2>
 
-              <h1 className="max-w-[932px] font-figtree font-semibold text-[#c70036] text-5xl text-center tracking-[-0.80px] leading-[48px]">
+              <h1 className="max-w-[932px] font-figtree font-semibold text-[#c70036] text-3xl lg:text-5xl text-start lg:text-center tracking-[-0.80px] leading-[32px] lg:leading-[48px]">
                 {description}
               </h1>
             </div>
 
-            <p className="font-figtree font-normal text-[#4a5565] text-base text-center tracking-[0] leading-6">
+            <p className="font-figtree font-normal text-[#4a5565] text-base text-start lg:text-center tracking-[0] leading-6">
               {subDescription}
             </p>
           </CardContent>
@@ -57,7 +57,7 @@ export const FeaturesSection = ({ title, description, subDescription }: { title:
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
           {financeOptions.map((option, index) => (
-            <Card key={index} className="shadow-shadow-sm">
+            <Card key={index} className="shadow-shadow-sm bg-white">
               <CardContent className="flex flex-col items-start gap-8 p-6">
                 <div className="flex flex-col items-start gap-4 w-full">
                   <h3 className="font-figtree font-semibold text-[#101828] text-2xl tracking-[0] leading-9">

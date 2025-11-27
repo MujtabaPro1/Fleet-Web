@@ -112,15 +112,15 @@
   export const MainContentSection = (): JSX.Element => {
     return (
       <section className="flex flex-col w-full items-center px-0 py-24 bg-white">
-        <div className="justify-end gap-16 flex w-full max-w-[1280px] items-start">
+        <div className="gap-16 flex max-w-[1280px] w-full items-start px-4">
           <div className="flex flex-col w-full max-w-[650px] items-start gap-8">
             <div className="flex flex-col items-start gap-4 w-full">
               <div className="flex flex-col items-start gap-3 w-full">
-                <h1 className="flex items-center justify-center w-full font-figtree font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
+                <h1 className="flex items-start justify-start w-full font-figtree font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
                   Operating Lease
                 </h1>
   
-                <h2 className="flex items-center justify-center w-full font-figtree font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
+                <h2 className="flex items-start justify-start w-full font-figtree font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
                   Minimal Risk. Fixed Budgeting.
                 </h2>
               </div>
@@ -211,7 +211,7 @@
             </div>
           </div>
   
-          <div className="flex items-center justify-center gap-2.5 flex-1">
+          <div className="hidden lg:flex items-center justify-center gap-2.5 flex-1">
             <div className="relative w-full max-w-[520px] h-[672px]">
            
               <Image

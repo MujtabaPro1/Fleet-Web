@@ -245,6 +245,7 @@ export const SiteFooterSection = (): JSX.Element => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
             <Button
               variant="link"
+              onClick={() => router.push("/privacy-policy")}
               className="p-0 h-auto font-figtree font-normal text-[#4a5565] text-sm sm:text-base tracking-[0] leading-5 sm:leading-6 whitespace-nowrap"
             >
               Privacy policy
@@ -252,6 +253,7 @@ export const SiteFooterSection = (): JSX.Element => {
 
             <Button
               variant="link"
+              onClick={() => router.push("/terms")}
               className="p-0 h-auto font-figtree font-normal text-[#4a5565] text-sm sm:text-base tracking-[0] leading-5 sm:leading-6 whitespace-nowrap"
             >
               Terms & conditions

@@ -9,7 +9,6 @@ const navigationItems = [
   { label: "Explore by brands", link: "/explore" },
   { label: "Explore by body type", link: "/vehicles/body-types" },
   { label: "Leasing & Finance Options", link: "/products/fleet-finance" },
-  { label: "Free consultation", link: "/services/consultation" },
   { label: "About us", link: "/about" },
 ];
 
@@ -44,11 +43,11 @@ export const NavigationBarSection = (): JSX.Element => {
 
             <Button 
             onClick={()=>{
-              router.push('/about/contact')
+              router.push('/services/consultation')
             }}
             className="mr-[50px] lg:ml-0 inline-flex items-center justify-center gap-1.5 px-3 py-2 h-auto bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
               <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5 whitespace-nowrap">
-                Contact us
+                Free consultation
               </span>
               <ArrowRightIcon className="w-4 h-4 text-white" />
             </Button>
@@ -90,7 +89,7 @@ export const NavigationBarSection = (): JSX.Element => {
                 </span>
               </button>
             ))}
-            <div className="mt-4 flex items-center gap-1.5 justify-center border-t border-gray-100 pt-4">
+            <div className="mt-4 flex items-center gap-1.5 justify-center  pt-4">
               <PhoneIcon className="w-[18px] h-[18px] text-[#4a5565]" />
               <span className="font-medium text-[#4a5565] text-sm text-center tracking-[0] leading-5 whitespace-nowrap">
                 1300 352 352

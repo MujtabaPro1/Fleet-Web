@@ -61,7 +61,7 @@ const includedItems = [
 export const FeaturesListSection = (): JSX.Element => {
   return (
     <section className="flex flex-col w-full items-center gap-8 sm:gap-12 lg:gap-16 px-0 py-8 sm:py-12 lg:py-16 bg-white">
-      <div className="w-full max-w-[1280px] px-4 sm:px-6">
+      <div className="w-full max-w-[1280px] lg:px-4 px-0">
         <Card className="bg-gray-50 border-border shadow-shadow-sm">
           <CardContent className="flex flex-col items-start gap-6 sm:gap-8 lg:gap-12 p-4 sm:p-6 lg:p-7">
             <div className="flex flex-col items-start justify-center gap-3 sm:gap-4 w-full">
@@ -115,8 +115,8 @@ export const FeaturesListSection = (): JSX.Element => {
         </Card>
       </div>
 
-      <div className="w-full max-w-[1280px] px-4 sm:px-6">
-        <Card className="bg-[#194170] border-none shadow-shadow-sm">
+      <div className="w-full max-w-[1280px] lg:px-4 px-0">
+        <Card className="bg-[#194170] lg:rounded-md rounded-none border-none shadow-shadow-sm">
           <CardContent className="flex flex-col items-start justify-center gap-6 sm:gap-8 md:gap-10 p-4 sm:p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full">
               <h2 className="flex items-center justify-center md:justify-start font-figtree font-semibold text-white text-2xl sm:text-3xl tracking-[0] leading-7 sm:leading-8">
@@ -146,7 +146,7 @@ export const FeaturesListSection = (): JSX.Element => {
               <Button
                 variant="outline"
                 onClick={() => {
-                  document.getElementById("consultation-form")?.scrollIntoView({ behavior: "smooth" });
+                 window.location.href = "tel:1300352352";
                 }}
                 className="h-auto bg-gray-50 border-border shadow-shadow-xs hover:bg-gray-100 w-full"
               >
@@ -160,7 +160,7 @@ export const FeaturesListSection = (): JSX.Element => {
         </Card>
       </div>
 
-      <div className="w-full max-w-[1280px] px-4 sm:px-6">
+      <div className="w-full max-w-[1280px] lg:px-4 px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
           <Card className="bg-gray-50 border-border shadow-shadow-sm relative overflow-hidden">
             <img
@@ -240,8 +240,8 @@ export const FeaturesListSection = (): JSX.Element => {
         </div>
       </div>
 
-      <div className="w-full max-w-[1280px] px-4 sm:px-6">
-        <Card className="bg-[#194170] border-none shadow-shadow-sm">
+      <div className="w-full max-w-[1280px] lg:px-4 px-0">
+        <Card className="bg-[#194170] lg:rounded-md rounded-none border-none shadow-shadow-sm">
           <CardContent className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6">
             <div className="flex flex-col items-start gap-2 flex-1">
               <h2 className="flex items-center justify-center w-full font-figtree font-semibold text-white text-xl sm:text-2xl md:text-3xl tracking-[0] leading-7 sm:leading-8">

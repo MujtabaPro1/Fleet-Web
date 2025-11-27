@@ -110,11 +110,11 @@ export const ServicesSection = (): JSX.Element => {
         <div className="flex flex-col flex-1 items-start gap-8">
           <div className="gap-4 flex flex-col items-start w-full">
             <div className="flex flex-col gap-3 w-full items-start">
-              <h2 className="flex items-center justify-center w-full font-figtree font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
+              <h2 className="flex items-start justify-start w-full font-figtree font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
                 Finance Lease
               </h2>
 
-              <p className="flex items-center justify-center w-full font-figtree font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
+              <p className="flex items-start justify-start w-full font-figtree font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
                 Flexibility with an Option to Own
               </p>
             </div>
@@ -206,11 +206,11 @@ export const ServicesSection = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-2.5 flex-1">
+        <div className="hidden lg:flex items-center justify-center gap-2.5 flex-1">
           <div className="relative w-full max-w-[520px] aspect-[520/672]">
           
 
-        <Image
+             <Image
                     className="absolute w-full h-full top-0 left-0"
                     alt="Ballon"
                     src={BaloonImage}

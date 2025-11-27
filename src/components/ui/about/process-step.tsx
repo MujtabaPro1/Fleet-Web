@@ -32,7 +32,7 @@ const benefitCards = [
   },
 ];
 
-export const ProcessStepsSection = (): JSX.Element => {
+export const ProcessStepsSection = ({ router }: { router: any }): JSX.Element => {
   return (
     <section className="flex flex-col w-full items-center gap-10 md:gap-16 px-0 py-10 md:py-16 bg-white">
       <Card className="w-full max-w-[1280px] bg-gray-50 rounded-xl overflow-hidden border border-solid shadow-shadow-sm mx-4 md:mx-0">
@@ -104,6 +104,9 @@ export const ProcessStepsSection = (): JSX.Element => {
           <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6 w-full">
             <Button
               variant="secondary"
+              onClick={() => {
+                router.push("/services/consultation?scrollTo=consultation");
+              }}
               className="h-auto w-full md:flex-1 bg-gray-50 rounded border border-solid shadow-shadow-xs px-3 py-2 gap-1.5 hover:bg-gray-100"
             >
               <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">
@@ -114,6 +117,9 @@ export const ProcessStepsSection = (): JSX.Element => {
 
             <Button
               variant="secondary"
+              onClick={() => {
+                window.location.href = "tel:1300352352";
+              }}
               className="h-auto w-full md:flex-1 bg-gray-50 rounded border border-solid shadow-shadow-xs px-3 py-2 gap-1.5 hover:bg-gray-100"
             >
               <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">

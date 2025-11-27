@@ -1,5 +1,5 @@
 import { ArrowRightIcon, Building2Icon, CheckCircle2Icon, InfoIcon, Loader2Icon } from "lucide-react";
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import { Button } from "../button";
 import {
   Card,
@@ -19,7 +19,8 @@ import {
 } from "../select";
 import { Textarea } from "../textarea";
 import axiosInstance from "@/service/api";
-
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
 
 const contactInfo = [
   {
@@ -35,6 +36,7 @@ const contactInfo = [
 ];
 
 export const MainContentSection = (): JSX.Element => {
+  const searchParams = useSearchParams();
   const [fleetSolutions, setFleetSolutions] = useState<{
     id: string;
     title: string;
@@ -74,6 +76,14 @@ export const MainContentSection = (): JSX.Element => {
 
   // Form validation
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const router = useRouter();
+
+
+  useEffect(()=>{
+      if(searchParams.get("scrollTo") === "consultation"){
+          document.getElementById("consultation-form")?.scrollIntoView({ behavior: "smooth" });
+      }
+  },[])
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -104,11 +114,11 @@ export const MainContentSection = (): JSX.Element => {
       newErrors.state = "Please select a state";
     }
     
-    if (!employees) {
+    if (getSelectedItem()?.title === "Fleet Leasing" && !employees) {
       newErrors.employees = "Please select number of employees";
     }
     
-    if (!fleetSize) {
+    if (getSelectedItem()?.title === "Fleet Finance" && !fleetSize) {
       newErrors.fleetSize = "Please select fleet size";
     }
     
@@ -178,8 +188,13 @@ export const MainContentSection = (): JSX.Element => {
     }
   };
 
+
+  const getSelectedItem = () => {
+    return fleetSolutions.find(solution => solution.selected);
+  };
+
   return (
-    <section className="flex flex-col lg:flex-row items-start gap-8 lg:gap-16 px-4 sm:px-8 md:px-12 lg:px-16 py-8 lg:py-12 w-full bg-[#fafcfe]">
+    <section className="flex flex-col lg:flex-row items-start gap-8 lg:gap-16 px-4 sm:px-8 px-0 lg:px-16 py-8 lg:py-12 w-full bg-[#fafcfe]">
       <div className="flex flex-col w-full lg:w-[466px] items-start gap-6">
         <h2 
         className="self-stretch font-figtree font-semibold text-[#101828] text-4xl tracking-[-0.40px] leading-[45px]">
@@ -193,7 +208,7 @@ export const MainContentSection = (): JSX.Element => {
 
         <Button
         onClick={() => {
-          document.getElementById("consultation-form")?.scrollIntoView({ behavior: "smooth" });
+           window.location.href = "tel:1300352352";
         }}
         className="h-auto px-3 py-2 self-stretch w-full bg-[#194170] hover:bg-[#194170]/90 items-center justify-center gap-1.5 rounded shadow-shadow-xs">
           <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5 whitespace-nowrap">
@@ -340,7 +355,7 @@ export const MainContentSection = (): JSX.Element => {
                 htmlFor="business"
                 className="font-figtree font-medium text-[#101828] text-sm tracking-[0] leading-5"
               >
-                Bussiness name or ABN<span className="text-[#c70036]">*</span>
+                Business name or ABN<span className="text-[#c70036]">*</span>
               </Label>
               <Input
                 id="business"
@@ -381,7 +396,7 @@ export const MainContentSection = (): JSX.Element => {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row items-start gap-4 md:gap-7 w-full">
+         {getSelectedItem()?.title === "Fleet Finance" ? <div className="flex flex-col md:flex-row items-start gap-4 md:gap-7 w-full">
             <div className="flex flex-col items-start gap-2.5 w-full md:flex-1">
               <Label
                 htmlFor="employees"
@@ -409,14 +424,14 @@ export const MainContentSection = (): JSX.Element => {
 
             <div className="flex flex-col items-start gap-2.5 w-full md:flex-1">
               <Label
-                htmlFor="fleet-size"
+                htmlFor="fleetSize"
                 className="font-figtree font-medium text-[#101828] text-sm tracking-[0] leading-5"
               >
                 Fleet Size<span className="text-[#c70036]">*</span>
               </Label>
               <Select value={fleetSize} onValueChange={setFleetSize}>
                 <SelectTrigger
-                  id="fleet-size"
+                  id="fleetSize"
                   className={`w-full px-3 py-2.5 bg-white rounded border ${errors.fleetSize ? 'border-red-500' : 'border-[#e5e7eb]'} shadow-shadow-xs font-figtree font-normal text-[#6a7282] text-sm tracking-[0] leading-5`}
                 >
                   <SelectValue placeholder="Select a range" />
@@ -431,9 +446,9 @@ export const MainContentSection = (): JSX.Element => {
               </Select>
               {errors.fleetSize && <p className="text-red-500 text-xs mt-1">{errors.fleetSize}</p>}
             </div>
-          </div>
+          </div>: <></>}
 
-          <div className="flex flex-col h-28 items-start gap-2.5 w-full">
+          <div className="flex flex-col items-start gap-2.5 w-full">
             <Label
               htmlFor="help"
               className="font-figtree font-medium text-[#101828] text-sm tracking-[0] leading-5"
@@ -489,7 +504,11 @@ export const MainContentSection = (): JSX.Element => {
                 By submitting this form, you confirm that you have read and
                 agree to the
               </span>
-              <span className="text-[#101828] underline">
+              <span 
+               onClick={() => {
+                 router.push('/terms');
+               }}
+              className="text-[#101828] underline cursor-pointer">
                 {" "}
                 Terms of Service
               </span>

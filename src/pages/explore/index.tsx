@@ -32,7 +32,7 @@ const smallBodyTypes = ["Hatchback", "Coupe", "Convertible", "Wagon", "Sedan"];
 
 const popularBrands = [
   { name: "Mazda", logo: "/assets/images/brand-logo/mazda.png", hasArrow: true },
-  { name: "Toyota", logo: "/assets/images/brand-logo/toyota.png", hasArrow: false },
+  { name: "Toyota", logo: "/assets/images/brand-logo/toyota.png", hasArrow: true },
   { name: "Ford", logo: "/assets/images/brand-logo/ford.png", hasArrow: true },
   { name: "Tesla", logo: "/assets/images/brand-logo/tesla.png", hasArrow: true },
   { name: "Nissan", logo: "/assets/images/brand-logo/nissan.png", hasArrow: true },
@@ -99,7 +99,7 @@ const ExploreDeals: MyPage = () => {
               <Card
                 key={index}
                    onClick={() => router.push(`/inventory?bodyType=${card.title.toUpperCase()}`)}
-                className="h-[320px] overflow-hidden cursor-pointer hover:shadow-lg transition-shadow relative bg-white rounded-xl border border-gray-100"
+                className="h-[320px] overflow-hidden cursor-pointer hover:shadow-lg transition-shadow relative bg-white rounded-md border border-gray-100"
               >
                 <CardContent className="p-8 h-full flex flex-col">
                   <div className="flex items-center gap-2">
@@ -155,7 +155,7 @@ const ExploreDeals: MyPage = () => {
               <Card
                 key={index}
                  onClick={() => router.push(`/inventory?brand=${brand.name}`)}
-                className="cursor-pointer hover:shadow-lg transition-shadow"
+                className="cursor-pointer hover:shadow-lg transition-shadow bg-white"
               >
                 <CardContent className="p-5 flex flex-col items-center gap-6">
                   <img
@@ -187,7 +187,7 @@ const ExploreDeals: MyPage = () => {
               <Card
                 key={index}
                 onClick={() => router.push(`/inventory?brand=${brand.name}`)}
-                className="cursor-pointer hover:shadow-lg transition-shadow"
+                className="cursor-pointer  hover:shadow-lg transition-shadow bg-white"
               >
                 <CardContent className="p-3">
                   <p className="font-figtree font-medium text-[#4a5565] text-lg text-center tracking-[0.40px]">

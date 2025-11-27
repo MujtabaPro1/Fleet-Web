@@ -66,20 +66,20 @@ const propertyLoans = [
 export const FeaturesListSection = (): JSX.Element => {
   return (
     <section className="pt-44 pb-24 px-0 bg-gray-50 flex flex-col w-full items-center">
-      <div className="flex-col gap-10 flex max-w-[1280px] w-full items-start px-4">
+      <div className="flex-col gap-10 flex max-w-[1280px] w-full items-start px-0 lg:px-4">
         <Card className="bg-white rounded border border-solid shadow-shadow-sm w-full">
-          <CardContent className="flex flex-col items-center gap-5 p-8">
-            <div className="flex-col items-center gap-2 flex w-full">
+          <CardContent className="flex flex-col items-start lg:items-center gap-5 p-8">
+            <div className="flex-col items-start lg:items-center gap-2 flex w-full">
               <h2 className="font-figtree font-semibold text-[#101828] text-2xl tracking-[-0.80px] leading-6">
                 Business Finance Solutions
               </h2>
 
-              <h1 className="font-figtree font-semibold text-[#c70036] text-5xl tracking-[-0.80px] leading-[48px]">
+              <h1 className="font-figtree font-semibold text-[#c70036] text-3xl lg:text-5xl tracking-[-0.80px] leading-[32px] lg:leading-[48px]">
                 Your Full Suite of Business Finance Solutions
               </h1>
             </div>
 
-            <p className="max-w-[854.49px] font-figtree font-normal text-[#4a5565] text-base text-center tracking-[0] leading-6">
+            <p className="max-w-[854.49px] font-figtree font-normal text-[#4a5565] text-base text-start lg:text-center tracking-[0] leading-6">
               Access the right funding structure for every business need, from
               managing daily cash flow and optimizing trade cycles to acquiring
               long-term commercial property. Use our guide to compare the key

@@ -216,7 +216,7 @@ export const InfoSection = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="flex items-center justify-center flex-1">
+        <div className="hidden lg:flex items-center justify-center flex-1">
           <div className="relative w-full max-w-[520px] aspect-[520/672]">
       
 
