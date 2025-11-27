@@ -53,7 +53,7 @@ export const VehicleCard = ({
       <Button
         variant="ghost"
         size="icon"
-        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded-full border border-gray-200 shadow-sm hover:bg-gray-100 z-10"
+        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded-md border border-gray-200 shadow-sm hover:bg-gray-100 z-10"
       >
         <HeartIcon className="w-4 h-4" />
       </Button>
@@ -74,7 +74,7 @@ export const VehicleCard = ({
 
            {tags && tags.length > 0 && tags.map((tag, index) => <Badge key={index} className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
             <span className="font-medium text-xs">
-              {tag}
+              {tag == 'Limited Time Offer' ? 'Limited-time deal' : tag}
             </span>
           </Badge>)}
 
