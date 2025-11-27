@@ -8,7 +8,8 @@ import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
 import { useRouter } from "next/router";
 import axiosInstance from "@/service/api";
-import { VehicleCard } from "../../vehicle-card/index";
+import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
+import { VehicleCard } from "@/components/vehicle-card";
 import { Carousel } from 'react-responsive-carousel'
 
 // Brands array for carousel
@@ -571,56 +572,39 @@ export const MainContentSection = (): JSX.Element => {
       </div>
 
       {/* Vehicle listings section */}
-      <div className="flex flex-col items-center justify-center gap-12 self-stretch w-full">
-        <div className="flex flex-col items-start gap-6 self-stretch w-full">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 w-full">
-            <h2 className="font-semibold text-[#101828] text-2xl md:text-3xl leading-tight">
-              Unlock Limited-Time Leasing Deals on Cars, SUVs &amp; Fleets
-            </h2>
-
-            <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                onClick={() => router.push("/inventory")}
-                className="h-auto px-3 py-2 gap-1.5 hover:bg-transparent text-[#194170]"
-              >
-                <span className="font-medium text-sm">
-                  View all
-                </span>
-              </Button>
-              
-          
-            </div>
-          </div>
-
-          <div className="relative w-full">
-            <div 
-              id="main-vehicles-carousel"
-              className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
-            >
-              <div className="flex gap-6 min-w-max">
-                {offers.map((offer: any, index) => (
-                  <div key={index} className="w-[350px] lg:w-[380px] flex-shrink-0">
+      <div className="flex flex-col items-center justify-center gap-8 self-stretch w-full">
+        <VehiclesCarousel
+          title="Unlock Limited-Time Leasing Deals on Cars, SUVs & Fleets"
+          actionLabel="View all"
+          onAction={() => router.push("/inventory")}
+          cars={offers}
+          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+          renderCard={(offer: any) => (
                     <VehicleCard
-                      image={offer.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}` : "/assets/images/no-image.png"}
-                      name={offer.title}
-                      type={offer.bodyType}
-                      fuel={offer.selectedVariant?.variant}
-                      price={offer.selectedVariant.weeklyPrice}
+              image={
+                offer?.NVIC
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  : "/assets/images/no-image.png"
+              }
+              name={offer?.title}
+              type={offer?.bodyType}
+              fuel={offer?.selectedVariant?.variant}
+              price={offer?.selectedVariant?.weeklyPrice}
                       router={router}
-                      id={offer.slug}
-                      tags={offer.tags.filter((tag: any) => tag.includes('Limited Time')).length > 0 ? ['Limited Time Offer'] : []}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+              id={offer?.slug}
+              tags={
+                offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("limited")
+                ) ?? offer?.tags
+              }
+            />
+          )}
+        />
 
         <Button 
         onClick={() => router.push("/inventory")}
-        className="w-auto h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-2 px-6 py-3 mt-4">
+          className="w-auto h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-2 px-6 py-3 mt-4"
+        >
           <span className="font-medium text-white text-sm">
             View all vehicles
           </span>
@@ -707,9 +691,9 @@ export const MainContentSection = (): JSX.Element => {
                         alt={brand.name}
                         src={brand.src}
                       />
-                    </div>
+            </div>
                   ))}
-                </div>
+          </div>
               ))}
             </Carousel>
           </div>
@@ -746,7 +730,7 @@ export const MainContentSection = (): JSX.Element => {
               ))}
             </Carousel>
           </div>
-          <style jsx global>{`
+        <style jsx global>{`
             .brand-carousel .carousel .control-dots {
               display: none !important;
             }
@@ -756,85 +740,41 @@ export const MainContentSection = (): JSX.Element => {
             }
             .brand-carousel .carousel .slider-wrapper {
               margin: 0;
-            }
-          `}</style>
+          }
+        `}</style>
           </div>
       </div>
 
       {/* Popular Hatchback section */}
       <div className="flex flex-col items-start gap-6 w-full">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4">
-          <h2 className="font-semibold text-[#101828] text-2xl md:text-3xl">
-            Popular Hatchback for Business Lease
-          </h2>
+        <VehiclesCarousel
+          title="Popular Hatchback for Business Lease"
+          actionLabel="View all"
+          onAction={() => router.push("/inventory")}
+          cars={bodyTypeOffers['Popular Hatchback']}
+          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+          renderCard={(offer: any) => (
+                    <VehicleCard
+              image={
+                offer?.NVIC
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  : "/assets/images/no-image.png"
+              }
+              name={offer?.title}
+              type={offer?.bodyType}
+              fuel={offer?.selectedVariant?.variant}
+              price={offer?.selectedVariant?.weeklyPrice}
+                      router={router}
+              id={offer?.slug}
+              tags={
+                offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("limited")
+                ) ?? offer?.tags
+              }
+            />
+          )}
+        />
 
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              onClick={() => router.push("/inventory")}
-              className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
-            >
-              <span className="font-medium text-sm">
-                View all
-              </span>
-            </Button>
-
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
-                onClick={() => {
-                  const container = document.getElementById('utes-carousel');
-                  if (container) {
-                    container.scrollBy({ left: -350, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <ChevronLeftIcon className="w-5 h-5" />
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
-                onClick={() => {
-                  const container = document.getElementById('hatchback-carousel');
-                  if (container) {
-                    container.scrollBy({ left: 350, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <ChevronRightIcon className="w-5 h-5 text-white" />
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative w-full">
-          <div 
-            id="hatchback-carousel"
-            className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
-          >
-            <div className="flex gap-6 min-w-max">
-              {bodyTypeOffers['Popular Hatchback'].map((vehicle: any, index: number) => (
-                <div key={index} className="w-[350px] flex-shrink-0">
-                  <VehicleCard 
-                      image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
-                      name={vehicle.title}
-                      type={vehicle.bodyType}
-                      fuel={vehicle.selectedVariant?.variant}
-                      price={vehicle.selectedVariant.weeklyPrice}
-                    router={router}
-                      id={vehicle.slug}
-                      isTrending={vehicle?.tags?.includes('Trending')}
-                      tags={vehicle.tags.filter((tag: any) => tag.includes('Limited Time')).length > 0 ? ['Limited Time Offer'] : []}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Product Offerings section */}
@@ -951,154 +891,66 @@ export const MainContentSection = (): JSX.Element => {
 
       {/* Popular SUVs section */}
       <div className="flex flex-col items-start gap-6 w-full">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4">
-          <h2 className="font-semibold text-[#101828] text-2xl md:text-3xl">
-            Popular Sedans for Business Lease
-          </h2>
+        <VehiclesCarousel
+          title="Popular Sedan for Business Lease"
+          actionLabel="View all"
+          onAction={() => router.push("/inventory")}
+          cars={bodyTypeOffers['Popular Sedan']}
+          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+          renderCard={(offer: any) => (
+                    <VehicleCard
+              image={
+                offer?.NVIC
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  : "/assets/images/no-image.png"
+              }
+              name={offer?.title}
+              type={offer?.bodyType}
+              fuel={offer?.selectedVariant?.variant}
+              price={offer?.selectedVariant?.weeklyPrice}
+                      router={router}
+              id={offer?.slug}
+              tags={
+                offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("limited")
+                ) ?? offer?.tags
+              }
+            />
+          )}
+        />
 
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              onClick={() => router.push("/inventory")}
-              className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
-            >
-              <span className="font-medium text-sm">
-                View all
-              </span>
-            </Button>
-
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
-                onClick={() => {
-                  const container = document.getElementById('suvs-carousel');
-                  if (container) {
-                    container.scrollBy({ left: -350, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <ChevronLeftIcon className="w-5 h-5" />
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
-                onClick={() => {
-                  const container = document.getElementById('suvs-carousel');
-                  if (container) {
-                    container.scrollBy({ left: 350, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <ChevronRightIcon className="w-5 h-5 text-white" />
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative w-full">
-          <div 
-            id="suvs-carousel"
-            className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
-          >
-            <div className="flex gap-6 min-w-max">
-              {bodyTypeOffers['Popular Sedan'].map((vehicle: any, index: number) => (
-                <div key={index} className="w-[350px] flex-shrink-0">
-                  <VehicleCard 
-                    image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
-                    name={vehicle.title}
-                    type={vehicle.bodyType}
-                    fuel={vehicle.selectedVariant?.variant}
-                    price={vehicle?.selectedVariant?.weeklyPrice}
-                    router={router}
-                    id={vehicle.slug}
-                    isTrending={vehicle?.tags?.includes('Trending')}
-                    tags={vehicle.tags.filter((tag: any) => tag.includes('Limited Time')).length > 0 ? ['Limited Time Offer'] : []}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Popular Vans section */}
       <div className="flex flex-col items-start gap-6 w-full">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4">
-          <h2 className="font-semibold text-[#101828] text-2xl md:text-3xl">
-            Popular Vans for Business Lease
-          </h2>
+        <VehiclesCarousel
+          title="Popular Van for Business Lease"
+          actionLabel="View all"
+          onAction={() => router.push("/inventory")}
+          cars={bodyTypeOffers['Popular Van']}
+          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+          renderCard={(offer: any) => (
+                    <VehicleCard
+              image={
+                offer?.NVIC
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  : "/assets/images/no-image.png"
+              }
+              name={offer?.title}
+              type={offer?.bodyType}
+              fuel={offer?.selectedVariant?.variant}
+              price={offer?.selectedVariant?.weeklyPrice}
+                      router={router}
+              id={offer?.slug}
+              tags={
+                offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("limited")
+                ) ?? offer?.tags
+              }
+            />
+          )}
+        />
 
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              onClick={() => router.push("/inventory")}
-              className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
-            >
-              <span className="font-medium text-sm">
-                View all
-              </span>
-            </Button>
-
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
-                onClick={() => {
-                  const container = document.getElementById('vans-carousel');
-                  if (container) {
-                    container.scrollBy({ left: -350, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <ChevronLeftIcon className="w-5 h-5" />
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
-                onClick={() => {
-                  const container = document.getElementById('vans-carousel');
-                  if (container) {
-                    container.scrollBy({ left: 350, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <ChevronRightIcon className="w-5 h-5 text-white" />
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative w-full">
-          <div 
-            id="vans-carousel"
-            className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
-          >
-            <div className="flex gap-6 min-w-max">
-              {bodyTypeOffers['Popular Van'].map((vehicle: any, index: number) => (
-                <div key={index} className="w-[350px] flex-shrink-0">
-                  <VehicleCard 
-                    image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
-                    name={vehicle.title}
-                    type={vehicle.bodyType}
-                    fuel={vehicle.fuel}
-                    price={vehicle?.selectedVariant?.weeklyPrice}
-                    id={vehicle.slug}
-                    router={router}
-                    isTrending={vehicle?.tags?.includes('Trending')}
-                    tags={vehicle.tags.filter((tag: any) => tag.includes('Limited Time')).length > 0 ? ['Limited Time Offer'] : []}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
