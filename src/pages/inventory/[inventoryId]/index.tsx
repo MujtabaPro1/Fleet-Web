@@ -259,7 +259,7 @@ import { useSearchParams } from "next/navigation";
           </Breadcrumb>
   
           <div className="flex flex-col lg:flex-row w-full items-start gap-6">
-            <div className="flex flex-col w-full lg:w-[70%] items-start gap-6">
+            <div className="flex flex-col w-full lg:w-[70%] items-start gap-6 bg-white">
               <Card className="w-full border-solid shadow-shadow-sm">
                 <CardContent className="flex flex-col items-start gap-5 sm:gap-7 p-4 sm:p-6">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
@@ -274,7 +274,7 @@ import { useSearchParams } from "next/navigation";
                     </div>
                   </div>
                   <div className="w-full">
-                    <div className="flex-1 h-[300px] md:h-[400px] bg-gray-100 rounded overflow-hidden">
+                    <div className="flex-1 h-[300px] md:h-[400px] bg-white rounded overflow-hidden">
                       <img
                         className="w-full h-full object-contain"
                         alt="Vehicle images"
@@ -763,8 +763,8 @@ import { useSearchParams } from "next/navigation";
             </div>
   
             <div className="flex flex-col items-start gap-6 w-full lg:w-[30%]">
-              <Card className="w-full border-solid shadow-shadow-sm">
-                <CardContent className="flex flex-col items-start gap-9 p-6">
+              <Card className="w-full border-solid shadow-shadow-sm bg-white">
+                <CardContent className="flex flex-col items-start gap-9 p-4">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
                     <h2 className="flex-1 font-figtree font-medium text-[#c70036] text-2xl leading-7">
                       Compare Payment Frequency Options
@@ -854,7 +854,7 @@ import { useSearchParams } from "next/navigation";
                 </CardContent>
               </Card>
   
-              <Card className="w-full border-solid shadow-shadow-sm">
+              <Card className="w-full border-solid shadow-shadow-sm bg-white">
                 <CardContent className="flex flex-col items-start gap-5 sm:gap-7 p-4 sm:p-6">
                   <div className="flex flex-col items-start gap-2 w-full">
                     <div className="flex flex-col items-start justify-center gap-2 pt-0 pb-3 px-0 border-b border-solid w-full">
