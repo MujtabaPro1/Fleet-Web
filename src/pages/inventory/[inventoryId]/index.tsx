@@ -237,7 +237,7 @@ import { useSearchParams } from "next/navigation";
         <div className="flex flex-col items-center gap-8 bg-gray-50 overflow-hidden">
 
 <main className="flex flex-col max-w-full lg:max-w-[1280px] pt-[60px] md:pt-[80px] items-center gap-6 md:gap-10 px-3 md:px-4">
-        <div className="flex flex-col items-start gap-8 relative">
+        <div className="flex flex-col items-start gap-8 relative max-w-[1280px]">
           <Breadcrumb className="w-full overflow-x-auto pb-2">
             <BreadcrumbList className="flex items-center gap-2.5 min-w-max">
               {breadcrumbItems.map((item, index) => (
@@ -259,7 +259,7 @@ import { useSearchParams } from "next/navigation";
           </Breadcrumb>
   
           <div className="flex flex-col lg:flex-row w-full items-start gap-6">
-            <div className="flex flex-col flex-1 items-start gap-6">
+            <div className="flex flex-col w-full lg:w-[70%] items-start gap-6">
               <Card className="w-full border-solid shadow-shadow-sm">
                 <CardContent className="flex flex-col items-start gap-5 sm:gap-7 p-4 sm:p-6">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
@@ -334,7 +334,7 @@ import { useSearchParams } from "next/navigation";
                     <ul className="flex w-[380px] lg:w-full overflow-x-auto md:overflow-visible -mb-px" id="vehicle-tabs" role="tablist">
                       <li className="me-2" role="presentation">
                         <button 
-                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-[#194170] bg-transparent rounded-none whitespace-nowrap text-sm sm:text-base md:text-lg font-medium font-figtree text-gray-700" 
+                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-[#194170] bg-transparent rounded-none whitespace-nowrap text-sm sm:text-base font-medium font-figtree text-gray-700" 
                           id="specs-tab" 
                           data-tabs-target="#specs" 
                           type="button" 
@@ -348,7 +348,7 @@ import { useSearchParams } from "next/navigation";
                       </li>
                       <li className="me-2" role="presentation">
                         <button 
-                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent bg-transparent rounded-none whitespace-nowrap text-sm sm:text-base md:text-lg font-medium font-figtree text-gray-700" 
+                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent bg-transparent rounded-none whitespace-nowrap text-sm sm:text-base font-medium font-figtree text-gray-700" 
                           id="finance-tab" 
                           data-tabs-target="#finance" 
                           type="button" 
@@ -362,7 +362,7 @@ import { useSearchParams } from "next/navigation";
                       </li>
                       <li className="me-2" role="presentation">
                         <button 
-                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent bg-transparent rounded-none whitespace-nowrap text-sm sm:text-base md:text-lg font-medium font-figtree text-gray-700" 
+                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent bg-transparent rounded-none whitespace-nowrap text-sm sm:text-base font-medium font-figtree text-gray-700" 
                           id="questions-tab" 
                           data-tabs-target="#questions" 
                           type="button" 
@@ -376,7 +376,7 @@ import { useSearchParams } from "next/navigation";
                       </li>
                       <li className="me-2" role="presentation">
                         <button 
-                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent bg-transparent rounded-none whitespace-nowrap text-sm sm:text-base md:text-lg font-medium font-figtree text-gray-700" 
+                          className="flex items-center gap-1 sm:gap-2 pt-3 pb-3 px-4 border-b-[3px] border-transparent bg-transparent rounded-none whitespace-nowrap text-sm sm:text-base font-medium font-figtree text-gray-700" 
                           id="consultation-tab" 
                           data-tabs-target="#consultation" 
                           type="button" 
@@ -762,7 +762,7 @@ import { useSearchParams } from "next/navigation";
               </Card>
             </div>
   
-            <div className="flex flex-col items-start gap-6 flex-1">
+            <div className="flex flex-col items-start gap-6 w-full lg:w-[30%]">
               <Card className="w-full border-solid shadow-shadow-sm">
                 <CardContent className="flex flex-col items-start gap-9 p-6">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
@@ -870,7 +870,7 @@ import { useSearchParams } from "next/navigation";
                         <div className="flex w-9 h-9 items-center justify-center bg-gray-100 rounded">
                           <CheckIcon className="w-5 h-5 text-[#194170]" />
                         </div>
-                        <span className="font-figtree font-medium text-[#101828] text-xl leading-5">
+                        <span className="font-figtree font-medium text-[#101828] text-lg leading-5">
                           {benefit.text}
                         </span>
                       </div>
