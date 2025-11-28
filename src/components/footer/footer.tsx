@@ -246,7 +246,7 @@ export const SiteFooterSection = (): JSX.Element => {
             <Button
               variant="link"
               onClick={() => router.push("/privacy-policy")}
-              className="p-0 h-auto font-figtree font-normal text-[#4a5565] text-sm sm:text-base tracking-[0] leading-5 sm:leading-6 whitespace-nowrap"
+              className="p-0 hvauto font-figtree font-normal text-[#4a5565] text-sm sm:text-base tracking-[0] leading-5 sm:leading-6 whitespace-nowrap"
             >
               Privacy policy
             </Button>

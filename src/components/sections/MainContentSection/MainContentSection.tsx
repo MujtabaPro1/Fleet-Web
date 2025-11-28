@@ -578,7 +578,7 @@ export const MainContentSection = (): JSX.Element => {
           actionLabel="View all"
           onAction={() => router.push("/inventory")}
           cars={offers}
-          
+          showMultipleColumns={true}
           getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
           renderCard={(offer: any) => (
                     <VehicleCard

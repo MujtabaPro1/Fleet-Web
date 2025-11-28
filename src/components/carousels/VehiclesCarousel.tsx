@@ -11,6 +11,7 @@ type VehiclesCarouselProps<T> = {
   renderCard: (car: T, index: number) => React.ReactNode;
   getCardKey?: (car: T, index: number) => React.Key;
   className?: string;
+  showMultipleColumns?: boolean;
 };
 
 const chunkArray = <T,>(items: T[], chunkSize: number): T[][] => {
@@ -24,6 +25,21 @@ const chunkArray = <T,>(items: T[], chunkSize: number): T[][] => {
   return result;
 };
 
+const createTwoRowLayout = <T,>(items: T[], itemsPerRow: number): T[][] => {
+  if (!items || !items.length) return [];
+  
+  // Calculate total items per slide (2 rows)
+  const itemsPerSlide = itemsPerRow * 2;
+  const result: T[][] = [];
+  
+  // Group items into slides
+  for (let i = 0; i < items.length; i += itemsPerSlide) {
+    result.push(items.slice(i, i + itemsPerSlide));
+  }
+  
+  return result;
+};
+
 export const VehiclesCarousel = <T,>({
   title,
   actionLabel = "View all",
@@ -32,6 +48,7 @@ export const VehiclesCarousel = <T,>({
   renderCard,
   getCardKey,
   className = "",
+  showMultipleColumns = false,
 }: VehiclesCarouselProps<T>) => {
   const [slidesPerPage, setSlidesPerPage] = useState(3);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -52,8 +69,10 @@ export const VehiclesCarousel = <T,>({
   }, [slidesPerPage, cars]);
 
   const slides = useMemo(
-    () => chunkArray(cars, slidesPerPage),
-    [cars, slidesPerPage]
+    () => showMultipleColumns 
+      ? createTwoRowLayout(cars, slidesPerPage) 
+      : chunkArray(cars, slidesPerPage),
+    [cars, slidesPerPage, showMultipleColumns]
   );
 
   const disableNavigation = slides.length <= 1;
@@ -126,22 +145,64 @@ export const VehiclesCarousel = <T,>({
           emulateTouch
           swipeable
         >
-          {slides.map((chunk, chunkIndex) => (
-            <div
-              key={`vehicles-slide-${chunkIndex}`}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6 px-2"
-            >
-              {chunk.map((car, index) => {
-                const key =
-                  (getCardKey && getCardKey(car, index)) ?? `${chunkIndex}-${index}`;
-                return (
-                  <div key={key} className="w-full">
-                    {renderCard(car, index)}
+          {slides.map((chunk, chunkIndex) => {
+            if (showMultipleColumns) {
+              // For multiple columns layout (3x2 on desktop, 1x2 on mobile)
+              const topRow = chunk.slice(0, slidesPerPage);
+              const bottomRow = chunk.slice(slidesPerPage);
+              
+              return (
+                <div
+                  key={`vehicles-slide-${chunkIndex}`}
+                  className="flex flex-col gap-6 px-2"
+                >
+                  {/* Top row */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {topRow.map((car, index) => {
+                      const key =
+                        (getCardKey && getCardKey(car, index)) ?? `${chunkIndex}-top-${index}`;
+                      return (
+                        <div key={key} className="w-full">
+                          {renderCard(car, index)}
+                        </div>
+                      );
+                    })}
                   </div>
-                );
-              })}
-            </div>
-          ))}
+                  
+                  {/* Bottom row */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {bottomRow.map((car, index) => {
+                      const key =
+                        (getCardKey && getCardKey(car, index + slidesPerPage)) ?? `${chunkIndex}-bottom-${index}`;
+                      return (
+                        <div key={key} className="w-full">
+                          {renderCard(car, index + slidesPerPage)}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            } else {
+              // Original single row layout
+              return (
+                <div
+                  key={`vehicles-slide-${chunkIndex}`}
+                  className="grid grid-cols-1 md:grid-cols-3 gap-6 px-2"
+                >
+                  {chunk.map((car, index) => {
+                    const key =
+                      (getCardKey && getCardKey(car, index)) ?? `${chunkIndex}-${index}`;
+                    return (
+                      <div key={key} className="w-full">
+                        {renderCard(car, index)}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            }
+          })}
         </Carousel>
       ) : (
         <div className="w-full py-12 border border-dashed border-gray-300 rounded-lg text-center text-[#4a5565]">
@@ -151,4 +212,5 @@ export const VehiclesCarousel = <T,>({
     </div>
   );
 };
+
 
