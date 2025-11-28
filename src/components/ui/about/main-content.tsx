@@ -18,6 +18,12 @@ export const MainContentSection = (): JSX.Element => {
     <section className="flex flex-col w-full items-center gap-16 px-0 py-16 bg-white">
       <div className="flex flex-col w-full max-w-[1440px] items-center gap-16">
         <div className="flex flex-col w-full max-w-[1280px] items-start gap-4 px-4">
+
+        <img
+          className="w-full max-w-[1280px] h-96 object-cover mb-2"
+          alt="Image"
+          src={BannerImage}
+        />
           <h2 className="font-figtree font-semibold text-[#101828] text-4xl tracking-[-0.40px] leading-[45px]">
             Our Story
           </h2>
@@ -34,11 +40,6 @@ export const MainContentSection = (): JSX.Element => {
           </div>
         </div>
 
-        <img
-          className="w-full max-w-[1280px] h-96 object-cover px-4"
-          alt="Image"
-          src={BannerImage}
-        />
       </div>
     </section>
   );

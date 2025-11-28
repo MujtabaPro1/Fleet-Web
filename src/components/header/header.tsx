@@ -9,6 +9,7 @@ const navigationItems = [
   { label: "Explore by brands", link: "/explore" },
   { label: "Explore by body type", link: "/vehicles/body-types" },
   { label: "Leasing & Finance Options", link: "/products/fleet-finance" },
+  { label: "Business Finance", link: "/products/business-finance" },
   { label: "About us", link: "/about" },
 ];
 

@@ -29,7 +29,9 @@ const createTwoRowLayout = <T,>(items: T[], itemsPerRow: number): T[][] => {
   if (!items || !items.length) return [];
   
   // Calculate total items per slide (2 rows)
-  const itemsPerSlide = itemsPerRow * 2;
+  // For small screens (itemsPerRow=1), we'll show 1 item per slide
+  // For large screens (itemsPerRow=3), we'll show 6 items per slide (3x2)
+  const itemsPerSlide = itemsPerRow === 1 ? 1 : itemsPerRow * 2;
   const result: T[][] = [];
   
   // Group items into slides
@@ -56,6 +58,7 @@ export const VehiclesCarousel = <T,>({
   useEffect(() => {
     const updateSlides = () => {
       if (typeof window === "undefined") return;
+      // Small screens: 1 item, Large screens: 3 items per row (6 total in two rows)
       setSlidesPerPage(window.innerWidth < 768 ? 1 : 3);
     };
 
@@ -147,44 +150,60 @@ export const VehiclesCarousel = <T,>({
         >
           {slides.map((chunk, chunkIndex) => {
             if (showMultipleColumns) {
-              // For multiple columns layout (3x2 on desktop, 1x2 on mobile)
-              const topRow = chunk.slice(0, slidesPerPage);
-              const bottomRow = chunk.slice(slidesPerPage);
-              
-              return (
-                <div
-                  key={`vehicles-slide-${chunkIndex}`}
-                  className="flex flex-col gap-6 px-2"
-                >
-                  {/* Top row */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {topRow.map((car, index) => {
-                      const key =
-                        (getCardKey && getCardKey(car, index)) ?? `${chunkIndex}-top-${index}`;
-                      return (
-                        <div key={key} className="w-full">
-                          {renderCard(car, index)}
-                        </div>
-                      );
-                    })}
+              // For mobile: 1 item per slide
+              // For desktop: 3x2 grid (6 items per slide)
+              if (slidesPerPage === 1) {
+                // On small screens, just show a single item
+                return (
+                  <div
+                    key={`vehicles-slide-${chunkIndex}`}
+                    className="px-2"
+                  >
+                    <div className="w-full">
+                      {renderCard(chunk[0], 0)}
+                    </div>
                   </div>
-                  
-                  {/* Bottom row */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {bottomRow.map((car, index) => {
-                      const key =
-                        (getCardKey && getCardKey(car, index + slidesPerPage)) ?? `${chunkIndex}-bottom-${index}`;
-                      return (
-                        <div key={key} className="w-full">
-                          {renderCard(car, index + slidesPerPage)}
-                        </div>
-                      );
-                    })}
+                );
+              } else {
+                // On larger screens, show a 3x2 grid
+                const topRow = chunk.slice(0, slidesPerPage);
+                const bottomRow = chunk.slice(slidesPerPage);
+                
+                return (
+                  <div
+                    key={`vehicles-slide-${chunkIndex}`}
+                    className="flex flex-col gap-6 px-2"
+                  >
+                    {/* Top row */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {topRow.map((car, index) => {
+                        const key =
+                          (getCardKey && getCardKey(car, index)) ?? `${chunkIndex}-top-${index}`;
+                        return (
+                          <div key={key} className="w-full">
+                            {renderCard(car, index)}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    
+                    {/* Bottom row */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {bottomRow.map((car, index) => {
+                        const key =
+                          (getCardKey && getCardKey(car, index + slidesPerPage)) ?? `${chunkIndex}-bottom-${index}`;
+                        return (
+                          <div key={key} className="w-full">
+                            {renderCard(car, index + slidesPerPage)}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              );
+                );
+              }
             } else {
-              // Original single row layout
+              // Original single row layout - now responsive with 1 column on mobile, 3 on desktop
               return (
                 <div
                   key={`vehicles-slide-${chunkIndex}`}

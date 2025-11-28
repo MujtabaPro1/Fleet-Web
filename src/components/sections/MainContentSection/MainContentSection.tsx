@@ -420,13 +420,9 @@ for (let i = 0; i < partnerLogosV1.length; i += 8) {
   partnerDesktopGroup.push(partnerLogosV1.slice(i, i + 8));
 }
 
-for (let i = 0; i < partnerLogosV1.length; i += 4) {
-  partnerMobileGroup.push(partnerLogosV1.slice(i, i + 4));
+for (let i = 0; i < partnerLogosV1.length; i += 3) {
+  partnerMobileGroup.push(partnerLogosV1.slice(i, i + 3));
 }
-
-
-console.log(partnerDesktopGroup);
-console.log(partnerMobileGroup);
 
 
 
@@ -438,6 +434,7 @@ export const MainContentSection = (): JSX.Element => {
     'Popular Hatchback': [],
     'Popular Sedan': [],
     'Popular Van': [],
+    'Popular Utes': [],
   });
 
   useEffect(() => {
@@ -445,6 +442,7 @@ export const MainContentSection = (): JSX.Element => {
     getByBodyType('Popular Hatchback');
     getByBodyType('Popular Sedan');
     getByBodyType('Popular Van');
+    getByBodyType('Popular Utes');
   
   }, []); 
 
@@ -770,6 +768,7 @@ export const MainContentSection = (): JSX.Element => {
           onAction={() => router.push("/inventory")}
           cars={bodyTypeOffers['Popular Hatchback']}
           getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+          showMultipleColumns={true}
           renderCard={(offer: any) => (
                     <VehicleCard
               image={
@@ -921,15 +920,15 @@ export const MainContentSection = (): JSX.Element => {
               className="brand-carousel"
             >
               {partnerMobileGroup.map((brandGroup: any, groupIndex: any) => (
-                <div key={`desktop-group-${groupIndex}`} className="flex items-center justify-center gap-6 lg:gap-16 px-4 py-2">
+                <div key={`desktop-group-${groupIndex}`} className="flex items-center justify-center gap-2 lg:gap-16 px-2 py-2">
                   {brandGroup.map((brand: any, index: any) => (
                     <div
                       key={`desktop-brand-${index}`}
                       onClick={() => router.push(`/inventory?brand=${brand.name}`)}
-                      className="flex  items-center justify-center cursor-pointer hover:opacity-70 transition-opacity px-2"
+                      className="flex w-full  items-center justify-center cursor-pointer hover:opacity-70 transition-opacity"
                     >
                       <img
-                        className="h-[40px] w-auto max-w-[120px] object-contain"
+                        className="h-[50px] w-[120px] object-contain"
                         alt={brand.name}
                         src={brand.src}
                       />
@@ -982,6 +981,7 @@ export const MainContentSection = (): JSX.Element => {
           actionLabel="View all"
           onAction={() => router.push("/inventory")}
           cars={bodyTypeOffers['Popular Sedan']}
+          showMultipleColumns={true}
           getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
           renderCard={(offer: any) => (
                     <VehicleCard
@@ -1017,6 +1017,7 @@ export const MainContentSection = (): JSX.Element => {
           actionLabel="View all"
           onAction={() => router.push("/inventory")}
           cars={bodyTypeOffers['Popular Van']}
+          showMultipleColumns={true}
           getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
           renderCard={(offer: any) => (
                     <VehicleCard
@@ -1027,6 +1028,43 @@ export const MainContentSection = (): JSX.Element => {
               }
               name={offer?.title}
               type={offer?.bodyType}
+              
+              fuel={offer?.selectedVariant?.variant}
+              price={offer?.selectedVariant?.weeklyPrice}
+                      router={router}
+              id={offer?.slug}
+                      isTrending={offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("trending")
+                )?.length > 0}
+              tags={
+                offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("limited")
+                ) ?? offer?.tags
+              }
+            />
+          )}
+        />
+
+      </div>
+
+       <div className="flex flex-col items-start gap-6 w-full">
+        <VehiclesCarousel
+          title="Popular Utes for Business Lease"
+          actionLabel="View all"
+          onAction={() => router.push("/inventory")}
+          cars={bodyTypeOffers['Popular Utes']}
+          showMultipleColumns={true}
+          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+          renderCard={(offer: any) => (
+                    <VehicleCard
+              image={
+                offer?.NVIC
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  : "/assets/images/no-image.png"
+              }
+              name={offer?.title}
+              type={offer?.bodyType}
+              
               fuel={offer?.selectedVariant?.variant}
               price={offer?.selectedVariant?.weeklyPrice}
                       router={router}
