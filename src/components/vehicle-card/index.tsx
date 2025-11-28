@@ -66,7 +66,7 @@ export const VehicleCard = ({
       </Badge>}
 
       <div className="flex flex-col items-start gap-3 w-full min-h-[86px]">
-        <h3 className="font-semibold text-[#0b1c31] text-lg">
+        <h3 className="font-semibold text-[#0b1c31] text-lg text-start">
           {name}
         </h3>
 
