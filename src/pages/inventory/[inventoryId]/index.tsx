@@ -437,83 +437,69 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                           </div>
                         </div>
 
-                        <h3 className="font-figtree font-semibold text-[#194170] text-base sm:text-lg md:text-xl leading-6 mt-2">
-                          Engine and Performance
-                        </h3>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 w-full">
-                            <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
-                              <div className="flex flex-col gap-1">
-                                <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
-                                  {selectedVariant?.engine}
-                                </p>
-                                <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
-                                  Engine
-                                </p>
+                        <div className="border-t border-gray-200 pt-4 w-full">
+                          <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-6 mb-4">
+                            Engine and Performance
+                          </h3>
+                          <div className="w-full">
+                            <div className="flex flex-col w-full divide-y divide-gray-200">
+                              <div className="flex justify-between py-4">
+                                <span className="font-figtree text-gray-700">Engine</span>
+                                <span className="font-figtree font-medium text-right">{selectedVariant?.engine || "N/A"}</span>
                               </div>
-                            </div>
-                            
-                            <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
-                              <div className="flex flex-col gap-1">
-                                <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
-                                  {selectedVariant?.engineSize}
-                                </p>
-                                <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
-                                  Engine Size
-                                </p>
+                              <div className="flex justify-between py-4">
+                                <span className="font-figtree text-gray-700">Transmission</span>
+                                <span className="font-figtree font-medium text-right">{selectedVariant?.transmission || "N/A"}</span>
                               </div>
-                            </div>
-                            
-                            <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
-                              <div className="flex flex-col gap-1">
-                                <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
-                                  {selectedVariant?.transmission}
-                                </p>
-                                <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
-                                  Transmission
-                                </p>
+                              <div className="flex justify-between py-4">
+                                <span className="font-figtree text-gray-700">Power / Torque</span>
+                                <span className="font-figtree font-medium text-right">{selectedVariant?.power || "N/A"}</span>
+                              </div>
+                              <div className="flex justify-between py-4">
+                                <span className="font-figtree text-gray-700">Fuel Efficiency</span>
+                                <span className="font-figtree font-medium text-right">{selectedVariant?.fuelEfficiency || "N/A"}</span>
                               </div>
                             </div>
                           </div>
+                        </div>
 
-                            <h3 className="font-figtree font-semibold text-[#194170] text-base sm:text-lg md:text-xl leading-6 mt-2">
-                          Safety and Warranty
-                        </h3>
-                        
-                              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 w-full">
-                            <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
-                              <div className="flex flex-col gap-1">
-                                <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
-                                  {selectedVariant?.ancapRating}
-                                </p>
-                                <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
-                                  ANCAP Rating
-                                </p>
+                        <div className="border-t border-gray-200 pt-4 mt-4 w-full">
+                          <h3 className="font-figtree font-semibold text-[#194170] text-xl leading-6 mb-4">
+                            Safety & Warranty
+                          </h3>
+                          <div className="w-full">
+                            <div className="flex flex-col w-full divide-y divide-gray-200">
+                              <div className="flex justify-between py-4">
+                                <span className="font-figtree text-gray-700">ANCAP Safety Rating</span>
+                                <span className="font-figtree font-medium text-right flex items-center">
+                                  {selectedVariant?.ancapRating ? selectedVariant.ancapRating : (
+                                    <>
+                                      <span className="text-yellow-500 flex">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                          <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                          <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                          <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+                                        </svg>
+                                      </span>
+                                    </>
+                                  )}
+                                </span>
                               </div>
-                            </div>
-                            
-                            <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
-                              <div className="flex flex-col gap-1">
-                                <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
-                                  {selectedVariant?.warranty}
-                                </p>
-                                <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
-                                  Warranty
-                                </p>
+                              <div className="flex justify-between py-4">
+                                <span className="font-figtree text-gray-700">Warranty</span>
+                                <span className="font-figtree font-medium text-right">{selectedVariant?.warranty || "N/A"}</span>
                               </div>
-                            </div>
-                            
-                            <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
-                              <div className="flex flex-col gap-1">
-                                <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
-                                  {selectedVariant?.serviceInterval}
-                                </p>
-                                <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
-                                  Service Interval
-                                </p>
+                              <div className="flex justify-between py-4">
+                                <span className="font-figtree text-gray-700">Service Interval</span>
+                                <span className="font-figtree font-medium text-right">{selectedVariant?.serviceInterval || "N/A"}</span>
                               </div>
                             </div>
                           </div>
+                        </div>
                         
                       </div>
                     </div>
@@ -746,6 +732,9 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                       
                       <div className="w-full">
                         <Button 
+                          onClick={()=>{
+                            router.push('/services/consultation');
+                          }}
                           className="h-auto w-full gap-1.5 px-6 py-3.5 bg-[#194170] rounded shadow-shadow-xs"
                         >
                           <span className="font-medium text-white text-base leading-6 font-figtree">
