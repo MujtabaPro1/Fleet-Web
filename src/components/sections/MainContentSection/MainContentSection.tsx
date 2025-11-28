@@ -413,7 +413,20 @@ const partnerLogosV1 = [
   },
 ];
 
+const partnerDesktopGroup: any[] = [];
+const partnerMobileGroup: any[] = [];
 
+for (let i = 0; i < partnerLogosV1.length; i += 8) {
+  partnerDesktopGroup.push(partnerLogosV1.slice(i, i + 8));
+}
+
+for (let i = 0; i < partnerLogosV1.length; i += 4) {
+  partnerMobileGroup.push(partnerLogosV1.slice(i, i + 4));
+}
+
+
+console.log(partnerDesktopGroup);
+console.log(partnerMobileGroup);
 
 
 
@@ -484,9 +497,9 @@ export const MainContentSection = (): JSX.Element => {
         {promoCards.map((card, index) => (
           <Card
             key={index}
-            className={`flex-1 ${card.bgColor} shadow-shadow-sm border-0`}
+            className={`flex-1 ${card.bgColor} shadow-shadow-sm rounded-sm border-0 min-h-[148px]`}
           >
-            <CardContent className="flex items-start gap-7 p-5">
+            <CardContent className="flex items-start gap-4 p-5">
               <div
                 className={`flex w-[53px] h-[51px] items-center justify-center gap-1.5 px-3 py-2 ${card.iconBg} rounded border border-solid shadow-shadow-xs flex-shrink-0`}
               >
@@ -513,7 +526,7 @@ export const MainContentSection = (): JSX.Element => {
                   <span className="font-figtree font-medium text-[#101828] text-xs tracking-[0] leading-5">
                     Learn more
                   </span>
-                  <ArrowRightIcon className="w-3.5 h-3.5 text-white" />
+                  <ArrowRightIcon className="w-3.5 h-3.5" />
                 </Button>
               </div>
             </CardContent>
@@ -849,7 +862,7 @@ export const MainContentSection = (): JSX.Element => {
 
         {/* Partner logos */}
         <div className="w-full py-4 rounded-lg mt-8">
-          <div className="overflow-x-auto pb-4 hide-scrollbar">
+          {/* <div className="overflow-x-auto pb-4 hide-scrollbar">
             <div className="flex items-center gap-4 md:gap-8 min-w-max px-4">
               {partnerLogosV1.map((logo, index) => (
                 <img
@@ -860,7 +873,73 @@ export const MainContentSection = (): JSX.Element => {
                 />
               ))}
             </div>
+          </div> */}
+          
+
+ <div className="hidden lg:block">
+  <Carousel
+              autoPlay
+              infiniteLoop
+              showArrows={false}
+              showStatus={false}
+              showThumbs={false}
+              showIndicators={true}
+              interval={3000}
+              transitionTime={500}
+              className="brand-carousel"
+            >
+              {partnerDesktopGroup.map((brandGroup: any, groupIndex: any) => (
+                <div key={`mobile-group-${groupIndex}`} className="flex items-center justify-center gap-4 px-2 py-2">
+                  {brandGroup.map((brand: any, index: any) => (
+                    <div
+                      key={`mobile-brand-${index}`}
+                      className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity px-1"
+                    >
+                      <img
+                        className="h-[50px] !w-[200px] object-contain"
+                        alt={brand.name}
+                        src={brand.src}
+                      />
+            </div>
+                  ))}
           </div>
+              ))}
+            </Carousel>
+            </div>
+
+
+ <div className="block lg:hidden">
+            <Carousel
+              autoPlay
+              infiniteLoop
+              showArrows={false}
+              showStatus={false}
+              showThumbs={false}
+              showIndicators={true}
+              interval={3000}
+              transitionTime={500}
+              className="brand-carousel"
+            >
+              {partnerMobileGroup.map((brandGroup: any, groupIndex: any) => (
+                <div key={`desktop-group-${groupIndex}`} className="flex items-center justify-center gap-6 lg:gap-16 px-4 py-2">
+                  {brandGroup.map((brand: any, index: any) => (
+                    <div
+                      key={`desktop-brand-${index}`}
+                      onClick={() => router.push(`/inventory?brand=${brand.name}`)}
+                      className="flex  items-center justify-center cursor-pointer hover:opacity-70 transition-opacity px-2"
+                    >
+                      <img
+                        className="h-[40px] w-auto max-w-[120px] object-contain"
+                        alt={brand.name}
+                        src={brand.src}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </Carousel>
+          </div>
+
         </div>
 
         {/* Additional products grid */}
