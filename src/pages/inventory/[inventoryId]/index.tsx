@@ -1,7 +1,6 @@
 import {
     ArrowRightIcon,
-    CheckIcon,
-    ChevronLeftIcon,
+    CheckCircle2Icon,
     ChevronRightIcon,
     FileTextIcon,
     HeartIcon,
@@ -768,7 +767,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
               <Card className="w-full border-solid shadow-shadow-sm bg-white">
                 <CardContent className="flex flex-col items-start gap-9 p-4">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
-                    <h2 className="flex-1 font-figtree font-medium text-[#c70036] text-2xl leading-7">
+                    <h2 className="flex-1 font-figtree font-medium text-[#000] text-xl leading-7">
                       Compare Payment Frequency Options
                     </h2>
                   </div>
@@ -870,9 +869,11 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                     {benefits.map((benefit, index) => (
                       <div key={index} className="flex items-center gap-4 w-full">
                         <div className="flex w-9 h-9 items-center justify-center bg-gray-100 rounded">
-                          <CheckIcon className="w-5 h-5 text-[#194170]" />
+                          <CheckCircle2Icon
+                           fill="#007A55"
+                          className="w-5 h-5 text-[#fff]" />
                         </div>
-                        <span className="font-figtree font-medium text-[#101828] text-lg leading-5">
+                        <span className="font-figtree font-medium text-[#101828] text-md leading-5">
                           {benefit.text}
                         </span>
                       </div>

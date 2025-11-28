@@ -177,7 +177,7 @@ const LimitedTime = (): JSX.Element => {
                         checked={limitedDealsEnabled}
                         onCheckedChange={setLimitedDealsEnabled}
                       />
-                      <span className="font-figtree font-semibold text-[#101828] text-sm tracking-[0] leading-5">
+                      <span className="font-figtree font-semibold text-[#8B0836] text-sm tracking-[0] leading-5">
                         Limited-time deals
                       </span>
                     </div>
