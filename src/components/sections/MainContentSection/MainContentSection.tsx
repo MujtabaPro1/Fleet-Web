@@ -574,7 +574,7 @@ export const MainContentSection = (): JSX.Element => {
                   <span className="font-figtree font-medium text-[#101828] text-xs tracking-[0] leading-5">
                     Learn more
                   </span>
-                  <ArrowRightIcon className="w-3.5 h-3.5 text-white" />
+                  <ArrowRightIcon className="w-3.5 h-3.5" />
                 </Button>
               </div>
             </CardContent>
@@ -966,7 +966,7 @@ export const MainContentSection = (): JSX.Element => {
                   <span className="font-medium text-base">
                     Learn more
                   </span>
-                  <ArrowRightIcon className="w-5 h-5 text-white" />
+                  <ArrowRightIcon className="w-5 h-5" />
                 </Button>
               </CardContent>
             </Card>
