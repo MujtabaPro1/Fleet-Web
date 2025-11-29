@@ -24,6 +24,7 @@ import { useRouter } from "next/router";
 import axiosInstance from "@/service/api";
 import { useEffect } from "react";
 import { VehicleCard } from "@/components/vehicle-card";
+import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
 
 
 const utesVehicles = [
@@ -133,44 +134,8 @@ const filteredCars = selectedFilter ? cars.filter((car: any) => car.bodyType ===
 const Content = ({ title }: { title: string }) => {
   return (
     <div className="flex flex-col items-start gap-6 w-full mt-6">
-    <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4">
-      <h2 className="font-semibold text-[#101828] text-xl md:text-2xl">
-         {title}
-      </h2>
-
-      <div className="flex items-center gap-4">
-        <Button
-          variant="ghost"
-          onClick={() => router.push("/inventory")}
-          className="h-auto px-0 lg:px-3 py-0 lg:py-2 hover:bg-transparent text-[#194170]"
-        >
-          <span className="font-medium text-sm">
-            View all
-          </span>
-        </Button>
-
-        <div className="hidden lg:flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
-          >
-            <ChevronLeftIcon className="w-5 h-5" />
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
-          >
-            <ChevronRightIcon className="w-5 h-5 text-white" />
-          </Button>
-        </div>
-      </div>
-    </div>
-
     <div className="relative w-full">
-      <div className="overflow-x-auto pb-4 hide-scrollbar">
+      {/* <div className="overflow-x-auto pb-4 hide-scrollbar">
         {filteredCars.length > 0 ? (
           <div className="flex gap-6 min-w-max">
             {filteredCars.map((vehicle: any, index: any) => (
@@ -209,7 +174,39 @@ const Content = ({ title }: { title: string }) => {
           >
             <ChevronRightIcon className="w-5 h-5 text-white" />
           </Button>
-        </div>
+        </div> */}
+        <VehiclesCarousel
+                 title={title}
+                 actionLabel="View all"
+                 onAction={() => router.push("/inventory")}
+                 cars={filteredCars}
+                 showMultipleColumns={true}
+                 getCardKey={(car: any) => car?.NVIC || car?.id || car?.title}
+                 renderCard={(car: any) => (
+                           <VehicleCard
+                     image={
+                       car?.NVIC
+                         ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car.NVIC}`
+                         : "/assets/images/no-image.png"
+                     }
+                     name={car?.title}
+                     type={car?.bodyType}
+                     fuel={car?.selectedVariant?.variant}
+                     price={car?.selectedVariant?.weeklyPrice}
+                             router={router}
+                     id={car?.slug}
+                     isTrending={car?.tags?.filter((tag: string) =>
+                         tag.toLowerCase().includes("trending")
+                       )?.length > 0}
+                     tags={
+                       car?.tags?.filter((tag: string) =>
+                         tag.toLowerCase().includes("limited")
+                       ) ?? car?.tags
+                     }
+                   />
+                 )}
+               />
+       
     </div>
 </div>
   )
