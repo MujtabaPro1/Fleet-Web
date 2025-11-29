@@ -406,7 +406,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                           <div className="bg-white p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 shadow-sm">
                             <div className="flex flex-col gap-1">
                               <p className="font-medium text-[#101828] text-base sm:text-lg leading-6 font-figtree">
-                                {selectedVariant?.baseVariant || car?.bodyType || "Wagon, 4 seats, 4 door"}
+                                {selectedVariant?.bodyType || car?.bodyType || ""}
                               </p>
                               <p className="font-normal text-[#4a5565] text-sm sm:text-base leading-5 font-figtree">
                                 Body type
@@ -832,6 +832,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
   
                       <Button
                         variant="outline"
+                        onClick={() => window.open('tel:1300352352', '_self')}
                         className="h-auto flex-1 lg:w-auto w-full gap-1.5 px-6 py-3.5 bg-gray-50 rounded border-solid shadow-shadow-xs"
                       >
                         <PhoneIcon className="w-5 h-5" />
@@ -919,7 +920,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                       key={index}
                       className="flex-1  lg:w-auto w-full border-solid shadow-shadow-sm"
                     >
-                      <CardContent className="flex flex-col items-start gap-4 p-4 sm:p-6">
+                      <CardContent className="flex flex-col items-start gap-4 p-4 sm:p-6 bg-white overflow-hidden">
                         <div className="flex w-9 h-9 items-center justify-center bg-[#ecf3fb] rounded">
                           <img
                             className="w-5 h-5"
@@ -941,7 +942,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                       key={index}
                       className="flex-1  lg:w-auto w-full border-solid shadow-shadow-sm"
                     >
-                      <CardContent className="flex flex-col items-start gap-4 p-4 sm:p-6">
+                      <CardContent className="flex flex-col items-start gap-4 p-4 sm:p-6 bg-white overflow-hidden">
                         <div className="flex w-9 h-9 items-center justify-center bg-[#ecf3fb] rounded">
                           <img
                             className="w-5 h-5"
@@ -963,7 +964,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                       key={index}
                       className="flex-1 lg:w-auto w-full border-solid shadow-shadow-sm"
                     >
-                      <CardContent className="flex flex-col items-start gap-4 p-4 sm:p-6">
+                      <CardContent className="flex flex-col items-start gap-4 p-4 sm:p-6 bg-white overflow-hidden">
                         <div className="flex w-9 h-9 items-center justify-center bg-[#ecf3fb] rounded">
                           <img
                             className="w-5 h-5"
@@ -984,13 +985,6 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
             <div className="relative flex-1 self-stretch hidden lg:block">
               <img
                 className="absolute top-[45px] left-[73px] w-[436px] h-[442px] rounded object-cover"
-                alt="Business image"
-                src="/assets/images/banner-trust.png"
-              />
-            </div>
-            <div className="w-full h-[300px] lg:hidden rounded overflow-hidden my-4">
-              <img
-                className="w-full h-full object-cover"
                 alt="Business image"
                 src="/assets/images/banner-trust.png"
               />
