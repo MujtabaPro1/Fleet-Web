@@ -59,8 +59,8 @@ const footerColumns = [
     urls: [
       "/vehicles/popular-models",
       "/deals/limited-time",
-      "/vehicles/brands",
-      "/vehicles/body-types",
+      "/explore",
+      "/explore",
     ]
   },
   {
