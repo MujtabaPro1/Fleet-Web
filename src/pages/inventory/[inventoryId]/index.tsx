@@ -62,12 +62,7 @@ import { VehicleCard } from "@/components/vehicle-card";
 import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
 
   
-  const breadcrumbItems = [
-    { label: "Home", icon: HomeIcon },
-    { label: "Fleet Inventory" },
-    { label: "Hyundai" },
-    { label: "Tucson" },
-  ];
+  // Breadcrumb items will be defined inside the component
 
   const paymentFrequencies = [
     { id: "weekly", label: "Weekly", active: true },
@@ -199,6 +194,14 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
   
     const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
     const [car, setCar] = useState<any>(null);
+    
+    // Dynamic breadcrumb items based on car data
+    const breadcrumbItems = React.useMemo(() => [
+      { label: "Home", icon: HomeIcon },
+      { label: "Fleet Inventory" },
+      car?.brand?.name ? { label: car.brand.name } : null,
+      car?.modelName ? { label: car.modelName } : null,
+    ].filter(Boolean), [car?.brand?.name, car?.modelName]);
     const [selectedVariant, setSelectedVariant] = useState<any>(null);
     const [selectedFrequency, setSelectedFrequency] = useState("weekly");
     const [similarCars, setSimilarCars] = useState<any>([]);
@@ -243,25 +246,91 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
 
 <main className="flex flex-col max-w-full lg:max-w-[1280px] pt-[60px] md:pt-[80px] items-center gap-6 md:gap-10 px-3 md:px-4">
         <div className="flex flex-col items-start gap-8 relative max-w-[1280px]">
-          <Breadcrumb className="w-full overflow-x-auto pb-2 pl-4 lg:pl-0">
-            <BreadcrumbList className="flex items-center gap-2.5 min-w-max">
-              {breadcrumbItems.map((item, index) => (
-                <React.Fragment key={index}>
-                  <BreadcrumbItem className="flex items-center gap-1.5">
-                    {item.icon && <item.icon className="w-4 h-4" />}
-                    <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 font-figtree">
-                      {item.label}
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  {index < breadcrumbItems.length - 1 && (
-                    <BreadcrumbSeparator>
-                      <ChevronRightIcon className="w-3.5 h-3.5" />
-                    </BreadcrumbSeparator>
+          <div className="w-full overflow-x-auto pb-3 pl-4 lg:pl-0">
+            {/* First line: Home > Fleet Inventory */}
+            <Breadcrumb className="mb-1">
+              <BreadcrumbList className="flex items-center gap-3 md:gap-2.5 min-w-max py-1">
+                <BreadcrumbItem className="flex items-center gap-2 md:gap-1.5">
+                  <HomeIcon className="w-4 h-4" />
+                  <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
+                    Home
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="mx-1">
+                  <ChevronRightIcon className="w-4 h-4 text-gray-400" />
+                </BreadcrumbSeparator>
+                <BreadcrumbItem className="flex items-center gap-2 md:gap-1.5">
+                  <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
+                    Fleet Inventory
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                    <BreadcrumbSeparator className="mx-1 hidden lg:block">
+                            <ChevronRightIcon className="w-4 h-4 text-gray-400" />
+                          </BreadcrumbSeparator>
+                <div className="hidden lg:block">
+                  
+                   {(car?.brand?.name || car?.modelName) && (
+              <Breadcrumb>
+                <BreadcrumbList className="flex items-center gap-3 md:gap-2.5 min-w-max py-1">
+                  {car?.brand?.name && (
+                    <>
+                      <BreadcrumbItem className="flex items-center gap-2 md:gap-1.5">
+                        <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
+                          {car.brand.name}
+                        </BreadcrumbLink>
+                      </BreadcrumbItem>
+                      {car?.modelName && (
+                        <>
+                          <BreadcrumbSeparator className="mx-1">
+                            <ChevronRightIcon className="w-4 h-4 text-gray-400" />
+                          </BreadcrumbSeparator>
+                          <BreadcrumbItem className="flex items-center gap-2 md:gap-1.5">
+                            <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
+                              {car.modelName}
+                            </BreadcrumbLink>
+                          </BreadcrumbItem>
+                        </>
+                      )}
+                    </>
                   )}
-                </React.Fragment>
-              ))}
-            </BreadcrumbList>
-          </Breadcrumb>
+                </BreadcrumbList>
+              </Breadcrumb>
+            )}
+                  
+                </div>
+              </BreadcrumbList>
+              
+            </Breadcrumb>
+            
+            {/* Second line: Brand > Model */}
+            {(car?.brand?.name || car?.modelName) && (
+              <Breadcrumb className="block lg:hidden">
+                <BreadcrumbList className="flex items-center gap-3 md:gap-2.5 min-w-max py-1">
+                  {car?.brand?.name && (
+                    <>
+                      <BreadcrumbItem className="flex items-center gap-2 md:gap-1.5">
+                        <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
+                          {car.brand.name}
+                        </BreadcrumbLink>
+                      </BreadcrumbItem>
+                      {car?.modelName && (
+                        <>
+                          <BreadcrumbSeparator className="mx-1">
+                            <ChevronRightIcon className="w-4 h-4 text-gray-400" />
+                          </BreadcrumbSeparator>
+                          <BreadcrumbItem className="flex items-center gap-2 md:gap-1.5">
+                            <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
+                              {car.modelName}
+                            </BreadcrumbLink>
+                          </BreadcrumbItem>
+                        </>
+                      )}
+                    </>
+                  )}
+                </BreadcrumbList>
+              </Breadcrumb>
+            )}
+          </div>
   
           <div className="flex flex-col lg:flex-row w-full items-start gap-6">
             <div className="flex flex-col w-full lg:w-[70%] items-start gap-6 bg-white">
