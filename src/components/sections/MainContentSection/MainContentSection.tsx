@@ -677,7 +677,7 @@ export const MainContentSection = (): JSX.Element => {
                 animate={{ x: '-50%' }}
                 transition={{ 
                   repeat: Infinity,
-                  duration: 35,
+                  duration: 20,
                   ease: 'linear'
                 }}
                 style={{
@@ -832,7 +832,7 @@ export const MainContentSection = (): JSX.Element => {
                 animate={{ x: '-50%' }}
                 transition={{ 
                   repeat: Infinity,
-                  duration: 40,
+                  duration: 20,
                   ease: 'linear'
                 }}
                 style={{
@@ -898,7 +898,7 @@ export const MainContentSection = (): JSX.Element => {
                 animate={{ x: '-50%' }}
                 transition={{ 
                   repeat: Infinity,
-                  duration: 30,
+                  duration: 20,
                   ease: 'linear'
                 }}
                 style={{
