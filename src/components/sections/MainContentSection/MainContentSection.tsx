@@ -655,7 +655,7 @@ export const MainContentSection = (): JSX.Element => {
       <div className="w-full py-2 relative">
         <div className="w-full bg-gray-50">
           {/* Marquee for all screen sizes */}
-          <div className="relative overflow-hidden">
+          <div className="hidden lg:block relative overflow-hidden">
             <div 
               style={{
                 display: 'flex',
@@ -724,6 +724,82 @@ export const MainContentSection = (): JSX.Element => {
                     index === self.findIndex(b => b.name === brand.name)
                   )
                   .map((brand, index) => (
+                    <li 
+                      key={`brand-dup-${index}`} 
+                      className="flex-shrink-0 cursor-pointer"
+                      onClick={() => router.push(`/inventory?brand=${brand.name}`)}
+                    >
+                      <img
+                        className="h-[40px] w-[120px] md:h-[40px] md:w-[150px] object-contain hover:opacity-70 transition-opacity"
+                        alt={brand.name}
+                        src={brand.src}
+                      />
+                    </li>
+                  ))}
+              </motion.ul>
+            </div>
+          </div>
+            <div className="block lg:hidden relative overflow-hidden">
+            <div 
+              style={{
+                display: 'flex',
+                width: '100%',
+                height: '100%',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                placeItems: 'center',
+                margin: '0px',
+                padding: '0px',
+                listStyleType: 'none',
+                opacity: 1,
+                maskImage: 'linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 7.5%, rgb(0, 0, 0) 92.5%, rgba(0, 0, 0, 0) 100%)',
+                overflow: 'hidden'
+              }}
+            >
+              <motion.ul
+                initial={{ x: 0 }}
+                animate={{ x: '-50%' }}
+                transition={{ 
+                  repeat: Infinity,
+                  duration: 10,
+                  ease: 'linear'
+                }}
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  placeItems: 'center',
+                  margin: '0px',
+                  padding: '0px',
+                  listStyleType: 'none',
+                  gap: '30px',
+                  position: 'relative',
+                  flexDirection: 'row',
+                  willChange: 'transform'
+                }}
+              >
+                {/* First set of logos */}
+                {/* Flatten the nested arrays for a single continuous list */}
+                {
+                  brands.map((brand, index) => (
+                    <li 
+                      key={`brand-${index}`} 
+                      className="flex-shrink-0 cursor-pointer"
+                      onClick={() => router.push(`/inventory?brand=${brand.name}`)}
+                    >
+                      <img
+                        className="h-[40px] w-[100px] object-contain hover:opacity-70 transition-opacity"
+                        alt={brand.name}
+                        src={brand.src}
+                      />
+                    </li>
+                  ))}
+                
+                {/* Duplicate set of logos to create seamless loop */}
+                {
+                  brands.map((brand, index) => (
                     <li 
                       key={`brand-dup-${index}`} 
                       className="flex-shrink-0 cursor-pointer"
@@ -898,7 +974,7 @@ export const MainContentSection = (): JSX.Element => {
                 animate={{ x: '-50%' }}
                 transition={{ 
                   repeat: Infinity,
-                  duration: 20,
+                  duration: 10,
                   ease: 'linear'
                 }}
                 style={{
@@ -921,7 +997,7 @@ export const MainContentSection = (): JSX.Element => {
                 {partnerLogosV1.map((brand, index) => (
                   <li key={`mobile-logo-${index}`} className="flex-shrink-0">
                     <img
-                      className="h-[40px] w-[100px] object-contain"
+                      className="h-[40px] w-[120px] object-cover"
                       alt={brand.name}
                       src={brand.src}
                     />
@@ -931,7 +1007,7 @@ export const MainContentSection = (): JSX.Element => {
                 {partnerLogosV1.map((brand, index) => (
                   <li key={`mobile-logo-dup-${index}`} className="flex-shrink-0">
                     <img
-                      className="h-[40px] w-[100px] object-contain"
+                      className="h-[40px] w-[120px] object-contain"
                       alt={brand.name}
                       src={brand.src}
                     />

@@ -246,7 +246,7 @@ export const SiteFooterSection = (): JSX.Element => {
             © FLA Group Holdings Pty Ltd T/A Fleet Leasing Australia (ABN 74 692 369 565)
           </div>
 
-          <div className="flex  items-center justify-start lg:justify-end gap-4 w-full">
+          <div className="flex items-center justify-start lg:justify-end gap-4 w-full">
             <Button
               variant="link"
               onClick={() => router.push("/privacy-policy")}
