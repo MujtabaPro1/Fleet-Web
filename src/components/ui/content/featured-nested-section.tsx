@@ -72,7 +72,7 @@ const propertyLoans = [
 
 export const FeaturesListSection = (): JSX.Element => {
   return (
-    <section className="pt-44 pb-24 px-0 bg-gray-50 flex flex-col w-full items-center">
+    <section className="pt-4 pb-24 px-0 bg-gray-50 flex flex-col w-full items-center">
       <div className="flex-col gap-10 flex max-w-[1280px] w-full items-start px-0 lg:px-4">
         <Card className="bg-white rounded border border-solid shadow-shadow-sm w-full">
           <CardContent className="flex flex-col items-start lg:items-center gap-5 p-8">

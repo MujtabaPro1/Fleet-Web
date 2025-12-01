@@ -240,20 +240,25 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
         console.error('Error fetching similar cars:', error);
       });
     }
+
+    const isLimitedDeal = () => {
+      return car?.tags && car?.tags.length > 0 && car?.tags?.filter((tag: string) => tag.toLowerCase().includes("limited")).length > 0;
+    }
+
     
     return (
         <div className="flex flex-col items-center gap-8 bg-gray-50 overflow-hidden">
 
 <main className="flex flex-col max-w-full lg:max-w-[1280px] pt-[60px] md:pt-[80px] items-center gap-6 md:gap-10 px-3 md:px-4">
         <div className="flex flex-col items-start gap-8 relative max-w-[1280px] px-0 lg:px-2">
-          <div className="w-full overflow-x-auto pb-3 pl-4 lg:pl-0">
+          <div className="w-full overflow-x-auto pl-4 lg:pl-0">
             {/* First line: Home > Fleet Inventory */}
             <Breadcrumb className="mb-1">
               <BreadcrumbList className="flex items-center gap-3 md:gap-2.5 min-w-max py-1">
                 <BreadcrumbItem className="flex items-center gap-2 md:gap-1.5">
                   <HomeIcon className="w-4 h-4" />
-                  <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
-                    Home
+                  <BreadcrumbLink href="/" className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
+                    {'Home'.toUpperCase()}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="mx-1">
@@ -261,7 +266,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                 </BreadcrumbSeparator>
                 <BreadcrumbItem className="flex items-center gap-2 md:gap-1.5">
                   <BreadcrumbLink href="/inventory" className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
-                    Fleet Inventory
+                    {'Fleet Inventory'.toUpperCase()}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                     <BreadcrumbSeparator className="mx-1 hidden lg:block">
@@ -449,9 +454,9 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                             PER {selectedFrequency.toUpperCase().replace("LY", "")}LY*
                           </span>
                         </div>
-                        {car?.tags &&  car?.tags.length && <Badge className="bg-[#c70036] text-white px-1.5 py-0.5 h-auto">
+                        {isLimitedDeal() && <Badge className="bg-[#c70036] text-white px-1.5 py-0.5 h-auto">
                           <span className="font-medium text-sm text-center leading-4 font-figtree">
-                             {car?.tags?.[0]}
+                             Limited-time deal
                           </span>
                         </Badge>}
                       </div>
@@ -956,9 +961,9 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                             PER {selectedFrequency.toUpperCase().replace("LY", "")}LY*
                           </span>
                         </div>
-                        {car?.tags &&  car?.tags.length && <Badge className="bg-[#c70036] text-white px-1.5 py-0.5 h-auto">
+                        {isLimitedDeal() && <Badge className="bg-[#c70036] text-white px-1.5 py-0.5 h-auto">
                           <span className="font-medium text-sm text-center leading-4 font-figtree">
-                             {car?.tags?.[0]}
+                             Limited-time deal
                           </span>
                         </Badge>}
                       </div>

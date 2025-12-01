@@ -87,7 +87,7 @@ export const NavigationBarSection = (): JSX.Element => {
                 }}
               >
                 <span className={`font-medium ${pathname === item.link ? 'text-[#194170] font-semibold' : 'text-[#4a5565]'} text-base`}>
-                  {item.label}
+                  {item.label.toUpperCase()}
                 </span>
               </button>
             ))}
@@ -118,10 +118,10 @@ export const NavigationBarSection = (): JSX.Element => {
               <button
                 key={index}
                 onClick={() => router.push(item.link)}
-                className="flex items-center gap-1.5 rounded-md cursor-pointer hover:opacity-80 transition-opacity"
+                className="flex items-center gap-1.5 rounded-md cursor-pointer transition-opacity"
               >
-                <span className={`font-figtree font-medium ${pathname === item.link ? 'text-[#194170] font-semibold' : 'text-[#4a5565]'} text-xs md:text-sm tracking-[0] leading-5 whitespace-nowrap`}>
-                  {item.label}
+                <span className={`font-figtree hover:text-[#194170] hover:font-bold font-medium ${pathname === item.link ? 'text-[#194170] font-semibold' : 'text-[#4a5565]'} text-xs md:text-sm tracking-[0] leading-5 whitespace-nowrap`}>
+                  {item.label.toUpperCase()}
                 </span>
               </button>
             ))}

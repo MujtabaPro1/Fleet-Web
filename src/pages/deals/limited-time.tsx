@@ -278,7 +278,7 @@ const LimitedTime = (): JSX.Element => {
                 fuel={vehicle.selectedVariant?.variant}
                 price={vehicle.price}
                 router={router}
-                id={vehicle.id}
+                id={vehicle.slug}
                 tags={vehicle?.tags?.filter((tag: any) => tag.includes('Limited Time')).length > 0 ? ['Limited Time Offer'] : []}
               />
             ))}

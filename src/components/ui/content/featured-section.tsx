@@ -38,7 +38,7 @@ const financeOptions = [
 
 export const FeaturesSection = ({ title, description, subDescription }: { title: string; description: string; subDescription: string }): JSX.Element => {
   return (
-    <section className="pt-44 pb-24 px-0 bg-gray-50 flex flex-col w-full items-center">
+    <section className="pt-4 pb-24 px-0 bg-gray-50 flex flex-col w-full items-center">
       <div className="flex flex-col gap-6 w-full max-w-[1280px] lg:px-4 px-0">
         <Card className="shadow-shadow-sm">
           <CardContent className="flex flex-col items-start lg:items-center gap-5 p-8  bg-white">
