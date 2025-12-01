@@ -124,7 +124,7 @@ const SelectItem = React.forwardRef<
     )}
     {...props}
   >
-    <div className="flex items-center w-full">
+    <div className="flex items-center w-full border-b pb-2">
       <div className="mr-3 relative">
         <div className="h-5 w-5 rounded-md border border-gray-300 bg-gray-50">
           <SelectPrimitive.ItemIndicator>
