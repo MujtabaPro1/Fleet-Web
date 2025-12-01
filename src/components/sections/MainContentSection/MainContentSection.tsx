@@ -10,34 +10,11 @@ import { useRouter } from "next/router";
 import axiosInstance from "@/service/api";
 import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
 import { VehicleCard } from "@/components/vehicle-card";
-import { Carousel } from 'react-responsive-carousel'
+import { Carousel } from 'react-responsive-carousel';
+import { motion, useAnimationControls, useScroll } from 'framer-motion'
 
-// Brands array for carousel
-const mobileBrands = [
-  // Mobile view - 4 brands per slide
-  [
-    { name: 'Tesla', src: '/assets/images/brands/tesla.png' },
-    { name: 'Kia', src: '/assets/images/brands/kia.png' },
-    { name: 'BMW', src: '/assets/images/brands/bmw.png' },
-    { name: 'Ram', src: '/assets/images/brands/ram.png' },
-  ],
-  [
-    { name: 'Volvo', src: '/assets/images/brands/volvo.png' },
-    { name: 'Ford', src: '/assets/images/brands/ford.png' },
-    { name: 'Nissan', src: '/assets/images/brands/nissan.png' },
-    { name: 'Jeep', src: '/assets/images/brands/jeep.png' },
-  ],
-  [
-    { name: 'Volkswagen', src: '/assets/images/brands/vv.png' },
-    { name: 'Hyundai', src: '/assets/images/brands/hyundai.png' },
-    { name: 'Mercedes-Benz', src: '/assets/images/brands/benz.png' },
-    { name: 'Tesla', src: '/assets/images/brands/tesla.png' },
-  ],
-];
 
-const desktopBrands = [
-  // Desktop view - 8 brands per slide
-  [
+const brands = [
     { name: 'Tesla', src: '/assets/images/brands/tesla.png' },
     { name: 'Kia', src: '/assets/images/brands/kia.png' },
     { name: 'BMW', src: '/assets/images/brands/bmw.png' },
@@ -46,17 +23,9 @@ const desktopBrands = [
     { name: 'Ford', src: '/assets/images/brands/ford.png' },
     { name: 'Nissan', src: '/assets/images/brands/nissan.png' },
     { name: 'Jeep', src: '/assets/images/brands/jeep.png' },
-  ],
-  [
     { name: 'Volkswagen', src: '/assets/images/brands/vv.png' },
     { name: 'Hyundai', src: '/assets/images/brands/hyundai.png' },
     { name: 'Mercedes-Benz', src: '/assets/images/brands/benz.png' },
-    { name: 'Tesla', src: '/assets/images/brands/tesla.png' },
-    { name: 'Kia', src: '/assets/images/brands/kia.png' },
-    { name: 'BMW', src: '/assets/images/brands/bmw.png' },
-    { name: 'Ram', src: '/assets/images/brands/ram.png' },
-    { name: 'Volvo', src: '/assets/images/brands/volvo.png' },
-  ],
 ];
 
 // Using public paths instead of imports
@@ -683,86 +652,93 @@ export const MainContentSection = (): JSX.Element => {
       </div>
 
       {/* Brand logos section */}
-      <div className="w-full py-6 relative">
-        
-        <div className="w-full py-8 bg-gray-50">
-          {/* Mobile Carousel */}
-          <div className="md:hidden">
-            <Carousel
-              autoPlay
-              infiniteLoop
-              showArrows={false}
-              showStatus={false}
-              showThumbs={false}
-              showIndicators={true}
-              interval={3000}
-              transitionTime={500}
-              className="brand-carousel"
+      <div className="w-full py-2 relative">
+        <div className="w-full bg-gray-50">
+          {/* Marquee for all screen sizes */}
+          <div className="relative overflow-hidden">
+            <div 
+              style={{
+                display: 'flex',
+                width: '100%',
+                height: '100%',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                placeItems: 'center',
+                margin: '0px',
+                padding: '0px',
+                listStyleType: 'none',
+                opacity: 1,
+                maskImage: 'linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 7.5%, rgb(0, 0, 0) 92.5%, rgba(0, 0, 0, 0) 100%)',
+                overflow: 'hidden'
+              }}
             >
-              {mobileBrands.map((brandGroup, groupIndex) => (
-                <div key={`mobile-group-${groupIndex}`} className="flex items-center justify-center gap-4 px-2 py-2">
-                  {brandGroup.map((brand, index) => (
-                    <div
-                      key={`mobile-brand-${index}`}
+              <motion.ul
+                initial={{ x: 0 }}
+                animate={{ x: '-50%' }}
+                transition={{ 
+                  repeat: Infinity,
+                  duration: 35,
+                  ease: 'linear'
+                }}
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  placeItems: 'center',
+                  margin: '0px',
+                  padding: '0px',
+                  listStyleType: 'none',
+                  gap: '57px',
+                  position: 'relative',
+                  flexDirection: 'row',
+                  willChange: 'transform'
+                }}
+              >
+                {/* First set of logos */}
+                {/* Flatten the nested arrays for a single continuous list */}
+                {[...brands]
+                  .filter((brand, index, self) => 
+                    // Remove duplicates based on name
+                    index === self.findIndex(b => b.name === brand.name)
+                  )
+                  .map((brand, index) => (
+                    <li 
+                      key={`brand-${index}`} 
+                      className="flex-shrink-0 cursor-pointer"
                       onClick={() => router.push(`/inventory?brand=${brand.name}`)}
-                      className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity px-1"
                     >
                       <img
-                        className="h-[30px] w-auto max-w-[100px] object-contain"
+                        className="h-[40px] w-[120px] md:h-[40px] md:w-[150px] object-contain hover:opacity-70 transition-opacity"
                         alt={brand.name}
                         src={brand.src}
                       />
+                    </li>
+                  ))}
+                
+                {/* Duplicate set of logos to create seamless loop */}
+                {[...brands]
+                  .filter((brand, index, self) => 
+                    // Remove duplicates based on name
+                    index === self.findIndex(b => b.name === brand.name)
+                  )
+                  .map((brand, index) => (
+                    <li 
+                      key={`brand-dup-${index}`} 
+                      className="flex-shrink-0 cursor-pointer"
+                      onClick={() => router.push(`/inventory?brand=${brand.name}`)}
+                    >
+                      <img
+                        className="h-[40px] w-[120px] md:h-[40px] md:w-[150px] object-contain hover:opacity-70 transition-opacity"
+                        alt={brand.name}
+                        src={brand.src}
+                      />
+                    </li>
+                  ))}
+              </motion.ul>
             </div>
-                  ))}
           </div>
-              ))}
-            </Carousel>
-          </div>
-          
-          {/* Desktop Carousel */}
-          <div className="hidden md:block">
-            <Carousel
-              autoPlay
-              infiniteLoop
-              showArrows={false}
-              showStatus={false}
-              showThumbs={false}
-              showIndicators={true}
-              interval={3000}
-              transitionTime={500}
-              className="brand-carousel"
-            >
-              {desktopBrands.map((brandGroup, groupIndex) => (
-                <div key={`desktop-group-${groupIndex}`} className="flex items-center justify-center gap-6 lg:gap-16 px-4 py-2">
-                  {brandGroup.map((brand, index) => (
-                    <div
-                      key={`desktop-brand-${index}`}
-                      onClick={() => router.push(`/inventory?brand=${brand.name}`)}
-                      className="flex  items-center justify-center cursor-pointer hover:opacity-70 transition-opacity px-2"
-                    >
-                      <img
-                        className="h-[40px] w-auto max-w-[120px] object-contain"
-                        alt={brand.name}
-                        src={brand.src}
-                      />
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </Carousel>
-          </div>
-        <style jsx global>{`
-            .brand-carousel .carousel .control-dots {
-              display: none !important;
-            }
-            .brand-carousel .carousel .slide {
-              min-height: auto;
-              padding: 0;
-            }
-            .brand-carousel .carousel .slider-wrapper {
-              margin: 0;
-          }
-        `}</style>
         </div>
       </div>
 
@@ -832,72 +808,137 @@ export const MainContentSection = (): JSX.Element => {
         </div>
 
         {/* Partner logos */}
-        <div className="w-full py-4 rounded-lg mt-8">
-
-          
-
- <div className="hidden lg:block">
-  <Carousel
-              autoPlay
-              infiniteLoop
-              showArrows={false}
-              showStatus={false}
-              showThumbs={false}
-              showIndicators={true}
-              interval={3000}
-              transitionTime={500}
-              className="brand-carousel"
+        <div className="w-full py-2">
+          {/* Marquee for desktop */}
+          <div className="hidden lg:block relative overflow-hidden">
+            <div 
+              style={{
+                display: 'flex',
+                width: '100%',
+                height: '100%',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                placeItems: 'center',
+                margin: '0px',
+                padding: '0px',
+                listStyleType: 'none',
+                opacity: 1,
+                maskImage: 'linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 7.5%, rgb(0, 0, 0) 92.5%, rgba(0, 0, 0, 0) 100%)',
+                overflow: 'hidden'
+              }}
             >
-              {partnerDesktopGroup.map((brandGroup: any, groupIndex: any) => (
-                <div key={`mobile-group-${groupIndex}`} className="flex items-center justify-center gap-4 px-2 py-2">
-                  {brandGroup.map((brand: any, index: any) => (
-                    <div
-                      key={`mobile-brand-${index}`}
-                      className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity px-1"
-                    >
-                      <img
-                        className="h-[50px] !w-[200px] object-contain"
-                        alt={brand.name}
-                        src={brand.src}
-                      />
+              <motion.ul
+                initial={{ x: 0 }}
+                animate={{ x: '-50%' }}
+                transition={{ 
+                  repeat: Infinity,
+                  duration: 40,
+                  ease: 'linear'
+                }}
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  placeItems: 'center',
+                  margin: '0px',
+                  padding: '0px',
+                  listStyleType: 'none',
+                  gap: '57px',
+                  position: 'relative',
+                  flexDirection: 'row',
+                  willChange: 'transform'
+                }}
+              >
+                {/* First set of logos */}
+                {partnerLogosV1.map((brand, index) => (
+                  <li key={`logo-${index}`} className="flex-shrink-0">
+                    <img
+                      className="h-[50px] w-[180px] object-cover"
+                      alt={brand.name}
+                      src={brand.src}
+                    />
+                  </li>
+                ))}
+                {/* Duplicate set of logos to create seamless loop */}
+                {partnerLogosV1.map((brand, index) => (
+                  <li key={`logo-dup-${index}`} className="flex-shrink-0">
+                    <img
+                      className="h-[50px] w-[180px] object-cover"
+                      alt={brand.name}
+                      src={brand.src}
+                    />
+                  </li>
+                ))}
+              </motion.ul>
             </div>
-                  ))}
           </div>
-              ))}
-            </Carousel>
-            </div>
 
-
- <div className="block lg:hidden">
-            <Carousel
-              autoPlay
-              infiniteLoop
-              showArrows={false}
-              showStatus={false}
-              showThumbs={false}
-              showIndicators={true}
-              interval={3000}
-              transitionTime={500}
-              className="brand-carousel"
+          {/* Marquee for mobile */}
+          <div className="block lg:hidden relative overflow-hidden">
+            <div 
+              style={{
+                display: 'flex',
+                width: '100%',
+                height: '100%',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                placeItems: 'center',
+                margin: '0px',
+                padding: '0px',
+                listStyleType: 'none',
+                opacity: 1,
+                maskImage: 'linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 7.5%, rgb(0, 0, 0) 92.5%, rgba(0, 0, 0, 0) 100%)',
+                overflow: 'hidden'
+              }}
             >
-              {partnerMobileGroup.map((brandGroup: any, groupIndex: any) => (
-                <div key={`desktop-group-${groupIndex}`} className="flex items-center justify-center gap-2 lg:gap-16 px-2 py-2">
-                  {brandGroup.map((brand: any, index: any) => (
-                    <div
-                      key={`desktop-brand-${index}`}
-                      onClick={() => router.push(`/inventory?brand=${brand.name}`)}
-                      className="flex w-full  items-center justify-center cursor-pointer hover:opacity-70 transition-opacity"
-                    >
-                      <img
-                        className="h-[50px] w-[120px] object-contain"
-                        alt={brand.name}
-                        src={brand.src}
-                      />
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </Carousel>
+              <motion.ul
+                initial={{ x: 0 }}
+                animate={{ x: '-50%' }}
+                transition={{ 
+                  repeat: Infinity,
+                  duration: 30,
+                  ease: 'linear'
+                }}
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  placeItems: 'center',
+                  margin: '0px',
+                  padding: '0px',
+                  listStyleType: 'none',
+                  gap: '40px',
+                  position: 'relative',
+                  flexDirection: 'row',
+                  willChange: 'transform'
+                }}
+              >
+                {/* First set of logos */}
+                {partnerLogosV1.map((brand, index) => (
+                  <li key={`mobile-logo-${index}`} className="flex-shrink-0">
+                    <img
+                      className="h-[40px] w-[100px] object-contain"
+                      alt={brand.name}
+                      src={brand.src}
+                    />
+                  </li>
+                ))}
+                {/* Duplicate set of logos to create seamless loop */}
+                {partnerLogosV1.map((brand, index) => (
+                  <li key={`mobile-logo-dup-${index}`} className="flex-shrink-0">
+                    <img
+                      className="h-[40px] w-[100px] object-contain"
+                      alt={brand.name}
+                      src={brand.src}
+                    />
+                  </li>
+                ))}
+              </motion.ul>
+            </div>
           </div>
 
         </div>

@@ -838,7 +838,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
             </div>
   
             <div className="hidden lg:flex flex-col items-start gap-6 w-full lg:w-[30%]">
-              <Card className="w-full border-solid shadow-shadow-sm bg-white">
+              <Card id="quote" className="w-full border-solid shadow-shadow-sm bg-white">
                 <CardContent className="flex flex-col items-start gap-9 p-4">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
                     <h2 className="flex-1 font-figtree font-medium text-[#000] text-xl leading-7">
