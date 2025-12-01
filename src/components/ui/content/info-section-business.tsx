@@ -66,7 +66,7 @@ const keyTakeaway = {
 export const InfoSection = (): JSX.Element => {
   const router = useRouter();
   return (
-    <section id="self-employed-residential-loan" className="flex flex-col w-full items-center px-0 py-24 bg-gray-50">
+    <section id="self-employed-residential-loan" className="flex flex-col w-full items-center px-0  pt-10 pb-10 bg-gray-50">
       <div className="flex gap-16 w-full max-w-[1280px] items-start px-4">
         <div className="flex flex-col w-full max-w-[650px] items-start gap-8">
           <div className="flex flex-col gap-4 w-full">

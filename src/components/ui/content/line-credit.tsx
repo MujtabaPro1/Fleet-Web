@@ -69,7 +69,7 @@ export const LineCredit = (): JSX.Element => {
   const router = useRouter();
 
   return (
-    <section id="line-credit" className="px-0 py-24 bg-gray-50 flex flex-col w-full items-center">
+    <section id="line-credit" className="px-0  pt-10 pb-10 bg-gray-50 flex flex-col w-full items-center">
       <div className="gap-16 flex max-w-[1280px] w-full items-start px-4">
         <div className="flex flex-col flex-1 items-start gap-8">
           <div className="gap-4 flex flex-col items-start w-full">
