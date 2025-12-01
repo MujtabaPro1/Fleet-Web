@@ -8,7 +8,7 @@ const PrivacyPolicy: MyPage = () => {
                 <h1 className="text-3xl lg:text-4xl font-semibold text-center mb-8 lg:mb-12">Privacy Policy</h1>
                 
                 <Card className="w-full border-none bg-white shadow-none">
-                    <CardContent className="p-6 lg:p-8">
+                    <CardContent className="p-2 lg:p-4">
                         <h2 className="text-xl font-semibold mb-4">1. Overview</h2>
                         <p className="text-[#4a5565]">
                             At Fleet Leasing Australia, we respect your privacy and are committed to protecting your personal information in accordance with the Privacy Act 1988 (Cth) and the Australian Privacy Principles (APPs).
@@ -17,7 +17,7 @@ const PrivacyPolicy: MyPage = () => {
                 </Card>
 
                 <Card className="w-full border-none bg-white shadow-none">
-                    <CardContent className="p-6 lg:p-8">
+                    <CardContent className="p-2 lg:p-4">
                         <h2 className="text-xl font-semibold mb-4">2. Why We Collect Your Information</h2>
                         <p className="text-[#4a5565]">
                             We collect personal information so we can provide and improve our products and services, manage relationships with clients and suppliers, and comply with legal and regulatory obligations.
@@ -26,7 +26,7 @@ const PrivacyPolicy: MyPage = () => {
                 </Card>
 
                 <Card className="w-full border-none bg-white shadow-none">
-                    <CardContent className="p-6 lg:p-8">
+                    <CardContent className="p-2 lg:p-4">
                         <h2 className="text-xl font-semibold mb-4">3. Information We Collect</h2>
                         <p className="text-[#4a5565]">
                             The personal information we collect may include your name, contact details, ABN, driver licence, financial details, employment details, and information related to your leasing or finance application.
@@ -35,7 +35,7 @@ const PrivacyPolicy: MyPage = () => {
                 </Card>
 
                 <Card className="w-full border-none bg-white shadow-none">
-                    <CardContent className="p-6 lg:p-8">
+                    <CardContent className="p-2 lg:p-4">
                         <h2 className="text-xl font-semibold mb-4">4. How We Collect Information</h2>
                         <p className="text-[#4a5565]">
                             We collect information directly from you when you complete online forms, call or email us, or engage with us via social media or third-party partners. We may also collect information from credit reporting bodies, brokers, or vehicle suppliers where authorised by you.
@@ -44,7 +44,7 @@ const PrivacyPolicy: MyPage = () => {
                 </Card>
 
                 <Card className="w-full border-none bg-white shadow-none">
-                    <CardContent className="p-6 lg:p-8">
+                    <CardContent className="p-2 lg:p-4">
                         <h2 className="text-xl font-semibold mb-4">5. How We Use Your Information</h2>
                         <p className="text-[#4a5565]">
                             Your information may be used to:<br />
@@ -57,7 +57,7 @@ const PrivacyPolicy: MyPage = () => {
                 </Card>
 
                 <Card className="w-full border-none bg-white shadow-none">
-                    <CardContent className="p-6 lg:p-8">
+                    <CardContent className="p-2 lg:p-4">
                         <h2 className="text-xl font-semibold mb-4">6. Disclosure of Information</h2>
                         <p className="text-[#4a5565]">
                             We may share your information with:<br />
@@ -70,7 +70,7 @@ const PrivacyPolicy: MyPage = () => {
                 </Card>
 
                 <Card className="w-full border-none bg-white shadow-none">
-                    <CardContent className="p-6 lg:p-8">
+                    <CardContent className="p-2 lg:p-4">
                         <h2 className="text-xl font-semibold mb-4">7. Data Security</h2>
                         <p className="text-[#4a5565]">
                             We take all reasonable steps to protect your personal information from misuse, loss, or unauthorised access. Information is stored securely using encrypted systems and access controls.
@@ -79,7 +79,7 @@ const PrivacyPolicy: MyPage = () => {
                 </Card>
 
                 <Card className="w-full border-none bg-white shadow-none">
-                    <CardContent className="p-6 lg:p-8">
+                    <CardContent className="p-2 lg:p-4">
                         <h2 className="text-xl font-semibold mb-4">8. Access and Correction</h2>
                         <p className="text-[#4a5565]">
                             You may request access to, or correction of, the personal information we hold about you by contacting us at: contact@fleetleasingaustralia.com.au
@@ -88,7 +88,7 @@ const PrivacyPolicy: MyPage = () => {
                 </Card>
 
                 <Card className="w-full border-none bg-white shadow-none">
-                    <CardContent className="p-6 lg:p-8">
+                    <CardContent className="p-2 lg:p-4">
                         <h2 className="text-xl font-semibold mb-4">10. Website and Cookies</h2>
                         <p className="text-[#4a5565]">
                             We may collect non-personal information (e.g., IP address, browser type) to improve website functionality. Cookies help us enhance your user experience.
@@ -96,8 +96,8 @@ const PrivacyPolicy: MyPage = () => {
                     </CardContent>
                 </Card>
 
-                <Card className="w-full border-none bg-white shadow-none mb-6 lg:mb-8">
-                    <CardContent className="p-6 lg:p-8">
+                <Card className="w-full border-none bg-white shadow-none mb-6 lg:mb-4">
+                    <CardContent className="p-2 lg:p-4">
                         <h2 className="text-xl font-semibold mb-4">11. Updates to this Policy</h2>
                         <p className="text-[#4a5565]">
                             This Privacy Policy may be updated periodically. The latest version will always be available at fleetleasingaustralia.com.au/privacy-policy.
