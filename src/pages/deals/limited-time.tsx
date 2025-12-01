@@ -273,7 +273,7 @@ const LimitedTime = (): JSX.Element => {
                                         Reset Filters
                                       </Button>
                                     </div>
-                        
+
                 </div>
               </CardContent>
             </Card>
@@ -310,7 +310,7 @@ const LimitedTime = (): JSX.Element => {
               <VehicleCard
                 key={vehicle.id}
                 image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
-                name={vehicle.name}
+                name={vehicle.title}
                 type={vehicle.type}
                 fuel={vehicle.selectedVariant?.variant}
                 price={vehicle.price}
