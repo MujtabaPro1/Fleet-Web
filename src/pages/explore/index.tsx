@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 const bodyTypeCards = [
   {
-    title: "SUV",
+    title: "Wagon",
     image: "/assets/images/bodytype/vehicle-1.png",
   },
   {
@@ -23,7 +23,7 @@ const bodyTypeCards = [
     image: "/assets/images/bodytype/vehicle-4.png",
   },
   {
-    title: "Mini bus",
+    title: "Bus",
     image: "/assets/images/bodytype/vehicle-5.png",
   },
 ];
@@ -73,7 +73,14 @@ const ExploreDeals: MyPage = () => {
     // Make the API call
     axiosInstance.get(`/v1/body-types`)
       .then(response => {
-        setAllBodyTypes(response.data || []);
+        setAllBodyTypes([{
+          name: "Coupe",
+          id: 1
+        },
+        {
+          name: "Hatchback",
+          id: 2
+        }]);
       })
       .catch(error => {
         console.error('Error fetching body types:', error);
@@ -98,7 +105,7 @@ const ExploreDeals: MyPage = () => {
             {bodyTypeCards.map((card, index) => (
               <Card
                 key={index}
-                   onClick={() => router.push(`/inventory?bodyType=${card.title.toUpperCase()}`)}
+                   onClick={() => router.push(`/inventory?bodyType=${card.title}`)}
                 className="h-[320px] overflow-hidden cursor-pointer hover:shadow-lg transition-shadow relative bg-white rounded-md border border-gray-100"
               >
                 <CardContent className="p-8 h-full flex flex-col">

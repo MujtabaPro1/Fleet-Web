@@ -112,7 +112,7 @@ const InventorySection = (): JSX.Element => {
     
     // Add basic pagination params
     params.append('page', page.toString());
-    params.append('limit', '10');
+    params.append('limit', '12');
     
     // Add filter params if they exist
     if (limitedDealsEnabled) {
@@ -283,7 +283,7 @@ const InventorySection = (): JSX.Element => {
                 {totalItems} leasing deals available
               </span>
   
-              <Select value={sortOption} onValueChange={setSortOption}>
+              {/* <Select value={sortOption} onValueChange={setSortOption}>
                 <SelectTrigger className="w-full md:w-auto bg-white rounded border border-solid shadow-shadow-xs h-9 px-3">
                   <div className="flex items-center gap-1">
                     <span className="font-figtree font-normal text-[#4a5565] text-sm tracking-[0] leading-5">
@@ -301,7 +301,7 @@ const InventorySection = (): JSX.Element => {
                   <SelectItem value="price-low">Price: Low to High</SelectItem>
                   <SelectItem value="price-high">Price: High to Low</SelectItem>
                 </SelectContent>
-              </Select>
+              </Select> */}
             </div>
           </div>
   
@@ -312,7 +312,7 @@ const InventorySection = (): JSX.Element => {
                 image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
                 name={vehicle.title}
                 type={vehicle.bodyType}
-                fuel={vehicle.fuelType}
+                fuel={vehicle?.selectedVariant?.variant}
                 price={vehicle?.selectedVariant?.weeklyPrice}
                 id={vehicle.slug}
                 router={router}

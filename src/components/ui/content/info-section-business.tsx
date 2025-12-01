@@ -1,6 +1,10 @@
+'use client';
 import React from "react";
 import Image from "next/image";
 import BaloonImage from "../../../assets/images/baloon-package-flying.png";
+import { useRouter } from "next/navigation";
+import { Button } from "../button";
+import { ArrowRightIcon } from "lucide-react";
 
 const sections = [
   {
@@ -8,19 +12,9 @@ const sections = [
     title: "How It Works",
     content: (
       <>
-        This structure works like a traditional{" "}
-        <span className="font-bold">secured business loan</span>. The{" "}
-        <span className="font-bold">Lender</span> provides funds to purchase the
-        vehicle, and your{" "}
-        <span className="font-bold">business owns it outright</span>. You make
-        regular repayments, and at the end of the term, you may have a{" "}
-        <span className="font-bold">balloon payment </span>(residual) to
-        finalise the loan.
-        <br />
-        <br />
-        You assume{" "}
-        <span className="font-bold">full ownership and residual risk</span>,
-        giving you complete control over the asset.
+        This loan functions like a standard residential mortgage, but with customized underwriting for self-employed applicants.<br/>
+        Instead of relying solely on PAYG payslips, lenders assess your income using BAS statements, bank statements, accountant declarations, or other verified financial records.<br/>
+        Interest is charged on the outstanding balance at either fixed or variable rates, depending on your chosen structure.
       </>
     ),
   },
@@ -29,45 +23,16 @@ const sections = [
 const benefitsSections = [
   {
     icon: "../../../assets/images/svg/chart-mixed.svg",
-    title: "Financial & Tax Benefits",
+    title: "Financial & Liquidity Benefits",
     content: (
       <>
-        A Chattel Mortgage is recorded{" "}
-        <span className="font-bold">on the balance sheet </span>as both an{" "}
-        <span className="font-bold">
-          asset and a loan.
-          <br />
-          GST
-        </span>
-        : Claimed <span className="font-bold">upfront</span> on the full vehicle
-        purchase price (in the next BAS period).
-        <br />
-        <span className="font-bold">Tax deductions: </span>You can claim{" "}
-        <span className="font-bold">interest on the loan</span> and{" "}
-        <span className="font-bold">
-          depreciation of the vehicle.
-          <br />
-          Cash flow advantage:
-        </span>{" "}
-        The <span className="font-bold">upfront GST claim</span> provides an{" "}
-        <span className="font-bold">immediate cash flow boost</span>, especially
-        for businesses using the{" "}
-        <span className="font-bold">Cash Method for BAS.</span>
-      </>
-    ),
-  },
-  {
-    icon: "../../../assets/images/svg/tools.svg",
-    title: "Maintenance & Management",
-    content: (
-      <>
-        Your business (the <span className="font-bold">Lessee</span>) manages
-        all{" "}
-        <span className="font-bold">
-          maintenance, registration, and running costs
-        </span>
-        , giving you full control over the asset&apos;s condition and
-        performance.
+        <ul className="flex flex-col items-start p-2 list-disc">
+          <li>Flexible documentation: Qualify using business or alternative income verification.</li>
+          <li>Property ownership: Finance a primary residence or investment property.</li>
+          <li>Choice of rates: Access fixed or variable interest options.</li>
+          <li>Equity growth: Build long-term wealth through property ownership.</li>
+          <li>Tailored approval: Designed for self-employed borrowers with irregular income streams.</li>
+        </ul>
       </>
     ),
   },
@@ -77,22 +42,12 @@ const benefitsSections = [
     content: (
       <>
         Ideal for businesses that:
-        <br />
-        Use the{" "}
-        <span className="font-bold">
-          Cash Method for BAS
-          <br />
-        </span>
-        Want <span className="font-bold">immediate ownership</span> and control
-        of the vehicle
-        <br />
-        Seek an <span className="font-bold">upfront GST refund </span>and{" "}
-        <span className="font-bold">
-          ongoing tax deductions
-          <br />
-        </span>
-        Prefer to <span className="font-bold">retain full responsibility</span>{" "}
-        for maintenance and resale value
+        <ul className="flex flex-col items-start p-2 list-disc">
+          <li>Small business owners, contractors, or freelancers with non-traditional income</li>
+          <li>Individuals who can’t provide PAYG payslips but have verified business financials</li>
+          <li>Those looking to buy, build, or renovate residential or investment property</li>
+          <li>Borrowers seeking flexibility in documentation and repayment structures</li>
+        </ul>
       </>
     ),
   },
@@ -103,41 +58,45 @@ const keyTakeaway = {
   title: "Key Takeaway",
   content: (
     <>
-      A <span className="font-bold">Chattel Mortgage</span> gives your business{" "}
-      <span className="font-bold">
-        ownership from day one, upfront GST benefits,
-      </span>{" "}
-      and <span className="font-bold">long-term asset control</span> - ideal for
-      those wanting both flexibility and financial efficiency.
+      A Self-Employed Residential Loan offers flexible documentation, competitive interest options, and tailored approval criteria, making property ownership more accessible for self-employed Australians.
     </>
   ),
 };
 
 export const InfoSection = (): JSX.Element => {
+  const router = useRouter();
   return (
-    <section id="chattel-mortgage" className="flex flex-col w-full items-center px-0 py-24 bg-white">
+    <section id="self-employed-residential-loan" className="flex flex-col w-full items-center px-0 py-24 bg-gray-50">
       <div className="flex gap-16 w-full max-w-[1280px] items-start px-4">
         <div className="flex flex-col w-full max-w-[650px] items-start gap-8">
           <div className="flex flex-col gap-4 w-full">
             <div className="flex flex-col gap-3 w-full">
               <h1 className="font-figtree font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
-                Chattel Mortgage
+                Self-Employed Residential Loan
               </h1>
 
               <h2 className="font-figtree font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
-                Upfront Tax Advantage &amp; Immediate Ownership Ownership
+                Home Finance Designed for Self-Employed Professionals
               </h2>
             </div>
 
             <p className="text-[#101828] leading-6 font-figtree font-normal text-base tracking-[0]">
-              A <span className="font-bold">commercial loan</span> secured by
-              the vehicle (the chattel). Your business takes{" "}
-              <span className="font-bold">legal ownership from day one</span>,
-              while the lender holds a{" "}
-              <span className="font-bold">mortgage over the vehicle</span> as
-              security.
+            A specialized home loan tailored for business owners, contractors, and freelancers who may not have traditional PAYG income documentation. It allows you to buy, build, or renovate a home or investment property with flexible income verification options.
             </p>
+            
           </div>
+
+
+         <Button
+            onClick={() => {
+              router.push("/services/consultation");
+            }}
+            className="inline-flex h-auto items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+              <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
+                Free Consultation
+              </span>
+              <ArrowRightIcon className="w-4 h-4 text-white" />
+            </Button>
 
           <div className="flex flex-col items-start gap-8 px-0 py-8 w-full border-t border-b border-border">
             {sections.map((section, index) => (
@@ -156,9 +115,9 @@ export const InfoSection = (): JSX.Element => {
                       {section.title}
                     </h3>
 
-                    <p className="font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                    <div className="font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                       {section.content}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -182,9 +141,9 @@ export const InfoSection = (): JSX.Element => {
                       {section.title}
                     </h3>
 
-                    <p className="font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                    <div className="font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                       {section.content}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -207,9 +166,9 @@ export const InfoSection = (): JSX.Element => {
                     {keyTakeaway.title}
                   </h3>
 
-                  <p className="font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                  <div className="font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                     {keyTakeaway.content}
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>

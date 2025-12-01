@@ -81,6 +81,7 @@ const promoCards = [
     title: "Save 7¢ per litre with your Caltex Fuel Card!",
     description:
       "Enjoy everyday savings on fuel — exclusively for Caltex Fuel Card holders.",
+    url: "/resources/blog",  
   },
   {
     bgColor: "bg-[#fef9c2]",
@@ -89,6 +90,7 @@ const promoCards = [
     title: "Optimize Your Fleet with a Free Consultation",
     description:
       "Discover smarter ways to manage vehicles, reduce expenses, and boost productivity.",
+    url: "/services/consultation",  
   },
 ];
 
@@ -128,16 +130,19 @@ const productOfferings = [
     title: "Chattel Mortgage",
     description:
       'A chattel mortgage is a commercial loan used to purchase a "chattel" (an asset like a vehicle or equipment), which is then used as security for the loan.',
+    url: "/products/business-finance",  
   },
   {
     title: "Finance Lease",
     description:
       "Finance Lease: A finance lease is a long-term rental agreement where the finance company buys the asset and leases it to your business for a fixed period.",
+    url: "/products/fleet-finance",  
   },
   {
     title: "Operating Lease",
     description:
       "An operating lease is a rental agreement that provides your business with the use of an asset for a shorter term than its useful life.",
+    url: "/products/fleet-finance",
   },
 ];
 
@@ -431,7 +436,6 @@ export const MainContentSection = (): JSX.Element => {
   const router = useRouter();
   const [offers, setOffers] = useState([]);
   const [bodyTypeOffers, setBodyTypeOffers] = useState({
-    'Popular Hatchback': [],
     'Popular Sedan': [],
     'Popular Van': [],
     'Popular Utes': [],
@@ -439,7 +443,6 @@ export const MainContentSection = (): JSX.Element => {
 
   useEffect(() => {
     getLimitedTimeDeals();
-    getByBodyType('Popular Hatchback');
     getByBodyType('Popular Sedan');
     getByBodyType('Popular Van');
     getByBodyType('Popular Utes');
@@ -450,6 +453,8 @@ export const MainContentSection = (): JSX.Element => {
     // Make the API call
     const params = new URLSearchParams();
     params.set('tags', 'Limited Time Offer');
+    params.set('page', '1');
+    params.set('limit', '6');
     axiosInstance.get(`/v1/cars/search?${params.toString()}`)
       .then(response => {
         setOffers(response.data.data || []);
@@ -464,6 +469,8 @@ export const MainContentSection = (): JSX.Element => {
     // Make the API call
     const params = new URLSearchParams();
     params.set('tags', bodyType);
+    params.set('page', '1');
+    params.set('limit', '6');
     axiosInstance.get(`/v1/cars/search?${params.toString()}`)
       .then(response => {
         console.log(response.data.data);
@@ -519,6 +526,7 @@ export const MainContentSection = (): JSX.Element => {
 
                 <Button
                   variant="ghost"
+                  onClick={() => router.push(card.url)}
                   className="h-auto px-0 py-1.5 gap-1.5 hover:bg-transparent"
                 >
                   <span className="font-figtree font-medium text-[#101828] text-xs tracking-[0] leading-5">
@@ -569,6 +577,7 @@ export const MainContentSection = (): JSX.Element => {
 
                 <Button
                   variant="ghost"
+                  onClick={() => router.push(card.url)}
                   className="h-auto px-0 py-1 gap-1.5 hover:bg-transparent"
                 >
                   <span className="font-figtree font-medium text-[#101828] text-xs tracking-[0] leading-5">
@@ -621,7 +630,7 @@ export const MainContentSection = (): JSX.Element => {
           className="w-auto h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-2 px-6 py-3 mt-4"
         >
           <span className="font-medium text-white text-sm">
-            View all vehicles
+            View all
           </span>
           <ArrowRightIcon className="w-4 h-4 text-white" />
         </Button>
@@ -675,9 +684,6 @@ export const MainContentSection = (): JSX.Element => {
 
       {/* Brand logos section */}
       <div className="w-full py-6 relative">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-[#101828] text-2xl lg:text-3xl">Popular Brands</h3>
-        </div>
         
         <div className="w-full py-8 bg-gray-50">
           {/* Mobile Carousel */}
@@ -760,41 +766,6 @@ export const MainContentSection = (): JSX.Element => {
         </div>
       </div>
 
-      {/* Popular Hatchback section */}
-      <div className="flex flex-col items-start gap-6 w-full">
-        <VehiclesCarousel
-          title="Popular Hatchback for Business Lease"
-          actionLabel="View all"
-          onAction={() => router.push("/inventory")}
-          cars={bodyTypeOffers['Popular Hatchback']}
-          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
-          showMultipleColumns={true}
-          renderCard={(offer: any) => (
-                    <VehicleCard
-              image={
-                offer?.NVIC
-                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
-                  : "/assets/images/no-image.png"
-              }
-              name={offer?.title}
-              type={offer?.bodyType}
-              fuel={offer?.selectedVariant?.variant}
-              price={offer?.selectedVariant?.weeklyPrice}
-                      router={router}
-              id={offer?.slug}
-                      isTrending={offer?.tags?.filter((tag: string) =>
-                  tag.toLowerCase().includes("trending")
-                )?.length > 0}
-              tags={
-                offer?.tags?.filter((tag: string) =>
-                  tag.toLowerCase().includes("limited")
-                ) ?? offer?.tags
-              }
-            />
-          )}
-        />
-
-      </div>
 
       {/* Product Offerings section */}
       <div className="flex flex-col w-full items-start gap-12">
@@ -847,12 +818,13 @@ export const MainContentSection = (): JSX.Element => {
 
                 <Button
                   variant="ghost"
+                  onClick={() => router.push(product.url)}
                   className="h-auto px-0 py-0 gap-2 hover:bg-transparent text-[#194170]"
                 >
                   <span className="font-medium text-base">
                     Learn more
                   </span>
-                  <ArrowRightIcon className="w-5 h-5 text-white" />
+                  <ArrowRightIcon className="w-5 h-5" />
                 </Button>
               </CardContent>
             </Card>
@@ -861,18 +833,7 @@ export const MainContentSection = (): JSX.Element => {
 
         {/* Partner logos */}
         <div className="w-full py-4 rounded-lg mt-8">
-          {/* <div className="overflow-x-auto pb-4 hide-scrollbar">
-            <div className="flex items-center gap-4 md:gap-8 min-w-max px-4">
-              {partnerLogosV1.map((logo, index) => (
-                <img
-                  key={index}
-                  className="h-[46px] md:h-[46px] w-[152px] max-w-[160px] object-cover flex-shrink-0"
-                  alt="Partner logo"
-                  src={logo.src}
-                />
-              ))}
-            </div>
-          </div> */}
+
           
 
  <div className="hidden lg:block">
@@ -961,6 +922,7 @@ export const MainContentSection = (): JSX.Element => {
 
                 <Button
                   variant="ghost"
+                  onClick={() => router.push('/products/business-finance')}
                   className="h-auto px-0 py-0 gap-2 hover:bg-transparent text-[#194170] self-start mt-auto"
                 >
                   <span className="font-medium text-base">
@@ -974,78 +936,7 @@ export const MainContentSection = (): JSX.Element => {
         </div>
       </div>
 
-      {/* Popular SUVs section */}
-      <div className="flex flex-col items-start gap-6 w-full">
-        <VehiclesCarousel
-          title="Popular Sedan for Business Lease"
-          actionLabel="View all"
-          onAction={() => router.push("/inventory")}
-          cars={bodyTypeOffers['Popular Sedan']}
-          showMultipleColumns={true}
-          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
-          renderCard={(offer: any) => (
-                    <VehicleCard
-              image={
-                offer?.NVIC
-                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
-                  : "/assets/images/no-image.png"
-              }
-              name={offer?.title}
-              type={offer?.bodyType}
-              fuel={offer?.selectedVariant?.variant}
-              price={offer?.selectedVariant?.weeklyPrice}
-                      router={router}
-              id={offer?.slug}
-                      isTrending={offer?.tags?.filter((tag: string) =>
-                  tag.toLowerCase().includes("trending")
-                )?.length > 0}
-              tags={
-                offer?.tags?.filter((tag: string) =>
-                  tag.toLowerCase().includes("limited")
-                ) ?? offer?.tags
-              }
-            />
-          )}
-        />
 
-      </div>
-
-      {/* Popular Vans section */}
-      <div className="flex flex-col items-start gap-6 w-full">
-        <VehiclesCarousel
-          title="Popular Van for Business Lease"
-          actionLabel="View all"
-          onAction={() => router.push("/inventory")}
-          cars={bodyTypeOffers['Popular Van']}
-          showMultipleColumns={true}
-          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
-          renderCard={(offer: any) => (
-                    <VehicleCard
-              image={
-                offer?.NVIC
-                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
-                  : "/assets/images/no-image.png"
-              }
-              name={offer?.title}
-              type={offer?.bodyType}
-              
-              fuel={offer?.selectedVariant?.variant}
-              price={offer?.selectedVariant?.weeklyPrice}
-                      router={router}
-              id={offer?.slug}
-                      isTrending={offer?.tags?.filter((tag: string) =>
-                  tag.toLowerCase().includes("trending")
-                )?.length > 0}
-              tags={
-                offer?.tags?.filter((tag: string) =>
-                  tag.toLowerCase().includes("limited")
-                ) ?? offer?.tags
-              }
-            />
-          )}
-        />
-
-      </div>
 
        <div className="flex flex-col items-start gap-6 w-full">
         <VehiclesCarousel
@@ -1081,7 +972,81 @@ export const MainContentSection = (): JSX.Element => {
           )}
         />
 
+      </div>   
+
+      {/* Popular Vans section */}
+      <div className="flex flex-col items-start gap-6 w-full">
+        <VehiclesCarousel
+          title="Popular Vans for Business Lease"
+          actionLabel="View all"
+          onAction={() => router.push("/inventory")}
+          cars={bodyTypeOffers['Popular Van']}
+          showMultipleColumns={true}
+          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+          renderCard={(offer: any) => (
+                    <VehicleCard
+              image={
+                offer?.NVIC
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  : "/assets/images/no-image.png"
+              }
+              name={offer?.title}
+              type={offer?.bodyType}
+              
+              fuel={offer?.selectedVariant?.variant}
+              price={offer?.selectedVariant?.weeklyPrice}
+                      router={router}
+              id={offer?.slug}
+                      isTrending={offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("trending")
+                )?.length > 0}
+              tags={
+                offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("limited")
+                ) ?? offer?.tags
+              }
+            />
+          )}
+        />
+
       </div>
+
+         {/* Popular Sedan section */}
+      <div className="flex flex-col items-start gap-6 w-full">
+        <VehiclesCarousel
+          title="Popular Sedans for Business Lease"
+          actionLabel="View all"
+          onAction={() => router.push("/inventory")}
+          cars={bodyTypeOffers['Popular Sedan']}
+          showMultipleColumns={true}
+          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+          renderCard={(offer: any) => (
+                    <VehicleCard
+              image={
+                offer?.NVIC
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  : "/assets/images/no-image.png"
+              }
+              name={offer?.title}
+              type={offer?.bodyType}
+              fuel={offer?.selectedVariant?.variant}
+              price={offer?.selectedVariant?.weeklyPrice}
+                      router={router}
+              id={offer?.slug}
+                      isTrending={offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("trending")
+                )?.length > 0}
+              tags={
+                offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("limited")
+                ) ?? offer?.tags
+              }
+            />
+          )}
+        />
+
+      </div>
+
     </section>
   );
 };

@@ -27,57 +27,9 @@ import { VehicleCard } from "@/components/vehicle-card";
 import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
 
 
-const utesVehicles = [
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Ford Ranger",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "315"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Toyota Hilux",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "325"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mitsubishi Triton",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "305"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Isuzu D-Max",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "310"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mazda BT-50",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "300"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Nissan Navara",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "295"
-  },
-];
-
 
 const PopularModelsSection = (): JSX.Element => {
-const [limitedDealsEnabled, setLimitedDealsEnabled] = useState<boolean>(true);
-const [sortOption, setSortOption] = useState<string>("recent");
 const [selectedFilter, setSelectedFilter] = useState<string>("");
-const [searchQuery, setSearchQuery] = useState<string>("");
 const router = useRouter();
 
 const [bodyTypes, setBodyTypes] = useState<string[]>([]);
@@ -85,35 +37,72 @@ const [bodyTypes, setBodyTypes] = useState<string[]>([]);
 
   const [cars, setCars] = useState<any>([]);
 
-  useEffect(()=>{
-    getCars();
-  },[]);
+  useEffect(() => {
+    // Only fetch body types on initial mount
+    getBodyTypes();
+  }, []);
+
+  // This effect will run when selectedFilter changes
+  useEffect(() => {
+    // Only call getCars if selectedFilter has a value
+    if (selectedFilter) {
+      getCars();
+    }
+  }, [selectedFilter]);
+
+  const getBodyTypes = () => {
+    axiosInstance.get(`/v1/body-types`)
+      .then(response => {
+        console.log('Body types data:', response.data);
+        setBodyTypes(response.data || []);
+        // Set the filter after we have the body types
+        // Use setTimeout to ensure this happens in the next event loop
+        // after the bodyTypes state has been updated
+        setTimeout(() => {
+          setSelectedFilter('Ute');
+        }, 0);
+      })
+      .catch(error => {
+        console.error('Error fetching body types:', error);
+      });
+  }
     
   const getCars = () => {
+    // Don't proceed if selectedFilter is empty
+    if (!selectedFilter) {
+      return;
+    }
+
     // Build query parameters
     const params = new URLSearchParams();
     
+    // Format the tag based on the selected filter
+    const tags = selectedFilter === 'Ute' ? 'Popular Utes' : `Popular ${selectedFilter}`;
+    console.log('Searching with tags:', tags);
+    
     // Add basic pagination params
     params.append('page', '1');
-    params.append('limit', '100');
-    params.append('tags', 'Popular Model');
+    params.append('limit', '12');
+    params.append('tags', tags);
     
-   
-    console.log(params.toString());
-   
-
+    console.log('API query params:', params.toString());
+    
+    // Clear previous cars before making the new request
+    setCars([]);
     
     // Make the API call
     axiosInstance.get(`/v1/cars/search?${params.toString()}`)
       .then(response => {
-        console.log(response.data);
-        // Extract body types and remove duplicates using Set
-        const uniqueBodyTypes: string[] = Array.from(new Set(response.data.data.map((car: any) => car.bodyType)));
-        setBodyTypes(uniqueBodyTypes);
-        setCars(response.data.data || []);
+        const carsData = response.data.data || [];
+        console.log(`Found ${carsData.length} cars for ${selectedFilter}:`, carsData);
+        
+        // Update the cars state with the new data
+        setCars(carsData);
       })
       .catch(error => {
         console.error('Error fetching cars:', error);
+        // Clear cars on error
+        setCars([]);
       });
   }
   
@@ -121,15 +110,17 @@ const [bodyTypes, setBodyTypes] = useState<string[]>([]);
 
 
 const handleFilterClick = (filter: string) => {
-  if (selectedFilter === filter) {
+  console.log(filter, selectedFilter);
+  if (selectedFilter == filter) {
     setSelectedFilter(""); // Deselect if already selected
   } else {
     setSelectedFilter(filter);
   }
 };
 
-// Filter cars based on selected body type
-const filteredCars = selectedFilter ? cars.filter((car: any) => car.bodyType === selectedFilter) : cars;
+// We're already filtering by tag in the API call, so we don't need to filter again
+// Just use the cars directly from the API response
+const filteredCars = cars;
 
 const Content = ({ title }: { title: string }) => {
   return (
@@ -242,14 +233,14 @@ const Content = ({ title }: { title: string }) => {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4 w-full">
                   
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4">
-                    {bodyTypes.map((type) => (
+                    {bodyTypes.map((type: any) => (
                       <Button 
-                        key={type}
+                        key={type.uid}
                         variant="outline" 
-                        className={`h-[40px] w-[160px] px-4 py-2 border rounded-md text-sm font-medium shadow-sm transition-colors ${selectedFilter === type ? 'bg-[#194170] text-white border-[#194170]' : 'bg-[#F9FAFB] border-[#E5E7EB] text-[#4a5565] hover:bg-[#F3F4F6]'}`}
-                        onClick={() => handleFilterClick(type)}
+                        className={`h-[40px] w-[160px] px-4 py-2 border rounded-md text-sm font-medium shadow-sm transition-colors ${selectedFilter === type.name ? 'bg-[#194170] text-white border-[#194170]' : 'bg-[#F9FAFB] border-[#E5E7EB] text-[#4a5565] hover:bg-[#F3F4F6]'}`}
+                        onClick={() => handleFilterClick(type.name)}
                       >
-                        {type}
+                        {type.name}
                       </Button>
                     ))}
                   </div>
@@ -263,7 +254,7 @@ const Content = ({ title }: { title: string }) => {
         </section>
 
         </div>
-        <Content title={`Popular ${selectedFilter ? selectedFilter + 's' : 'Models'} for Business Lease`}/>
+        <Content title={`Popular ${selectedFilter ? selectedFilter : 'Models'} for Business Lease`}/>
        
       </div>
 

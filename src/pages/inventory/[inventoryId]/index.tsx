@@ -226,7 +226,11 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
     }
 
     const getSelectedBodyTypeSimilarCars = (bodyType: string) => {
-      axiosInstance.get(`/v1/cars/search?bodyType=${bodyType}`).then((response) => {
+      const params = new URLSearchParams();
+      params.append('bodyType', bodyType);
+      params.append('page', '1');
+      params.append('limit', '6');
+      axiosInstance.get(`/v1/cars/search?${params.toString()}`).then((response) => {
         console.log(response.data);
         setSimilarCars(response.data.data);
       }).catch((error) => {
@@ -239,7 +243,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
 
 <main className="flex flex-col max-w-full lg:max-w-[1280px] pt-[60px] md:pt-[80px] items-center gap-6 md:gap-10 px-3 md:px-4">
         <div className="flex flex-col items-start gap-8 relative max-w-[1280px]">
-          <Breadcrumb className="w-full overflow-x-auto pb-2">
+          <Breadcrumb className="w-full overflow-x-auto pb-2 pl-4 lg:pl-0">
             <BreadcrumbList className="flex items-center gap-2.5 min-w-max">
               {breadcrumbItems.map((item, index) => (
                 <React.Fragment key={index}>
@@ -265,10 +269,10 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                 <CardContent className="flex flex-col items-start gap-5 sm:gap-7 p-4 sm:p-6">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
                     <div className="flex flex-col items-start gap-2 flex-1">
-                      <h1 className="font-figtree font-semibold text-[#000] text-3xl leading-8">
-                        {car?.brand?.name && car?.brand?.name.charAt(0).toUpperCase() + car?.brand?.name.slice(1).toLowerCase()} {car?.modelName && car?.modelName.charAt(0).toUpperCase() + car?.modelName.slice(1).toLowerCase()} Leasing
+                      <h1 className="font-figtree font-semibold text-[#000] text-2xl lg:text-3xl leading-8">
+                        {car?.brand?.name} {car?.modelName} LEASING
                       </h1>
-                      <p className="font-figtree font-normal text-[#4a5565] text-lg leading-5">
+                      <p className="font-figtree font-normal text-[#4a5565] text-md lg:text-xl leading-5">
                         Drive your business forward with smarter leasing and
                         finance
                       </p>
@@ -293,7 +297,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
               <Card className="w-full border-solid shadow-shadow-sm">
                 <CardContent className="flex flex-col items-start gap-4 sm:gap-6 p-4 sm:p-6">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
-                    <h2 className="font-figtree font-medium text-[#c70036] text-2xl leading-7">
+                    <h2 className="font-figtree font-medium text-[#000] text-2xl leading-7">
                       See All Available Variants Below
                     </h2>
                   </div>
@@ -325,9 +329,104 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                   </div>
                 </CardContent>
               </Card>
+
+               <div className="flex lg:hidden flex-col items-start gap-6 w-full lg:w-[30%]">
+              <Card className="w-full border-solid shadow-shadow-sm bg-white">
+                <CardContent className="flex flex-col items-start gap-9 p-4">
+                  <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
+                    <h2 className="flex-1 font-figtree font-medium text-[#000] text-xl leading-7">
+                      Compare Payment Frequency Options
+                    </h2>
+                  </div>
+  
+                  <div className="flex flex-col items-start gap-5 w-full">
+                    <ToggleGroup
+                      type="single"
+                      value={selectedFrequency}
+                      onValueChange={(value) => {
+                        if (value) setSelectedFrequency(value);
+                      }}
+                      defaultValue="weekly"
+                      className="flex flex-row items-center gap-px w-full bg-white rounded overflow-hidden border border-solid shadow-shadow-xs"
+                    >
+                      {paymentFrequencies.map((freq) => (
+                        <ToggleGroupItem
+                          key={freq.id}
+                          value={freq.id}
+                          className={`flex-1 w-full sm:w-auto gap-1.5 px-4 py-2.5 ${
+                            selectedFrequency === freq.id
+                              ? "bg-[#194170] text-white border-r border-solid shadow-shadow-xs"
+                              : "border-r border-solid"
+                          } data-[state=on]:bg-[#194170] data-[state=on]:text-white`}
+                        >
+                          <span className="font-medium text-sm leading-5 font-figtree">
+                            {freq.label}
+                          </span>
+                        </ToggleGroupItem>
+                      ))}
+                    </ToggleGroup>
+  
+                    <div className="flex flex-col items-start gap-2 w-full">
+                      <div className="flex flex-col justify-start items-start gap-3 sm:gap-6 w-full">
+                        <div className="flex items-end gap-1.5">
+                          <span className="font-figtree font-semibold text-[#c70036] text-4xl tracking-[0.80px] leading-9">
+                            ${selectedFrequency === "weekly" 
+                              ? selectedVariant?.weeklyPrice 
+                              : selectedFrequency === "fortnightly" 
+                                ? selectedVariant?.fortnightlyPrice 
+                                : selectedVariant?.monthlyPrice || "--"}
+                          </span>
+                          <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-4">
+                            PER {selectedFrequency.toUpperCase().replace("LY", "")}LY*
+                          </span>
+                        </div>
+                        {car?.tags &&  car?.tags.length && <Badge className="bg-[#c70036] text-white px-1.5 py-0.5 h-auto">
+                          <span className="font-medium text-sm text-center leading-4 font-figtree">
+                             {car?.tags?.[0]}
+                          </span>
+                        </Badge>}
+                      </div>
+  
+                      <div className="flex items-start gap-2 w-full">
+                        <span className="font-figtree font-normal text-[#6a7282] text-sm leading-5">
+                          Based on estimated drive-away price*
+                        </span>
+                        <InfoIcon className="w-5 h-5" />
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div className="flex items-center gap-6 w-full">
+                    <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 flex-1 w-full">
+                      <Button 
+                        className="h-auto flex-1 lg:w-auto w-full gap-1.5 px-6 py-3.5 bg-[#194170] rounded shadow-shadow-xs"
+                        onClick={() => setQuoteDialogOpen(true)}
+                      >
+                        <span className="font-medium text-white text-base leading-6 font-figtree">
+                          Get A Quote
+                        </span>
+                        <ArrowRightIcon className="w-5 h-5 text-white" />
+                      </Button>
+  
+                      <Button
+                        variant="outline"
+                        onClick={() => window.open('tel:1300352352', '_self')}
+                        className="h-auto flex-1 lg:w-auto w-full gap-1.5 px-6 py-3.5 bg-gray-50 rounded border-solid shadow-shadow-xs"
+                      >
+                        <PhoneIcon className="w-5 h-5" />
+                        <span className="font-medium text-[#4a5565] text-base leading-6 font-figtree">
+                          1300 352 352
+                        </span>
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+  
+            </div>
   
               <Card className="w-full border-solid shadow-shadow-sm">
-                <CardContent className="flex flex-col items-start gap-4 sm:gap-6 p-4 sm:p-6 mt-[40px]">
+                <CardContent className="flex bg-white flex-col items-start gap-4 sm:gap-6 p-4 sm:p-6">
 
 
 
@@ -472,21 +571,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                               <div className="flex justify-between py-4">
                                 <span className="font-figtree text-gray-700">ANCAP Safety Rating</span>
                                 <span className="font-figtree font-medium text-right flex items-center">
-                                  {selectedVariant?.ancapRating ? selectedVariant.ancapRating : (
-                                    <>
-                                      <span className="text-yellow-500 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                          <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                          <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                                          <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                                        </svg>
-                                      </span>
-                                    </>
-                                  )}
+                                  {selectedVariant?.ancapRating ? selectedVariant.ancapRating : "N/A"}
                                 </span>
                               </div>
                               <div className="flex justify-between py-4">
@@ -520,7 +605,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
     </h3>
     
     <div className="grid grid-cols-1 gap-6 w-full">
-      <div className="flex flex-col sm:flex-row items-start gap-4">
+      <div className="flex flex-col sm:flex-row items-start gap-2 lg:gap-4 ">
         <div className="w-full sm:w-1/3">
           <h4 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
             Chattel Mortgage
@@ -533,7 +618,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
         </div>
       </div>
       
-      <div className="flex flex-col sm:flex-row items-start gap-4">
+      <div className="flex flex-col sm:flex-row items-start gap-2 lg:gap-4">
         <div className="w-full sm:w-1/3">
           <h4 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
             Finance Lease
@@ -546,7 +631,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
         </div>
       </div>
       
-      <div className="flex flex-col sm:flex-row items-start gap-4">
+      <div className="flex flex-col sm:flex-row items-start gap-2 lg:gap-4">
         <div className="w-full sm:w-1/3">
           <h4 className="font-figtree font-medium text-[#101828] text-base sm:text-lg leading-6">
             Operating Lease
@@ -752,7 +837,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
               </Card>
             </div>
   
-            <div className="flex flex-col items-start gap-6 w-full lg:w-[30%]">
+            <div className="hidden lg:flex flex-col items-start gap-6 w-full lg:w-[30%]">
               <Card className="w-full border-solid shadow-shadow-sm bg-white">
                 <CardContent className="flex flex-col items-start gap-9 p-4">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
@@ -849,8 +934,8 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                 <CardContent className="flex flex-col items-start gap-5 sm:gap-7 p-4 sm:p-6">
                   <div className="flex flex-col items-start gap-2 w-full">
                     <div className="flex flex-col items-start justify-center gap-2 pt-0 pb-3 px-0 border-b border-solid w-full">
-                      <h2 className="font-figtree font-medium text-[#c70036] text-2xl leading-7">
-                        Flexible commerical leasing &amp; fiance solutions
+                      <h2 className="font-figtree font-medium text-[#000] text-2xl leading-7">
+                        Flexible commerical leasing &amp; finance solutions
                       </h2>
                     </div>
                   </div>
@@ -872,6 +957,36 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                 </CardContent>
               </Card>
             </div>
+
+            <div className="flex lg:hidden flex-col items-start gap-6 w-full lg:w-[30%]">
+              <Card className="w-full border-solid shadow-shadow-sm bg-white">
+                <CardContent className="flex flex-col items-start gap-5 sm:gap-7 p-4 sm:p-6">
+                  <div className="flex flex-col items-start gap-2 w-full">
+                    <div className="flex flex-col items-start justify-center gap-2 pt-0 pb-3 px-0 border-b border-solid w-full">
+                      <h2 className="font-figtree font-medium text-[#000] text-2xl leading-7">
+                        Flexible commerical leasing &amp; finance solutions
+                      </h2>
+                    </div>
+                  </div>
+  
+                  <div className="flex flex-col items-start gap-4 w-full">
+                    {benefits.map((benefit, index) => (
+                      <div key={index} className="flex items-center gap-4 w-full">
+                        <div className="flex w-9 h-9 items-center justify-center bg-gray-100 rounded">
+                          <CheckCircle2Icon
+                           fill="#007A55"
+                          className="w-5 h-5 text-[#fff]" />
+                        </div>
+                        <span className="font-figtree font-medium text-[#101828] text-md leading-5">
+                          {benefit.text}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
           </div>
         </div>
   
@@ -888,10 +1003,13 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
             </div>
             <Button
               variant="outline"
+              onClick={() => {
+                router.push(`/services/consultation`);
+              }}
               className="h-auto w-full md:w-60 gap-1.5 px-4 py-2.5 bg-gray-50 rounded border-solid shadow-shadow-xs"
             >
               <span className="font-medium text-[#4a5565] text-sm leading-5 font-figtree">
-                Get A Quote
+              Free Consultation
               </span>
               <ArrowRightIcon className="w-4 h-4" />
             </Button>
@@ -992,7 +1110,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
           </div>
         </div>
   
-            <div className="flex flex-col w-full items-start gap-12">
+            <div className="flex flex-col w-full items-start gap-12 mt-[40px] mb-[40px]">
                <div className="flex flex-col items-center gap-4 w-full text-center">
                  <h2 className="font-semibold text-[#101828] text-3xl md:text-4xl leading-tight max-w-3xl mx-auto">
                    From Quote to Keys: Your Simple 4-Step Leasing Process
@@ -1044,6 +1162,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                   actionLabel="View all"
                   onAction={()=>{}}
                   cars={similarCars}
+                  showMultipleColumns={true}
                   getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
                   renderCard={(offer: any) => (
                             <VehicleCard

@@ -245,7 +245,7 @@ const LimitedTime = (): JSX.Element => {
               <span className="font-figtree font-medium text-[#194170] text-sm tracking-[0] leading-5">
                 {totalItems} limited time deals available
               </span>
-  
+{/*   
               <Select value={sortOption} onValueChange={setSortOption}>
                 <SelectTrigger className="w-full md:w-auto bg-white rounded border border-solid shadow-shadow-xs h-9 px-3">
                   <div className="flex items-center gap-1">
@@ -264,7 +264,7 @@ const LimitedTime = (): JSX.Element => {
                   <SelectItem value="price-low">Price: Low to High</SelectItem>
                   <SelectItem value="price-high">Price: High to Low</SelectItem>
                 </SelectContent>
-              </Select>
+              </Select> */}
             </div>
           </div>
   
@@ -275,7 +275,7 @@ const LimitedTime = (): JSX.Element => {
                 image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
                 name={vehicle.name}
                 type={vehicle.type}
-                fuel={vehicle.fuel}
+                fuel={vehicle.selectedVariant?.variant}
                 price={vehicle.price}
                 router={router}
                 id={vehicle.id}

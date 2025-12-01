@@ -1,8 +1,11 @@
 
-  import React from "react";
-  import Image from "next/image";
-
-  import BaloonImage from "../../../assets/images/baloon-package-flying.png";
+'use client';
+import React from "react";
+import Image from "next/image";
+import BaloonImage from "../../../assets/images/baloon-package-flying.png";
+import { ArrowRightIcon } from "lucide-react";
+import { Button } from "../button";
+import { useRouter } from "next/navigation";
 
 
   
@@ -14,15 +17,7 @@
       title: "How It Works",
       content: (
         <>
-          A <span className="font-bold">fixed-term, fixed-cost rental</span>{" "}
-          arrangement. The{" "}
-          <span className="font-bold">Lessor owns the vehicle</span>, and you
-          simply rent it for the agreed term. At the end of the lease, you{" "}
-          <span className="font-bold">hand the vehicle back</span> - the{" "}
-          <span className="font-bold">
-            Lessor takes on the residual value risk
-          </span>
-          , so you don&apos;t have to.
+         The lender advances funds (often up to 90% of the invoice value) against your accounts receivable.Your business uses these funds to pay suppliers or cover expenses, and once your customer pays the invoice, the advance is repaid, minus an agreed fee. Fees are typically structured as a discount rate based on the invoice amount.
         </>
       ),
       hasBorder: true,
@@ -33,38 +28,16 @@
     {
       id: "financial-tax",
       icon: "../../../assets/images/svg/chart-mixed.svg",
-      title: "Financial & Tax Benefits",
+      title: "Financial & Liquidity Benefits",
       content: (
         <>
-          Operating leases are{" "}
-          <span className="font-bold">often off-balance sheet</span>, offering{" "}
-          <span className="font-bold">low liability impact</span> under certain
-          AASB 16 conditions.
-          <br />
-          <span className="font-bold">Lease payments</span>: Generally{" "}
-          <span className="font-bold">100% tax-deductible</span> as an operating
-          expense.
-          <br />
-          <span className="font-bold">GST</span>: Claimed progressively on each
-          monthly payment.
-          <br />
-          <span className="font-bold">Accounting</span>: Simplifies reporting and
-          budgeting with predictable monthly costs.
-        </>
-      ),
-    },
-    {
-      id: "maintenance",
-      icon: "../../../assets/images/svg/tools.svg",
-      title: "Maintenance & Management",
-      content: (
-        <>
-          Choose a <span className="font-bold">Full-Service Lease</span> and let
-          the Lessor handle everything — from{" "}
-          <span className="font-bold">
-            registration, servicing, and tyres to fuel management
-          </span>
-          . This keeps your business running smoothly without the admin burden.
+        <ul className="flex flex-col items-start p-2 list-disc">
+          <li>Immediate working capital: Turn outstanding invoices into instant cash.</li>
+          <li>Cash flow stability: No need to wait 30–90 days for customer payments.</li>
+          <li>Flexible use: Ideal for paying suppliers, covering payroll, or operating expenses.</li>
+          <li>Cost-effective: Pay only a small fee based on the invoice value — no long-term debt.</li>
+          <li>Scalable: The more you sell, the more working capital you can unlock.</li>
+        </ul>
         </>
       ),
     },
@@ -74,18 +47,13 @@
       title: "Who It's Best For",
       content: (
         <>
-          Perfect for businesses that want to:
-          <br />
-          Maintain <span className="font-bold">cash flow flexibility</span>
-          <br />
-          Enjoy{" "}
-          <span className="font-bold">predictable, fixed monthly costs</span>
-          <br />
-          Keep{" "}
-          <span className="font-bold">debt and assets off the balance sheet</span>
-          <br />
-          <span className="font-bold">Turn over fleets frequently</span> without
-          worrying about resale value
+        Perfect for businesses that:
+         <ul className="flex flex-col items-start p-2 list-disc">
+          <li>Offer extended payment terms to clients</li>
+          <li>Experience cash flow gaps between invoicing and payment</li>
+          <li>Want to maintain smooth operations without taking on new debt</li>
+          <li>Rely on large or slow-paying corporate customers</li>
+        </ul>
         </>
       ),
     },
@@ -98,41 +66,45 @@
       title: "Key Takeaway",
       content: (
         <>
-          An <span className="font-bold">Operating Lease</span> gives you{" "}
-          <span className="font-bold">
-            cost control, flexibility, and peace of mind
-          </span>{" "}
-          - all while keeping your vehicles up-to-date and your balance sheet
-          light.
+        Invoice Finance helps your business turn sales into cash faster, improving liquidity and stability without taking on extra loans — ideal for growing businesses that want consistent cash flow.
         </>
       ),
     },
   ];
   
-  export const MainContentSection = (): JSX.Element => {
+  export const InvoiceFinance = (): JSX.Element => {
+    const router = useRouter();
     return (
-      <section id="operating-lease" className="flex flex-col w-full items-center px-0 py-24 bg-white">
+      <section id="invoice-finance" className="flex flex-col w-full items-center px-0 py-24 bg-white">
         <div className="gap-16 flex max-w-[1280px] w-full items-start px-4">
           <div className="flex flex-col w-full max-w-[650px] items-start gap-8">
             <div className="flex flex-col items-start gap-4 w-full">
               <div className="flex flex-col items-start gap-3 w-full">
                 <h1 className="flex items-start justify-start w-full font-figtree font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
-                  Operating Lease
+                  Invoice Finance 
                 </h1>
   
                 <h2 className="flex items-start justify-start w-full font-figtree font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
-                  Minimal Risk. Fixed Budgeting.
+                  Unlock Cash Flow from Unpaid Invoices
                 </h2>
               </div>
   
               <p className="w-full font-figtree font-normal text-base text-[#101828] leading-6 tracking-[0]">
-                A simple rental agreement where the{" "}
-                <span className="font-bold">Lessor retains ownership.</span> You
-                pay a <span className="font-bold">fixed monthly fee,</span> which
-                can include <span className="font-bold">full-service costs</span>{" "}
-                (maintenance, registration, fuel, tyres, etc.), offering
-                predictable budgeting and minimal risk.
+               Lets your business access immediate cash by using unpaid customer invoices as collateral. It’s an effective way to bridge cash flow gaps and keep operations running smoothly while waiting for clients to pay.
               </p>
+
+   <Button
+            onClick={() => {
+              router.push("/services/consultation");
+            }}
+            className="inline-flex h-auto items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+              <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
+                Free Consultation
+              </span>
+              <ArrowRightIcon className="w-4 h-4 text-white" />
+            </Button>
+
+
             </div>
   
             <div className="flex flex-col items-start gap-8 px-0 py-8 w-full border-t border-b border-border">
@@ -150,9 +122,9 @@
                           {section.title}
                         </h3>
   
-                        <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                        <div className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                           {section.content}
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -175,9 +147,9 @@
                           {section.title}
                         </h3>
   
-                        <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                        <div className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                           {section.content}
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -200,9 +172,9 @@
                           {section.title}
                         </h3>
   
-                        <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                        <div className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                           {section.content}
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>

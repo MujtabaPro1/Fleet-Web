@@ -14,15 +14,7 @@
       title: "How It Works",
       content: (
         <>
-          A <span className="font-bold">fixed-term, fixed-cost rental</span>{" "}
-          arrangement. The{" "}
-          <span className="font-bold">Lessor owns the vehicle</span>, and you
-          simply rent it for the agreed term. At the end of the lease, you{" "}
-          <span className="font-bold">hand the vehicle back</span> - the{" "}
-          <span className="font-bold">
-            Lessor takes on the residual value risk
-          </span>
-          , so you don&apos;t have to.
+         The lender advances funds to pay your local or overseas suppliers for inventory or goods. Once your customer pays your business, the advance is repaid, along with any interest charged on the funded amount. This structure allows you to bridge the funding gap between buying and selling - ensuring a steady flow of goods and capital.
         </>
       ),
       hasBorder: true,
@@ -33,38 +25,16 @@
     {
       id: "financial-tax",
       icon: "../../../assets/images/svg/chart-mixed.svg",
-      title: "Financial & Tax Benefits",
+      title: "Financial & Liquidity Benefits",
       content: (
         <>
-          Operating leases are{" "}
-          <span className="font-bold">often off-balance sheet</span>, offering{" "}
-          <span className="font-bold">low liability impact</span> under certain
-          AASB 16 conditions.
-          <br />
-          <span className="font-bold">Lease payments</span>: Generally{" "}
-          <span className="font-bold">100% tax-deductible</span> as an operating
-          expense.
-          <br />
-          <span className="font-bold">GST</span>: Claimed progressively on each
-          monthly payment.
-          <br />
-          <span className="font-bold">Accounting</span>: Simplifies reporting and
-          budgeting with predictable monthly costs.
-        </>
-      ),
-    },
-    {
-      id: "maintenance",
-      icon: "../../../assets/images/svg/tools.svg",
-      title: "Maintenance & Management",
-      content: (
-        <>
-          Choose a <span className="font-bold">Full-Service Lease</span> and let
-          the Lessor handle everything — from{" "}
-          <span className="font-bold">
-            registration, servicing, and tyres to fuel management
-          </span>
-          . This keeps your business running smoothly without the admin burden.
+        <ul className="flex flex-col items-start p-2 list-disc">
+          <li>End-to-end trade support: Finance the full cycle of buying, shipping, and selling goods.</li>
+          <li>Improved cash flow: Keep operations moving without tying up working capital.</li>
+          <li>Interest efficiency: Pay interest only on the amount advanced and for the duration used.</li>
+          <li>Inventory control: Maintain stock availability and meet demand without financial strain.</li>
+          <li>Risk management: Helps mitigate inventory risk and foreign exchange exposure in cross-border trade.</li>
+        </ul>
         </>
       ),
     },
@@ -74,18 +44,13 @@
       title: "Who It's Best For",
       content: (
         <>
-          Perfect for businesses that want to:
-          <br />
-          Maintain <span className="font-bold">cash flow flexibility</span>
-          <br />
-          Enjoy{" "}
-          <span className="font-bold">predictable, fixed monthly costs</span>
-          <br />
-          Keep{" "}
-          <span className="font-bold">debt and assets off the balance sheet</span>
-          <br />
-          <span className="font-bold">Turn over fleets frequently</span> without
-          worrying about resale value
+          Ideal for businesses that:
+         <ul className="flex flex-col items-start p-2 list-disc">
+          <li>Import or export goods and need supplier payment flexibility</li>
+          <li>Experience longer trade cycles between purchase and customer payment</li>
+          <li>Want to secure stock without depleting operating funds</li>
+          <li>Face currency or timing risks in international transactions</li>
+        </ul>
         </>
       ),
     },
@@ -98,12 +63,7 @@
       title: "Key Takeaway",
       content: (
         <>
-          An <span className="font-bold">Operating Lease</span> gives you{" "}
-          <span className="font-bold">
-            cost control, flexibility, and peace of mind
-          </span>{" "}
-          - all while keeping your vehicles up-to-date and your balance sheet
-          light.
+        Trade Finance provides targeted short-term funding for global or domestic trade - helping you manage supplier payments, inventory flow, and currency risk while protecting your core working capital.
         </>
       ),
     },
@@ -111,27 +71,22 @@
   
   export const MainContentSection = (): JSX.Element => {
     return (
-      <section id="operating-lease" className="flex flex-col w-full items-center px-0 py-24 bg-white">
+      <section id="trade-finance" className="flex flex-col w-full items-center px-0 py-24 bg-gray-50">
         <div className="gap-16 flex max-w-[1280px] w-full items-start px-4">
           <div className="flex flex-col w-full max-w-[650px] items-start gap-8">
             <div className="flex flex-col items-start gap-4 w-full">
               <div className="flex flex-col items-start gap-3 w-full">
                 <h1 className="flex items-start justify-start w-full font-figtree font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
-                  Operating Lease
+                  Trade Finance
                 </h1>
   
                 <h2 className="flex items-start justify-start w-full font-figtree font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
-                  Minimal Risk. Fixed Budgeting.
+                  Bridge the Gap in Domestic & International Trade
                 </h2>
               </div>
   
               <p className="w-full font-figtree font-normal text-base text-[#101828] leading-6 tracking-[0]">
-                A simple rental agreement where the{" "}
-                <span className="font-bold">Lessor retains ownership.</span> You
-                pay a <span className="font-bold">fixed monthly fee,</span> which
-                can include <span className="font-bold">full-service costs</span>{" "}
-                (maintenance, registration, fuel, tyres, etc.), offering
-                predictable budgeting and minimal risk.
+                A short-term working capital to help businesses pay suppliers upfront for goods while waiting for customer payments. It supports the full trade cycle - from purchasing and shipping to selling - without draining your cash reserves.
               </p>
             </div>
   
@@ -150,9 +105,9 @@
                           {section.title}
                         </h3>
   
-                        <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                        <div className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                           {section.content}
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -175,9 +130,9 @@
                           {section.title}
                         </h3>
   
-                        <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                        <div className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                           {section.content}
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -200,9 +155,9 @@
                           {section.title}
                         </h3>
   
-                        <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                        <div className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                           {section.content}
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>

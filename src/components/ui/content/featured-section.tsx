@@ -12,6 +12,7 @@ const financeOptions = [
       "Optional full-service management.",
       "Keeps debt off the balance sheet.",
     ],
+    url: 'operating-lease'
   },
   {
     title: "Finance Lease",
@@ -21,6 +22,7 @@ const financeOptions = [
       "Asset recorded on balance sheet.",
       "Option to purchase at lease end.",
     ],
+    url: 'finance-lease'
   },
   {
     title: "Chattel Mortgage",
@@ -30,6 +32,7 @@ const financeOptions = [
       "Tax-deductible interest and depreciation.",
       "Ideal for cash-based businesses.",
     ],
+    url: 'chattel-mortgage'
   },
 ];
 
@@ -38,7 +41,7 @@ export const FeaturesSection = ({ title, description, subDescription }: { title:
     <section className="pt-44 pb-24 px-0 bg-gray-50 flex flex-col w-full items-center">
       <div className="flex flex-col gap-6 w-full max-w-[1280px] lg:px-4 px-0">
         <Card className="shadow-shadow-sm">
-          <CardContent className="flex flex-col items-start lg:items-center gap-5 p-8">
+          <CardContent className="flex flex-col items-start lg:items-center gap-5 p-8  bg-white">
             <div className="flex flex-col items-start lg:items-center gap-2 w-full">
               <h2 className="font-figtree font-semibold text-[#101828] text-2xl tracking-[-0.80px] leading-6">
                 {title}
@@ -79,7 +82,14 @@ export const FeaturesSection = ({ title, description, subDescription }: { title:
                   </div>
                 </div>
 
-                <Button className="h-auto inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] hover:bg-[#194170]/90 rounded shadow-shadow-xs">
+                <Button 
+                onClick={()=>{
+                  window.scrollTo({
+                    top: document.getElementById(option.url)?.offsetTop,
+                    behavior: "smooth",
+                  });
+                }}
+                className="h-auto inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] hover:bg-[#194170]/90 rounded shadow-shadow-xs">
                   <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
                     Learn more
                   </span>

@@ -32,7 +32,7 @@ const topCards = [
       "Flexible solutions to help you acquire and manage your fleet with ease.",
     links: [
       { text: "Explore options", href: "/products/fleet-finance" },
-      { text: "Free fleet consultation", href: "/products/fleet-finance" },
+      { text: "Free fleet consultation", href: "/services/consultation" },
     ],
   },
   {
@@ -75,7 +75,7 @@ const footerColumns = [
       "/products/fleet-finance",
       "/products/fleet-finance",
       "/products/fleet-finance",
-      "/products/fleet-finance",
+      "/services/consultation",
     ]
   },
   {
@@ -237,12 +237,16 @@ export const SiteFooterSection = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="flex flex-col items-start gap-5 pt-8 pb-0 px-0 w-full border-t border-gray-100">
-          <div className="w-full font-figtree font-normal text-[#4a5565] text-sm sm:text-base text-center sm:tracking-[0] leading-5 sm:leading-6 [font-style:normal]">
-            © {new Date().getFullYear()} Fleet Leasing Australia. All rights reserved.
+        <div className="w-full border-t border-gray-100 pt-8">
+          <p className="text-[#4A5565]">All figures are based on indicative business finance or operating lease calculations arranged through Fleet Leasing Australia for approved ABN holders and company applicants. Pricing is based on a no-deposit, drive-away structure that includes GST, Stamp Duty, and 1 year Registration, over a 60-month term with a 30% residual value. Calculations are derived from business fleet pricing with unlimited kilometres and assume a standard manufacturer specification without optional extras or accessories. Repayments are calculated using current market interest rates and may vary depending on individual lender assessment, applicant credit profile, vehicle selection, and any applicable fees and charges. Vehicle pricing is indicative only and subject to vehicle availability, location, and final dealer quotation. All new vehicles are supplied and delivered through accredited national dealer partners, subject to stock availability and lead times. Trade-ins are accepted and subject to independent valuation. Vehicle images are for illustration purposes only and may differ from the actual model offered. Information, pricing, and offers displayed on this website are current at the time of publication and are subject to change without notice. All applications for credit are subject to lender eligibility and credit approval criteria, and terms, conditions, fees, and charges apply. The information provided is of a general nature only and does not constitute financial or tax advice. It does not take into account your personal objectives, financial situation, or needs. We recommend seeking independent financial and taxation advice before making any decision regarding a finance or leasing product. Fleet Leasing Australia may receive financial benefits from lenders, insurers, or suppliers in connection with its products and services.</p>
+        </div>
+
+        <div className="flex flex-row justify-between pt-8 pb-0 px-0 w-full border-t border-gray-100">
+          <div className="w-full font-figtree font-normal text-[#4A5565] text-sm sm:text-base text-start sm:tracking-[0] leading-5 sm:leading-6 [font-style:normal]">
+            © FLA Group Holdings Pty Ltd T/A Fleet Leasing Australia (ABN 74 692 369 565)
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+          <div className="flex flex-col sm:flex-row items-center justify-end gap-4 w-full">
             <Button
               variant="link"
               onClick={() => router.push("/privacy-policy")}

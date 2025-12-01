@@ -1,6 +1,10 @@
+'use client';
 import React from "react";
 import Image from "next/image";
 import BaloonImage from "../../../assets/images/baloon-package-flying.png";
+import { ArrowRightIcon } from "lucide-react";
+import { Button } from "../button";
+import { useRouter } from "next/navigation";
 
 const sections = [
   {
@@ -8,84 +12,46 @@ const sections = [
     title: "How It Works",
     content: (
       <>
-        Under a Finance Lease, the Lessor owns the vehicle during the lease
-        term. Your business (the Lessee) makes regular payments and has the{" "}
-        <span className="font-bold">option to buy the vehicle</span> by paying
-        the <span className="font-bold">residual value</span> at the end of the
-        agreement.
-        <br />
-        You <span className="font-bold">assume the residual risk</span>, meaning
-        your business is responsible for the final value at lease end.
+        Your business borrows funds to buy, build, or refinance a commercial property. The loan is secured against the property, and interest is charged on the outstanding balance, typically at lower rates than unsecured loans.Loan terms are often longer and larger than standard business loans, reflecting the asset’s value and long-term nature.
       </>
     ),
   },
 ];
 
 const benefitsSection = [
-  {
-    icon: "../../../assets/images/svg/chart-mixed.svg",
-    title: "Financial & Tax Benefits",
-    content: (
-      <>
-        Finance leases are <span className="font-bold">on-balance sheet</span>,
-        meaning the <span className="font-bold">asset and liability </span>are
-        both recorded per AASB 16.
-        <br />
-        <span className="font-bold">GST</span>: Claimed progressively on each
-        monthly payment.
-        <br />
-        <span className="font-bold">Tax deductions</span>: You can claim the{" "}
-        <span className="font-bold">interest component</span> of the lease and{" "}
-        <span className="font-bold">vehicle depreciation</span> as deductible
-        expenses.
-        <br />
-        <span className="font-bold">Payments</span>: Lower regular repayments
-        help maintain cash flow while preserving long-term ownership
-        flexibility.
-      </>
-    ),
-  },
-  {
-    icon: "../../../assets/images/svg/tools.svg",
-    title: "Maintenance & Management",
-    content: (
-      <>
-        Your business (the <span className="font-bold">Lessee</span>) manages
-        all{" "}
-        <span className="font-bold">
-          maintenance, registration, and running costs
-        </span>
-        , giving you full control over the asset&apos;s condition and
-        performance.
-      </>
-    ),
-  },
-  {
-    icon: "../../../assets/images/svg/users.svg",
-    title: "Who It's Best For",
-    content: (
-      <>
-        Ideal for businesses that:
-        <br />
-        Want{" "}
-        <span className="font-bold">
-          lower monthly payments
-          <br />
-        </span>
-        Prefer <span className="font-bold">flexibility</span> with the{" "}
-        <span className="font-bold">option to own</span> the asset later
-        <br />
-        Are comfortable <span className="font-bold">managing maintenance</span>{" "}
-        and{" "}
-        <span className="font-bold">
-          residual risk
-          <br />
-        </span>
-        Want to <span className="font-bold">build equity</span> in their
-        business assets over time
-      </>
-    ),
-  },
+    {
+      id: "financial-tax",
+      icon: "../../../assets/images/svg/chart-mixed.svg",
+      title: "Financial & Liquidity Benefits",
+      content: (
+        <>        
+        <ul className="flex flex-col items-start p-2 list-disc">
+          <li>Lower interest rates: Secured against property, often cheaper than unsecured options.</li>
+          <li>Longer loan terms: Flexible repayment periods suited to property investment cycles.</li>
+          <li>Asset ownership: Build equity through ownership rather than rent.</li>
+          <li>Refinancing options: Consolidate or restructure existing commercial property loans.</li>
+          <li>Investment potential: Acquire property for business use or rental income generation.</li>
+        </ul>
+        </>
+
+      ),
+    },
+   {
+      id: "who-its-for",
+      icon: "../../../assets/images/svg/users.svg",
+      title: "Who It's Best For",
+      content: (
+        <>
+                Ideal for businesses that:
+         <ul className="flex flex-col items-start p-2 list-disc">
+          <li>Want to own their business premises instead of leasing</li>
+          <li>Plan to develop or expand commercial real estate assets</li>
+          <li>Seek long-term investment opportunities in property</li>
+          <li>Need to refinance existing commercial mortgages for better term</li>
+        </ul>
+        </>
+      ),
+    },
 ];
 
 const keyTakeaway = {
@@ -93,40 +59,45 @@ const keyTakeaway = {
   title: "Key Takeaway",
   content: (
     <>
-      A <span className="font-bold">Finance Lease</span> combines{" "}
-      <span className="font-bold">
-        lower payments, ownership potential, and tax advantages
-      </span>{" "}
-      - perfect for businesses that want flexibility today and ownership
-      tomorrow.
+     A Commercial Property Loan enables your business to own, develop, or invest in real estate while benefiting from competitive rates, long-term repayment options, and asset-backed security.
     </>
   ),
 };
 
 export const ServicesSection = (): JSX.Element => {
+  const router = useRouter();
+
   return (
-    <section id="finance-lease" className="px-0 py-24 bg-gray-50 flex flex-col w-full items-center">
+    <section id="commercial-property-loan" className="px-0 py-24 bg-white flex flex-col w-full items-center">
       <div className="gap-16 flex max-w-[1280px] w-full items-start px-4">
         <div className="flex flex-col flex-1 items-start gap-8">
           <div className="gap-4 flex flex-col items-start w-full">
             <div className="flex flex-col gap-3 w-full items-start">
               <h2 className="flex items-start justify-start w-full font-figtree font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
-                Finance Lease
+                Commercial Property Loan
               </h2>
 
               <p className="flex items-start justify-start w-full font-figtree font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
-                Flexibility with an Option to Own
+                Finance for Business Premises & Property Investment
               </p>
             </div>
 
+
             <p className="text-[#101828] leading-6 w-full font-figtree font-normal text-base tracking-[0]">
-              A rental-style financing method with a{" "}
-              <span className="font-bold">mandatory residual value</span> set
-              within <span className="font-bold">ATO guidelines</span>. This
-              structure keeps your monthly payments lower while giving you the{" "}
-              <span className="font-bold">option to purchase</span> the vehicle
-              at the end of the term.
+              A secured term loan designed for the purchase, development, or refinancing of commercial real estate such as warehouses, offices, or retail spaces. The property itself serves as the collateral, offering long-term stability and growth potential.
             </p>
+
+            <Button
+            onClick={() => {
+              router.push("/services/consultation");
+            }}
+            className="inline-flex h-auto items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+              <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
+                Free Consultation
+              </span>
+              <ArrowRightIcon className="w-4 h-4 text-white" />
+            </Button>
+
           </div>
 
           <div className="flex flex-col items-start gap-8 px-0 py-8 w-full border-t border-b border-gray-200">
@@ -146,9 +117,9 @@ export const ServicesSection = (): JSX.Element => {
                       {section.title}
                     </h3>
 
-                    <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                    <div className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                       {section.content}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -172,9 +143,9 @@ export const ServicesSection = (): JSX.Element => {
                       {section.title}
                     </h3>
 
-                    <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                    <div className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                       {section.content}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -197,9 +168,9 @@ export const ServicesSection = (): JSX.Element => {
                     {keyTakeaway.title}
                   </h3>
 
-                  <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                  <div className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                     {keyTakeaway.content}
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>

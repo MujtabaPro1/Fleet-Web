@@ -1,3 +1,4 @@
+'use client';
 import { ArrowRightIcon, CheckCircleIcon } from "lucide-react";
 import React from "react";
 import { Button } from "../button";
@@ -12,6 +13,7 @@ const workingCapitalSolutions = [
       "Pay interest only on used funds",
       "Manage short-term cash flow",
     ],
+    url: 'overdraft-business'
   },
   {
     title: "Line of Credit",
@@ -21,6 +23,7 @@ const workingCapitalSolutions = [
       "Ideal for seasonal expenses",
       "Interest only on drawn funds",
     ],
+    url: 'line-credit'
   },
   {
     title: "Invoice Finance",
@@ -30,6 +33,7 @@ const workingCapitalSolutions = [
       "Maintain cash flow",
       "Pay suppliers on time",
     ],
+    url: 'invoice-finance'
   },
   {
     title: "Trade Finance",
@@ -39,6 +43,7 @@ const workingCapitalSolutions = [
       "Reduce inventory and currency risks",
       "Keep supply chains moving",
     ],
+    url: 'trade-finance'
   },
 ];
 
@@ -51,6 +56,7 @@ const propertyLoans = [
       "Competitive rates and flexible terms",
       "Ideal for offices, warehouses, or retail",
     ],
+    url: 'commercial-property-loan'
   },
   {
     title: "Self-Employed Residential Loan",
@@ -60,6 +66,7 @@ const propertyLoans = [
       "Fixed or variable rates",
       "Buy, build, or refinance",
     ],
+    url: 'self-employed-residential-loan'
   },
 ];
 
@@ -121,7 +128,14 @@ export const FeaturesListSection = (): JSX.Element => {
                       </div>
                     </div>
 
-                    <Button className="inline-flex h-auto items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+                    <Button 
+                    onClick={()=>{
+                      window.scrollTo({
+                        top: document.getElementById(solution.url)?.offsetTop,
+                        behavior: "smooth",
+                      });
+                    }}
+                    className="inline-flex h-auto items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
                       <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
                         Learn more
                       </span>
@@ -167,7 +181,14 @@ export const FeaturesListSection = (): JSX.Element => {
                       </div>
                     </div>
 
-                    <Button className="inline-flex h-auto items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+                    <Button
+                    onClick={()=>{
+                      window.scrollTo({
+                        top: document.getElementById(loan.url)?.offsetTop,
+                        behavior: "smooth",
+                      });
+                    }}
+                    className="inline-flex h-auto items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
                       <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
                         Learn more
                       </span>

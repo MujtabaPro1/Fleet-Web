@@ -1,14 +1,14 @@
 import { ArrowRightIcon, HeartIcon, MenuIcon, PhoneIcon, X } from "lucide-react";
 import React, { useState } from "react";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const navigationItems = [
   { label: "Limited-time deals", link: "/deals/limited-time" },
   { label: "Popular models", link: "/vehicles/popular-models" },
   { label: "Explore by brands", link: "/explore" },
   { label: "Explore by body type", link: "/explore" },
-  { label: "Leasing & Finance Options", link: "/products/fleet-finance" },
+  { label: "Fleet Finance & Leasing", link: "/products/fleet-finance" },
   { label: "Business Finance", link: "/products/business-finance" },
   { label: "About us", link: "/about" },
 ];
@@ -16,6 +16,7 @@ const navigationItems = [
 export const NavigationBarSection = (): JSX.Element => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   return (
     <nav className="flex flex-col items-start w-full border-b relative">
       <div className="flex flex-col items-center justify-center p-4 bg-white border-b w-full">
@@ -46,7 +47,7 @@ export const NavigationBarSection = (): JSX.Element => {
             onClick={()=>{
               router.push('/services/consultation')
             }}
-            className="mr-[50px] lg:ml-0 inline-flex items-center justify-center gap-1.5 px-3 py-2 h-auto bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+            className="mr-[50px] lg:mr-0 lg:ml-0 inline-flex items-center justify-center gap-1.5 px-3 py-2 h-auto bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
               <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5 whitespace-nowrap">
                 Free consultation
               </span>
@@ -85,7 +86,7 @@ export const NavigationBarSection = (): JSX.Element => {
                   setMobileMenuOpen(false)
                 }}
               >
-                <span className="font-medium text-[#4a5565] text-base">
+                <span className={`font-medium ${pathname === item.link ? 'text-[#194170] font-semibold' : 'text-[#4a5565]'} text-base`}>
                   {item.label}
                 </span>
               </button>
@@ -119,7 +120,7 @@ export const NavigationBarSection = (): JSX.Element => {
                 onClick={() => router.push(item.link)}
                 className="flex items-center gap-1.5 rounded-md cursor-pointer hover:opacity-80 transition-opacity"
               >
-                <span className="font-figtree font-medium text-[#4a5565] text-xs md:text-sm tracking-[0] leading-5 whitespace-nowrap">
+                <span className={`font-figtree font-medium ${pathname === item.link ? 'text-[#194170] font-semibold' : 'text-[#4a5565]'} text-xs md:text-sm tracking-[0] leading-5 whitespace-nowrap`}>
                   {item.label}
                 </span>
               </button>

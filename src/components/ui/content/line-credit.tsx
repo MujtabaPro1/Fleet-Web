@@ -1,6 +1,10 @@
+'use client';
 import React from "react";
 import Image from "next/image";
 import BaloonImage from "../../../assets/images/baloon-package-flying.png";
+import { ArrowRightIcon } from "lucide-react";
+import { Button } from "../button";
+import { useRouter } from "next/navigation";
 
 const sections = [
   {
@@ -8,84 +12,47 @@ const sections = [
     title: "How It Works",
     content: (
       <>
-        Under a Finance Lease, the Lessor owns the vehicle during the lease
-        term. Your business (the Lessee) makes regular payments and has the{" "}
-        <span className="font-bold">option to buy the vehicle</span> by paying
-        the <span className="font-bold">residual value</span> at the end of the
-        agreement.
-        <br />
-        You <span className="font-bold">assume the residual risk</span>, meaning
-        your business is responsible for the final value at lease end.
+       Unlike a traditional loan, a Line of Credit gives your business ongoing access to funds through a separate revolving account.
+You can draw funds when needed, repay, and draw again without reapplying - giving you control over how and when you use your capital.Interest is charged only on the amount drawn, not the total facility limit.
       </>
     ),
   },
 ];
 
 const benefitsSection = [
-  {
-    icon: "../../../assets/images/svg/chart-mixed.svg",
-    title: "Financial & Tax Benefits",
-    content: (
-      <>
-        Finance leases are <span className="font-bold">on-balance sheet</span>,
-        meaning the <span className="font-bold">asset and liability </span>are
-        both recorded per AASB 16.
-        <br />
-        <span className="font-bold">GST</span>: Claimed progressively on each
-        monthly payment.
-        <br />
-        <span className="font-bold">Tax deductions</span>: You can claim the{" "}
-        <span className="font-bold">interest component</span> of the lease and{" "}
-        <span className="font-bold">vehicle depreciation</span> as deductible
-        expenses.
-        <br />
-        <span className="font-bold">Payments</span>: Lower regular repayments
-        help maintain cash flow while preserving long-term ownership
-        flexibility.
-      </>
-    ),
-  },
-  {
-    icon: "../../../assets/images/svg/tools.svg",
-    title: "Maintenance & Management",
-    content: (
-      <>
-        Your business (the <span className="font-bold">Lessee</span>) manages
-        all{" "}
-        <span className="font-bold">
-          maintenance, registration, and running costs
-        </span>
-        , giving you full control over the asset&apos;s condition and
-        performance.
-      </>
-    ),
-  },
-  {
-    icon: "../../../assets/images/svg/users.svg",
-    title: "Who It's Best For",
-    content: (
-      <>
-        Ideal for businesses that:
-        <br />
-        Want{" "}
-        <span className="font-bold">
-          lower monthly payments
-          <br />
-        </span>
-        Prefer <span className="font-bold">flexibility</span> with the{" "}
-        <span className="font-bold">option to own</span> the asset later
-        <br />
-        Are comfortable <span className="font-bold">managing maintenance</span>{" "}
-        and{" "}
-        <span className="font-bold">
-          residual risk
-          <br />
-        </span>
-        Want to <span className="font-bold">build equity</span> in their
-        business assets over time
-      </>
-    ),
-  },
+    {
+      id: "financial-tax",
+      icon: "../../../assets/images/svg/chart-mixed.svg",
+      title: "Financial & Liquidity Benefits",
+      content: (
+        <>        
+        <ul className="flex flex-col items-start p-2 list-disc">
+          <li>Flexible access: Reuse the facility multiple times without new applications.</li>
+          <li>Interest efficiency: Pay interest only on used funds.</li>
+          <li>Cash flow control: Ideal for recurring or seasonal expenses.</li>
+          <li>Repayment flexibility: Make minimum monthly repayments on the drawn amount.</li>
+          <li>Growth support: Use for inventory purchases, marketing campaigns, or early payment discounts.</li>
+        </ul>
+        </>
+
+      ),
+    },
+   {
+      id: "who-its-for",
+      icon: "../../../assets/images/svg/users.svg",
+      title: "Who It's Best For",
+      content: (
+         <>        
+        Best suited for businesses that:
+        <ul className="flex flex-col items-start p-2 list-disc">
+          <li>Need working capital flexibility beyond an overdraft.</li>
+          <li>Face seasonal demand cycles or cash flow variations.</li>
+          <li>Want to leverage supplier discounts or strategic opportunities.</li>
+          <li>Prefer control over drawdowns and repayments.</li>
+        </ul>
+        </>
+      ),
+    },
 ];
 
 const keyTakeaway = {
@@ -93,40 +60,45 @@ const keyTakeaway = {
   title: "Key Takeaway",
   content: (
     <>
-      A <span className="font-bold">Finance Lease</span> combines{" "}
-      <span className="font-bold">
-        lower payments, ownership potential, and tax advantages
-      </span>{" "}
-      - perfect for businesses that want flexibility today and ownership
-      tomorrow.
+     A Line of Credit offers scalable, reusable funding that adapts to your business needs - giving you liquidity, flexibility, and control over your short- to medium-term finances.
     </>
   ),
 };
 
-export const ServicesSection = (): JSX.Element => {
+export const LineCredit = (): JSX.Element => {
+  const router = useRouter();
+
   return (
-    <section id="finance-lease" className="px-0 py-24 bg-gray-50 flex flex-col w-full items-center">
+    <section id="line-credit" className="px-0 py-24 bg-gray-50 flex flex-col w-full items-center">
       <div className="gap-16 flex max-w-[1280px] w-full items-start px-4">
         <div className="flex flex-col flex-1 items-start gap-8">
           <div className="gap-4 flex flex-col items-start w-full">
             <div className="flex flex-col gap-3 w-full items-start">
               <h2 className="flex items-start justify-start w-full font-figtree font-semibold text-[#194170] text-4xl tracking-[-0.40px] leading-9">
-                Finance Lease
+                Line of Credit
               </h2>
 
               <p className="flex items-start justify-start w-full font-figtree font-semibold text-[#6a7282] text-2xl tracking-[-0.40px] leading-6">
-                Flexibility with an Option to Own
+                Flexible Working Capital, On Demand
               </p>
             </div>
 
+
             <p className="text-[#101828] leading-6 w-full font-figtree font-normal text-base tracking-[0]">
-              A rental-style financing method with a{" "}
-              <span className="font-bold">mandatory residual value</span> set
-              within <span className="font-bold">ATO guidelines</span>. This
-              structure keeps your monthly payments lower while giving you the{" "}
-              <span className="font-bold">option to purchase</span> the vehicle
-              at the end of the term.
+              A revolving credit facility that provides your business with flexible access to funds up to a pre-approved limit. It’s ideal for managing seasonal expenses, inventory purchases, or taking advantage of supplier discounts.
             </p>
+
+            <Button
+            onClick={() => {
+              router.push("/services/consultation");
+            }}
+            className="inline-flex h-auto items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+              <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
+                Free Consultation
+              </span>
+              <ArrowRightIcon className="w-4 h-4 text-white" />
+            </Button>
+
           </div>
 
           <div className="flex flex-col items-start gap-8 px-0 py-8 w-full border-t border-b border-gray-200">
@@ -146,9 +118,9 @@ export const ServicesSection = (): JSX.Element => {
                       {section.title}
                     </h3>
 
-                    <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                    <div className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                       {section.content}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -172,9 +144,9 @@ export const ServicesSection = (): JSX.Element => {
                       {section.title}
                     </h3>
 
-                    <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                    <div className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                       {section.content}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -197,9 +169,9 @@ export const ServicesSection = (): JSX.Element => {
                     {keyTakeaway.title}
                   </h3>
 
-                  <p className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
+                  <div className="w-full font-figtree font-normal text-[#101828] text-base tracking-[0] leading-6">
                     {keyTakeaway.content}
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>

@@ -111,27 +111,6 @@ export const VehiclesCarousel = <T,>({
                 </span>
               </Button>
             )}
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full disabled:opacity-40"
-                onClick={handlePrev}
-                disabled={disableNavigation}
-              >
-                <ChevronLeftIcon className="w-5 h-5" />
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full disabled:bg-gray-300 disabled:hover:bg-gray-300"
-                onClick={handleNext}
-                disabled={disableNavigation}
-              >
-                <ChevronRightIcon className="w-5 h-5 text-white" />
-              </Button>
-            </div>
           </div>
         </div>
       )}
@@ -228,6 +207,29 @@ export const VehiclesCarousel = <T,>({
           No vehicles available right now. Check back soon!
         </div>
       )}
+
+            <div className="flex lg:hidden items-center gap-2 mx-auto">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full disabled:opacity-40"
+                onClick={handlePrev}
+                disabled={disableNavigation}
+              >
+                <ChevronLeftIcon className="w-5 h-5" />
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="icon"
+                className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full disabled:bg-gray-300 disabled:hover:bg-gray-300"
+                onClick={handleNext}
+                disabled={disableNavigation}
+              >
+                <ChevronRightIcon className="w-5 h-5 text-white" />
+              </Button>
+            </div>
+
     </div>
   );
 };

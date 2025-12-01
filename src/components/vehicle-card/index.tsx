@@ -32,7 +32,7 @@ export const VehicleCard = ({
   
   return (
   <Card
-    className={`${width} h-full border border-solid shadow-sm overflow-hidden rounded-md bg-white`}
+    className={`${width} h-full border border-solid shadow-sm overflow-hidden rounded-md bg-white max-w-[400px]`}
   >
     <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
       {isImageUrl ? (
