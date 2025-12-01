@@ -111,7 +111,7 @@
   
   export const MainContentSection = (): JSX.Element => {
     return (
-      <section id="operating-lease" className="flex flex-col w-full items-center px-0 py-24 bg-white">
+      <section id="operating-lease" className="flex flex-col w-full items-center px-0 pt-10 pb-10 bg-white">
         <div className="gap-16 flex max-w-[1280px] w-full items-start px-4">
           <div className="flex flex-col w-full max-w-[650px] items-start gap-8">
             <div className="flex flex-col items-start gap-4 w-full">
