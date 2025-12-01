@@ -35,7 +35,11 @@ class MyDocument extends Document {
           <meta name="google-site-verification" content="umV_-T_lsdAWUgkzMp61jWgZybFb6TNOYNT6WPvFUdY" />
           {/* End Google Search Console Verification */}
           
-          <link rel="shortcut icon" href="https://d2j7swph6ett8y.cloudfront.net/assets/icon.png"></link>
+          {/* <link rel="shortcut icon" href="https://d2j7swph6ett8y.cloudfront.net/assets/icon.png"></link> */}
+          
+          {/* Font preloading for better performance */}
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         </Head>
         <body>
           {/* Google Tag Manager (noscript) */}

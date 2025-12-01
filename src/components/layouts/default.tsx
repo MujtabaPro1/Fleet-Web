@@ -13,7 +13,7 @@ const Default = ({ children }: PropsWithChildren) => {
 	let language = router.locale;
 	return (
 		<>
-			<div className={`${figtree.className}`}>
+			<div className={`${figtree.className} ${figtree.variable}`}>
 				<NavigationBarSection />
 				<main>{children}</main>
 				<SiteFooterSection />
