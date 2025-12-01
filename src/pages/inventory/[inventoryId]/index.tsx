@@ -260,7 +260,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                   <ChevronRightIcon className="w-4 h-4 text-gray-400" />
                 </BreadcrumbSeparator>
                 <BreadcrumbItem className="flex items-center gap-2 md:gap-1.5">
-                  <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
+                  <BreadcrumbLink href="/inventory" className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
                     Fleet Inventory
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -275,7 +275,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                   {car?.brand?.name && (
                     <>
                       <BreadcrumbItem className="flex items-center gap-2 md:gap-1.5">
-                        <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
+                        <BreadcrumbLink href={`/inventory?brand=${car.brand.name}`} className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
                           {car.brand.name}
                         </BreadcrumbLink>
                       </BreadcrumbItem>
@@ -309,7 +309,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                   {car?.brand?.name && (
                     <>
                       <BreadcrumbItem className="flex items-center gap-2 md:gap-1.5">
-                        <BreadcrumbLink className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
+                        <BreadcrumbLink href={`/inventory?brand=${car.brand.name}`} className="font-medium text-[#194170] text-sm leading-5 font-figtree whitespace-nowrap px-0.5">
                           {car.brand.name}
                         </BreadcrumbLink>
                       </BreadcrumbItem>
