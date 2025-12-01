@@ -245,7 +245,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
         <div className="flex flex-col items-center gap-8 bg-gray-50 overflow-hidden">
 
 <main className="flex flex-col max-w-full lg:max-w-[1280px] pt-[60px] md:pt-[80px] items-center gap-6 md:gap-10 px-3 md:px-4">
-        <div className="flex flex-col items-start gap-8 relative max-w-[1280px]">
+        <div className="flex flex-col items-start gap-8 relative max-w-[1280px] px-0 lg:px-2">
           <div className="w-full overflow-x-auto pb-3 pl-4 lg:pl-0">
             {/* First line: Home > Fleet Inventory */}
             <Breadcrumb className="mb-1">
@@ -975,7 +975,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                   <div className="flex items-center gap-6 w-full">
                     <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 flex-1 w-full">
                       <Button 
-                        className="h-auto flex-1 lg:w-auto w-full gap-1.5 px-6 py-3.5 bg-[#194170] rounded shadow-shadow-xs"
+                        className="h-auto flex-1 lg:w-auto w-full gap-1.5 px-2 py-3.5 bg-[#194170] rounded shadow-shadow-xs"
                         onClick={() => setQuoteDialogOpen(true)}
                       >
                         <span className="font-medium text-white text-base leading-6 font-figtree">
@@ -987,7 +987,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                       <Button
                         variant="outline"
                         onClick={() => window.open('tel:1300352352', '_self')}
-                        className="h-auto flex-1 lg:w-auto w-full gap-1.5 px-6 py-3.5 bg-gray-50 rounded border-solid shadow-shadow-xs"
+                        className="h-auto flex-1 lg:w-auto w-full gap-1.5 px-2 py-3.5 bg-gray-50 rounded border-solid shadow-shadow-xs"
                       >
                         <PhoneIcon className="w-5 h-5" />
                         <span className="font-medium text-[#4a5565] text-base leading-6 font-figtree">
