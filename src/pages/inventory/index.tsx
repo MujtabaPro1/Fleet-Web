@@ -5,6 +5,7 @@ import {
     HeartIcon,
     HomeIcon,
     StarIcon,
+    XIcon,
   } from "lucide-react";
   import React, { useEffect, useState } from "react";
   import { Badge } from "@/components/ui/badge";
@@ -170,6 +171,37 @@ const InventorySection = (): JSX.Element => {
     setPage(1);
   }
 
+  const AppliedFilters = () => {
+    return (
+      <div className="flex flex-col  w-full lg:flex-row items-start gap-2">
+        {limitedDealsEnabled && (
+          <span className="font-figtree w-full lg:w-auto lg:min-w-[150px] font-medium bg-[#c70036] p-2 text-white text-sm tracking-[0] leading-5 flex items-center justify-between gap-2 rounded">
+            Limited-time deals
+            <XIcon onClick={() => setLimitedDealsEnabled(false)} className="w-4 h-4 cursor-pointer" />
+          </span>
+        )}
+        {selectedBrand && (
+          <span className="font-figtree w-full lg:w-auto lg:min-w-[150px] font-medium bg-[#c70036] p-2 text-white text-sm tracking-[0] leading-5 flex items-center justify-between gap-2 rounded">
+            {selectedBrand}
+            <XIcon onClick={() => setSelectedBrand('')} className="w-4 h-4 cursor-pointer" />
+          </span>
+        )}
+        {selectedBodyType && (
+          <span className="font-figtree w-full lg:w-auto lg:min-w-[150px] font-medium bg-[#c70036] p-2 text-white text-sm tracking-[0] leading-5 flex items-center justify-between gap-2 rounded">
+            {selectedBodyType}
+            <XIcon onClick={() => setSelectedBodyType('')} className="w-4 h-4 cursor-pointer" />
+          </span>
+        )}
+        {priceRange && (
+          <span className="font-figtree w-full lg:w-auto lg:min-w-[150px] font-medium bg-[#c70036] p-2 text-white text-sm tracking-[0] leading-5 flex items-center justify-between gap-2 rounded">
+            {priceRange}
+            <XIcon onClick={() => setPriceRange('')} className="w-4 h-4 cursor-pointer" />
+          </span>
+        )}
+      </div>
+    );
+  }
+
     return (
 
         <>
@@ -266,11 +298,12 @@ const InventorySection = (): JSX.Element => {
                     </Select>
                   </div>
                   
-                  <div className="flex justify-end w-full">
+                  <div className="flex flex-col lg:flex-row justify-between items-center w-full">
+                    {AppliedFilters()}
                     <Button 
                       variant="outline" 
                       onClick={resetFilters}
-                      className="bg-white rounded border border-solid shadow-shadow-xs">
+                      className="bg-white lg:w-auto w-full mt-2 lg:mt-0 rounded border border-solid shadow-shadow-xs">
                       Reset Filters
                     </Button>
                   </div>
