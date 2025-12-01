@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 import axiosInstance from "@/service/api";
 import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
 import { VehicleCard } from "@/components/vehicle-card";
-import { Carousel } from 'react-responsive-carousel';
 import { motion, useAnimationControls, useScroll } from 'framer-motion'
 
 

@@ -118,14 +118,16 @@ export const VehicleDisplaySection = (): JSX.Element => {
                     <SelectValue placeholder="All brands" />
                   </SelectTrigger>
                   <SelectContent style={{
-                    zIndex: 1000
+                    zIndex: 1000,
+                    maxHeight: '300px',
+                    overflowY: 'auto'
                   }}>
-                    <SelectItem value="all">All brands</SelectItem>
-                    {brands.map((brand) => (
-                      <SelectItem key={brand.uid} value={brand.name}>
-                        {brand.name}
-                      </SelectItem>
-                    ))}
+                    <div className="py-1">
+                      <SelectItem value="all">All brands</SelectItem>
+                      {brands.map((brand) => (
+                        <SelectItem key={brand.uid} value={brand.name}>{brand.name}</SelectItem>
+                      ))}
+                    </div>
                   </SelectContent>
                 </Select>}
               </div>
@@ -147,14 +149,16 @@ export const VehicleDisplaySection = (): JSX.Element => {
                     <SelectValue placeholder="All body types" />
                   </SelectTrigger>
                   <SelectContent style={{
-                    zIndex: 1000
+                    zIndex: 1000,
+                    maxHeight: '300px',
+                    overflowY: 'auto'
                   }}>
-                    <SelectItem value="all">All body types</SelectItem>
-                    {bodyTypes.map((bodyType) => (
-                      <SelectItem key={bodyType.name} value={bodyType.name}>
-                        {bodyType.name}
-                      </SelectItem>
-                    ))}
+                    <div className="py-1">
+                      <SelectItem value="all">All body types</SelectItem>
+                      {bodyTypes.map((bodyType) => (
+                        <SelectItem key={bodyType.name} value={bodyType.name}>{bodyType.name}</SelectItem>
+                      ))}
+                    </div>
                   </SelectContent>
                 </Select>}
               </div>

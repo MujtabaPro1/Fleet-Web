@@ -124,12 +124,18 @@ const SelectItem = React.forwardRef<
     )}
     {...props}
   >
-    <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-      <SelectPrimitive.ItemIndicator>
-        <CheckIcon className="h-4 w-4" />
-      </SelectPrimitive.ItemIndicator>
-    </span>
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    <div className="flex items-center w-full">
+      <div className="mr-3 relative">
+        <div className="h-5 w-5 rounded-md border border-gray-300 bg-gray-50">
+          <SelectPrimitive.ItemIndicator>
+            <div className="absolute inset-0 flex items-center justify-center bg-[#194170] rounded-md border border-[#194170]">
+              <CheckIcon className="h-3 w-3 text-white" />
+            </div>
+          </SelectPrimitive.ItemIndicator>
+        </div>
+      </div>
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    </div>
   </SelectPrimitive.Item>
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;
