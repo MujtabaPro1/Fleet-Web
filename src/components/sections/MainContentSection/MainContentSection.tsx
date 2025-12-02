@@ -31,15 +31,6 @@ const brands = [
 const dollarSvg = "/assets/images/svg/dollar.svg";
 const personChalkboardSvg = "/assets/images/svg/person-chalkboard.svg";
 
-const orderRideSvg = "/assets/images/svg/undraw_order-ride_4gaq.svg";
-const confirmationSvg = "/assets/images/svg/undraw_confirmation_31jc.svg";
-const orderCarSvg = "/assets/images/svg/undraw_order-a-car_x5mq.svg";
-const fillFormsSvg = "/assets/images/svg/undraw_fill-forms_npwp.svg";
-
-
-
-
-
 
 const promoCards = [
   {
@@ -66,28 +57,28 @@ const processSteps = [
   {
     step: "Step 1",
     title: "Pre-Approval",
-    image: confirmationSvg,
+    image: '/assets/images/steps/pre-approval.png',
     description:
       "Check your eligibility and proposal in minutes. Perfect for ABN holders; get clarity on available finance and lease options before you commit.",
   },
   {
     step: "Step 2",
     title: "Vehicle Sourcing & Procurement",
-    image: orderCarSvg,
+    image: '/assets/images/steps/procurement.png',
     description:
       "We source vehicles directly from our dealer network, securing fleet discounts to maximise your savings. Our commercial partnerships ensure ABN holders get access to pricing usually reserved for large fleets.",
   },
   {
     step: "Step 3",
     title: "Finance and Leasing Application",
-    image: fillFormsSvg,
+    image: '/assets/images/steps/finance-leasing-application.png',
     description:
       "Our finance and leasing team handles the paperwork and submits your application directly to leading lenders, saving you time and hassle.",
   },
   {
     step: "Step 4",
     title: "Settlement & Drive Away",
-    image: orderRideSvg,
+    image: '/assets/images/steps/settlement.png',
     description:
       "Once approved, we finalise the paperwork and arrange delivery so you can hit the road without delays. Whether it's a single vehicle or a growing fleet, we scale the settlement process to match your business needs.",
   },
