@@ -32,17 +32,17 @@ class MyDocument extends Document {
           
           {/* Open Graph / Facebook */}
           <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://fleetplan.com/" />
-          <meta property="og:title" content="Fleet Plan - Quality Vehicles & Fleet Management" />
-          <meta property="og:description" content="Find the perfect vehicle for your needs with Fleet Plan's extensive selection and expert fleet management solutions." />
-          <meta property="og:image" content="https://fleetplan.com/og-image.jpg" />
+          <meta property="og:url" content="https://dev.fleetleasingaustralia.com.au/" />
+          <meta property="og:title" content="Fleet Leasing Australia - Find Your Perfect Vehicle | Quality Fleet Management Solutions" />
+          <meta property="og:description" content="Fleet Leasing Australia - Your trusted source for quality vehicles and fleet management solutions" />
+          <meta property="og:image" content="https://dev.fleetleasingaustralia.com.au/og-image.jpg" />
           
           {/* Twitter */}
           <meta property="twitter:card" content="summary_large_image" />
-          <meta property="twitter:url" content="https://fleetplan.com/" />
-          <meta property="twitter:title" content="Fleet Plan - Quality Vehicles & Fleet Management" />
-          <meta property="twitter:description" content="Find the perfect vehicle for your needs with Fleet Plan's extensive selection and expert fleet management solutions." />
-          <meta property="twitter:image" content="https://fleetplan.com/twitter-image.jpg" />
+          <meta property="twitter:url" content="https://dev.fleetleasingaustralia.com.au/" />
+          <meta property="twitter:title" content="Fleet Leasing Australia - Find Your Perfect Vehicle | Quality Fleet Management Solutions" />
+          <meta property="twitter:description" content="Fleet Leasing Australia - Your trusted source for quality vehicles and fleet management solutions" />
+          <meta property="twitter:image" content="https://dev.fleetleasingaustralia.com.au/twitter-image.jpg" />
           
           {/* Google Tag Manager */}
           <script dangerouslySetInnerHTML={{ __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start'):
