@@ -1,55 +1,117 @@
+import React from "react";
+import { FeaturesListSection } from "../../components/ui/about/featured-list";
+import { FeaturedSection } from "../../components/ui/about/featured-section";
+import { InfoContainerSection } from "../../components/ui/about/info-container";
+import { MainContentSection } from "../../components/ui/about/main-content";
+import { ProcessStepsSection } from "../../components/ui/about/process-step";
+import { MyPage } from "@/components/layouts/types";
+import { useRouter } from "next/navigation";
+import { Card } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
 import Head from 'next/head';
-import { MyPage } from '@/components/layouts/types';
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import DynamicContent from '@/components/common/DynamicContent';
 
-const AboutUs: MyPage = () => {
+
+const processSteps = [
+  {
+    step: "Step 1",
+    title: "Pre-Approval",
+    image: '/assets/images/steps/pre-approval.png',
+    description:
+      "Check your eligibility and proposal in minutes. Perfect for ABN holders; get clarity on available finance and lease options before you commit.",
+  },
+  {
+    step: "Step 2",
+    title: "Vehicle Sourcing & Procurement",
+    image: '/assets/images/steps/procurement.png',
+    description:
+      "We source vehicles directly from our dealer network, securing fleet discounts to maximise your savings. Our commercial partnerships ensure ABN holders get access to pricing usually reserved for large fleets.",
+  },
+  {
+    step: "Step 3",
+    title: "Finance and Leasing Application",
+    image: '/assets/images/steps/finance-leasing-application.png',
+    description:
+      "Our finance and leasing team handles the paperwork and submits your application directly to leading lenders, saving you time and hassle.",
+  },
+  {
+    step: "Step 4",
+    title: "Settlement & Drive Away",
+    image: '/assets/images/steps/settlement.png',
+    description:
+      "Once approved, we finalise the paperwork and arrange delivery so you can hit the road without delays. Whether it's a single vehicle or a growing fleet, we scale the settlement process to match your business needs.",
+  },
+];
+
+
+
+const About: MyPage = () => {
+  const router = useRouter();
   return (
     <>
-      <Head>
-        <title>Fleet Leasing Australia | About Us</title>
-      </Head>
-      <div className="bg-white px-4 pt-[20px] lg:pt-[60px] mt-5">
-        <div className="max-w-7xl px-2 mx-auto flex flex-wrap">
-          <div className="w-full mb-10">
-            <DynamicContent
-              contentKey="about-us"
-              className="flex flex-col items-center justify-center text-center"
-              fallbackContent={
-                <div className="flex flex-col items-center justify-center text-center">
-              <h1 className="text-[#171717] text-[56px] leading-tight font-semibold tracking-[-0.03em] capitalize md:text-[40px] sm:text-[28px] mb-6">
-                About Us
-              </h1>
-              <div className="flex flex-col items-center justify-center">
-                <p className="font-medium text-center text-[#333] text-[20px] leading-[1.6em] tracking-[-0.03em] max-w-[700px] mb-8">
-                  Learn more about Fleet Leasing Australia and our commitment to excellence.
-                </p>
-                <div className="bg-customBlue-100 p-10 rounded-lg w-full max-w-[700px] text-center">
-                  <h2 className="text-[32px] font-semibold mb-4">Coming Soon</h2>
-                  <p className="text-[18px]">
-                    We&apos;re currently updating our About Us section. 
-                    Please check back soon or contact our team for more information.
-                  </p>
+    <Head>
+      <title>About Fleetplan Australia</title>
+    </Head>
+    <div className="flex flex-col w-full bg-white">
+      <FeaturedSection />
+      <MainContentSection />
+      <FeaturesListSection />
+      {/* <InfoContainerSection /> */}
+        <div className="flex flex-col w-full max-w-[1280px] items-start gap-10 px-4 mx-auto">
+        <div className="flex flex-col w-full items-start gap-12">
+        <div className="flex flex-col items-center gap-4 w-full text-center">
+             <Card className="w-full border border-solid shadow-shadow-sm">
+                      <CardContent className="flex flex-col items-center gap-4 p-8">
+                        <h2 className="font-figtree font-semibold text-[#101828] text-4xl text-center tracking-[-0.40px] leading-9">
+                     How we work
+                        </h2>
+                      </CardContent>
+                    </Card>
+
+          <p className="text-[#4a5565] text-lg max-w-2xl mx-auto">
+            We simplify vehicle leasing for Australian businesses. Our
+            streamlined four-step process eliminates complexity &amp; provides
+            clear expectations.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+          {processSteps.map((step, index) => (
+            <Card
+              key={index}
+              className="border border-solid overflow-hidden h-full"
+            >
+              <CardContent className="flex bg-white flex-col items-center gap-6 p-6 relative h-full">
+                <div className="flex flex-col items-center gap-2 w-full">
+                  <div className="font-semibold text-[#4a5565] text-base text-center">
+                    {step.step}
+                  </div>
+
+                  <div className="font-semibold text-[#101828] text-xl md:text-2xl text-center min-h-[64px]">
+                    {step.title}
+                  </div>
                 </div>
-              </div>
-            </div>
-          }
-          />
-          </div>
+
+                <img
+                  className="h-[120px] md:h-[150px] w-auto object-contain"
+                  alt={step.title}
+                  src={step.image}
+                />
+
+                <p className="text-[#4a5565] text-base text-start">
+                  {step.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
         </div>
       </div>
+      <ProcessStepsSection router={router} />
+    </div>
     </>
   );
 };
 
-export async function getStaticProps(context: any) {
-  const { locale } = context;
-  return {
-    props: {
-      ...(await serverSideTranslations(locale)),
-    },
-  };
-}
+export default About;
+About.Layout = "Default";
 
-export default AboutUs;
-AboutUs.Layout = "Default";

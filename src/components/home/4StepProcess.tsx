@@ -69,7 +69,7 @@ export default function FourStepProcess() {
                                     <div className="text-[28px] font-medium min-w-[50px]">{step.number}</div>
                                     <div>
                                         <h3 className="text-2xl text-[#171717] font-medium mb-1">{step.title}</h3>
-                                        <p className="text-md leading-relaxed">{step.description}</p>
+                                        <p className="text-md leading-relaxed text-start">{step.description}</p>
                                     </div>
                                 </li>
                             ))}

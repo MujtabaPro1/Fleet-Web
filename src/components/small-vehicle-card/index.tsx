@@ -2,25 +2,45 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRightIcon, HeartIcon, StarIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export const SmallVehicleCard = ({ 
     image,
     name = "Toyota Corolla Cross",
     type = "SUV",
     fuel = "Petrol, Hybrid",
-    price = "288"
+    price = "288",
+    slug = ""
   }: { 
     image: string;
     name?: string;
     type?: string;
     fuel?: string;
     price?: string;
-  }) => (
-    <Card className="w-full border border-solid shadow-sm h-full">
+    slug?: string;
+  }) => {
+    const router = useRouter();
+    // Check if image is a URL or a CSS class
+    const isImageUrl = image && (image.startsWith('http') || image.startsWith('/'));
+    
+    return (
+  
+    <Card className="w-full border border-solid shadow-sm h-full overflow-hidden">
       <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
-        <div
-          className={`h-[180px] ${image} w-full rounded-md bg-cover bg-center`}
-        />
+        {isImageUrl ? (
+          <img 
+            src={image} 
+            alt={name}
+            className="h-[180px] w-full rounded-md object-cover object-center"
+            onError={(e) => {
+              e.currentTarget.src = "/assets/images/no-image.png";
+            }}
+          />
+        ) : (
+          <div
+            className={`h-[180px] ${image} w-full rounded-md bg-cover bg-center`}
+          />
+        )}
   
         <Button
           variant="ghost"
@@ -80,7 +100,13 @@ export const SmallVehicleCard = ({
             </div>
           </div>
   
-          <Button className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
+          <Button
+          onClick={() => {
+            if(slug){
+              router.push(`/inventory/${slug}`);
+            }
+          }}
+          className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
             <span className="font-medium text-white text-xs">
               Get A Quote
             </span>
@@ -90,3 +116,4 @@ export const SmallVehicleCard = ({
       </CardContent>
     </Card>
   );
+};

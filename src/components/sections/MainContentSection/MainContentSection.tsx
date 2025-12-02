@@ -2,26 +2,34 @@ import {
   ArrowRightIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  HeartIcon,
-  StarIcon,
 } from "lucide-react";
-import React from "react";
-import { Badge } from "../../ui/badge";
+import React, { useEffect, useState, useRef, ReactNode } from "react";
 import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
 import { useRouter } from "next/router";
+import axiosInstance from "@/service/api";
+import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
+import { VehicleCard } from "@/components/vehicle-card";
+import { motion, useAnimationControls, useScroll } from 'framer-motion'
+
+
+const brands = [
+    { name: 'Tesla', src: '/assets/images/brands/tesla.png' },
+    { name: 'Kia', src: '/assets/images/brands/kia.png' },
+    { name: 'BMW', src: '/assets/images/brands/bmw.png' },
+    { name: 'Ram', src: '/assets/images/brands/ram.png' },
+    { name: 'Volvo', src: '/assets/images/brands/volvo.png' },
+    { name: 'Ford', src: '/assets/images/brands/ford.png' },
+    { name: 'Nissan', src: '/assets/images/brands/nissan.png' },
+    { name: 'Jeep', src: '/assets/images/brands/jeep.png' },
+    { name: 'Volkswagen', src: '/assets/images/brands/vv.png' },
+    { name: 'Hyundai', src: '/assets/images/brands/hyundai.png' },
+    { name: 'Mercedes-Benz', src: '/assets/images/brands/benz.png' },
+];
+
 // Using public paths instead of imports
 const dollarSvg = "/assets/images/svg/dollar.svg";
 const personChalkboardSvg = "/assets/images/svg/person-chalkboard.svg";
-
-const orderRideSvg = "/assets/images/svg/undraw_order-ride_4gaq.svg";
-const confirmationSvg = "/assets/images/svg/undraw_confirmation_31jc.svg";
-const orderCarSvg = "/assets/images/svg/undraw_order-a-car_x5mq.svg";
-const fillFormsSvg = "/assets/images/svg/undraw_fill-forms_npwp.svg";
-
-
-
-
 
 
 const promoCards = [
@@ -32,6 +40,7 @@ const promoCards = [
     title: "Save 7¢ per litre with your Caltex Fuel Card!",
     description:
       "Enjoy everyday savings on fuel — exclusively for Caltex Fuel Card holders.",
+    url: "/resources/blog",  
   },
   {
     bgColor: "bg-[#fef9c2]",
@@ -40,51 +49,7 @@ const promoCards = [
     title: "Optimize Your Fleet with a Free Consultation",
     description:
       "Discover smarter ways to manage vehicles, reduce expenses, and boost productivity.",
-  },
-];
-
-const mainVehicles = [
-  {
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Toyota Corolla Cross",
-    type: "SUV",
-    fuel: "Petrol, Hybrid",
-    price: "288",
-  },
-  {
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Ford Ranger",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "315",
-  },
-  {
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mazda CX-5",
-    type: "SUV",
-    fuel: "Petrol",
-    price: "275",
-  },
-  {
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Hyundai Tucson",
-    type: "SUV",
-    fuel: "Petrol, Hybrid",
-    price: "295",
-  },
-  {
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Kia Sportage",
-    type: "SUV",
-    fuel: "Petrol",
-    price: "280",
-  },
-  {
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mitsubishi Triton",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "305",
+    url: "/services/consultation",  
   },
 ];
 
@@ -92,28 +57,28 @@ const processSteps = [
   {
     step: "Step 1",
     title: "Pre-Approval",
-    image: confirmationSvg,
+    image: '/assets/images/steps/pre-approval.png',
     description:
       "Check your eligibility and proposal in minutes. Perfect for ABN holders; get clarity on available finance and lease options before you commit.",
   },
   {
     step: "Step 2",
     title: "Vehicle Sourcing & Procurement",
-    image: orderCarSvg,
+    image: '/assets/images/steps/procurement.png',
     description:
       "We source vehicles directly from our dealer network, securing fleet discounts to maximise your savings. Our commercial partnerships ensure ABN holders get access to pricing usually reserved for large fleets.",
   },
   {
     step: "Step 3",
     title: "Finance and Leasing Application",
-    image: fillFormsSvg,
+    image: '/assets/images/steps/finance-leasing-application.png',
     description:
       "Our finance and leasing team handles the paperwork and submits your application directly to leading lenders, saving you time and hassle.",
   },
   {
     step: "Step 4",
     title: "Settlement & Drive Away",
-    image: orderRideSvg,
+    image: '/assets/images/steps/settlement.png',
     description:
       "Once approved, we finalise the paperwork and arrange delivery so you can hit the road without delays. Whether it's a single vehicle or a growing fleet, we scale the settlement process to match your business needs.",
   },
@@ -124,16 +89,22 @@ const productOfferings = [
     title: "Chattel Mortgage",
     description:
       'A chattel mortgage is a commercial loan used to purchase a "chattel" (an asset like a vehicle or equipment), which is then used as security for the loan.',
+    url: "/products/fleet-finance",  
+    image: "/assets/images/product-offering/chattel.png",
   },
   {
     title: "Finance Lease",
     description:
       "Finance Lease: A finance lease is a long-term rental agreement where the finance company buys the asset and leases it to your business for a fixed period.",
+    url: "/products/fleet-finance",  
+    image: "/assets/images/product-offering/finance.png",
   },
   {
     title: "Operating Lease",
     description:
       "An operating lease is a rental agreement that provides your business with the use of an asset for a shorter term than its useful life.",
+    url: "/products/fleet-finance",
+    image: "/assets/images/product-offering/operating.png",
   },
 ];
 
@@ -184,433 +155,287 @@ const additionalProducts = [
   },
 ];
 
-const partnerLogos = [
-  { src: "/assets/images/5f7d102e662c0b5e1078ab62-stgeorge-p-500.png", width: "w-[152px]" },
-  { src: "/assets/images/anz-2-logo-png-transparent.png", width: "w-[145px]" },
-  { src: "/assets/images/bank-of-melbourne-seeklogo.png", width: "w-[171px]" },
-  { src: "/assets/images/bank-sa-logo-svg.png", width: "w-[100px]" },
-  { src: "/assets/images/macquarie-group-logo-svg.png", width: "w-[232px]" },
-  { src: "/assets/images/national-australia-bank-svg.png", width: "w-[115px]" },
-  { src: "/assets/images/westpac-logo-svg.png", width: "w-[125px]" },
+// New partner logos list sourced from public/assets/images/partner-brand
+// name is derived from the filename for easier integration
+const partnerLogosV1 = [
+  {
+    name: "Affordable Car Loans",
+    src: "/assets/images/partner-brand/affordable-car-loans.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Alex Bank",
+    src: "/assets/images/partner-brand/Alex-Bank.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "AMMF",
+    src: "/assets/images/partner-brand/AMMF.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Angle Finance",
+    src: "/assets/images/partner-brand/Angle-Finance.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "ANZ",
+    src: "/assets/images/partner-brand/ANZ.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Automotive Financial Services",
+    src: "/assets/images/partner-brand/Automotive-Financial-Services.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Azora",
+    src: "/assets/images/partner-brand/azora.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Banjo Loans",
+    src: "/assets/images/partner-brand/Banjo-Loans.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Bizcap",
+    src: "/assets/images/partner-brand/bizcap.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "BOQ",
+    src: "/assets/images/partner-brand/BOQ.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Branded",
+    src: "/assets/images/partner-brand/Branded.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Capital Finance",
+    src: "/assets/images/partner-brand/capital-finance.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Carstart",
+    src: "/assets/images/partner-brand/carstart.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "CBA",
+    src: "/assets/images/partner-brand/CBA.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Dynamoney",
+    src: "/assets/images/partner-brand/dynamoney.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Earlypay",
+    src: "/assets/images/partner-brand/Earlypay.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Finance One",
+    src: "/assets/images/partner-brand/Finance-One.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Firstmac",
+    src: "/assets/images/partner-brand/Firstmac.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "FLEXI",
+    src: "/assets/images/partner-brand/FLEXI.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Latitude Horizontal",
+    src: "/assets/images/partner-brand/Latitude-Horizontal.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Liberty",
+    src: "/assets/images/partner-brand/Liberty.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Metro Finance",
+    src: "/assets/images/partner-brand/Metro-Finance.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Money3",
+    src: "/assets/images/partner-brand/money3.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "MONEYME Autopay",
+    src: "/assets/images/partner-brand/MONEYME-Autopay.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "MONEYME SocietyOne",
+    src: "/assets/images/partner-brand/MONEYME-SocietyOne.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "MoneyPlace",
+    src: "/assets/images/partner-brand/MoneyPlace.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Moneytech",
+    src: "/assets/images/partner-brand/Moneytech_Logos.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Morris",
+    src: "/assets/images/partner-brand/morris.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Moula",
+    src: "/assets/images/partner-brand/Moula.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Multipli",
+    src: "/assets/images/partner-brand/multipli.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "NAB",
+    src: "/assets/images/partner-brand/NAB.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "NOW Finance",
+    src: "/assets/images/partner-brand/NOW-Finance.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Pepper",
+    src: "/assets/images/partner-brand/Pepper.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Plenti",
+    src: "/assets/images/partner-brand/Plenti.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Prospa",
+    src: "/assets/images/partner-brand/Prospa.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "RACV",
+    src: "/assets/images/partner-brand/racv.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Resimac",
+    src: "/assets/images/partner-brand/Resimac.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Scottish Pacific",
+    src: "/assets/images/partner-brand/Scottish-Pacific.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Selfco",
+    src: "/assets/images/partner-brand/Selfco.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Shift",
+    src: "/assets/images/partner-brand/Shift.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "The Asset Financier",
+    src: "/assets/images/partner-brand/The-Asset-Financier.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "UME Loans",
+    src: "/assets/images/partner-brand/umeloans.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "Westpac",
+    src: "/assets/images/partner-brand/Westpac.png",
+    width: "w-[152px]",
+  },
+  {
+    name: "WISR",
+    src: "/assets/images/partner-brand/WISR.png",
+    width: "w-[152px]",
+  },
 ];
 
-const utesVehicles = [
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Ford Ranger",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "315"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Toyota Hilux",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "325"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mitsubishi Triton",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "305"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Isuzu D-Max",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "310"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mazda BT-50",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "300"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Nissan Navara",
-    type: "Ute",
-    fuel: "Diesel",
-    price: "295"
-  },
-];
 
-const suvsVehicles = [
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Toyota RAV4",
-    type: "SUV",
-    fuel: "Petrol, Hybrid",
-    price: "285"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mazda CX-5",
-    type: "SUV",
-    fuel: "Petrol",
-    price: "275"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Hyundai Tucson",
-    type: "SUV",
-    fuel: "Petrol, Hybrid",
-    price: "295"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Kia Sportage",
-    type: "SUV",
-    fuel: "Petrol",
-    price: "280"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mitsubishi Outlander",
-    type: "SUV",
-    fuel: "Petrol, PHEV",
-    price: "320"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Subaru Forester",
-    type: "SUV",
-    fuel: "Petrol",
-    price: "290"
-  },
-];
-
-const vansVehicles = [
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Toyota HiAce",
-    type: "Van",
-    fuel: "Diesel",
-    price: "345"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Ford Transit",
-    type: "Van",
-    fuel: "Diesel",
-    price: "335"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Hyundai iLoad",
-    type: "Van",
-    fuel: "Diesel",
-    price: "325"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Volkswagen Transporter",
-    type: "Van",
-    fuel: "Diesel",
-    price: "355"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Mercedes-Benz Sprinter",
-    type: "Van",
-    fuel: "Diesel",
-    price: "385"
-  },
-  { 
-    image: "bg-[url(/assets/images/car-image.png)]",
-    name: "Renault Trafic",
-    type: "Van",
-    fuel: "Diesel",
-    price: "330"
-  },
-];
-
-const VehicleCard = ({
-  image,
-  name = "Toyota Corolla Cross",
-  type = "SUV",
-  fuel = "Petrol, Hybrid",
-  price = "288",
-  width = "w-full",
-  router,
-}: { 
-  image: string; 
-  name?: string;
-  type?: string;
-  fuel?: string;
-  price?: string;
-  width?: string; 
-  router?: any;
-}) => (
-  <Card
-    className={`${width} h-full border border-solid shadow-sm`}
-  >
-    <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
-      <div
-        className={`h-[200px] ${image} w-full rounded-md bg-contain bg-center`}
-      />
-
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded border border-gray-200 shadow-sm hover:bg-gray-100"
-      >
-        <HeartIcon className="w-4 h-4" />
-      </Button>
-
-      <Badge className="absolute top-4 left-4 bg-emerald-50 hover:bg-emerald-50 text-emerald-800 gap-1 px-2 py-0.5">
-        <StarIcon className="w-3 h-3 fill-current" />
-        <span className="font-medium text-xs">
-          Trending
-        </span>
-      </Badge>
-
-      <div className="flex flex-col items-start gap-3 w-full">
-        <h3 className="font-semibold text-[#0b1c31] text-xl md:text-2xl">
-          {name}
-        </h3>
-
-        <div className="flex flex-wrap items-center gap-2 w-full">
-          <Badge className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
-            <span className="font-medium text-xs">
-              Limited-time deal
-            </span>
-          </Badge>
-
-          <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
-
-          <span className="font-medium text-[#4a5565] text-xs">
-            {type}
-          </span>
-
-          <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
-
-          <span className="font-medium text-[#4a5565] text-xs">
-            {fuel}
-          </span>
-        </div>
-      </div>
-
-      <div className="flex items-end gap-3 p-3 w-full bg-gray-50 rounded mt-2">
-        <div className="flex flex-col h-12 items-start gap-1 flex-1">
-          <div className="font-medium text-[#4a5565] text-xs">
-            STARTING AT
-          </div>
-
-          <div className="flex items-end gap-1.5 w-full">
-            <div className="font-semibold text-[#c70036] text-2xl md:text-3xl">
-              ${price}
-            </div>
-
-            <div className="font-medium text-[#4a5565] text-xs self-end mb-1">
-              WEEKLY
-            </div>
-          </div>
-        </div>
-
-        <Button 
-        onClick={() => router.push('/inventory/1')}
-        className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
-          <span className="font-medium text-white text-xs md:text-sm">
-            Get A Quote
-          </span>
-          <ArrowRightIcon className="w-3.5 h-3.5 text-white" />
-        </Button>
-      </div>
-    </CardContent>
-  </Card>
-);
-
-const SmallVehicleCard = ({ 
-  image,
-  name = "Toyota Corolla Cross",
-  type = "SUV",
-  fuel = "Petrol, Hybrid",
-  price = "288",
-  router,
-}: { 
-  image: string;
-  name?: string;
-  type?: string;
-  fuel?: string;
-  price?: string;
-  router?: any;
-}) => (
-  <Card className="w-full border border-solid shadow-sm h-full">
-    <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
-      <div
-        className={`h-[180px] ${image} w-full rounded-md bg-cover bg-center`}
-      />
-
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded border border-gray-200 shadow-sm hover:bg-gray-100"
-      >
-        <HeartIcon className="w-4 h-4" />
-      </Button>
-
-      <Badge className="absolute top-4 left-4 bg-emerald-50 hover:bg-emerald-50 text-emerald-800 gap-1 px-2 py-0.5">
-        <StarIcon className="w-3 h-3 fill-current" />
-        <span className="font-medium text-xs">
-          Trending
-        </span>
-      </Badge>
-
-      <div className="flex flex-col items-start gap-3 w-full">
-        <h3 className="font-semibold text-[#0b1c31] text-xl">
-          {name}
-        </h3>
-
-        <div className="flex flex-wrap items-center gap-2 w-full">
-          <Badge className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
-            <span className="font-medium text-xs">
-              Limited-time deal
-            </span>
-          </Badge>
-
-          <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
-
-          <span className="font-medium text-[#4a5565] text-xs">
-            {type}
-          </span>
-
-          <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
-
-          <span className="font-medium text-[#4a5565] text-xs">
-            {fuel}
-          </span>
-        </div>
-      </div>
-
-      <div className="flex items-end gap-3 p-3 w-full bg-gray-50 rounded mt-2">
-        <div className="flex flex-col h-12 items-start gap-1 flex-1">
-          <div className="font-medium text-[#4a5565] text-xs">
-            STARTING AT
-          </div>
-
-          <div className="flex items-end gap-1.5 w-full">
-            <div className="font-semibold text-[#c70036] text-2xl md:text-3xl">
-              ${price}
-            </div>
-
-            <div className="font-medium text-[#4a5565] text-xs self-end mb-1">
-              WEEKLY
-            </div>
-          </div>
-        </div>
-
-        <Button 
-        onClick={() => router.push('/inventory/1')}
-        className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
-          <span className="font-medium text-white text-xs">
-            Get A Quote
-          </span>
-          <ArrowRightIcon className="w-3.5 h-3.5 text-white" />
-        </Button>
-      </div>
-    </CardContent>
-  </Card>
-);
-
-const TinyVehicleCard = ({ 
-  image,
-  name = "Toyota Corolla Cross",
-  type = "SUV",
-  fuel = "Petrol, Hybrid",
-  price = "288",
-  router,
-}: { 
-  image: string;
-  name?: string;
-  type?: string;
-  fuel?: string;
-  price?: string;
-  router?: any;
-}) => (
-  <Card className="w-full border border-solid shadow-sm h-full">
-    <CardContent className="flex relative bg-white flex-col items-center gap-4 pt-8 pb-4 px-4">
-      <div
-        className={`h-[180px] ${image} w-full rounded-md bg-cover bg-center`}
-      />
-
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded border border-gray-200 shadow-sm hover:bg-gray-100"
-      >
-        <HeartIcon className="w-4 h-4" />
-      </Button>
-
-      <Badge className="absolute top-4 left-4 bg-emerald-50 hover:bg-emerald-50 text-emerald-800 gap-1 px-2 py-0.5">
-        <StarIcon className="w-3 h-3 fill-current" />
-        <span className="font-medium text-xs">
-          Trending
-        </span>
-      </Badge>
-
-      <div className="flex flex-col items-start gap-3 w-full">
-        <h3 className="font-semibold text-[#0b1c31] text-xl">
-          {name}
-        </h3>
-
-        <div className="flex flex-wrap items-center gap-2 w-full">
-          <Badge className="bg-[#c70036] hover:bg-[#c70036] text-white gap-1 px-1.5 py-0.5">
-            <span className="font-medium text-xs">
-              Limited-time deal
-            </span>
-          </Badge>
-
-          <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
-
-          <span className="font-medium text-[#4a5565] text-xs">
-            {type}
-          </span>
-
-          <div className="w-1 h-1 bg-[#b3ceee] rounded-full" />
-
-          <span className="font-medium text-[#4a5565] text-xs">
-            {fuel}
-          </span>
-        </div>
-      </div>
-
-      <div className="flex items-end gap-3 p-3 w-full bg-gray-50 rounded mt-2">
-        <div className="flex flex-col h-12 items-start gap-1 flex-1">
-          <div className="font-medium text-[#4a5565] text-xs">
-            STARTING AT
-          </div>
-
-          <div className="flex items-end gap-1.5 w-full">
-            <div className="font-semibold text-[#c70036] text-2xl md:text-3xl">
-              ${price}
-            </div>
-
-            <div className="font-medium text-[#4a5565] text-xs self-end mb-1">
-              WEEKLY
-            </div>
-          </div>
-        </div>
-
-        <Button 
-        onClick={() => router.push('/inventory/1')}
-        className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
-          <span className="font-medium text-white text-xs">
-            Get A Quote
-          </span>
-          <ArrowRightIcon className="w-3.5 h-3.5 text-white" />
-        </Button>
-      </div>
-    </CardContent>
-  </Card>
-);
 
 export const MainContentSection = (): JSX.Element => {
   const router = useRouter();
+  const [offers, setOffers] = useState([]);
+  const [bodyTypeOffers, setBodyTypeOffers] = useState({
+    'Popular Sedan': [],
+    'Popular Van': [],
+    'Popular Utes': [],
+  });
+
+  useEffect(() => {
+    getLimitedTimeDeals();
+    getByBodyType('Popular Sedan');
+    getByBodyType('Popular Van');
+    getByBodyType('Popular Utes');
+  
+  }, []); 
+
+  const getLimitedTimeDeals = async () => {
+    // Make the API call
+    const params = new URLSearchParams();
+    params.set('tags', 'Limited Time Offer');
+    params.set('page', '1');
+    params.set('limit', '6');
+    axiosInstance.get(`/v1/cars/search?${params.toString()}`)
+      .then(response => {
+        setOffers(response.data.data || []);
+      })
+      .catch(error => {
+        console.error('Error fetching cars:', error);
+      });
+
+  };
+
+  const getByBodyType = async (bodyType: string) => {
+    // Make the API call
+    const params = new URLSearchParams();
+    params.set('tags', bodyType);
+    params.set('page', '1');
+    params.set('limit', '6');
+    axiosInstance.get(`/v1/cars/search?${params.toString()}`)
+      .then(response => {
+        console.log(response.data.data);
+        setBodyTypeOffers(prev => ({
+          ...prev,
+          [bodyType]: response.data.data || []
+        }));
+      })
+      .catch(error => {
+        console.error('Error fetching cars:', error);
+      });
+
+  };
+
+  
   
   return (
     <section className="flex flex-col w-full items-start gap-16 py-12 md:py-16">
@@ -627,9 +452,9 @@ export const MainContentSection = (): JSX.Element => {
         {promoCards.map((card, index) => (
           <Card
             key={index}
-            className={`flex-1 ${card.bgColor} shadow-shadow-sm border-0`}
+            className={`flex-1 ${card.bgColor} shadow-shadow-sm rounded-sm border-0 min-h-[148px]`}
           >
-            <CardContent className="flex items-start gap-7 p-5">
+            <CardContent className="flex items-start gap-4 p-5">
               <div
                 className={`flex w-[53px] h-[51px] items-center justify-center gap-1.5 px-3 py-2 ${card.iconBg} rounded border border-solid shadow-shadow-xs flex-shrink-0`}
               >
@@ -651,6 +476,7 @@ export const MainContentSection = (): JSX.Element => {
 
                 <Button
                   variant="ghost"
+                  onClick={() => router.push(card.url)}
                   className="h-auto px-0 py-1.5 gap-1.5 hover:bg-transparent"
                 >
                   <span className="font-figtree font-medium text-[#101828] text-xs tracking-[0] leading-5">
@@ -701,6 +527,7 @@ export const MainContentSection = (): JSX.Element => {
 
                 <Button
                   variant="ghost"
+                  onClick={() => router.push(card.url)}
                   className="h-auto px-0 py-1 gap-1.5 hover:bg-transparent"
                 >
                   <span className="font-figtree font-medium text-[#101828] text-xs tracking-[0] leading-5">
@@ -715,84 +542,45 @@ export const MainContentSection = (): JSX.Element => {
       </div>
 
       {/* Vehicle listings section */}
-      <div className="flex flex-col items-center justify-center gap-12 self-stretch w-full">
-        <div className="flex flex-col items-start gap-6 self-stretch w-full">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 w-full">
-            <h2 className="font-semibold text-[#101828] text-2xl md:text-3xl leading-tight">
-              Unlock Limited-Time Leasing Deals on Cars, SUVs &amp; Fleets
-            </h2>
-
-            <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                onClick={() => router.push("/explore")}
-                className="h-auto px-3 py-2 gap-1.5 hover:bg-transparent text-[#194170]"
-              >
-                <span className="font-medium text-sm">
-                  View all
-                </span>
-              </Button>
-              
-              <div className="hidden md:flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
-                  onClick={() => {
-                    const container = document.getElementById('main-vehicles-carousel');
-                    if (container) {
-                      container.scrollBy({ left: -380, behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  <ChevronLeftIcon className="w-5 h-5" />
-                </Button>
-
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
-                  onClick={() => {
-                    const container = document.getElementById('main-vehicles-carousel');
-                    if (container) {
-                      container.scrollBy({ left: 380, behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  <ChevronRightIcon className="w-5 h-5 text-white" />
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative w-full">
-            <div 
-              id="main-vehicles-carousel"
-              className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
-            >
-              <div className="flex gap-6 min-w-max">
-                {mainVehicles.map((vehicle, index) => (
-                  <div key={index} className="w-[350px] lg:w-[380px] flex-shrink-0">
+      <div className="flex flex-col items-center justify-center gap-8 self-stretch w-full">
+        <VehiclesCarousel
+          title="Exclusive Business Leasing Deals on Cars, SUVs & Commercial Fleets"
+          actionLabel="View all"
+          onAction={() => router.push("/inventory")}
+          cars={offers}
+          showMultipleColumns={true}
+          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+          renderCard={(offer: any) => (
                     <VehicleCard
-                      image={vehicle.image}
-                      name={vehicle.name}
-                      type={vehicle.type}
-                      fuel={vehicle.fuel}
-                      price={vehicle.price}
+              image={
+                offer?.NVIC
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  : "/assets/images/no-image.png"
+              }
+              name={offer?.title}
+              type={offer?.bodyType}
+              fuel={offer?.selectedVariant?.variant}
+              price={offer?.selectedVariant?.weeklyPrice}
                       router={router}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+              id={offer?.slug}
+              isTrending={offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("trending")
+                )?.length > 0}
+              tags={
+                offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("limited")
+                ) ?? offer?.tags
+              }
+            />
+          )}
+        />
 
         <Button 
         onClick={() => router.push("/inventory")}
-        className="w-auto h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-2 px-6 py-3 mt-4">
+          className="w-auto h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-2 px-6 py-3 mt-4"
+        >
           <span className="font-medium text-white text-sm">
-            View all vehicles
+            View all
           </span>
           <ArrowRightIcon className="w-4 h-4 text-white" />
         </Button>
@@ -824,7 +612,7 @@ export const MainContentSection = (): JSX.Element => {
                     {step.step}
                   </div>
 
-                  <div className="font-semibold text-[#101828] text-xl md:text-2xl text-center">
+                  <div className="font-semibold text-[#101828] text-xl md:text-2xl text-center min-h-[64px]">
                     {step.title}
                   </div>
                 </div>
@@ -835,7 +623,7 @@ export const MainContentSection = (): JSX.Element => {
                   src={step.image}
                 />
 
-                <p className="text-[#4a5565] text-base text-center">
+                <p className="text-[#4a5565] text-base text-start">
                   {step.description}
                 </p>
               </CardContent>
@@ -845,127 +633,197 @@ export const MainContentSection = (): JSX.Element => {
       </div>
 
       {/* Brand logos section */}
-      <div className="w-full py-6 relative">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-[#101828] text-xl">Popular Brands</h3>
-        </div>
-        
-        <div className="overflow-x-auto pb-4 hide-scrollbar">
-          <div className="flex items-center gap-12 min-w-max px-2">
-            <img className="w-[100px] h-[40px]   object-contain" alt="Tesla" src="/assets/images/brands/tesla.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="Kia" src="/assets/images/brands/kia.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="BMW" src="/assets/images/brands/bmw.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="Ram" src="/assets/images/brands/ram.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="Volvo" src="/assets/images/brands/volvo.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="Ford" src="/assets/images/brands/ford.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="Nissan" src="/assets/images/brands/nissan.png" />
-            <img className="w-[100px] h-[40px]   object-contain" alt="Jeep" src="/assets/images/brands/jeep.png" />
-          </div>
-        </div>
-        
-        <style jsx global>{`
-          .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-          }
-          .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-          }
-        `}</style>
-      </div>
-
-      {/* Popular Utes section */}
-      <div className="flex flex-col items-start gap-6 w-full">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4">
-          <h2 className="font-semibold text-[#101828] text-2xl md:text-3xl">
-            Popular Utes for Business Lease
-          </h2>
-
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              onClick={() => router.push("/explore")}
-              className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
+      <div className="w-full py-2 relative">
+        <div className="w-full bg-gray-50">
+          {/* Marquee for all screen sizes */}
+          <div className="hidden lg:block relative overflow-hidden">
+            <div 
+              style={{
+                display: 'flex',
+                width: '100%',
+                height: '100%',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                placeItems: 'center',
+                margin: '0px',
+                padding: '0px',
+                listStyleType: 'none',
+                opacity: 1,
+                maskImage: 'linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 7.5%, rgb(0, 0, 0) 92.5%, rgba(0, 0, 0, 0) 100%)',
+                overflow: 'hidden'
+              }}
             >
-              <span className="font-medium text-sm">
-                View all
-              </span>
-            </Button>
-
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
-                onClick={() => {
-                  const container = document.getElementById('utes-carousel');
-                  if (container) {
-                    container.scrollBy({ left: -350, behavior: 'smooth' });
-                  }
+              <motion.ul
+                initial={{ x: 0 }}
+                animate={{ x: '-50%' }}
+                transition={{ 
+                  repeat: Infinity,
+                  duration: 20,
+                  ease: 'linear'
+                }}
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  placeItems: 'center',
+                  margin: '0px',
+                  padding: '0px',
+                  listStyleType: 'none',
+                  gap: '70px',
+                  position: 'relative',
+                  flexDirection: 'row',
+                  willChange: 'transform'
                 }}
               >
-                <ChevronLeftIcon className="w-5 h-5" />
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
-                onClick={() => {
-                  const container = document.getElementById('utes-carousel');
-                  if (container) {
-                    container.scrollBy({ left: 350, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <ChevronRightIcon className="w-5 h-5 text-white" />
-              </Button>
+                {/* First set of logos */}
+                {/* Flatten the nested arrays for a single continuous list */}
+                {
+                  brands.map((brand, index) => (
+                    <li 
+                      key={`brand-${index}`} 
+                      className="flex-shrink-0 cursor-pointer"
+                      onClick={() => router.push(`/inventory?brand=${brand.name}`)}
+                    >
+                      <img
+                        className="h-[40px] md:h-[40px] max-w-[120px] object-contain hover:opacity-70 transition-opacity"
+                        alt={brand.name}
+                        src={brand.src}
+                      />
+                    </li>
+                  ))}
+                
+                {/* Duplicate set of logos to create seamless loop */}
+                {[...brands]
+                  .filter((brand, index, self) => 
+                    // Remove duplicates based on name
+                    index === self.findIndex(b => b.name === brand.name)
+                  )
+                  .map((brand, index) => (
+                    <li 
+                      key={`brand-dup-${index}`} 
+                      className="flex-shrink-0 cursor-pointer"
+                      onClick={() => router.push(`/inventory?brand=${brand.name}`)}
+                    >
+                      <img
+                        className="h-[40px] md:h-[40px] max-w-[120px] object-contain hover:opacity-70 transition-opacity"
+                        alt={brand.name}
+                        src={brand.src}
+                      />
+                    </li>
+                  ))}
+              </motion.ul>
             </div>
           </div>
-        </div>
-
-        <div className="relative w-full">
-          <div 
-            id="utes-carousel"
-            className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
-          >
-            <div className="flex gap-6 min-w-max">
-              {utesVehicles.map((vehicle, index) => (
-                <div key={index} className="w-[350px] flex-shrink-0">
-                  <SmallVehicleCard 
-                    image={vehicle.image}
-                    name={vehicle.name}
-                    type={vehicle.type}
-                    fuel={vehicle.fuel}
-                    price={vehicle.price}
-                    router={router}
-                  />
-                </div>
-              ))}
+            <div className="block lg:hidden relative overflow-hidden">
+            <div 
+              style={{
+                display: 'flex',
+                width: '100%',
+                height: '100%',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                placeItems: 'center',
+                margin: '0px',
+                padding: '0px',
+                listStyleType: 'none',
+                opacity: 1,
+                maskImage: 'linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 7.5%, rgb(0, 0, 0) 92.5%, rgba(0, 0, 0, 0) 100%)',
+                overflow: 'hidden'
+              }}
+            >
+              <motion.ul
+                initial={{ x: 0 }}
+                animate={{ x: '-50%' }}
+                transition={{ 
+                  repeat: Infinity,
+                  duration: 10,
+                  ease: 'linear'
+                }}
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  placeItems: 'center',
+                  margin: '0px',
+                  padding: '0px',
+                  listStyleType: 'none',
+                  gap: '40px',
+                  position: 'relative',
+                  flexDirection: 'row',
+                  willChange: 'transform'
+                }}
+              >
+                {/* First set of logos */}
+                {/* Flatten the nested arrays for a single continuous list */}
+                {
+                  [...brands]
+                  .filter((brand, index, self) => 
+                    // Remove duplicates based on name
+                    index === self.findIndex(b => b.name === brand.name)
+                  ).map((brand, index) => (
+                    <li 
+                      key={`brand-${index}`} 
+                      className="flex-shrink-0 cursor-pointer"
+                      onClick={() => router.push(`/inventory?brand=${brand.name}`)}
+                    >
+                      <img
+                        className="h-[40px] max-w-[120px] object-contain hover:opacity-70 transition-opacity"
+                        alt={brand.name}
+                        src={brand.src}
+                      />
+                    </li>
+                  ))}
+                
+                {/* Duplicate set of logos to create seamless loop */}
+                {
+                  [...brands]
+                  .filter((brand, index, self) => 
+                    // Remove duplicates based on name
+                    index === self.findIndex(b => b.name === brand.name)
+                  )
+                  .map((brand, index) => (
+                    <li 
+                      key={`brand-dup-${index}`} 
+                      className="flex-shrink-0 cursor-pointer"
+                      onClick={() => router.push(`/inventory?brand=${brand.name}`)}
+                    >
+                      <img
+                        className="h-[40px] max-w-[120px] object-contain hover:opacity-70 transition-opacity"
+                        alt={brand.name}
+                        src={brand.src}
+                      />
+                    </li>
+                  ))}
+              </motion.ul>
             </div>
           </div>
         </div>
       </div>
+
 
       {/* Product Offerings section */}
       <div className="flex flex-col w-full items-start gap-12">
-        <div className="flex flex-col md:flex-row justify-between items-center w-full gap-6">
-          <div className="flex flex-col items-center md:items-start gap-4 flex-1">
-            <h2 className="font-semibold text-[#101828] text-3xl md:text-4xl text-center md:text-left">
+        <div className="flex flex-col md:flex-row justify-between lg:items-center items-start  w-full gap-6">
+          <div className="flex flex-col items-start gap-4 flex-1">
+            <h2 className="font-semibold text-[#101828] text-2xl md:text-3xl text-left">
               Product Offerings
             </h2>
 
-            <p className="text-[#4a5565] text-lg text-center md:text-left">
+            <p className="text-[#4a5565] text-lg text-left">
               Choose the lease that fits your fleet and budget.
             </p>
           </div>
 
           <Button
             variant="ghost"
-            onClick={() => router.push("/explore")}
+            onClick={() => router.push("/inventory")}
             className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
           >
-            <span className="font-medium text-sm">
+            <span className="font-medium text-sm text-left">
               View all
             </span>
           </Button>
@@ -975,13 +833,13 @@ export const MainContentSection = (): JSX.Element => {
           {productOfferings.map((product, index) => (
             <Card
               key={index}
-              className="flex flex-col h-full border border-solid shadow-sm overflow-hidden"
+              className="flex flex-col h-full border border-solid shadow-sm overflow-hidden bg-white"
             >
               <CardContent className="flex flex-col items-start gap-6 p-6 h-full">
                 <img
-                  className="w-full h-48 object-cover rounded-md"
+                  className="w-full h-48 object-contain rounded-md"
                   alt={product.title}
-                  src="/assets/images/no-image.png"
+                  src={product.image}
                 />
 
                 <div className="flex flex-col items-start gap-4 flex-grow w-full">
@@ -998,6 +856,7 @@ export const MainContentSection = (): JSX.Element => {
 
                 <Button
                   variant="ghost"
+                  onClick={() => router.push(product.url)}
                   className="h-auto px-0 py-0 gap-2 hover:bg-transparent text-[#194170]"
                 >
                   <span className="font-medium text-base">
@@ -1011,17 +870,139 @@ export const MainContentSection = (): JSX.Element => {
         </div>
 
         {/* Partner logos */}
-        <div className="w-full py-4 rounded-lg  mt-8">
-          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 max-w-[1200px] mx-auto px-4">
-            {partnerLogos.map((logo, index) => (
-              <img
-                key={index}
-                className="h-8 md:h-10 w-auto max-w-[150px] object-contain"
-                alt="Partner logo"
-                src={logo.src}
-              />
-            ))}
+        <div className="w-full py-2">
+          {/* Marquee for desktop */}
+          <div className="hidden lg:block relative overflow-hidden">
+            <div 
+              style={{
+                display: 'flex',
+                width: '100%',
+                height: '100%',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                placeItems: 'center',
+                margin: '0px',
+                padding: '0px',
+                listStyleType: 'none',
+                opacity: 1,
+                maskImage: 'linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 7.5%, rgb(0, 0, 0) 92.5%, rgba(0, 0, 0, 0) 100%)',
+                overflow: 'hidden'
+              }}
+            >
+              <motion.ul
+                initial={{ x: 0 }}
+                animate={{ x: '-50%' }}
+                transition={{ 
+                  repeat: Infinity,
+                  duration: 20,
+                  ease: 'linear'
+                }}
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  placeItems: 'center',
+                  margin: '0px',
+                  padding: '0px',
+                  listStyleType: 'none',
+                  gap: '57px',
+                  position: 'relative',
+                  flexDirection: 'row',
+                  willChange: 'transform'
+                }}
+              >
+                {/* First set of logos */}
+                {partnerLogosV1.map((brand, index) => (
+                  <li key={`logo-${index}`} className="flex-shrink-0">
+                    <img
+                      className="h-[50px] w-[180px] object-cover"
+                      alt={brand.name}
+                      src={brand.src}
+                    />
+                  </li>
+                ))}
+                {/* Duplicate set of logos to create seamless loop */}
+                {partnerLogosV1.map((brand, index) => (
+                  <li key={`logo-dup-${index}`} className="flex-shrink-0">
+                    <img
+                      className="h-[50px] w-[180px] object-cover"
+                      alt={brand.name}
+                      src={brand.src}
+                    />
+                  </li>
+                ))}
+              </motion.ul>
+            </div>
           </div>
+
+          {/* Marquee for mobile */}
+          <div className="block lg:hidden relative overflow-hidden">
+            <div 
+              style={{
+                display: 'flex',
+                width: '100%',
+                height: '100%',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                placeItems: 'center',
+                margin: '0px',
+                padding: '0px',
+                listStyleType: 'none',
+                opacity: 1,
+                maskImage: 'linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 7.5%, rgb(0, 0, 0) 92.5%, rgba(0, 0, 0, 0) 100%)',
+                overflow: 'hidden'
+              }}
+            >
+              <motion.ul
+                initial={{ x: 0 }}
+                animate={{ x: '-50%' }}
+                transition={{ 
+                  repeat: Infinity,
+                  duration: 10,
+                  ease: 'linear'
+                }}
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  placeItems: 'center',
+                  margin: '0px',
+                  padding: '0px',
+                  listStyleType: 'none',
+                  gap: '40px',
+                  position: 'relative',
+                  flexDirection: 'row',
+                  willChange: 'transform'
+                }}
+              >
+                {/* First set of logos */}
+                {partnerLogosV1.map((brand, index) => (
+                  <li key={`mobile-logo-${index}`} className="flex-shrink-0">
+                    <img
+                      className="h-[40px] w-[120px] object-cover"
+                      alt={brand.name}
+                      src={brand.src}
+                    />
+                  </li>
+                ))}
+                {/* Duplicate set of logos to create seamless loop */}
+                {partnerLogosV1.map((brand, index) => (
+                  <li key={`mobile-logo-dup-${index}`} className="flex-shrink-0">
+                    <img
+                      className="h-[40px] w-[120px] object-contain"
+                      alt={brand.name}
+                      src={brand.src}
+                    />
+                  </li>
+                ))}
+              </motion.ul>
+            </div>
+          </div>
+
         </div>
 
         {/* Additional products grid */}
@@ -1029,7 +1010,7 @@ export const MainContentSection = (): JSX.Element => {
           {additionalProducts.map((product, index) => (
             <Card
               key={index}
-              className="w-full border border-solid shadow-sm overflow-hidden h-full"
+              className="w-full border border-solid shadow-sm overflow-hidden h-full bg-white"
             >
               <CardContent className="flex flex-col items-start gap-6 p-6 h-full">
                 <div className="flex flex-col items-start gap-3 w-full flex-grow">
@@ -1044,6 +1025,7 @@ export const MainContentSection = (): JSX.Element => {
 
                 <Button
                   variant="ghost"
+                  onClick={() => router.push('/products/business-finance')}
                   className="h-auto px-0 py-0 gap-2 hover:bg-transparent text-[#194170] self-start mt-auto"
                 >
                   <span className="font-medium text-base">
@@ -1057,151 +1039,117 @@ export const MainContentSection = (): JSX.Element => {
         </div>
       </div>
 
-      {/* Popular SUVs section */}
-      <div className="flex flex-col items-start gap-6 w-full">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4">
-          <h2 className="font-semibold text-[#101828] text-2xl md:text-3xl">
-            Popular SUVs for Business Lease
-          </h2>
 
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              onClick={() => router.push("/explore")}
-              className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
-            >
-              <span className="font-medium text-sm">
-                View all
-              </span>
-            </Button>
 
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
-                onClick={() => {
-                  const container = document.getElementById('suvs-carousel');
-                  if (container) {
-                    container.scrollBy({ left: -350, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <ChevronLeftIcon className="w-5 h-5" />
-              </Button>
+       <div className="flex flex-col items-start gap-6 w-full">
+        <VehiclesCarousel
+          title="Popular Utes for Business Lease"
+          actionLabel="View all"
+          onAction={() => router.push("/inventory")}
+          cars={bodyTypeOffers['Popular Utes']}
+          showMultipleColumns={true}
+          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+          renderCard={(offer: any) => (
+                    <VehicleCard
+              image={
+                offer?.NVIC
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  : "/assets/images/no-image.png"
+              }
+              name={offer?.title}
+              type={offer?.bodyType}
+              
+              fuel={offer?.selectedVariant?.variant}
+              price={offer?.selectedVariant?.weeklyPrice}
+                      router={router}
+              id={offer?.slug}
+                      isTrending={offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("trending")
+                )?.length > 0}
+              tags={
+                offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("limited")
+                ) ?? offer?.tags
+              }
+            />
+          )}
+        />
 
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
-                onClick={() => {
-                  const container = document.getElementById('suvs-carousel');
-                  if (container) {
-                    container.scrollBy({ left: 350, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <ChevronRightIcon className="w-5 h-5 text-white" />
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative w-full">
-          <div 
-            id="suvs-carousel"
-            className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
-          >
-            <div className="flex gap-6 min-w-max">
-              {suvsVehicles.map((vehicle, index) => (
-                <div key={index} className="w-[350px] flex-shrink-0">
-                  <TinyVehicleCard 
-                    image={vehicle.image}
-                    name={vehicle.name}
-                    type={vehicle.type}
-                    fuel={vehicle.fuel}
-                    price={vehicle.price}
-                    router={router}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      </div>   
 
       {/* Popular Vans section */}
       <div className="flex flex-col items-start gap-6 w-full">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4">
-          <h2 className="font-semibold text-[#101828] text-2xl md:text-3xl">
-            Popular Vans for Business Lease
-          </h2>
+        <VehiclesCarousel
+          title="Popular Vans for Business Lease"
+          actionLabel="View all"
+          onAction={() => router.push("/inventory")}
+          cars={bodyTypeOffers['Popular Van']}
+          showMultipleColumns={true}
+          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+          renderCard={(offer: any) => (
+                    <VehicleCard
+              image={
+                offer?.NVIC
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  : "/assets/images/no-image.png"
+              }
+              name={offer?.title}
+              type={offer?.bodyType}
+              
+              fuel={offer?.selectedVariant?.variant}
+              price={offer?.selectedVariant?.weeklyPrice}
+                      router={router}
+              id={offer?.slug}
+                      isTrending={offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("trending")
+                )?.length > 0}
+              tags={
+                offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("limited")
+                ) ?? offer?.tags
+              }
+            />
+          )}
+        />
 
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              onClick={() => router.push("/explore")}
-              className="h-auto px-3 py-2 hover:bg-transparent text-[#194170]"
-            >
-              <span className="font-medium text-sm">
-                View all
-              </span>
-            </Button>
-
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
-                onClick={() => {
-                  const container = document.getElementById('vans-carousel');
-                  if (container) {
-                    container.scrollBy({ left: -350, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <ChevronLeftIcon className="w-5 h-5" />
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
-                onClick={() => {
-                  const container = document.getElementById('vans-carousel');
-                  if (container) {
-                    container.scrollBy({ left: 350, behavior: 'smooth' });
-                  }
-                }}
-              >
-                <ChevronRightIcon className="w-5 h-5 text-white" />
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative w-full">
-          <div 
-            id="vans-carousel"
-            className="overflow-x-auto pb-4 hide-scrollbar scroll-smooth"
-          >
-            <div className="flex gap-6 min-w-max">
-              {vansVehicles.map((vehicle, index) => (
-                <div key={index} className="w-[350px] flex-shrink-0">
-                  <TinyVehicleCard 
-                    image={vehicle.image}
-                    name={vehicle.name}
-                    type={vehicle.type}
-                    fuel={vehicle.fuel}
-                    price={vehicle.price}
-                    router={router}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
+
+         {/* Popular Sedan section */}
+      <div className="flex flex-col items-start gap-6 w-full">
+        <VehiclesCarousel
+          title="Popular Sedans for Business Lease"
+          actionLabel="View all"
+          onAction={() => router.push("/inventory")}
+          cars={bodyTypeOffers['Popular Sedan']}
+          showMultipleColumns={true}
+          getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
+          renderCard={(offer: any) => (
+                    <VehicleCard
+              image={
+                offer?.NVIC
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  : "/assets/images/no-image.png"
+              }
+              name={offer?.title}
+              type={offer?.bodyType}
+              fuel={offer?.selectedVariant?.variant}
+              price={offer?.selectedVariant?.weeklyPrice}
+                      router={router}
+              id={offer?.slug}
+                      isTrending={offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("trending")
+                )?.length > 0}
+              tags={
+                offer?.tags?.filter((tag: string) =>
+                  tag.toLowerCase().includes("limited")
+                ) ?? offer?.tags
+              }
+            />
+          )}
+        />
+
+      </div>
+
     </section>
   );
 };

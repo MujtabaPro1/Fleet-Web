@@ -5,6 +5,8 @@ export const figtree = Figtree({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-figtree',
+  preload: true,
+  fallback: ['system-ui', 'sans-serif'],
 });
 
 // Keep this for backward compatibility, but make it use Figtree

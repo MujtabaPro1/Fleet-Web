@@ -25,16 +25,7 @@ const nextConfig = {
   },
   webpack(config) {
     config.resolve.alias['~'] = path.resolve(__dirname);
-    config.module.rules.push({
-      test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-      use: [{
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: '/fonts/'
-        }
-      }]
-    });
+    // Remove custom font loader to avoid conflicts with Next.js font optimization
     return config;
   },
 };

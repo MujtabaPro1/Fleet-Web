@@ -1,21 +1,22 @@
 import { ArrowRightIcon, HeartIcon, MenuIcon, PhoneIcon, X } from "lucide-react";
 import React, { useState } from "react";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const navigationItems = [
   { label: "Limited-time deals", link: "/deals/limited-time" },
   { label: "Popular models", link: "/vehicles/popular-models" },
   { label: "Explore by brands", link: "/explore" },
-  { label: "Explore by body type", link: "/explore" },
-  { label: "Leasing & Finance Options", link: "/products/fleet-leasing/finance-lease" },
-  { label: "Free consultation", link: "/services/consultation" },
+  { label: "Explore by body type", link: "/explore-body" },
+  { label: "Fleet Finance & Leasing", link: "/products/fleet-finance" },
+  { label: "Business Finance", link: "/products/business-finance" },
   { label: "About us", link: "/about" },
 ];
 
 export const NavigationBarSection = (): JSX.Element => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   return (
     <nav className="flex flex-col items-start w-full border-b relative">
       <div className="flex flex-col items-center justify-center p-4 bg-white border-b w-full">
@@ -29,19 +30,26 @@ export const NavigationBarSection = (): JSX.Element => {
 
 
           <div className="inline-flex items-center gap-2 sm:gap-5">
-            <Button
+            {/* <Button
               variant="outline"
+              onClick={()=>{
+                router.push('/wishlist')
+              }}
               className="hidden sm:inline-flex items-center justify-center gap-1.5 px-3 py-2 h-auto bg-gray-50 rounded border border-solid shadow-shadow-xs"
             >
               <HeartIcon className="w-4 h-4" fill="red"  stroke="red" />
               <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">
                 Favourites (5)
               </span>
-            </Button>
+            </Button> */}
 
-            <Button className="mr-[50px] lg:ml-0 inline-flex items-center justify-center gap-1.5 px-3 py-2 h-auto bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+            <Button 
+            onClick={()=>{
+              router.push('/services/consultation')
+            }}
+            className="mr-[50px] lg:mr-0 lg:ml-0 inline-flex items-center justify-center gap-1.5 px-3 py-2 h-auto bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
               <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5 whitespace-nowrap">
-                Contact us
+                Free consultation
               </span>
               <ArrowRightIcon className="w-4 h-4 text-white" />
             </Button>
@@ -50,7 +58,7 @@ export const NavigationBarSection = (): JSX.Element => {
       </div>
 
       {/* Mobile menu button */}
-      <div className="sm:hidden absolute right-4 top-4 z-50">
+      <div className="sm:hidden absolute right-4 top-4 z-[9999]">
         <Button
           variant="ghost"
           size="icon"
@@ -67,7 +75,7 @@ export const NavigationBarSection = (): JSX.Element => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="sm:hidden fixed inset-0 z-40 bg-white pt-16 px-4">
+        <div className="sm:hidden fixed inset-0 z-[999] bg-white pt-16 px-4">
           <div className="flex flex-col space-y-4">
             {navigationItems.map((item, index) => (
               <button
@@ -78,18 +86,18 @@ export const NavigationBarSection = (): JSX.Element => {
                   setMobileMenuOpen(false)
                 }}
               >
-                <span className="font-medium text-[#4a5565] text-base">
+                <span className={`font-medium ${pathname === item.link ? 'text-[#194170] font-semibold' : 'text-[#4a5565]'} text-base`}>
                   {item.label}
                 </span>
               </button>
             ))}
-            <div className="mt-4 flex items-center gap-1.5 justify-center border-t border-gray-100 pt-4">
+            <div className="mt-4 flex items-center gap-1.5 justify-center  pt-4">
               <PhoneIcon className="w-[18px] h-[18px] text-[#4a5565]" />
               <span className="font-medium text-[#4a5565] text-sm text-center tracking-[0] leading-5 whitespace-nowrap">
-                1300 352 352
+                1300 352 287
               </span>
             </div>
-            <Button
+            {/* <Button
               variant="outline"
               className="flex items-center justify-center gap-1.5 mt-2"
               onClick={() => setMobileMenuOpen(false)}
@@ -98,7 +106,7 @@ export const NavigationBarSection = (): JSX.Element => {
               <span className="font-medium text-[#4a5565] text-sm">
                 Favourites (5)
               </span>
-            </Button>
+            </Button> */}
           </div>
         </div>
       )}
@@ -110,9 +118,9 @@ export const NavigationBarSection = (): JSX.Element => {
               <button
                 key={index}
                 onClick={() => router.push(item.link)}
-                className="flex items-center gap-1.5 rounded-md cursor-pointer hover:opacity-80 transition-opacity"
+                className="flex items-center gap-1.5 rounded-md cursor-pointer transition-opacity"
               >
-                <span className="font-figtree font-medium text-[#4a5565] text-xs md:text-sm tracking-[0] leading-5 whitespace-nowrap">
+                <span className={`font-figtree hover:text-[#194170] hover:font-bold font-medium ${pathname === item.link ? 'text-[#194170] font-semibold' : 'text-[#4a5565]'} text-xs md:text-sm tracking-[0] leading-5 whitespace-nowrap`}>
                   {item.label}
                 </span>
               </button>
@@ -121,12 +129,12 @@ export const NavigationBarSection = (): JSX.Element => {
 
           <div 
           onClick={()=>{
-            window.location.href = "tel:1300352352"
+            window.location.href = "tel:1300352287"
           }}
           className="inline-flex items-center gap-1.5 cursor-pointer">
             <PhoneIcon className="w-[18px] h-[18px] text-[#4a5565]" />
             <span className="mt-[-1.00px] font-figtree font-medium text-[#4a5565] text-sm text-center tracking-[0] leading-5 whitespace-nowrap">
-              1300 352 352
+              1300 352 287
             </span>
           </div>
         </div>

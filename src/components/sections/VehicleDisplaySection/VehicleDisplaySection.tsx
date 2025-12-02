@@ -1,6 +1,6 @@
 'use client'
 import { SearchIcon } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../ui/button";
 import { Label } from "../../ui/label";
 import {
@@ -11,10 +11,70 @@ import {
   SelectValue,
 } from "../../ui/select";
 import { useRouter } from "next/router";
+import axiosInstance from "@/service/api";
 
 
 export const VehicleDisplaySection = (): JSX.Element => {
   const router = useRouter();
+  const [brands, setBrands] = useState<any[]>([]);
+  const [bodyTypes, setBodyTypes] = useState<any[]>([]);
+  const [selectedBrand, setSelectedBrand] = useState<string>("all");
+  const [selectedBodyType, setSelectedBodyType] = useState<string>("all");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        // Fetch brands
+        const brandsResponse = await axiosInstance.get('/v1/car-brands');
+        setBrands(brandsResponse.data || []);
+        
+        // Fetch body types
+        const bodyTypesResponse = await axiosInstance.get('/v1/body-types');
+        setBodyTypes(bodyTypesResponse.data || []);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Handle responsive banner image
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+    
+    // Check on initial render
+    checkScreenSize();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkScreenSize);
+    
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    
+    if (selectedBrand && selectedBrand !== "all") {
+      params.append('brand', selectedBrand);
+    }
+    
+    if (selectedBodyType && selectedBodyType !== "all") {
+      params.append('bodyType', selectedBodyType);
+    }
+    
+    const queryString = params.toString();
+    router.push(`/inventory${queryString ? `?${queryString}` : ''}`);
+  };
+
   return (
     <section className="flex flex-col items-center w-full py-8 md:py-12">
       <div className="flex flex-col items-center w-full max-w-[750px] mx-auto px-4 md:px-6 lg:px-8 bg-white rounded-lg border border-gray-200 shadow-sm relative overflow-visible">
@@ -47,23 +107,29 @@ export const VehicleDisplaySection = (): JSX.Element => {
                 >
                   Vehicle brand
                 </Label>
-                <Select>
+                {brands.length > 0 && <Select 
+                value={selectedBrand} onValueChange={setSelectedBrand}>
                   <SelectTrigger
                     id="vehicle-brand"
+                    placeholder="All brands"
                     className="w-full bg-white shadow-sm border border-gray-200"
+                    disabled={isLoading}
                   >
                     <SelectValue placeholder="All brands" />
                   </SelectTrigger>
                   <SelectContent style={{
-                    zIndex: 1000
+                    zIndex: 1000,
+                    maxHeight: '300px',
+                    overflowY: 'auto'
                   }}>
-                    <SelectItem value="all">All brands</SelectItem>
-                    <SelectItem value="toyota">Toyota</SelectItem>
-                    <SelectItem value="ford">Ford</SelectItem>
-                    <SelectItem value="bmw">BMW</SelectItem>
-                    <SelectItem value="mercedes">Mercedes-Benz</SelectItem>
+                    <div className="py-1">
+                      <SelectItem value="all">All brands</SelectItem>
+                      {brands.map((brand) => (
+                        <SelectItem key={brand.uid} value={brand.name}>{brand.name}</SelectItem>
+                      ))}
+                    </div>
                   </SelectContent>
-                </Select>
+                </Select>}
               </div>
 
               <div className="flex flex-col w-full md:w-1/2 gap-2">
@@ -73,32 +139,38 @@ export const VehicleDisplaySection = (): JSX.Element => {
                 >
                   Body type
                 </Label>
-                <Select>
+                {bodyTypes.length > 0 && <Select value={selectedBodyType} onValueChange={setSelectedBodyType}>
                   <SelectTrigger
                     id="body-type"
+                    placeholder="All body types"
                     className="w-full bg-white shadow-sm border border-gray-200"
+                    disabled={isLoading}
                   >
                     <SelectValue placeholder="All body types" />
                   </SelectTrigger>
                   <SelectContent style={{
-                    zIndex: 1000
+                    zIndex: 1000,
+                    maxHeight: '300px',
+                    overflowY: 'auto'
                   }}>
-                    <SelectItem value="all">All body types</SelectItem>
-                    <SelectItem value="suv">SUV</SelectItem>
-                    <SelectItem value="sedan">Sedan</SelectItem>
-                    <SelectItem value="hatchback">Hatchback</SelectItem>
-                    <SelectItem value="ute">Ute</SelectItem>
+                    <div className="py-1">
+                      <SelectItem value="all">All body types</SelectItem>
+                      {bodyTypes.map((bodyType) => (
+                        <SelectItem key={bodyType.name} value={bodyType.name}>{bodyType.name}</SelectItem>
+                      ))}
+                    </div>
                   </SelectContent>
-                </Select>
+                </Select>}
               </div>
             </div>
 
             <Button
-            onClick={() => router.push('/inventory')}
-            className="w-full h-auto bg-[#194170] hover:bg-[#194170]/90 shadow-sm py-3 gap-2 mt-2 cursor-pointer">
+            onClick={handleSearch}
+            className="w-full h-auto bg-[#194170] hover:bg-[#194170]/90 shadow-sm py-3 gap-2 mt-2 cursor-pointer"
+            disabled={isLoading}>
               <SearchIcon className="w-5 h-5 text-white" />
               <span className="font-medium text-white">
-                Show all vehicles
+                {(selectedBrand && selectedBrand !== "all") || (selectedBodyType && selectedBodyType !== "all") ? 'Search vehicles' : 'Show all vehicles'}
               </span>
             </Button>
           </div>
@@ -108,11 +180,11 @@ export const VehicleDisplaySection = (): JSX.Element => {
           <div 
             className="w-full h-[180px] md:h-[220px] flex items-end justify-center absolute bottom-0 left-0 right-0" 
             style={{
-              backgroundImage: `url(/assets/images/banner.png)`,
-              backgroundPosition: 'center bottom',
+              backgroundImage: `url(/assets/images/${isSmallScreen ? 'banner-sm.png' : 'banner.png'})`,
+              backgroundPosition: `${isSmallScreen ? 'center 60%' : 'center bottom'}`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'contain',
-              transform: 'scale(1.6)', // Makes the image larger to extend outside the card
+              transform: `${isSmallScreen ? 'scale(1.2)' : 'scale(2.0)'}`, // Makes the image larger to extend outside the card
               transformOrigin: 'bottom center',
               zIndex: 10 // Ensures the image appears above other elements
             }}

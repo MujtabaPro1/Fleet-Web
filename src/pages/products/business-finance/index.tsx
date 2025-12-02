@@ -1,6 +1,13 @@
 import Head from 'next/head';
 import { MyPage } from '@/components/layouts/types';
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { FeaturesListSection } from '@/components/ui/content/featured-nested-section';
+import { OverdraftBusiness } from '@/components/ui/content/overdraft-business';
+import { MainContentSection } from '@/components/ui/content/main-section-business';
+import { ServicesSection } from '@/components/ui/content/service-section-business';
+import { InfoSection } from '@/components/ui/content/info-section-business';
+import { LineCredit } from '@/components/ui/content/line-credit';
+import { InvoiceFinance } from '@/components/ui/content/invoice-finance';
 
 const BusinessFinanceProducts: MyPage = () => {
   return (
@@ -8,28 +15,22 @@ const BusinessFinanceProducts: MyPage = () => {
       <Head>
         <title>Fleet Leasing Australia | Business Finance Products</title>
       </Head>
-      <div className="bg-white px-4 pt-[20px] lg:pt-[60px] mt-5">
-        <div className="max-w-7xl px-2 mx-auto flex flex-wrap">
-          <div className="w-full mb-10">
-            <div className="flex flex-col items-center justify-center text-center">
-              <h1 className="text-[#171717] text-[56px] leading-tight font-semibold tracking-[-0.03em] capitalize md:text-[40px] sm:text-[28px] mb-6">
-                Business Finance Products
-              </h1>
-              <div className="flex flex-col items-center justify-center">
-                <p className="font-medium text-center text-[#333] text-[20px] leading-[1.6em] tracking-[-0.03em] max-w-[700px] mb-8">
-                  Comprehensive financial solutions for your business needs.
-                </p>
-                <div className="bg-customBlue-100 p-10 rounded-lg w-full max-w-[700px] text-center">
-                  <h2 className="text-[32px] font-semibold mb-4">Coming Soon</h2>
-                  <p className="text-[18px]">
-                    We&apos;re currently updating our business finance product offerings. 
-                    Please check back soon or contact our team for more information.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+     
+
+     
+      <div className="inline-flex flex-col items-center relative bg-white w-full">
+        <FeaturesListSection/>
+        <OverdraftBusiness />
+        <LineCredit />
+        <InvoiceFinance/>
+        <MainContentSection />
+        <ServicesSection />
+        <InfoSection />
+           <section className="flex flex-col w-full items-center px-0 py-24 bg-white">
+      <div className="flex gap-16 w-full max-w-[1280px] items-start px-4 border-t border-b py-8">
+          <p className="text-[#101828] leading-6 font-figtree font-normal text-base tracking-[0]">Note: Accounting treatment is dependent on specific lease terms and current AASB 16 standards. Always consult your accountant.</p>
+      </div>
+      </section>
       </div>
     </>
   );

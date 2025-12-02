@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { figtree } from '@/styles/fonts/fonts';
 import {
   Dialog,
   DialogContent,
@@ -15,8 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { X, CheckIcon } from "lucide-react";
+import { X, CheckIcon, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import axiosInstance from "@/service/api";
 
 interface QuoteRequestDialogProps {
   open: boolean;
@@ -37,6 +39,21 @@ interface FormState {
   referral: string;
 }
 
+interface QuoteRequestPayload {
+  name: string;
+  workEmail: string;
+  phone: string;
+  state: string;
+  businessOrAbn: string;
+  vehicleAllowance: boolean;
+  tradeIn: boolean;
+  variants: string[];
+  howFoundUs: string;
+  make?: string;
+  model?: string;
+  year?: number;
+}
+
 export function QuoteRequestDialog({
   open,
   onOpenChange,
@@ -44,11 +61,11 @@ export function QuoteRequestDialog({
   selectedVariant,
   variants = [],
 }: QuoteRequestDialogProps) {
-  const [selectedVariants, setSelectedVariants] = React.useState<string[]>(
+  const [selectedVariants, setSelectedVariants] = useState<string[]>(
     selectedVariant ? [selectedVariant] : []
   );
   
-  const [formState, setFormState] = React.useState<FormState>({
+  const [formState, setFormState] = useState<FormState>({
     name: "",
     email: "",
     phone: "",
@@ -59,7 +76,10 @@ export function QuoteRequestDialog({
     referral: "",
   });
   
-  const [errors, setErrors] = React.useState<Partial<Record<keyof FormState, string>>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>('');
 
   const handleVariantToggle = (variantId: string) => {
     if (selectedVariants.includes(variantId)) {
@@ -118,21 +138,57 @@ export function QuoteRequestDialog({
     return Object.keys(newErrors).length === 0;
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
     
     if (validateForm()) {
-      // Form is valid, proceed with submission
-      console.log("Form submitted:", { ...formState, selectedVariants });
-      // TODO: Add actual form submission logic here
+      setIsSubmitting(true);
       
-      // Close dialog after successful submission
-      onOpenChange(false);
+      try {
+        // Prepare the payload according to the required format
+        const payload: QuoteRequestPayload = {
+          name: formState.name,
+          workEmail: formState.email,
+          phone: formState.phone,
+          state: formState.state,
+          businessOrAbn: formState.businessName,
+          vehicleAllowance: formState.hasAllowance === true,
+          tradeIn: formState.hasTrade === true,
+          variants: selectedVariants,
+          howFoundUs: formState.referral || 'Not specified',
+          // Extract make and model from vehicleName if available
+          make: vehicleName?.split(' ')[0],
+          model: vehicleName?.split(' ').slice(1).join(' '),
+          year: new Date().getFullYear() // Default to current year
+        };
+        
+        console.log("Submitting quote request:", payload);
+        
+        // Make the API call
+        const response = await axiosInstance.post('/v1/quotes', payload);
+
+        if (response.data.message) {
+           setMessage(response.data.message);
+        }
+        
+        console.log("Quote request submitted successfully:", response.data);
+        
+        // Close dialog after successful submission
+        setTimeout(() => {
+          onOpenChange(false);
+        }, 2000);
+      } catch (error: any) {
+        console.error("Error submitting quote request:", error);
+        setSubmitError(error.response?.data?.message || "Failed to submit your quote request. Please try again later.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-full sm:w-auto sm:max-w-[500px] bg-white p-0 gap-0 lg:max-h-[90vh] max-h-screen overflow-y-auto">
+      <DialogContent className={`w-full sm:w-auto sm:max-w-[500px] bg-white p-0 gap-0 lg:max-h-[90vh] max-h-screen overflow-y-auto ${figtree.className}`}>
         <DialogHeader className="p-6 pb-0 sticky top-0 bg-white z-10 shadow-sm">
           <div className="flex justify-between items-start">
             <DialogTitle className="text-lg lg:text-2xl font-semibold text-[#c70036]">
@@ -144,6 +200,12 @@ export function QuoteRequestDialog({
             </DialogClose>
           </div>
         </DialogHeader>
+
+        {message && (
+          <div className="p-2 mt-[20px] w-[90%] mx-auto space-y-6 bg-green-50 text-green-500 border border-green-500">
+            <p className="text-sm">{message}</p>
+          </div>
+        )}
         
         <form onSubmit={handleSubmit} className="p-6 pb-8 space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -344,11 +406,25 @@ export function QuoteRequestDialog({
             </Select>
           </div>
 
+          {submitError && (
+            <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm">
+              {submitError}
+            </div>
+          )}
+          
           <Button 
             type="submit" 
             className="w-full text-white bg-[#194170] hover:bg-[#194170]/90 h-auto py-3.5"
+            disabled={isSubmitting}
           >
-            Get a Quote
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Submitting...
+              </>
+            ) : (
+              "Get a Quote"
+            )}
           </Button>
         </form>
       </DialogContent>

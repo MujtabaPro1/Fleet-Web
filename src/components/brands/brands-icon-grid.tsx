@@ -1,11 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
 import styles from '../../styles/components/CategoryIconGrid.module.scss';
-import fallbackImage from '../../assets/images/svg/brand1.svg'; // Default fallback image
+ // Default fallback image
 import Link from 'next/link';
 
 export default function BrandIconGrid({ categoryData }: any) {
-    const imageSrc = categoryData.imageUrl || fallbackImage;
+    const imageSrc = categoryData.imageUrl || '/assets/images/logo.png';
 
     return (
         <div className={`text-center bg-white p-2 rounded-lg hover:border-[#a3a3a3] border-[#d4d4d4] border-[1px]`}>

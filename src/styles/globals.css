@@ -2,10 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer base {
+  html {
+    font-family: var(--font-figtree), system-ui, sans-serif;
+  }
+}
+
 /* Figtree font utility class */
 .font-figtree {
   font-family: var(--font-figtree);
 }
+
+
 
 .slick-prev,
 .slick-next {
@@ -27,12 +36,14 @@ body a {
   }
 
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-100%);
   }
 }
 
 .animate-marquee {
-  animation: marquee 10s linear infinite;
+  animation: marquee 30s linear infinite;
+  display: flex;
+  width: max-content;
 }
 
 

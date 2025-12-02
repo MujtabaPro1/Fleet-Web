@@ -10,7 +10,7 @@ const phoneIcon = "/assets/images/svg/phone.svg";
 const envelopeIcon = "/assets/images/svg/envelope.svg";
 
 const facebookIcon = "/assets/images/svg/facebook.svg";
-const xIcon = "/assets/images/svg/x.svg";
+const xIcon = "/assets/images/svg/X.svg";
 const linkedinIcon = "/assets/images/svg/linkedin.svg";
 import { useRouter } from "next/navigation";
 
@@ -21,8 +21,8 @@ const topCards = [
     description:
       "Discover a wide range of vehicles tailored for your business needs.",
     links: [
-      { text: "Browse inventory", href: "#" },
-      { text: "Explore by brands & body type", href: "#" },
+      { text: "Browse inventory", href: "/inventory" },
+      { text: "Explore by brands & body type", href: "/explore" },
     ],
   },
   {
@@ -31,8 +31,8 @@ const topCards = [
     description:
       "Flexible solutions to help you acquire and manage your fleet with ease.",
     links: [
-      { text: "Explore options", href: "#" },
-      { text: "Free fleet consultation", href: "#" },
+      { text: "Explore options", href: "/products/fleet-finance" },
+      { text: "Free fleet consultation", href: "/services/consultation" },
     ],
   },
   {
@@ -41,7 +41,7 @@ const topCards = [
     description: "Your partner in fleet leasing, every step of the way",
     contactInfo: [
       { icon: calendarIcon, text: "Monday to Friday - 9 am to 5 pm" },
-      { icon: phoneIcon, text: "1300 352 352" },
+      { icon: phoneIcon, text: "1300 352 287" },
       { icon: envelopeIcon, text: "support@fleetleasingaustralia.com.au" },
     ],
   },
@@ -59,8 +59,8 @@ const footerColumns = [
     urls: [
       "/vehicles/popular-models",
       "/deals/limited-time",
-      "/vehicles/brands",
-      "/vehicles/body-types",
+      "/explore",
+      "/explore-body",
     ]
   },
   {
@@ -72,9 +72,9 @@ const footerColumns = [
       "Free Fleet Consultation",
     ],
     urls: [
-      "/products/fleet-leasing",
-      "/products/fleet-leasing",
-      "/products/fleet-leasing",
+      "/products/fleet-finance",
+      "/products/fleet-finance",
+      "/products/fleet-finance",
       "/services/consultation",
     ]
   },
@@ -88,11 +88,11 @@ const footerColumns = [
       "Overdraft Facility",
     ],
     urls: [
-      "/products/business-finance/commercial-term-loan",
-      "/products/business-finance/line-of-credit",
-      "/products/business-finance/working-capital",
-      "/products/business-finance/invoice-financing",
-      "/products/business-finance/overdraft-facility",
+      "/products/business-finance",
+      "/products/business-finance",
+      "/products/business-finance",
+      "/products/business-finance",
+      "/products/business-finance",
     ]
   },
   {
@@ -148,6 +148,7 @@ export const SiteFooterSection = (): JSX.Element => {
                     <Button
                       key={linkIndex}
                       variant="link"
+                      onClick={() => router.push(link.href)}
                       className="flex items-center gap-1.5 w-full justify-start p-0 h-auto"
                     >
                       <span className="font-figtree font-semibold text-[#194170] text-sm tracking-[0] leading-5 whitespace-nowrap">
@@ -236,21 +237,27 @@ export const SiteFooterSection = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="flex flex-col items-start gap-5 pt-8 pb-0 px-0 w-full border-t border-gray-100">
-          <div className="w-full font-figtree font-normal text-[#4a5565] text-sm sm:text-base text-center sm:tracking-[0] leading-5 sm:leading-6 [font-style:normal]">
-            © {new Date().getFullYear()} Fleet Leasing Australia. All rights reserved.
+        <div className="w-full border-t border-gray-100 pt-8">
+          <p className="text-[#4A5565]">All figures are based on indicative business finance or operating lease calculations arranged through Fleet Leasing Australia for approved ABN holders and company applicants. Pricing is based on a no-deposit, drive-away structure that includes GST, Stamp Duty, and 1 year Registration, over a 60-month term with a 30% residual value. Calculations are derived from business fleet pricing with unlimited kilometres and assume a standard manufacturer specification without optional extras or accessories. Repayments are calculated using current market interest rates and may vary depending on individual lender assessment, applicant credit profile, vehicle selection, and any applicable fees and charges. Vehicle pricing is indicative only and subject to vehicle availability, location, and final dealer quotation. All new vehicles are supplied and delivered through accredited national dealer partners, subject to stock availability and lead times. Trade-ins are accepted and subject to independent valuation. Vehicle images are for illustration purposes only and may differ from the actual model offered. Information, pricing, and offers displayed on this website are current at the time of publication and are subject to change without notice. All applications for credit are subject to lender eligibility and credit approval criteria, and terms, conditions, fees, and charges apply. The information provided is of a general nature only and does not constitute financial or tax advice. It does not take into account your personal objectives, financial situation, or needs. We recommend seeking independent financial and taxation advice before making any decision regarding a finance or leasing product. Fleet Leasing Australia may receive financial benefits from lenders, insurers, or suppliers in connection with its products and services.</p>
+        </div>
+
+        <div className="flex flex-col lg:flex-row justify-between pt-8 pb-0 px-0 w-full border-t border-gray-100">
+          <div className="w-full font-figtree font-normal text-[#4A5565] text-sm sm:text-base text-start sm:tracking-[0] leading-5 sm:leading-6 [font-style:normal]">
+            © FLA Group Holdings Pty Ltd T/A Fleet Leasing Australia (ABN 74 692 369 565)
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+          <div className="flex items-center justify-start lg:justify-end gap-4 w-full">
             <Button
               variant="link"
-              className="p-0 h-auto font-figtree font-normal text-[#4a5565] text-sm sm:text-base tracking-[0] leading-5 sm:leading-6 whitespace-nowrap"
+              onClick={() => router.push("/privacy-policy")}
+              className="p-0 hvauto font-figtree font-normal text-[#4a5565] text-sm sm:text-base tracking-[0] leading-5 sm:leading-6 whitespace-nowrap"
             >
               Privacy policy
             </Button>
 
             <Button
               variant="link"
+              onClick={() => router.push("/terms")}
               className="p-0 h-auto font-figtree font-normal text-[#4a5565] text-sm sm:text-base tracking-[0] leading-5 sm:leading-6 whitespace-nowrap"
             >
               Terms & conditions
