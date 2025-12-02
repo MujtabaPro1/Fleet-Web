@@ -249,11 +249,11 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
     return (
       <>
       <Head>
-        <title>Fleet Inventory | {car?.brand?.name} {car?.modelName}</title>
+        {car ? <title>Fleet Inventory {car?.brand?.name ? `| ${car?.brand?.name}` : ''} {car?.modelName ? ` ${car?.modelName}` : ''}</title> : <title>Fleet Inventory</title>}
       </Head>
       <div className="flex flex-col items-center gap-8 bg-gray-50 overflow-hidden">
 
-<main className="flex flex-col max-w-full lg:max-w-[1280px] pt-[60px] md:pt-[80px] items-center gap-6 md:gap-10 px-3 md:px-4">
+<main className="flex flex-col max-w-full lg:max-w-[1280px] pt-[40px] items-center gap-6 md:gap-10 px-3 md:px-4">
         <div className="flex flex-col items-start gap-8 relative max-w-[1280px] px-0 lg:px-2">
           <div className="w-full overflow-x-auto pl-4 lg:pl-0">
             {/* First line: Home > Fleet Inventory */}
