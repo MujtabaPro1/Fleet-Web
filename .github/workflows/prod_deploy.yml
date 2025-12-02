@@ -34,7 +34,7 @@ jobs:
             source /home/${{ secrets.FLEET_STG_USER }}/nodevenv/frontend-prod/24/bin/activate
 
             echo "📦 Pulling latest code"
-            git pull origin develop
+            git pull origin main
 
             echo "📦 Installing production dependencies"
             npm ci --legacy-peer-deps
