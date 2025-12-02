@@ -127,46 +127,6 @@ const Content = ({ title }: { title: string }) => {
   return (
     <div className="flex flex-col items-start gap-6 w-full mt-6">
     <div className="relative w-full">
-      {/* <div className="overflow-x-auto pb-4 hide-scrollbar">
-        {filteredCars.length > 0 ? (
-          <div className="flex gap-6 min-w-max">
-            {filteredCars.map((vehicle: any, index: any) => (
-            <div key={index} className="w-[350px] flex-shrink-0">
-              <VehicleCard 
-                image={'https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/' + vehicle.NVIC}
-                name={vehicle.name}
-                type={vehicle.type}
-                fuel={vehicle.fuel}
-                price={vehicle.selectedVariant?.weeklyPrice}
-                isTrending={vehicle.tags.filter((tag: any) => tag.includes("Trending")).length > 0}
-                tags={vehicle.tags.filter((tag: any) => tag.includes("Limited")).length > 0 ? ["Limited Time Offer"] : []}
-              />
-            </div>
-          ))}
-          </div>
-        ) : (
-          <div className="flex justify-center items-center py-10 w-full">
-            <p className="text-gray-500">No vehicles found for the selected body type.</p>
-          </div>
-        )}
-      </div>
-      <div className="flex lg:hidden justify-center items-center gap-2 mt-6">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full"
-          >
-            <ChevronLeftIcon className="w-5 h-5" />
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            className="w-9 h-9 bg-[#101828] hover:bg-[#101828]/90 rounded-full"
-          >
-            <ChevronRightIcon className="w-5 h-5 text-white" />
-          </Button>
-        </div> */}
         <VehiclesCarousel
                  title={title}
                  actionLabel="View all"
@@ -178,7 +138,7 @@ const Content = ({ title }: { title: string }) => {
                            <VehicleCard
                      image={
                        car?.NVIC
-                         ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car.NVIC}`
+                         ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car.NVIC}`
                          : "/assets/images/no-image.png"
                      }
                      name={car?.title}

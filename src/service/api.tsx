@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://api-dev.fleetleasingaustralia.com.au/api';
+const BASE_URL = 'https://api.fleetleasingaustralia.com.au/api';
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,

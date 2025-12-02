@@ -13,11 +13,11 @@ class MyDocument extends Document {
         dir={this.props.locale === "ar" ? "rtl" : "ltr"}
         lang={this.props.locale}
       >
+        <title>Fleet Leasing Australia - Find Your Perfect Vehicle | Quality Fleet Management Solutions</title>
         <Head>
           {/* Basic Meta Tags */}
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-          <title>Fleet Leasing Australia - Find Your Perfect Vehicle | Quality Fleet Management Solutions</title>
           <meta name="description" content="Fleet Leasing Australia - Your trusted source for quality vehicles and fleet management solutions" />
           <meta name="keywords" content="fleet management, vehicles, cars, trucks, fleet plan, automotive" />
           <meta name="author" content="Fleet Leasing Australia" />
@@ -32,17 +32,17 @@ class MyDocument extends Document {
           
           {/* Open Graph / Facebook */}
           <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://dev.fleetleasingaustralia.com.au/" />
+          <meta property="og:url" content="https://fleetleasingaustralia.com.au/" />
           <meta property="og:title" content="Fleet Leasing Australia - Find Your Perfect Vehicle | Quality Fleet Management Solutions" />
           <meta property="og:description" content="Fleet Leasing Australia - Your trusted source for quality vehicles and fleet management solutions" />
-          <meta property="og:image" content="https://dev.fleetleasingaustralia.com.au/og-image.jpg" />
+          <meta property="og:image" content="https://fleetleasingaustralia.com.au/og-image.jpg" />
           
           {/* Twitter */}
           <meta property="twitter:card" content="summary_large_image" />
-          <meta property="twitter:url" content="https://dev.fleetleasingaustralia.com.au/" />
+          <meta property="twitter:url" content="https://fleetleasingaustralia.com.au/" />
           <meta property="twitter:title" content="Fleet Leasing Australia - Find Your Perfect Vehicle | Quality Fleet Management Solutions" />
           <meta property="twitter:description" content="Fleet Leasing Australia - Your trusted source for quality vehicles and fleet management solutions" />
-          <meta property="twitter:image" content="https://dev.fleetleasingaustralia.com.au/twitter-image.jpg" />
+          <meta property="twitter:image" content="https://fleetleasingaustralia.com.au/twitter-image.jpg" />
           
           {/* Google Tag Manager */}
           <script dangerouslySetInnerHTML={{ __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start'):
