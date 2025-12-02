@@ -14,7 +14,6 @@ class MyDocument extends Document {
         lang={this.props.locale}
       >
         <Head>
-
           {/* Favicon */}
           <link rel="icon" href="/favicon.ico" />
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -24,20 +23,20 @@ class MyDocument extends Document {
           
           {/* Open Graph / Facebook */}
           <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://fleetleasingaustralia.com.au/" />
+          <meta property="og:url" content="https://dev.fleetleasingaustralia.com.au/" />
           <meta property="og:title" content="Fleet Leasing Australia - Find Your Perfect Vehicle | Quality Fleet Management Solutions" />
           <meta property="og:description" content="Fleet Leasing Australia - Your trusted source for quality vehicles and fleet management solutions" />
-          <meta property="og:image" content="https://fleetleasingaustralia.com.au/og-image.jpg" />
+          <meta property="og:image" content="https://dev.fleetleasingaustralia.com.au/og-image.jpg" />
           
           {/* Twitter */}
           <meta property="twitter:card" content="summary_large_image" />
-          <meta property="twitter:url" content="https://fleetleasingaustralia.com.au/" />
+          <meta property="twitter:url" content="https://dev.fleetleasingaustralia.com.au/" />
           <meta property="twitter:title" content="Fleet Leasing Australia - Find Your Perfect Vehicle | Quality Fleet Management Solutions" />
           <meta property="twitter:description" content="Fleet Leasing Australia - Your trusted source for quality vehicles and fleet management solutions" />
-          <meta property="twitter:image" content="https://fleetleasingaustralia.com.au/twitter-image.jpg" />
+          <meta property="twitter:image" content="https://dev.fleetleasingaustralia.com.au/twitter-image.jpg" />
           
           {/* Google Tag Manager */}
-          <script dangerouslySetInnerHTML={{ __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start'):
+          <script dangerouslySetInnerHTML={{ __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': 
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
