@@ -22,7 +22,7 @@ export const MainContentSection = (): JSX.Element => {
         <img
           className="w-full max-w-[1280px] h-96 object-cover mb-2"
           alt="Image"
-          src={BannerImage}
+          src={'/assets/images/about-us/story.png'}
         />
           <h2 className="font-figtree font-semibold text-[#101828] text-4xl tracking-[-0.40px] leading-[45px]">
             Our Story

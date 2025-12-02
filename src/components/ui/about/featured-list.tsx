@@ -8,19 +8,19 @@ const featuresData = [
     title: "Our Vision",
     description:
       "To be Australia's most trusted partner for commercial vehicle finance and leasing, recognised for our clarity, independence, and genuine commitment to each client's financial health.",
-    image: BannerImage,
+    image: '/assets/images/about-us/vision.png',
   },
   {
     title: "Our Commitment",
     description:
       "We believe that the right finance structure is just as important as the right vehicle. Our mission is to cut through lending complexity and deliver transparent, tailored solutions that strengthen your business long term. By leveraging our national dealer and lender network, we deliver maximum savings, efficiency, and fleet performance without compromise.",
-    image: BannerImage,
+    image: '/assets/images/about-us/commitment.png',
   },
   {
     title: "Our Expertise",
     description:
       "Our leadership team brings decades of combined experience across fleet aggregation, finance, and automotive sourcing, backed by long-standing partnerships with trusted lenders and national manufacturers. We understand the challenges Australian businesses face, from balancing budgets to maintaining vehicles and we're here to make every step easier.",
-    image: BannerImage,
+    image: '/assets/images/about-us/expertise.png',
   },
 ];
 

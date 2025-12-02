@@ -99,18 +99,21 @@ const productOfferings = [
     description:
       'A chattel mortgage is a commercial loan used to purchase a "chattel" (an asset like a vehicle or equipment), which is then used as security for the loan.',
     url: "/products/business-finance",  
+    image: "/assets/images/product-offering/chattel.png",
   },
   {
     title: "Finance Lease",
     description:
       "Finance Lease: A finance lease is a long-term rental agreement where the finance company buys the asset and leases it to your business for a fixed period.",
     url: "/products/fleet-finance",  
+    image: "/assets/images/product-offering/finance.png",
   },
   {
     title: "Operating Lease",
     description:
       "An operating lease is a rental agreement that provides your business with the use of an asset for a shorter term than its useful life.",
     url: "/products/fleet-finance",
+    image: "/assets/images/product-offering/operating.png",
   },
 ];
 
@@ -843,9 +846,9 @@ export const MainContentSection = (): JSX.Element => {
             >
               <CardContent className="flex flex-col items-start gap-6 p-6 h-full">
                 <img
-                  className="w-full h-48 object-cover rounded-md"
+                  className="w-full h-48 object-contain rounded-md"
                   alt={product.title}
-                  src="/assets/images/no-image.png"
+                  src={product.image}
                 />
 
                 <div className="flex flex-col items-start gap-4 flex-grow w-full">
