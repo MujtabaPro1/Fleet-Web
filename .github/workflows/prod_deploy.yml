@@ -4,7 +4,7 @@ name: Deploy to Staging
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   deploy:
@@ -27,11 +27,11 @@ jobs:
             echo "🚀 Starting deployment on cPanel..."
             
             # Navigate to your app directory
-            cd /home/${{ secrets.FLEET_STG_USER }}/dev
+            cd /home/${{ secrets.FLEET_STG_USER }}/frontend-prod
 
             echo "🌍 Activating Node.js virtual environment"
 
-            source /home/${{ secrets.FLEET_STG_USER }}/nodevenv/dev/24/bin/activate
+            source /home/${{ secrets.FLEET_STG_USER }}/nodevenv/frontend-prod/24/bin/activate
 
             echo "📦 Pulling latest code"
             git pull origin develop
@@ -43,8 +43,8 @@ jobs:
             npm run build
 
             echo "🧩 Restarting cPanel Node.js Application"
-            source /home/${{ secrets.FLEET_STG_USER }}/nodevenv/dev/22/bin/activate
-            cd /home/${{ secrets.FLEET_STG_USER }}/dev
+            source /home/${{ secrets.FLEET_STG_USER }}/nodevenv/frontend-prod/24/bin/activate
+            cd /home/${{ secrets.FLEET_STG_USER }}/frontend-prod
             mkdir -p tmp
             touch tmp/restart.txt
             echo "✅ Deployment completed successfully!"
