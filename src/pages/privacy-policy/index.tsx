@@ -111,7 +111,7 @@ const PrivacyPolicy: MyPage = () => {
                     </CardContent>
                 </Card>
 
-                <p className="text-sm text-gray-500 text-center mt-4">Last updated on November 1, 2023</p>
+                <p className="text-sm text-gray-500 text-center mt-4">Last updated on December 1, 2025</p>
             </div>
         </div>
         </>
