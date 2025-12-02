@@ -60,7 +60,7 @@ const footerColumns = [
       "/vehicles/popular-models",
       "/deals/limited-time",
       "/explore",
-      "/explore",
+      "/explore-body",
     ]
   },
   {
