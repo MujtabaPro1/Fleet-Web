@@ -2,7 +2,7 @@
   import React from "react";
   import Image from "next/image";
 
-  import BaloonImage from "../../../assets/images/baloon-package-flying.png";
+
 
 
   
@@ -214,10 +214,10 @@
           <div className="hidden lg:flex items-center justify-center gap-2.5 flex-1">
             <div className="relative w-full max-w-[520px] h-[672px]">
            
-              <Image
+              <img
                 className="absolute w-[100.00%] h-[100.01%] top-0 left-0"
                 alt="Ballon"
-                src={BaloonImage}
+                src="/assets/images/fleet/image3.png"
               />
   
           
