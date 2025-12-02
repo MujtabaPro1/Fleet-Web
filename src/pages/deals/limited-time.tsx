@@ -23,6 +23,7 @@ import SiteFooterSection from "@/components/footer/footer";
 import { useRouter } from "next/navigation";
 import axiosInstance from "@/service/api";
 import { VehicleCard } from "@/components/vehicle-card";
+import Head from 'next/head';
 
 
 const LimitedTime = (): JSX.Element => {
@@ -171,6 +172,10 @@ const LimitedTime = (): JSX.Element => {
     return (
 
         <>
+          <Head>
+        <title>Fleet Leasing Australia | Limited Time Deals</title>
+      </Head>
+     
       <div className="bg-[#f9fafb] pt-6 md:pt-12 pb-6 md:pb-12">
       <section className="container flex flex-col w-full items-center justify-center gap-4 md:gap-6 px-3 md:px-4">
         <div className="flex flex-col items-start gap-4 w-full">

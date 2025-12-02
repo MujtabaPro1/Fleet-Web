@@ -1,8 +1,13 @@
 import { MyPage } from "@/components/layouts/types";
 import { Card, CardContent } from "@/components/ui/card";
+import Head from "next/head";
 
 const Terms: MyPage = () => {
     return (
+        <>
+        <Head>
+        <title>Fleet Leasing Australia | Terms and Conditions</title>
+        </Head>
         <div className="flex flex-col items-center w-full bg-white">
             <div className="w-full max-w-[1280px] px-4 lg:px-0 py-8 lg:py-16">
                 <h1 className="text-3xl lg:text-4xl font-semibold text-center mb-8 lg:mb-12">Terms and Conditions</h1>
@@ -82,6 +87,7 @@ const Terms: MyPage = () => {
                 <p className="text-sm text-gray-500 text-center mt-4">Last updated on November 1, 2023</p>
             </div>
         </div>
+         </>
     );
 };
 

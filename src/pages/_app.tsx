@@ -6,6 +6,8 @@ import { MyAppProps } from "../components/layouts/types";
 import { Layouts } from "../components/layouts/Layouts";
 import { appWithTranslation } from 'next-i18next'
 
+
+
 function App({ Component, pageProps }: MyAppProps) {
   const Layout = Layouts[Component.Layout] ?? ((page) => page);
   return (

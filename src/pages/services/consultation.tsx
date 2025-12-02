@@ -3,9 +3,14 @@ import { FeaturesListSection } from "../../components/ui/consultation/featured-l
 import { FeaturesSection } from "../../components/ui/consultation/featured-section";
 import { MainContentSection } from "../../components/ui/consultation/main-content";
 import { MyPage } from "@/components/layouts/types";
+import Head from "next/head";
 
 const Consultation: MyPage = () => {
   return (
+    <>
+    <Head>
+    <title>Fleet Leasing Australia | Consultation</title>
+    </Head>
     <div className="flex flex-col items-center relative bg-white w-full overflow-x-hidden">
       <div className="w-full max-w-screen-2xl mx-auto">
         <FeaturesSection />
@@ -13,6 +18,7 @@ const Consultation: MyPage = () => {
         <MainContentSection />
       </div>
     </div>
+    </>
   );
 };
 

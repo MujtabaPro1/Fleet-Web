@@ -4,6 +4,7 @@ import { Card, CardContent } from "../../components/ui/card";
 import { MyPage } from "@/components/layouts/types";
 import axiosInstance from "@/service/api";
 import { useRouter } from "next/router";
+import Head from 'next/head';
 
 const bodyTypeCards = [
   {
@@ -88,6 +89,10 @@ const ExploreDeals: MyPage = () => {
   }
 
   return (
+    <>
+    <Head>
+      <title>Explore by body type | Fleetplan Australia</title>
+    </Head>
     <div className="flex flex-col items-center gap-8 bg-gray-50 overflow-hidden">
     
       <main className="flex flex-col max-w-full lg:max-w-[1280px] pt-[80px] items-center gap-10 px-4">
@@ -208,6 +213,7 @@ const ExploreDeals: MyPage = () => {
       </main>
 
     </div>
+    </>
   );
 };
 

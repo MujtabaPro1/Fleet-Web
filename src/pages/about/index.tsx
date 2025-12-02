@@ -14,7 +14,7 @@ const orderRideSvg = "/assets/images/svg/undraw_order-ride_4gaq.svg";
 const confirmationSvg = "/assets/images/svg/undraw_confirmation_31jc.svg";
 const orderCarSvg = "/assets/images/svg/undraw_order-a-car_x5mq.svg";
 const fillFormsSvg = "/assets/images/svg/undraw_fill-forms_npwp.svg";
-
+import Head from 'next/head';
 
 
 
@@ -54,6 +54,10 @@ const processSteps = [
 const About: MyPage = () => {
   const router = useRouter();
   return (
+    <>
+    <Head>
+      <title>About Fleetplan Australia</title>
+    </Head>
     <div className="flex flex-col w-full bg-white">
       <FeaturedSection />
       <MainContentSection />
@@ -111,6 +115,7 @@ const About: MyPage = () => {
       </div>
       <ProcessStepsSection router={router} />
     </div>
+    </>
   );
 };
 

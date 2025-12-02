@@ -1,8 +1,14 @@
 import { MyPage } from "@/components/layouts/types";
 import { Card, CardContent } from "@/components/ui/card";
+import Head from "next/head";
 
 const PrivacyPolicy: MyPage = () => {
     return (
+        <>
+        <Head>
+        <title>Fleet Leasing Australia | Privacy Policy</title>
+        </Head>
+
         <div className="flex flex-col items-center w-full bg-white">
             <div className="w-full max-w-[1280px] px-4 lg:px-0 py-8 lg:py-16">
                 <h1 className="text-3xl lg:text-4xl font-semibold text-center mb-8 lg:mb-12">Privacy Policy</h1>
@@ -108,6 +114,7 @@ const PrivacyPolicy: MyPage = () => {
                 <p className="text-sm text-gray-500 text-center mt-4">Last updated on November 1, 2023</p>
             </div>
         </div>
+        </>
     );
 };
 
