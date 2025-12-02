@@ -98,7 +98,7 @@ const productOfferings = [
     title: "Chattel Mortgage",
     description:
       'A chattel mortgage is a commercial loan used to purchase a "chattel" (an asset like a vehicle or equipment), which is then used as security for the loan.',
-    url: "/products/business-finance",  
+    url: "/products/fleet-finance",  
     image: "/assets/images/product-offering/chattel.png",
   },
   {
