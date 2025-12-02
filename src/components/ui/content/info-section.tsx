@@ -1,6 +1,5 @@
 import React from "react";
-import Image from "next/image";
-import BaloonImage from "../../../assets/images/baloon-package-flying.png";
+
 
 const sections = [
   {
@@ -220,10 +219,10 @@ export const InfoSection = (): JSX.Element => {
           <div className="relative w-full max-w-[520px] aspect-[520/672]">
       
 
-            <Image
+            <img
               className="absolute w-full h-full top-0 left-0"
               alt="Ballon"
-              src={BaloonImage}
+              src={'/assets/images/fleet/image1.png'}
             />
 
         
