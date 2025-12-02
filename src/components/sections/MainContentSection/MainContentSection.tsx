@@ -554,7 +554,7 @@ export const MainContentSection = (): JSX.Element => {
                     <VehicleCard
               image={
                 offer?.NVIC
-                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
                   : "/assets/images/no-image.png"
               }
               name={offer?.title}
@@ -1053,7 +1053,7 @@ export const MainContentSection = (): JSX.Element => {
                     <VehicleCard
               image={
                 offer?.NVIC
-                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
                   : "/assets/images/no-image.png"
               }
               name={offer?.title}
@@ -1090,7 +1090,7 @@ export const MainContentSection = (): JSX.Element => {
                     <VehicleCard
               image={
                 offer?.NVIC
-                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
                   : "/assets/images/no-image.png"
               }
               name={offer?.title}
@@ -1127,7 +1127,7 @@ export const MainContentSection = (): JSX.Element => {
                     <VehicleCard
               image={
                 offer?.NVIC
-                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
                   : "/assets/images/no-image.png"
               }
               name={offer?.title}

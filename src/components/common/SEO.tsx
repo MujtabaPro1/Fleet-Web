@@ -16,13 +16,13 @@ export const SEO: React.FC<SEOProps> = ({
   title = 'Fleet Plan - Quality Vehicles & Fleet Management',
   description = 'Find the perfect vehicle for your needs with Fleet Plan\'s extensive selection and expert fleet management solutions.',
   keywords = 'fleet management, vehicles, cars, trucks, fleet plan, automotive',
-  ogImage = 'https://dev.fleetleasingaustralia.com.au/og-image.jpg',
+  ogImage = 'https://fleetleasingaustralia.com.au/og-image.jpg',
   ogType = 'website',
-  twitterImage = 'https://dev.fleetleasingaustralia.com.au/twitter-image.jpg',
+  twitterImage = 'https://fleetleasingaustralia.com.au/twitter-image.jpg',
   canonicalUrl,
 }) => {
   const router = useRouter();
-  const siteUrl = 'https://dev.fleetleasingaustralia.com.au/';
+  const siteUrl = 'https://fleetleasingaustralia.com.au/';
   const currentUrl = `${siteUrl}${router.asPath}`;
   const canonical = canonicalUrl || currentUrl;
 
