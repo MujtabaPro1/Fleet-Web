@@ -39,12 +39,12 @@ export const FeaturesSection = (): JSX.Element => {
               <Button
                 variant="outline"
                 onClick={() => {
-                  window.location.href = "tel:1300352352";
+                  window.location.href = "tel:1300352287";
                 }}
                 className="h-auto items-center justify-center gap-1.5 px-3 py-2 w-full sm:flex-1 bg-gray-50 hover:bg-gray-100 rounded border border-solid shadow-shadow-xs"
               >
                 <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">
-                  Talk to a Fleet Specialist – 1300 FLA FLA
+                  Talk to a Fleet Specialist – 1300 FLA AUS
                 </span>
                 <ArrowRightIcon className="w-4 h-4" />
               </Button>

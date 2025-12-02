@@ -118,12 +118,12 @@ export const ProcessStepsSection = ({ router }: { router: any }): JSX.Element =>
             <Button
               variant="secondary"
               onClick={() => {
-                window.location.href = "tel:1300352352";
+                window.location.href = "tel:1300352287";
               }}
               className="h-auto w-full md:flex-1 bg-gray-50 rounded border border-solid shadow-shadow-xs px-3 py-2 gap-1.5 hover:bg-gray-100"
             >
               <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">
-                Talk to a Fleet Specialist – 1300 FLA FLA
+                Talk to a Fleet Specialist – 1300 FLA AUS
               </span>
               <ArrowRightIcon className="w-4 h-4" />
             </Button>

@@ -41,7 +41,7 @@ const topCards = [
     description: "Your partner in fleet leasing, every step of the way",
     contactInfo: [
       { icon: calendarIcon, text: "Monday to Friday - 9 am to 5 pm" },
-      { icon: phoneIcon, text: "1300 352 352" },
+      { icon: phoneIcon, text: "1300 352 287" },
       { icon: envelopeIcon, text: "support@fleetleasingaustralia.com.au" },
     ],
   },

@@ -208,11 +208,11 @@ export const MainContentSection = (): JSX.Element => {
 
         <Button
         onClick={() => {
-           window.location.href = "tel:1300352352";
+           window.location.href = "tel:1300352287";
         }}
         className="h-auto px-3 py-2 self-stretch w-full bg-[#194170] hover:bg-[#194170]/90 items-center justify-center gap-1.5 rounded shadow-shadow-xs">
           <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5 whitespace-nowrap">
-            Talk to a Fleet Specialist – 1300 FLA FLA
+            Talk to a Fleet Specialist – 1300 FLA AUS
           </span>
           <ArrowRightIcon className="w-4 h-4 text-white" />
         </Button>

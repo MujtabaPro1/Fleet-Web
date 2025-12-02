@@ -180,16 +180,16 @@ const LimitedTime = (): JSX.Element => {
                 <div className="flex flex-col items-start gap-6 md:gap-8 pb-4 md:pb-[18px] border-b border-solid border-gray-100">
                   <nav className="flex flex-col items-start gap-6 w-full">
                     <div className="inline-flex items-center gap-2.5 rounded-md">
-                      <div className="inline-flex items-center gap-1.5 rounded-md">
+                      <div onClick={() => router.push('/')} className="inline-flex items-center gap-1.5 rounded-md cursor-pointer">
                         <HomeIcon className="w-4 h-4 text-[#4a5565]" />
                         <span className="font-medium text-[#4a5565] leading-5 font-figtree text-sm tracking-[0]">
                           Home
                         </span>
                         <ChevronRightIcon className="w-3.5 h-3.5 text-[#4a5565]" />
                       </div>
-                      <div className="inline-flex items-center gap-1.5 rounded-md">
+                      <div onClick={() => router.push('/deals/limited-time')} className="inline-flex items-center gap-1.5 rounded-md cursor-pointer">
                         <span className="font-medium text-[#4a5565] leading-5 font-figtree text-sm tracking-[0]">
-                          Fleet Inventory
+                          Limited-time deals
                         </span>
                       </div>
                     </div>
@@ -313,7 +313,7 @@ const LimitedTime = (): JSX.Element => {
                 name={vehicle.title}
                 type={vehicle.type}
                 fuel={vehicle.selectedVariant?.variant}
-                price={vehicle.price}
+                price={vehicle.selectedVariant?.weeklyPrice}
                 router={router}
                 id={vehicle.slug}
                 tags={vehicle?.tags?.filter((tag: any) => tag.includes('Limited Time')).length > 0 ? ['Limited Time Offer'] : []}

@@ -337,10 +337,10 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
             )}
           </div>
   
-          <div className="flex flex-col lg:flex-row w-full items-start gap-6">
-            <div className="flex flex-col w-full lg:w-[70%] items-start gap-6 bg-white">
+          <div className="flex flex-col lg:flex-row w-full items-start gap-4">
+            <div className="flex flex-col w-full lg:w-[70%] items-start gap-6">
               <Card className="w-full border-solid shadow-shadow-sm">
-                <CardContent className="flex flex-col items-start gap-5 sm:gap-7 p-4 sm:p-6">
+                <CardContent className="flex flex-col items-start gap-5 sm:gap-7 p-4 sm:p-6 bg-white">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
                     <div className="flex flex-col items-start gap-2 flex-1">
                       <h1 className="font-figtree font-semibold text-[#000] text-2xl lg:text-3xl leading-8">
@@ -369,7 +369,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
               </Card>
   
               <Card className="w-full border-solid shadow-shadow-sm">
-                <CardContent className="flex flex-col items-start gap-4 sm:gap-6 p-4 sm:p-6">
+                <CardContent className="flex flex-col items-start gap-4 sm:gap-6 p-4 sm:p-6 bg-white">
                   <div className="flex items-center gap-6 pt-0 pb-3 px-0 w-full border-b border-solid">
                     <h2 className="font-figtree font-medium text-[#000] text-2xl leading-7">
                       See All Available Variants Below
@@ -484,12 +484,12 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
   
                       <Button
                         variant="outline"
-                        onClick={() => window.open('tel:1300352352', '_self')}
+                        onClick={() => window.open('tel:1300352287', '_self')}
                         className="h-auto flex-1 lg:w-auto w-full gap-1.5 px-6 py-3.5 bg-gray-50 rounded border-solid shadow-shadow-xs"
                       >
                         <PhoneIcon className="w-5 h-5" />
                         <span className="font-medium text-[#4a5565] text-base leading-6 font-figtree">
-                          1300 352 352
+                          1300 352 287
                         </span>
                       </Button>
                     </div>
@@ -568,9 +568,6 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                   <div id="vehicle-tab-content" className="w-full">
                     <div className="flex flex-col gap-6 mt-8 sm:gap-8 md:gap-10" id="specs" role="tabpanel" aria-labelledby="specs-tab">
                       <div className="flex flex-col items-start gap-4 w-full">
-                        <h2 className="font-figtree font-semibold text-[#194170] text-xl sm:text-2xl md:text-3xl leading-tight">
-                          Vehicle Specifications
-                        </h2>
                         <h3 className="font-figtree font-semibold text-[#194170] text-base sm:text-lg md:text-xl leading-6 mt-2">
                           Vehicle Basics
                         </h3>
@@ -991,12 +988,12 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
   
                       <Button
                         variant="outline"
-                        onClick={() => window.open('tel:1300352352', '_self')}
+                        onClick={() => window.open('tel:1300352287', '_self')}
                         className="h-auto flex-1 lg:w-auto w-full gap-1.5 px-2 py-3.5 bg-gray-50 rounded border-solid shadow-shadow-xs"
                       >
                         <PhoneIcon className="w-5 h-5" />
                         <span className="font-medium text-[#4a5565] text-base leading-6 font-figtree">
-                          1300 352 352
+                          1300 352 287
                         </span>
                       </Button>
                     </div>

@@ -112,7 +112,7 @@ export const VehicleCard = ({
 
         <Button 
         onClick={() => router.push('/inventory/' + id)}
-        className="h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
+        className="h-[48px] bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-1.5 px-3 py-2">
           <span className="font-medium text-white text-xs md:text-sm">
             Get A Quote
           </span>

@@ -94,7 +94,7 @@ export const NavigationBarSection = (): JSX.Element => {
             <div className="mt-4 flex items-center gap-1.5 justify-center  pt-4">
               <PhoneIcon className="w-[18px] h-[18px] text-[#4a5565]" />
               <span className="font-medium text-[#4a5565] text-sm text-center tracking-[0] leading-5 whitespace-nowrap">
-                1300 352 352
+                1300 352 287
               </span>
             </div>
             {/* <Button
@@ -129,12 +129,12 @@ export const NavigationBarSection = (): JSX.Element => {
 
           <div 
           onClick={()=>{
-            window.location.href = "tel:1300352352"
+            window.location.href = "tel:1300352287"
           }}
           className="inline-flex items-center gap-1.5 cursor-pointer">
             <PhoneIcon className="w-[18px] h-[18px] text-[#4a5565]" />
             <span className="mt-[-1.00px] font-figtree font-medium text-[#4a5565] text-sm text-center tracking-[0] leading-5 whitespace-nowrap">
-              1300 352 352
+              1300 352 287
             </span>
           </div>
         </div>

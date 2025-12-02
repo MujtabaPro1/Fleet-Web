@@ -31,7 +31,7 @@ const contactInfo = [
   {
     icon: "../../../assets/images/svg/phone.svg",
     title: "Contact",
-    detail: "1300 FLA FLA (352 352)",
+    detail: "1300 FLA AUS (352 287)",
   },
 ];
 

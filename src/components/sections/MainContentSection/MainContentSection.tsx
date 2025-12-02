@@ -386,18 +386,6 @@ const partnerLogosV1 = [
   },
 ];
 
-const partnerDesktopGroup: any[] = [];
-const partnerMobileGroup: any[] = [];
-
-for (let i = 0; i < partnerLogosV1.length; i += 8) {
-  partnerDesktopGroup.push(partnerLogosV1.slice(i, i + 8));
-}
-
-for (let i = 0; i < partnerLogosV1.length; i += 3) {
-  partnerMobileGroup.push(partnerLogosV1.slice(i, i + 3));
-}
-
-
 
 
 export const MainContentSection = (): JSX.Element => {
@@ -562,7 +550,7 @@ export const MainContentSection = (): JSX.Element => {
       {/* Vehicle listings section */}
       <div className="flex flex-col items-center justify-center gap-8 self-stretch w-full">
         <VehiclesCarousel
-          title="Unlock Limited-Time Leasing Deals on Cars, SUVs & Fleets"
+          title="Exclusive Business Leasing Deals on Cars, SUVs & Commercial Fleets"
           actionLabel="View all"
           onAction={() => router.push("/inventory")}
           cars={offers}
@@ -689,7 +677,7 @@ export const MainContentSection = (): JSX.Element => {
                   margin: '0px',
                   padding: '0px',
                   listStyleType: 'none',
-                  gap: '57px',
+                  gap: '70px',
                   position: 'relative',
                   flexDirection: 'row',
                   willChange: 'transform'
@@ -697,19 +685,15 @@ export const MainContentSection = (): JSX.Element => {
               >
                 {/* First set of logos */}
                 {/* Flatten the nested arrays for a single continuous list */}
-                {[...brands]
-                  .filter((brand, index, self) => 
-                    // Remove duplicates based on name
-                    index === self.findIndex(b => b.name === brand.name)
-                  )
-                  .map((brand, index) => (
+                {
+                  brands.map((brand, index) => (
                     <li 
                       key={`brand-${index}`} 
                       className="flex-shrink-0 cursor-pointer"
                       onClick={() => router.push(`/inventory?brand=${brand.name}`)}
                     >
                       <img
-                        className="h-[40px] w-[120px] md:h-[40px] md:w-[150px] object-contain hover:opacity-70 transition-opacity"
+                        className="h-[40px] md:h-[40px] max-w-[120px] object-contain hover:opacity-70 transition-opacity"
                         alt={brand.name}
                         src={brand.src}
                       />
@@ -729,7 +713,7 @@ export const MainContentSection = (): JSX.Element => {
                       onClick={() => router.push(`/inventory?brand=${brand.name}`)}
                     >
                       <img
-                        className="h-[40px] w-[120px] md:h-[40px] md:w-[150px] object-contain hover:opacity-70 transition-opacity"
+                        className="h-[40px] md:h-[40px] max-w-[120px] object-contain hover:opacity-70 transition-opacity"
                         alt={brand.name}
                         src={brand.src}
                       />
@@ -773,7 +757,7 @@ export const MainContentSection = (): JSX.Element => {
                   margin: '0px',
                   padding: '0px',
                   listStyleType: 'none',
-                  gap: '30px',
+                  gap: '40px',
                   position: 'relative',
                   flexDirection: 'row',
                   willChange: 'transform'
@@ -782,14 +766,18 @@ export const MainContentSection = (): JSX.Element => {
                 {/* First set of logos */}
                 {/* Flatten the nested arrays for a single continuous list */}
                 {
-                  brands.map((brand, index) => (
+                  [...brands]
+                  .filter((brand, index, self) => 
+                    // Remove duplicates based on name
+                    index === self.findIndex(b => b.name === brand.name)
+                  ).map((brand, index) => (
                     <li 
                       key={`brand-${index}`} 
                       className="flex-shrink-0 cursor-pointer"
                       onClick={() => router.push(`/inventory?brand=${brand.name}`)}
                     >
                       <img
-                        className="h-[40px] w-[100px] object-contain hover:opacity-70 transition-opacity"
+                        className="h-[40px] max-w-[120px] object-contain hover:opacity-70 transition-opacity"
                         alt={brand.name}
                         src={brand.src}
                       />
@@ -798,14 +786,19 @@ export const MainContentSection = (): JSX.Element => {
                 
                 {/* Duplicate set of logos to create seamless loop */}
                 {
-                  brands.map((brand, index) => (
+                  [...brands]
+                  .filter((brand, index, self) => 
+                    // Remove duplicates based on name
+                    index === self.findIndex(b => b.name === brand.name)
+                  )
+                  .map((brand, index) => (
                     <li 
                       key={`brand-dup-${index}`} 
                       className="flex-shrink-0 cursor-pointer"
                       onClick={() => router.push(`/inventory?brand=${brand.name}`)}
                     >
                       <img
-                        className="h-[40px] w-[120px] md:h-[40px] md:w-[150px] object-contain hover:opacity-70 transition-opacity"
+                        className="h-[40px] max-w-[120px] object-contain hover:opacity-70 transition-opacity"
                         alt={brand.name}
                         src={brand.src}
                       />

@@ -146,12 +146,13 @@ export const FeaturesListSection = (): JSX.Element => {
               <Button
                 variant="outline"
                 onClick={() => {
-                 window.location.href = "tel:1300352352";
+                 window.location.href = "tel:1300352287";
+                
                 }}
                 className="h-auto bg-gray-50 border-border shadow-shadow-xs hover:bg-gray-100 w-full"
               >
                 <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0] leading-5 whitespace-nowrap">
-                  Talk to a Fleet Specialist – 1300 FLA FLA
+                  Talk to a Fleet Specialist – 1300 FLA AUS
                 </span>
                 <ArrowRightIcon className="w-4 h-4 ml-1.5" />
               </Button>
