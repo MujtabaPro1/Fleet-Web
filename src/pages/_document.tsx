@@ -13,16 +13,8 @@ class MyDocument extends Document {
         dir={this.props.locale === "ar" ? "rtl" : "ltr"}
         lang={this.props.locale}
       >
-        <title>Fleet Leasing Australia - Find Your Perfect Vehicle | Quality Fleet Management Solutions</title>
         <Head>
-          {/* Basic Meta Tags */}
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-          <meta name="description" content="Fleet Leasing Australia - Your trusted source for quality vehicles and fleet management solutions" />
-          <meta name="keywords" content="fleet management, vehicles, cars, trucks, fleet plan, automotive" />
-          <meta name="author" content="Fleet Leasing Australia" />
-          <meta name="robots" content="index, follow" />
-          
+
           {/* Favicon */}
           <link rel="icon" href="/favicon.ico" />
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
