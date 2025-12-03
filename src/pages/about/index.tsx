@@ -49,7 +49,7 @@ const About: MyPage = () => {
   return (
     <>
     <Head>
-      <title>About Fleetplan Australia</title>
+      <title>About Us</title>
     </Head>
     <div className="flex flex-col w-full bg-white">
       <FeaturedSection />
