@@ -90,21 +90,21 @@ const productOfferings = [
     description:
       'A chattel mortgage is a commercial loan used to purchase a "chattel" (an asset like a vehicle or equipment), which is then used as security for the loan.',
     url: "/products/fleet-finance",  
-    image: "/assets/images/product-offering/chattel.png",
+    image: "/assets/images/product-offering/chattel.webp",
   },
   {
     title: "Finance Lease",
     description:
       "Finance Lease: A finance lease is a long-term rental agreement where the finance company buys the asset and leases it to your business for a fixed period.",
     url: "/products/fleet-finance",  
-    image: "/assets/images/product-offering/finance.png",
+    image: "/assets/images/product-offering/finance.webp",
   },
   {
     title: "Operating Lease",
     description:
       "An operating lease is a rental agreement that provides your business with the use of an asset for a shorter term than its useful life.",
     url: "/products/fleet-finance",
-    image: "/assets/images/product-offering/operating.png",
+    image: "/assets/images/product-offering/operating.webp",
   },
 ];
 

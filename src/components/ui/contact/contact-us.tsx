@@ -16,6 +16,7 @@ import { Textarea } from "../textarea";
 import { Alert } from "../alert";
 import axios from "axios";
 import axiosInstance from "@/service/api";
+import { useRouter } from "next/navigation";
 
 const contactInfo = [
   {
@@ -54,6 +55,7 @@ interface FormErrors {
 }
 
 export const ContactUsSection = (): JSX.Element => {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
@@ -201,7 +203,7 @@ export const ContactUsSection = (): JSX.Element => {
                     {info.title}
                   </div>
 
-                  <div className="self-stretch font-figtree font-semibold text-[#194170] text-sm tracking-[0] leading-5">
+                  <div className="self-stretch font-figtree font-semibold text-[#194170] text-lg mt-2 tracking-[0] leading-5">
                     {info.detail}
                   </div>
                 </div>
@@ -338,7 +340,7 @@ export const ContactUsSection = (): JSX.Element => {
                   By submitting this form, you confirm that you have read and
                   agree to the
                 </span>
-                <span className="text-[#101828] underline">
+                <span onClick={() => router.push('/terms')} className="text-[#101828] underline">
                   {" "}
                   Terms of Service
                 </span>

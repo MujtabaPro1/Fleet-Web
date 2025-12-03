@@ -1,9 +1,12 @@
-
+'use client';
   import React from "react";
   import Image from "next/image";
 
   import BaloonImage from "../../../assets/images/baloon-package-flying.png";
 
+  import { ArrowRightIcon } from "lucide-react";
+import { Button } from "../button";
+import { useRouter } from "next/navigation";
 
   
   
@@ -70,6 +73,8 @@
   ];
   
   export const MainContentSection = (): JSX.Element => {
+
+    const router = useRouter();
     return (
       <section id="trade-finance" className="flex flex-col w-full items-center px-0  pt-10 pb-10 bg-gray-50">
         <div className="gap-16 flex max-w-[1280px] w-full items-start px-4">
@@ -89,6 +94,19 @@
                 A short-term working capital to help businesses pay suppliers upfront for goods while waiting for customer payments. It supports the full trade cycle - from purchasing and shipping to selling - without draining your cash reserves.
               </p>
             </div>
+            
+
+                   <Button
+            onClick={() => {
+              router.push("/services/consultation");
+            }}
+            className="inline-flex h-auto items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+              <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
+                Free Consultation
+              </span>
+              <ArrowRightIcon className="w-4 h-4 text-white" />
+            </Button>
+
   
             <div className="flex flex-col items-start gap-8 px-0 py-8 w-full border-t border-b border-border">
               {contentSections.map((section) => {
@@ -168,13 +186,13 @@
   
           <div className="hidden lg:flex items-center justify-center gap-2.5 flex-1">
             <div className="relative w-full max-w-[520px] h-[672px]">
-           
+{/*            
               <Image
                 className="absolute w-[100.00%] h-[100.01%] top-0 left-0"
                 alt="Ballon"
                 src={BaloonImage}
               />
-  
+   */}
           
             </div>
           </div>

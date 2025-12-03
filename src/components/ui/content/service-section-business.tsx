@@ -179,14 +179,14 @@ export const ServicesSection = (): JSX.Element => {
 
         <div className="hidden lg:flex items-center justify-center gap-2.5 flex-1">
           <div className="relative w-full max-w-[520px] aspect-[520/672]">
-          
+{/*           
 
              <Image
                     className="absolute w-full h-full top-0 left-0"
                     alt="Ballon"
                     src={BaloonImage}
                     />
-
+ */}
 
         
           </div>

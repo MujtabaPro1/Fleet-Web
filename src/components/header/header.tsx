@@ -94,7 +94,7 @@ export const NavigationBarSection = (): JSX.Element => {
             <div className="mt-4 flex items-center gap-1.5 justify-center  pt-4">
               <PhoneIcon className="w-[18px] h-[18px] text-[#4a5565]" />
               <span className="font-medium text-[#4a5565] text-sm text-center tracking-[0] leading-5 whitespace-nowrap">
-                1300 352 287
+                1300 FLA AUS (1300 352 287)
               </span>
             </div>
             {/* <Button
@@ -120,7 +120,7 @@ export const NavigationBarSection = (): JSX.Element => {
                 onClick={() => router.push(item.link)}
                 className="flex items-center gap-1.5 rounded-md cursor-pointer transition-opacity"
               >
-                <span className={`font-figtree hover:text-[#194170] font-medium ${pathname === item.link ? 'text-[#194170] font-semibold' : 'text-[#4a5565]'} text-xs md:text-sm tracking-[0] leading-5 whitespace-nowrap`}>
+                <span className={`font-figtree hover:text-[#194170] font-medium ${pathname === item.link ? 'text-[#194170] font-semibold' : 'text-[#4a5565]'} text-lg md:text-sm tracking-[0] leading-5 whitespace-nowrap`}>
                   {item.label}
                 </span>
               </div>
@@ -134,7 +134,7 @@ export const NavigationBarSection = (): JSX.Element => {
           className="inline-flex items-center gap-1.5 cursor-pointer">
             <PhoneIcon className="w-[18px] h-[18px] text-[#4a5565]" />
             <span className="mt-[-1.00px] font-figtree font-medium text-[#4a5565] text-sm text-center tracking-[0] leading-5 whitespace-nowrap">
-              1300 352 287
+              1300 FLA AUS (1300 352 287)
             </span>
           </div>
         </div>

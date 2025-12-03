@@ -103,7 +103,7 @@ export const VehicleCard = ({
 
           <div className="flex items-end gap-1.5 w-full">
             <div className="font-semibold text-[#c70036] text-2xl md:text-3xl">
-              ${price}
+              ${price ? Number(price).toFixed(0) : price}
             </div>
 
             <div className="font-medium text-[#4a5565] text-xs self-end mb-1">

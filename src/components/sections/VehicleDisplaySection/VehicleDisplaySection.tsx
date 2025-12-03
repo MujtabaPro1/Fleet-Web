@@ -111,11 +111,11 @@ export const VehicleDisplaySection = (): JSX.Element => {
                 value={selectedBrand} onValueChange={setSelectedBrand}>
                   <SelectTrigger
                     id="vehicle-brand"
-                    placeholder="All brands"
+                    placeholder="ALL BRANDS"
                     className="w-full bg-white shadow-sm border border-gray-200"
                     disabled={isLoading}
                   >
-                    <SelectValue placeholder="All brands" />
+                    <SelectValue placeholder="ALL BRANDS" />
                   </SelectTrigger>
                   <SelectContent style={{
                     zIndex: 1000,
@@ -123,7 +123,7 @@ export const VehicleDisplaySection = (): JSX.Element => {
                     overflowY: 'auto'
                   }}>
                     <div className="py-1">
-                      <SelectItem value="all">All brands</SelectItem>
+                      <SelectItem value="all">ALL BRANDS</SelectItem>
                       {brands.map((brand) => (
                         <SelectItem key={brand.uid} value={brand.name}>{brand.name}</SelectItem>
                       ))}
@@ -142,11 +142,11 @@ export const VehicleDisplaySection = (): JSX.Element => {
                 {bodyTypes.length > 0 && <Select value={selectedBodyType} onValueChange={setSelectedBodyType}>
                   <SelectTrigger
                     id="body-type"
-                    placeholder="All body types"
+                    placeholder="ALL BODY TYPES"
                     className="w-full bg-white shadow-sm border border-gray-200"
                     disabled={isLoading}
                   >
-                    <SelectValue placeholder="All body types" />
+                    <SelectValue placeholder="ALL BODY TYPES" />
                   </SelectTrigger>
                   <SelectContent style={{
                     zIndex: 1000,
@@ -154,7 +154,7 @@ export const VehicleDisplaySection = (): JSX.Element => {
                     overflowY: 'auto'
                   }}>
                     <div className="py-1">
-                      <SelectItem value="all">All body types</SelectItem>
+                      <SelectItem value="all">ALL BODY TYPES</SelectItem>
                       {bodyTypes.map((bodyType) => (
                         <SelectItem key={bodyType.name} value={bodyType.name}>{bodyType.name}</SelectItem>
                       ))}

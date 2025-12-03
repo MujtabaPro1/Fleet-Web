@@ -10,7 +10,7 @@ export const FeaturesOverviewSection = (): JSX.Element => {
           SMS. All information you provide will be treated confidentially and in
           accordance with our{" "}
           <a
-            href="/privacy"
+            href="/privacy-policy"
             rel="noopener noreferrer"
             target="_blank"
             className="underline"

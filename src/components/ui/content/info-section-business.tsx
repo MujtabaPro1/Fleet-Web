@@ -179,12 +179,12 @@ export const InfoSection = (): JSX.Element => {
           <div className="relative w-full max-w-[520px] aspect-[520/672]">
       
 
-            <Image
+            {/* <Image
               className="absolute w-full h-full top-0 left-0"
               alt="Ballon"
               src={BaloonImage}
-            />
-
+            /> */}
+b
         
           </div>
         </div>

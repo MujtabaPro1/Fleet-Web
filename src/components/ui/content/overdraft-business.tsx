@@ -185,15 +185,15 @@ import { useRouter } from "next/navigation";
           <div className="hidden lg:flex items-center justify-center gap-2.5 flex-1">
             <div className="relative w-full max-w-[520px] h-[672px]">
            
-              <Image
+              {/* <Image
                 className="absolute w-[100.00%] h-[100.01%] top-0 left-0"
                 alt="Ballon"
                 src={BaloonImage}
               />
-  
+   */}
           
             </div>
-          </div>
+          </div>b
         </div>
       </section>
     );
