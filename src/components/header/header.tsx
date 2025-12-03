@@ -78,7 +78,7 @@ export const NavigationBarSection = (): JSX.Element => {
         <div className="sm:hidden fixed inset-0 z-[999] bg-white pt-16 px-4">
           <div className="flex flex-col space-y-4">
             {navigationItems.map((item, index) => (
-              <button
+              <div
                 key={index}
                 className="flex items-center justify-start p-2 border-b border-gray-100"
                 onClick={() => {
@@ -89,7 +89,7 @@ export const NavigationBarSection = (): JSX.Element => {
                 <span className={`font-medium ${pathname === item.link ? 'text-[#194170] font-semibold' : 'text-[#4a5565]'} text-base`}>
                   {item.label}
                 </span>
-              </button>
+              </div>
             ))}
             <div className="mt-4 flex items-center gap-1.5 justify-center  pt-4">
               <PhoneIcon className="w-[18px] h-[18px] text-[#4a5565]" />
@@ -115,15 +115,15 @@ export const NavigationBarSection = (): JSX.Element => {
         <div className="flex w-full max-w-[1280px] items-center justify-between px-2 sm:px-4">
           <div className="flex items-center gap-2 md:gap-4 lg:gap-6 flex-1 overflow-x-auto">
             {navigationItems.map((item, index) => (
-              <button
+              <div
                 key={index}
                 onClick={() => router.push(item.link)}
                 className="flex items-center gap-1.5 rounded-md cursor-pointer transition-opacity"
               >
-                <span className={`font-figtree hover:text-[#194170] hover:font-bold font-medium ${pathname === item.link ? 'text-[#194170] font-semibold' : 'text-[#4a5565]'} text-xs md:text-sm tracking-[0] leading-5 whitespace-nowrap`}>
+                <span className={`font-figtree hover:text-[#194170] font-medium ${pathname === item.link ? 'text-[#194170] font-semibold' : 'text-[#4a5565]'} text-xs md:text-sm tracking-[0] leading-5 whitespace-nowrap`}>
                   {item.label}
                 </span>
-              </button>
+              </div>
             ))}
           </div>
 
