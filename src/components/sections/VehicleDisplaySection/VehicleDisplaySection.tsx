@@ -84,7 +84,7 @@ export const VehicleDisplaySection = (): JSX.Element => {
           <div className="flex flex-col items-center justify-center gap-6">
             <h1 className="text-4xl md:text-5xl font-semibold text-center leading-tight">
               <span className="text-[#101828]">
-                Smarter Leasing. Bigger Saving.
+                Smarter Leasing. Bigger Savings.
               </span>
               <br />
               <span className="text-[#c70036]">

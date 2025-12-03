@@ -189,7 +189,7 @@ const Content = ({ title }: { title: string }) => {
                 </h1>
 
                 <p className="text-base text-[#4a5565] text-center max-w-[600px] mx-auto">
-                Our most popular leased based on sales. Updated frequently..
+                Our most popular leased based on sales. Updated frequently.
                 </p>
               </div>
 
