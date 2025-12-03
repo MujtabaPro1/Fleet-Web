@@ -1,4 +1,9 @@
 import React from "react";
+  import { useRouter } from "next/navigation";
+  import { Button } from "../button";
+  import { ArrowRightIcon } from "lucide-react";
+
+
 
 const sections = [
   {
@@ -102,6 +107,7 @@ const keyTakeaway = {
 };
 
 export const ServicesSection = (): JSX.Element => {
+  const router = useRouter();
   return (
     <section id="finance-lease" className="px-0  pt-10 pb-10 bg-gray-50 flex flex-col w-full items-center">
       <div className="gap-16 flex max-w-[1280px] w-full items-start px-4">
@@ -117,6 +123,7 @@ export const ServicesSection = (): JSX.Element => {
               </p>
             </div>
 
+    
             <p className="text-[#101828] leading-6 w-full font-figtree font-normal text-base tracking-[0]">
               A rental-style financing method with a{" "}
               <span className="font-bold">mandatory residual value</span> set
@@ -126,6 +133,18 @@ export const ServicesSection = (): JSX.Element => {
               at the end of the term.
             </p>
           </div>
+
+                   <Button
+            onClick={() => {
+              router.push("/services/consultation");
+            }}
+            className="inline-flex h-auto items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+              <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
+                Free Consultation
+              </span>
+              <ArrowRightIcon className="w-4 h-4 text-white" />
+            </Button>
+
 
           <div className="flex flex-col items-start gap-8 px-0 py-8 w-full border-t border-b border-gray-200">
             {sections.map((section, index) => (

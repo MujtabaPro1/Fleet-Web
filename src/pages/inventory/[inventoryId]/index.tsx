@@ -452,10 +452,10 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                         <div className="flex items-end gap-1.5">
                           <span className="font-figtree font-semibold text-[#c70036] text-4xl tracking-[0.80px] leading-9">
                             ${selectedFrequency === "weekly" 
-                              ? selectedVariant?.weeklyPrice 
+                              ? Number(selectedVariant?.weeklyPrice).toFixed(0) 
                               : selectedFrequency === "fortnightly" 
-                                ? selectedVariant?.fortnightlyPrice 
-                                : selectedVariant?.monthlyPrice || "--"}
+                                ? Number(selectedVariant?.fortnightlyPrice).toFixed(0) 
+                                : Number(selectedVariant?.monthlyPrice).toFixed(0) || "--"}
                           </span>
                           <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-4">
                             PER {selectedFrequency.toUpperCase().replace("LY", "")}LY*
@@ -956,10 +956,10 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                         <div className="flex items-end gap-1.5">
                           <span className="font-figtree font-semibold text-[#c70036] text-4xl tracking-[0.80px] leading-9">
                             ${selectedFrequency === "weekly" 
-                              ? selectedVariant?.weeklyPrice 
+                              ? Number(selectedVariant?.weeklyPrice).toFixed(0) 
                               : selectedFrequency === "fortnightly" 
-                                ? selectedVariant?.fortnightlyPrice 
-                                : selectedVariant?.monthlyPrice || "--"}
+                                ? Number(selectedVariant?.fortnightlyPrice).toFixed(0) 
+                                : Number(selectedVariant?.monthlyPrice).toFixed(0) || "--"}
                           </span>
                           <span className="font-figtree font-medium text-[#4a5565] text-sm tracking-[0.40px] leading-4">
                             PER {selectedFrequency.toUpperCase().replace("LY", "")}LY*

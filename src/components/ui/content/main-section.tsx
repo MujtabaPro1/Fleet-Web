@@ -1,6 +1,9 @@
 
   import React from "react";
   import Image from "next/image";
+  import { useRouter } from "next/navigation";
+  import { Button } from "../button";
+  import { ArrowRightIcon } from "lucide-react";
 
 
 
@@ -110,6 +113,7 @@
   ];
   
   export const MainContentSection = (): JSX.Element => {
+    const router = useRouter();
     return (
       <section id="operating-lease" className="flex flex-col w-full items-center px-0 pt-10 pb-10 bg-white">
         <div className="gap-16 flex max-w-[1280px] w-full items-start px-4">
@@ -124,6 +128,8 @@
                   Minimal Risk. Fixed Budgeting.
                 </h2>
               </div>
+
+      
   
               <p className="w-full font-figtree font-normal text-base text-[#101828] leading-6 tracking-[0]">
                 A simple rental agreement where the{" "}
@@ -134,6 +140,18 @@
                 predictable budgeting and minimal risk.
               </p>
             </div>
+
+                  <Button
+            onClick={() => {
+              router.push("/services/consultation");
+            }}
+            className="inline-flex h-auto items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+              <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
+                Free Consultation
+              </span>
+              <ArrowRightIcon className="w-4 h-4 text-white" />
+            </Button>
+
   
             <div className="flex flex-col items-start gap-8 px-0 py-8 w-full border-t border-b border-border">
               {contentSections.map((section) => {

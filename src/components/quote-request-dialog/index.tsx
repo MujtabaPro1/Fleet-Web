@@ -79,7 +79,7 @@ export function QuoteRequestDialog({
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>('');
+  const [message, setMessage] = useState<string | null>(null);
 
   const handleVariantToggle = (variantId: string) => {
     if (selectedVariants.includes(variantId)) {
@@ -168,16 +168,10 @@ export function QuoteRequestDialog({
         // Make the API call
         const response = await axiosInstance.post('/v1/quotes', payload);
 
-        if (response.data.message) {
-           setMessage(response.data.message);
-        }
-        
         console.log("Quote request submitted successfully:", response.data);
-        
-        // Close dialog after successful submission
-        setTimeout(() => {
-          onOpenChange(false);
-        }, 2000);
+
+        // Show thank you message instead of closing immediately
+        setMessage("Thank you for submitting your enquiry to Fleet Leasing Australia. A member of our team will be in touch with you shortly.");
       } catch (error: any) {
         console.error("Error submitting quote request:", error);
         setSubmitError(error.response?.data?.message || "Failed to submit your quote request. Please try again later.");
@@ -192,7 +186,7 @@ export function QuoteRequestDialog({
         <DialogHeader className="p-6 pb-0 sticky top-0 bg-white z-10 shadow-sm">
           <div className="flex justify-between items-start">
             <DialogTitle className="text-lg lg:text-2xl font-semibold text-[#c70036]">
-              Get Your {vehicleName} Lease Quote
+              {message ? "" : `Get Your ${vehicleName} Lease Quote`}
             </DialogTitle>
             <DialogClose className="w-8 h-8 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-slate-100 data-[state=open]:text-slate-500 flex items-center justify-center">
               <X className="h-4 w-4" />
@@ -202,12 +196,27 @@ export function QuoteRequestDialog({
         </DialogHeader>
 
         {message && (
-          <div className="p-2 mt-[20px] w-[90%] mx-auto space-y-6 bg-green-50 text-green-500 border border-green-500">
-            <p className="text-sm">{message}</p>
+          <div className="flex flex-col items-center text-center px-6 pt-8 pb-10 space-y-6">
+            <img
+              src="/assets/images/logo.png"
+              alt="Fleet Leasing Australia"
+              className="w-[160px] h-auto"
+            />
+            <p className="text-sm sm:text-base text-[#4a5565] max-w-sm">
+              {message}
+            </p>
+            <Button
+              type="button"
+              className="mt-2 w-full px-6 py-3 bg-[#194170] text-white hover:bg-[#194170]/90"
+              onClick={() => onOpenChange(false)}
+            >
+              Close
+            </Button>
           </div>
         )}
         
-        <form onSubmit={handleSubmit} className="p-6 pb-8 space-y-6">
+        {!message && (
+        <form onSubmit={handleSubmit} className="p-4 pb-8 space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium mb-1">
@@ -294,7 +303,7 @@ export function QuoteRequestDialog({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-[14px] font-medium mb-1">
                 Do you have a vehicle allowance? <span className="text-red-500">*</span>
               </label>
               <div className="flex gap-2">
@@ -427,6 +436,7 @@ export function QuoteRequestDialog({
             )}
           </Button>
         </form>
+        )}
       </DialogContent>
     </Dialog>
   );

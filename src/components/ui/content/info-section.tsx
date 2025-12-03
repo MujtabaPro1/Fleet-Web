@@ -1,4 +1,10 @@
 import React from "react";
+  import { useRouter } from "next/navigation";
+  import { Button } from "../button";
+  import { ArrowRightIcon } from "lucide-react";
+
+
+
 
 
 const sections = [
@@ -113,6 +119,8 @@ const keyTakeaway = {
 };
 
 export const InfoSection = (): JSX.Element => {
+
+  const router = useRouter();
   return (
     <section id="chattel-mortgage" className="flex flex-col w-full items-center px-0  pt-10 pb-10 bg-white">
       <div className="flex gap-16 w-full max-w-[1280px] items-start px-4">
@@ -128,6 +136,8 @@ export const InfoSection = (): JSX.Element => {
               </h2>
             </div>
 
+
+
             <p className="text-[#101828] leading-6 font-figtree font-normal text-base tracking-[0]">
               A <span className="font-bold">commercial loan</span> secured by
               the vehicle (the chattel). Your business takes{" "}
@@ -137,6 +147,19 @@ export const InfoSection = (): JSX.Element => {
               security.
             </p>
           </div>
+
+
+              <Button
+            onClick={() => {
+              router.push("/services/consultation");
+            }}
+            className="inline-flex h-auto items-center justify-center gap-1.5 px-3 py-2 bg-[#194170] rounded shadow-shadow-xs hover:bg-[#194170]/90">
+              <span className="font-figtree font-medium text-white text-sm tracking-[0] leading-5">
+                Free Consultation
+              </span>
+              <ArrowRightIcon className="w-4 h-4 text-white" />
+            </Button>
+
 
           <div className="flex flex-col items-start gap-8 px-0 py-8 w-full border-t border-b border-border">
             {sections.map((section, index) => (
