@@ -195,7 +195,7 @@ export const SiteFooterSection = (): JSX.Element => {
             />
 
             <p className="font-figtree font-normal text-[#4a5565] text-base tracking-[0] leading-6">
-              We provides flexible vehicle finance and leasing solutions for
+              We provide flexible vehicle finance and leasing solutions for
               businesses, helping them manage fleets cost-effectively with
               competitive rates and no large upfront costs.
             </p>
@@ -266,7 +266,7 @@ export const SiteFooterSection = (): JSX.Element => {
               onClick={() => router.push("/terms")}
               className="p-0 h-auto font-figtree font-normal text-[#4a5565] text-sm sm:text-base tracking-[0] leading-5 sm:leading-6 whitespace-nowrap"
             >
-              Terms & conditions
+              Terms of Service
             </Button>
           </div>
         </div>

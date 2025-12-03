@@ -10,7 +10,7 @@ export const FeaturesOverviewSection = (): JSX.Element => {
           SMS. All information you provide will be treated confidentially and in
           accordance with our{" "}
           <a
-            href="https://chatgpt.com/privacy-policy"
+            href="/privacy"
             rel="noopener noreferrer"
             target="_blank"
             className="underline"

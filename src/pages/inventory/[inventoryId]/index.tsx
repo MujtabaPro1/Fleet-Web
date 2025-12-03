@@ -1010,7 +1010,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                   <div className="flex flex-col items-start gap-2 w-full">
                     <div className="flex flex-col items-start justify-center gap-2 pt-0 pb-3 px-0 border-b border-solid w-full">
                       <h2 className="font-figtree font-medium text-[#000] text-2xl leading-7">
-                        Flexible commerical leasing &amp; finance solutions
+                        Flexible commercial leasing &amp; finance solutions
                       </h2>
                     </div>
                   </div>
@@ -1039,7 +1039,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                   <div className="flex flex-col items-start gap-2 w-full">
                     <div className="flex flex-col items-start justify-center gap-2 pt-0 pb-3 px-0 border-b border-solid w-full">
                       <h2 className="font-figtree font-medium text-[#000] text-2xl leading-7">
-                        Flexible commerical leasing &amp; finance solutions
+                        Flexible commercial leasing &amp; finance solutions
                       </h2>
                     </div>
                   </div>

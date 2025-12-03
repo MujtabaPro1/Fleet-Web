@@ -6,11 +6,11 @@ const Terms: MyPage = () => {
     return (
         <>
         <Head>
-        <title>Fleet Leasing Australia | Terms and Conditions</title>
+        <title>Fleet Leasing Australia | Terms of Service</title>
         </Head>
         <div className="flex flex-col items-center w-full bg-white">
             <div className="w-full max-w-[1280px] px-4 lg:px-0 py-8 lg:py-16">
-                <h1 className="text-3xl lg:text-4xl font-semibold text-center mb-8 lg:mb-12">Terms and Conditions</h1>
+                <h1 className="text-3xl lg:text-4xl font-semibold text-center mb-8 lg:mb-12">Terms of Service</h1>
                 
                 <Card className="w-full border-none bg-white shadow-none">
                     <CardContent className="p-2 lg:p-4">
