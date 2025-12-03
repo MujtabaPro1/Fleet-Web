@@ -41,8 +41,8 @@ const topCards = [
     description: "Your partner in fleet leasing, every step of the way",
     contactInfo: [
       { icon: calendarIcon, text: "Monday to Friday - 9 am to 5 pm" },
-      { icon: phoneIcon, text: "1300 352 287" },
-      { icon: envelopeIcon, text: "support@fleetleasingaustralia.com.au" },
+      { icon: phoneIcon, text: "1300 352 287", url: "tel:1300352287" },
+      { icon: envelopeIcon, text: "support@fleetleasingaustralia.com.au", url: "mailto:support@fleetleasingaustralia.com.au" },
     ],
   },
 ];
@@ -168,7 +168,13 @@ export const SiteFooterSection = (): JSX.Element => {
                         alt={info.text}
                         src={info.icon}
                       />
-                      <div className="font-figtree font-semibold text-[#194170] text-sm tracking-[0] leading-5 whitespace-nowrap">
+                      <div
+                      onClick={()=>{
+                        if(info.url){
+                          window.open(info.url);
+                        }
+                      }}
+                      className="font-figtree cursor-pointer font-semibold text-[#194170] text-sm tracking-[0] leading-5 whitespace-nowrap">
                         {info.text}
                       </div>
                     </div>
