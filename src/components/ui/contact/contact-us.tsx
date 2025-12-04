@@ -133,7 +133,7 @@ export const ContactUsSection = (): JSX.Element => {
     setAlert(null);
     
     try {
-      const response = await axiosInstance.post('/1.0/contact', {
+      const response = await axiosInstance.post('/v1/contact', {
         fullName: formData.fullName,
         email: formData.email,
         phoneNumber: formData.phoneNumber,
