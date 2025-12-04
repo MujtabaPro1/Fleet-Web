@@ -546,7 +546,7 @@ export const MainContentSection = (): JSX.Element => {
         <VehiclesCarousel
           title="Exclusive Business Leasing Deals on Cars, SUVs & Commercial Fleets"
           actionLabel="View all"
-          onAction={() => router.push("/inventory")}
+          onAction={() => router.push("/deals/limited-time")}
           cars={offers}
           showMultipleColumns={true}
           getCardKey={(offer: any) => offer?.slug || offer?.id || offer?.title}
@@ -576,7 +576,7 @@ export const MainContentSection = (): JSX.Element => {
         />
 
         <Button 
-        onClick={() => router.push("/inventory")}
+        onClick={() => router.push("/deals/limited-time")}
           className="w-auto h-auto bg-[#194170] hover:bg-[#194170]/90 rounded shadow-sm gap-2 px-6 py-3 mt-4"
         >
           <span className="font-medium text-white text-sm">
