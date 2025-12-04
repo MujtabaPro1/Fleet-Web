@@ -77,7 +77,7 @@ const LimitedTime = (): JSX.Element => {
     
     // Add basic pagination params
     params.append('page', page.toString());
-    params.append('limit', '10');
+    params.append('limit', '12');
     
     // Add filter params if they exist
     if (limitedDealsEnabled) {
