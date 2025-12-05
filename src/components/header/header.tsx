@@ -111,9 +111,9 @@ export const NavigationBarSection = (): JSX.Element => {
         </div>
       )}
 
-      <div className="hidden sm:flex items-center justify-around p-4 w-full bg-white overflow-x-auto">
-        <div className="flex w-full max-w-[1280px] items-center justify-between px-2 sm:px-4">
-          <div className="flex items-center gap-2 md:gap-4 lg:gap-6 flex-1 overflow-x-auto">
+      <div className="hidden sm:flex items-center justify-center w-full bg-white border-b">
+        <div className="flex w-full max-w-[1280px] items-center justify-between px-3 sm:px-4 py-3">
+          <div className="flex items-center gap-4 md:gap-5 lg:gap-6 flex-1 overflow-x-auto whitespace-nowrap  pb-[10px] lg:pb-0 pt-[10px] lg:pt-0">
             {navigationItems.map((item, index) => (
               <div
                 key={index}
@@ -131,7 +131,7 @@ export const NavigationBarSection = (): JSX.Element => {
           onClick={()=>{
             window.location.href = "tel:1300352287"
           }}
-          className="inline-flex items-center gap-1.5 cursor-pointer">
+          className="hidden lg:inline-flex items-center gap-1.5 cursor-pointer">
             <PhoneIcon className="w-[18px] h-[18px] text-[#4a5565]" />
             <span className="mt-[-1.00px] font-figtree font-medium text-[#4a5565] text-sm text-center tracking-[0] leading-5 whitespace-nowrap">
               1300 FLA AUS (1300 352 287)

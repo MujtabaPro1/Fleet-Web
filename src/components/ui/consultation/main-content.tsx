@@ -284,11 +284,6 @@ export const MainContentSection = (): JSX.Element => {
                       {solution.title}
                       <br />
                     </span>
-                    <span
-                      className={`text-xs leading-5 ${solution.selected ? "text-white" : "text-[#4a5565]"}`}
-                    >
-                      {solution.description}
-                    </span>
                   </div>
                 </Button>
               ))}

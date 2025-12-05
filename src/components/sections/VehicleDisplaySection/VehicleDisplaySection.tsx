@@ -76,9 +76,12 @@ export const VehicleDisplaySection = (): JSX.Element => {
   };
 
   return (
-    <section className="flex flex-col items-center w-full py-8 md:py-12">
+    <section 
+    className="flex
+     md:bg-[url('/assets/images/banner.svg')]
+    bg-contain bg-top bg-no-repeat flex-col items-center w-full py-8 md:py-12">
       <div className="flex flex-col items-center w-full max-w-[750px] mx-auto px-4 md:px-6 lg:px-8 bg-white rounded-lg border border-gray-200 shadow-sm relative overflow-visible">
-        <div className="flex flex-col items-center justify-center gap-8 py-10 md:py-12 w-full max-w-[800px]" style={{
+        <div className="flex lg:mt-0 mt-10 flex-col items-center justify-center gap-8 py-10 md:py-12 w-full max-w-[800px]" style={{
           zIndex: 100
         }}>
           <div className="flex flex-col items-center justify-center gap-6">
@@ -111,11 +114,11 @@ export const VehicleDisplaySection = (): JSX.Element => {
                 value={selectedBrand} onValueChange={setSelectedBrand}>
                   <SelectTrigger
                     id="vehicle-brand"
-                    placeholder="ALL BRANDS"
+                    placeholder="All Brands"
                     className="w-full bg-white shadow-sm border border-gray-200"
                     disabled={isLoading}
                   >
-                    <SelectValue placeholder="ALL BRANDS" />
+                    <SelectValue placeholder="All Brands" />
                   </SelectTrigger>
                   <SelectContent style={{
                     zIndex: 1000,
@@ -123,7 +126,7 @@ export const VehicleDisplaySection = (): JSX.Element => {
                     overflowY: 'auto'
                   }}>
                     <div className="py-1">
-                      <SelectItem value="all">ALL BRANDS</SelectItem>
+                      <SelectItem value="all">All Brands</SelectItem>
                       {brands.map((brand) => (
                         <SelectItem key={brand.uid} value={brand.name}>{brand.name}</SelectItem>
                       ))}
@@ -142,11 +145,11 @@ export const VehicleDisplaySection = (): JSX.Element => {
                 {bodyTypes.length > 0 && <Select value={selectedBodyType} onValueChange={setSelectedBodyType}>
                   <SelectTrigger
                     id="body-type"
-                    placeholder="ALL BODY TYPES"
+                    placeholder="All Body Types"
                     className="w-full bg-white shadow-sm border border-gray-200"
                     disabled={isLoading}
                   >
-                    <SelectValue placeholder="ALL BODY TYPES" />
+                    <SelectValue placeholder="All Body Types" />
                   </SelectTrigger>
                   <SelectContent style={{
                     zIndex: 1000,
@@ -154,7 +157,7 @@ export const VehicleDisplaySection = (): JSX.Element => {
                     overflowY: 'auto'
                   }}>
                     <div className="py-1">
-                      <SelectItem value="all">ALL BODY TYPES</SelectItem>
+                      <SelectItem value="all">All Body Types</SelectItem>
                       {bodyTypes.map((bodyType) => (
                         <SelectItem key={bodyType.name} value={bodyType.name}>{bodyType.name}</SelectItem>
                       ))}
@@ -176,20 +179,6 @@ export const VehicleDisplaySection = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="w-full mt-8 md:mt-12 relative" style={{ height: '200px', marginBottom: '-40px' }}>
-          <div 
-            className="w-full h-[180px] md:h-[220px] flex items-end justify-center absolute bottom-0 left-0 right-0" 
-            style={{
-              backgroundImage: `url(/assets/images/${isSmallScreen ? 'banner-sm.png' : 'banner.png'})`,
-              backgroundPosition: `${isSmallScreen ? 'center 60%' : 'center bottom'}`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'contain',
-              transform: `${isSmallScreen ? 'scale(1.2)' : 'scale(2.0)'}`, // Makes the image larger to extend outside the card
-              transformOrigin: 'bottom center',
-              zIndex: 10 // Ensures the image appears above other elements
-            }}
-          />
-        </div>
       </div>
     </section>
   );

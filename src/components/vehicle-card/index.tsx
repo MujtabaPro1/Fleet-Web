@@ -52,13 +52,13 @@ export const VehicleCard = ({
         />
       )}
 
-      <Button
+      {/* <Button
         variant="ghost"
         size="icon"
         className="absolute top-4 right-4 w-9 h-9 bg-gray-50 rounded-md border border-gray-200 shadow-sm hover:bg-gray-100 z-10"
       >
         <HeartIcon className="w-4 h-4" />
-      </Button>
+      </Button> */}
 
       {isTrending && <Badge className="absolute top-4 left-4 bg-emerald-50 hover:bg-emerald-50 text-emerald-800 gap-1 px-2 py-0.5">
         <StarIcon className="w-3 h-3 fill-current" />
@@ -67,7 +67,7 @@ export const VehicleCard = ({
         </span>
       </Badge>}
 
-      <div className="flex flex-col items-start gap-3 w-full min-h-[86px]">
+      <div className="flex flex-col items-start gap-3 w-full min-h-[66px]">
         <h3 className="font-semibold text-[#0b1c31] text-lg text-start">
           {name}
         </h3>

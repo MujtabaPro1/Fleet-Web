@@ -19,32 +19,17 @@ import {
     SelectValue,
   } from "@/components/ui/select";
   import { Switch } from "@/components/ui/switch";
-import SiteFooterSection from "@/components/footer/footer";
 import { useRouter, useSearchParams } from "next/navigation";
 import axiosInstance from "@/service/api";
 import { VehicleCard } from "@/components/vehicle-card";
 import Head from 'next/head';
+import useStateRef from "react-usestateref";
 
 import {
   MultiSelect,
 } from "@/components/ui/multi-select";
 
 
-  const vehicleData = [
-    { id: 1, image: "/assets/images/car-image.png" },
-    { id: 2, image: "/assets/images/car-image.png" },
-    { id: 3, image: "/assets/images/car-image.png" },
-    { id: 4, image: "/assets/images/car-image.png" },
-    { id: 5, image: "/assets/images/car-image.png" },
-    { id: 6, image: "/assets/images/car-image.png" },
-    { id: 7, image: "/assets/images/car-image.png" },
-    { id: 8, image: "/assets/images/car-image.png" },
-    { id: 9, image: "/assets/images/car-image.png" },
-    { id: 10, image: "/assets/images/car-image.png" },
-    { id: 11, image: "/assets/images/car-image.png" },
-    { id: 12, image: "/assets/images/car-image.png" },
-  ];
-  
 const InventorySection = (): JSX.Element => {
   const [limitedDealsEnabled, setLimitedDealsEnabled] = useState<boolean>(false);
   const [sortOption, setSortOption] = useState<string>("recent");
@@ -60,9 +45,9 @@ const InventorySection = (): JSX.Element => {
   
   // Filter states
   const [selectedBrand, setSelectedBrand] = useState<string>("");
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([])  
+  const [selectedBrands, setSelectedBrands, selectedBrandsRef] = useStateRef<string[]>([])  
   const [selectedBodyType, setSelectedBodyType] = useState<string>("");
-  const [selectedBodyTypes, setSelectedBodyTypes] = useState<string[]>([]);
+  const [selectedBodyTypes, setSelectedBodyTypes, selectedBodyTypesRef] = useStateRef<string[]>([]);
   const [priceRange, setPriceRange] = useState<string>("");
 
 
@@ -79,10 +64,12 @@ const InventorySection = (): JSX.Element => {
       
       if (brandParam) {
         setSelectedBrand(brandParam != 'McLAREN'? brandParam.toUpperCase(): brandParam);
+        setSelectedBrands([brandParam]);
       }
       
       if (bodyTypeParam) {
         setSelectedBodyType(bodyTypeParam);
+        setSelectedBodyTypes([bodyTypeParam]);
       }
       
       setInitialParamsChecked(true);
@@ -91,7 +78,7 @@ const InventorySection = (): JSX.Element => {
   
   useEffect(()=>{
     getCars();
-  },[page, limitedDealsEnabled, selectedBrand, selectedBodyType, priceRange])
+  },[page, limitedDealsEnabled, selectedBrand, selectedBodyType, priceRange, selectedBrands, selectedBodyTypes])
 
   const getBrands = () => {
     axiosInstance.get('/v1/car-brands')
@@ -128,12 +115,12 @@ const InventorySection = (): JSX.Element => {
       params.append('tags', 'Limited Time Offer');
     }
     
-    if (selectedBrand) {
-      params.append('brand', selectedBrand);
+    if (selectedBrandsRef.current.length > 0) {
+      params.append('brand', JSON.stringify(selectedBrandsRef.current));
     }
     
-    if (selectedBodyType) {
-      params.append('bodyType', selectedBodyType);
+    if (selectedBodyTypesRef.current.length > 0) {
+      params.append('bodyType', JSON.stringify(selectedBodyTypesRef.current));
     }
     
     // Handle price range
@@ -188,16 +175,16 @@ const InventorySection = (): JSX.Element => {
             <XIcon onClick={() => setLimitedDealsEnabled(false)} className="w-4 h-4 cursor-pointer" />
           </span>
         )}
-        {selectedBrand && (
+        {selectedBrands?.length > 0 && (
           <span className="font-figtree w-full lg:w-auto lg:min-w-[150px] font-medium bg-[#c70036] p-2 text-white text-sm tracking-[0] leading-5 flex items-center justify-between gap-2 rounded">
-            {selectedBrand}
-            <XIcon onClick={() => setSelectedBrand('')} className="w-4 h-4 cursor-pointer" />
+            {selectedBrands.join(', ')}
+            <XIcon onClick={() => setSelectedBrands([])} className="w-4 h-4 cursor-pointer" />
           </span>
         )}
-        {selectedBodyType && (
+        {selectedBodyTypes?.length > 0 && (
           <span className="font-figtree w-full lg:w-auto lg:min-w-[150px] font-medium bg-[#c70036] p-2 text-white text-sm tracking-[0] leading-5 flex items-center justify-between gap-2 rounded">
-            {selectedBodyType}
-            <XIcon onClick={() => setSelectedBodyType('')} className="w-4 h-4 cursor-pointer" />
+            {selectedBodyTypes.join(', ')}
+            <XIcon onClick={() => setSelectedBodyTypes([])} className="w-4 h-4 cursor-pointer" />
           </span>
         )}
         {priceRange && (
@@ -261,58 +248,32 @@ const InventorySection = (): JSX.Element => {
                         Limited-time deals
                       </span>
                     </div>
-  
-                    {/* <Select value={selectedBrand} onValueChange={setSelectedBrand}>
-                      <SelectTrigger className="w-full bg-white rounded border border-solid shadow-shadow-xs h-10">
-                        <SelectValue
-                          placeholder="Brand"
-                          className="font-figtree font-normal text-[#101828] text-sm tracking-[0] leading-5"
-                        />
-                      </SelectTrigger>
-                      <SelectContent className="font-figtree">
-                        {brands.map((brand: any) => (
-                          <SelectItem key={brand.id} value={brand.name}>
-                            {brand.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select> */}
+
                     <MultiSelect
                     value={selectedBrands}
-                    onChange={setSelectedBrands}
+                    onChange={(value) => {
+                      setSelectedBrands(value)
+                    }}
                     options={brands.map((brand) => ({
-                      value: brand.name,
-                      label: brand.name,
+                      value: brand?.name,
+                      label: brand?.name,
+                      count: brand?._count?.cars || 0,
                     }))}
-                    placeholder="ALL BRANDS"
+                    placeholder="All Brands"
                     />
-                    
-{/*   
-                    <Select value={selectedBodyType} onValueChange={setSelectedBodyType}>
-                      <SelectTrigger className="w-full bg-white rounded border border-solid shadow-shadow-xs h-10">
-                        <SelectValue
-                          placeholder="Body type"
-                          className="font-figtree font-normal text-[#101828] text-sm tracking-[0] leading-5"
-                        />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {bodyType.map((body: any) => (
-                          <SelectItem key={body.name} value={body.name}>
-                            {body.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-   */}
+
   
                     <MultiSelect
                     value={selectedBodyTypes}
-                    onChange={setSelectedBodyTypes}
+                    onChange={(value)=>{
+                      setSelectedBodyTypes(value)
+                    }}
                     options={bodyType.map((body) => ({
                       value: body.name,
                       label: body.name,
+                      count: body._count?.cars || 0,
                     }))}
-                    placeholder="ALL BODY TYPES"
+                    placeholder="All Body Types"
                     />
 
                     <Select value={priceRange} onValueChange={setPriceRange}>

@@ -39,12 +39,6 @@ import { QuoteRequestDialog } from "@/components/quote-request-dialog";
 import { SEO } from "@/components/common/SEO";
 
 
-const orderRideSvg = "/assets/images/svg/undraw_order-ride_4gaq.svg";
-const confirmationSvg = "/assets/images/svg/undraw_confirmation_31jc.svg";
-const orderCarSvg = "/assets/images/svg/undraw_order-a-car_x5mq.svg";
-const fillFormsSvg = "/assets/images/svg/undraw_fill-forms_npwp.svg";
-
-
 
 const trustSvg1 = "/assets/images/svg/trust/trust-1.svg";
 const trustSvg2 = "/assets/images/svg/trust/trust-2.svg";

@@ -51,6 +51,7 @@
     "react-phone-input-2": "^2.15.1",
     "react-responsive-carousel": "^3.2.23",
     "react-slick": "0.29.0",
+    "react-usestateref": "^1.0.9",
     "sass": "^1.62.1",
     "sharp": "^0.32.6",
     "slick-carousel": "1.8.1",

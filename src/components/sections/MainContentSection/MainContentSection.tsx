@@ -441,15 +441,7 @@ export const MainContentSection = (): JSX.Element => {
     <section className="flex flex-col w-full items-start gap-16 py-12 md:py-16">
       {/* Promo cards section */}
       <div className="hidden md:flex items-center gap-4 self-stretch w-full">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="w-[34px] h-[34px] flex-shrink-0 bg-[#194170] hover:bg-[#194170]/90 rounded-full p-2.5"
-        >
-          <ChevronLeftIcon className="w-5 h-5 text-white" />
-        </Button>
-
-        {promoCards.map((card, index) => (
+      {promoCards.map((card, index) => (
           <Card
             key={index}
             className={`flex-1 ${card.bgColor} shadow-shadow-sm rounded-sm border-0 min-h-[148px]`}
@@ -488,14 +480,6 @@ export const MainContentSection = (): JSX.Element => {
             </CardContent>
           </Card>
         ))}
-
-        <Button
-          variant="ghost"
-          size="icon"
-          className="w-[34px] h-[34px] flex-shrink-0 bg-[#194170] hover:bg-[#194170]/90 rounded-full p-2.5"
-        >
-          <ChevronRightIcon className="w-5 h-5 text-white" />
-        </Button>
       </div>
       
       {/* Mobile promo cards section */}

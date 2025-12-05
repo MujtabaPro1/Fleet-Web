@@ -10,6 +10,7 @@ import { Checkbox } from "./checkbox";
 export type MultiSelectOption = {
   label: string;
   value: string;
+  count?: number;
 };
 
 export interface MultiSelectProps {
@@ -161,9 +162,9 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
                     <span className="flex-1 text-[13px] tracking-wide text-gray-900">
                       {option.label}
                     </span>
-                    <span className="ml-3 text-[12px] text-gray-400">
-                      (456)
-                    </span>
+                   {option.count && <span className="ml-3 text-[12px] text-gray-400">
+                      ({option.count})
+                    </span>}
                   </div>
                 </li>
               );
