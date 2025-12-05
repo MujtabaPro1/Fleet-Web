@@ -1,5 +1,4 @@
-# .github/workflows/deploy.yml
-name: Deploy to Staging
+name: Deploy to Production
 
 on:
   push:
@@ -14,6 +13,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install dependencies (CI)
+        run: npm ci --legacy-peer-deps
+
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Create deployment package
+        run: |
+          mkdir deploy
+          rsync -av \
+            --exclude=".git" \
+            --exclude=".github" \
+            --exclude="node_modules" \
+            ./ ./deploy/
+
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
@@ -21,31 +35,27 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.FLEET_STG_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy to cPanel Frontend Next.js App
+      - name: Upload files to cPanel
+        run: |
+          rsync -avz ./deploy/ \
+            ${{ secrets.FLEET_STG_USER }}@${{ secrets.FLEET_STG_HOST }}:/home/${{ secrets.FLEET_STG_USER }}/frontend-prod/
+
+      - name: Install production dependencies + restart
         run: |
           ssh ${{ secrets.FLEET_STG_USER }}@${{ secrets.FLEET_STG_HOST }} << 'EOF'
             echo "🚀 Starting deployment on cPanel..."
-            
-            # Navigate to your app directory
-            cd /home/${{ secrets.FLEET_STG_USER }}/dev
 
-            echo "🌍 Activating Node.js virtual environment"
+            cd /home/${{ secrets.FLEET_STG_USER }}/frontend-prod
 
-            source /home/${{ secrets.FLEET_STG_USER }}/nodevenv/dev/24/bin/activate
+            echo "🌍 Activating Node.js environment"
+            source /home/${{ secrets.FLEET_STG_USER }}/nodevenv/frontend-prod/20/bin/activate
 
-            echo "📦 Pulling latest code"
-            git pull origin develop
+            echo "📦 Installing production dependencies (no dev)"
+            npm ci --omit=dev --legacy-peer-deps
 
-            echo "📦 Installing production dependencies"
-            npm ci --legacy-peer-deps
-
-            echo "🛠 Building the app"
-            npm run build
-
-            echo "🧩 Restarting cPanel Node.js Application"
-            source /home/${{ secrets.FLEET_STG_USER }}/nodevenv/dev/22/bin/activate
-            cd /home/${{ secrets.FLEET_STG_USER }}/dev
+            echo "🔁 Restarting app"
             mkdir -p tmp
             touch tmp/restart.txt
+
             echo "✅ Deployment completed successfully!"
           EOF
