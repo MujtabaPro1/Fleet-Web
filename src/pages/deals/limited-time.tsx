@@ -314,7 +314,7 @@ const LimitedTime = (): JSX.Element => {
             {cars.map((vehicle: any) => (
               <VehicleCard
                 key={vehicle.id}
-                image={vehicle.NVIC ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
+                image={vehicle.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${vehicle.NVIC}` : "/assets/images/no-image.png"}
                 name={vehicle.title}
                 type={vehicle.type}
                 fuel={vehicle.selectedVariant?.variant}

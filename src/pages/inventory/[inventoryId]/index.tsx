@@ -254,7 +254,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
           : "Browse Fleet Leasing Australia inventory and discover flexible fleet leasing and finance options for your business."}
         ogType="product"
         ogImage={car?.NVIC
-          ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car.NVIC}`
+          ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car.NVIC}`
           : undefined}
       />
       <div className="flex flex-col items-center gap-8 bg-gray-50 overflow-hidden">
@@ -367,7 +367,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                       <img
                         className="w-full h-full object-contain"
                         alt="Vehicle images"
-                        src={car?.NVIC ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/no-image.png"}
+                        src={car?.NVIC ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car?.NVIC}` : "/assets/images/no-image.png"}
                         onError={(e) => {
                           e.currentTarget.src = "/assets/images/no-image.png";
                         }}
@@ -1249,7 +1249,7 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
                             <VehicleCard
                       image={
                         offer?.NVIC
-                          ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                          ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
                           : "/assets/images/no-image.png"
                       }
                       name={offer?.title}

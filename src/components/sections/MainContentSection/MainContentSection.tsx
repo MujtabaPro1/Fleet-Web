@@ -40,7 +40,7 @@ const promoCards = [
     title: "Save 7¢ per litre with your Caltex Fuel Card!",
     description:
       "Enjoy everyday savings on fuel — exclusively for Caltex Fuel Card holders.",
-    url: "/resources/blog",  
+    url: "/resources/blogs",  
   },
   {
     bgColor: "bg-[#fef9c2]",
@@ -538,7 +538,7 @@ export const MainContentSection = (): JSX.Element => {
                     <VehicleCard
               image={
                 offer?.NVIC
-                  ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
                   : "/assets/images/no-image.png"
               }
               name={offer?.title}
@@ -1037,7 +1037,7 @@ export const MainContentSection = (): JSX.Element => {
                     <VehicleCard
               image={
                 offer?.NVIC
-                  ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
                   : "/assets/images/no-image.png"
               }
               name={offer?.title}
@@ -1074,7 +1074,7 @@ export const MainContentSection = (): JSX.Element => {
                     <VehicleCard
               image={
                 offer?.NVIC
-                  ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
                   : "/assets/images/no-image.png"
               }
               name={offer?.title}
@@ -1111,7 +1111,7 @@ export const MainContentSection = (): JSX.Element => {
                     <VehicleCard
               image={
                 offer?.NVIC
-                  ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
+                  ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${offer.NVIC}`
                   : "/assets/images/no-image.png"
               }
               name={offer?.title}

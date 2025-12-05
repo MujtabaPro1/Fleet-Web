@@ -1503,7 +1503,9 @@ const BlogDetails: MyPage = () => {
                   <h3 className="[font-family:'Figtree',Helvetica] font-semibold text-[#101828] text-2xl tracking-[0] leading-8 whitespace-pre-line">
                     {article.title}
                   </h3>
-                  <button className="inline-flex items-center gap-1.5">
+                  <button 
+                  onClick={() => router.push(`/resources/blogs/${article.id}`)}
+                  className="inline-flex items-center gap-1.5">
                     <span className="[font-family:'Figtree',Helvetica] font-medium text-[#194170] text-base text-center tracking-[0] leading-5 whitespace-nowrap">
                       Read blog
                     </span>

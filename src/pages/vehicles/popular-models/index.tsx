@@ -138,7 +138,7 @@ const Content = ({ title }: { title: string }) => {
                            <VehicleCard
                      image={
                        car?.NVIC
-                         ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car.NVIC}`
+                         ? `https://api-dev.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car.NVIC}`
                          : "/assets/images/no-image.png"
                      }
                      name={car?.title}

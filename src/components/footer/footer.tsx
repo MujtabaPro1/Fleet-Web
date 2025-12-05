@@ -100,7 +100,7 @@ const footerColumns = [
     links: ["About us", "Blog & news", "FAQs", "Contact us"],
     urls: [
       "/about",
-      "/resources/blog",
+      "/resources/blogs",
       "/resources/faqs",
       "/about/contact",
     ]
