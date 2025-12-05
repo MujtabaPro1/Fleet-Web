@@ -25,6 +25,10 @@ import axiosInstance from "@/service/api";
 import { VehicleCard } from "@/components/vehicle-card";
 import Head from 'next/head';
 
+import {
+  MultiSelect,
+} from "@/components/ui/multi-select";
+
 
   const vehicleData = [
     { id: 1, image: "/assets/images/car-image.png" },
@@ -56,7 +60,9 @@ const InventorySection = (): JSX.Element => {
   
   // Filter states
   const [selectedBrand, setSelectedBrand] = useState<string>("");
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([])  
   const [selectedBodyType, setSelectedBodyType] = useState<string>("");
+  const [selectedBodyTypes, setSelectedBodyTypes] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<string>("");
 
 
@@ -256,7 +262,7 @@ const InventorySection = (): JSX.Element => {
                       </span>
                     </div>
   
-                    <Select value={selectedBrand} onValueChange={setSelectedBrand}>
+                    {/* <Select value={selectedBrand} onValueChange={setSelectedBrand}>
                       <SelectTrigger className="w-full bg-white rounded border border-solid shadow-shadow-xs h-10">
                         <SelectValue
                           placeholder="Brand"
@@ -270,8 +276,18 @@ const InventorySection = (): JSX.Element => {
                           </SelectItem>
                         ))}
                       </SelectContent>
-                    </Select>
-  
+                    </Select> */}
+                    <MultiSelect
+                    value={selectedBrands}
+                    onChange={setSelectedBrands}
+                    options={brands.map((brand) => ({
+                      value: brand.name,
+                      label: brand.name,
+                    }))}
+                    placeholder="ALL BRANDS"
+                    />
+                    
+{/*   
                     <Select value={selectedBodyType} onValueChange={setSelectedBodyType}>
                       <SelectTrigger className="w-full bg-white rounded border border-solid shadow-shadow-xs h-10">
                         <SelectValue
@@ -287,7 +303,18 @@ const InventorySection = (): JSX.Element => {
                         ))}
                       </SelectContent>
                     </Select>
+   */}
   
+                    <MultiSelect
+                    value={selectedBodyTypes}
+                    onChange={setSelectedBodyTypes}
+                    options={bodyType.map((body) => ({
+                      value: body.name,
+                      label: body.name,
+                    }))}
+                    placeholder="ALL BODY TYPES"
+                    />
+
                     <Select value={priceRange} onValueChange={setPriceRange}>
                       <SelectTrigger className="w-full bg-white rounded border border-solid shadow-shadow-xs h-10">
                         <SelectValue

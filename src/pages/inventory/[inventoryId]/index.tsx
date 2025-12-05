@@ -36,7 +36,7 @@ import { MyPage } from "@/components/layouts/types";
 import { useRouter } from "next/router";
 import { SmallVehicleCard } from "@/components/small-vehicle-card";
 import { QuoteRequestDialog } from "@/components/quote-request-dialog";
-import Head from 'next/head';
+import { SEO } from "@/components/common/SEO";
 
 
 const orderRideSvg = "/assets/images/svg/undraw_order-ride_4gaq.svg";
@@ -251,9 +251,18 @@ import { VehiclesCarousel } from "@/components/carousels/VehiclesCarousel";
     
     return (
       <>
-      <Head>
-        {car ? <title>Fleet Inventory {car?.brand?.name ? `| ${car?.brand?.name}` : ''} {car?.modelName ? ` ${car?.modelName}` : ''}</title> : <title>Fleet Inventory</title>}
-      </Head>
+      <SEO
+        title={car
+          ? `${car?.brand?.name ? `${car.brand.name} ` : ""}${car?.modelName || ""} Leasing | Fleet Leasing Australia`
+          : "Fleet Inventory | Fleet Leasing Australia"}
+        description={car
+          ? `Lease the${car?.modelYear ? ` ${car.modelYear}` : ""}${car?.brand?.name ? ` ${car.brand.name}` : ""}${car?.modelName ? ` ${car.modelName}` : ""} with flexible fleet leasing and finance options tailored for Australian businesses.`
+          : "Browse Fleet Leasing Australia inventory and discover flexible fleet leasing and finance options for your business."}
+        ogType="product"
+        ogImage={car?.NVIC
+          ? `https://api.fleetleasingaustralia.com.au/api/v1/glass-guide/image/${car.NVIC}`
+          : undefined}
+      />
       <div className="flex flex-col items-center gap-8 bg-gray-50 overflow-hidden">
 
 <main className="flex flex-col max-w-full lg:max-w-[1280px] pt-[40px] items-center gap-6 md:gap-10 px-3 md:px-4">
