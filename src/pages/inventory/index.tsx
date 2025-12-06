@@ -254,7 +254,7 @@ const InventorySection = (): JSX.Element => {
                     onChange={(value) => {
                       setSelectedBrands(value)
                     }}
-                    options={brands.map((brand) => ({
+                    options={brands.map((brand: any) => ({
                       value: brand?.name,
                       label: brand?.name,
                       count: brand?._count?.cars || 0,
@@ -268,7 +268,7 @@ const InventorySection = (): JSX.Element => {
                     onChange={(value)=>{
                       setSelectedBodyTypes(value)
                     }}
-                    options={bodyType.map((body) => ({
+                    options={bodyType.map((body: any) => ({
                       value: body.name,
                       label: body.name,
                       count: body._count?.cars || 0,
